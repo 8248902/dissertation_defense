@@ -16,6 +16,7 @@ Status: delivered. Slides and speaker notes as presented to the committee on
 | `source-snapshot.sha256`, `source-snapshot-2026-10-02.sha256` | Hashes of the dissertation sources the slides were checked against. |
 | `validation.json`, `review-validation-2026-10-03.txt`, `math-review.txt`, `slide-audit.txt` | Verification records for the claims and the mathematics on the slides. |
 | `delivery-guide.txt` | Timing and delivery notes. |
+| `figures/` | The 18 images the slides include, copied from the dissertation at the move so the deck builds from this repository alone. |
 | `update_metadata.py` | Refreshes `validation.json` and the source snapshot. |
 
 ## Provenance
@@ -28,6 +29,12 @@ and the state delivered to the committee is tag `committee-draft-2026-10-03`).
 
 The remote `git@github.com:8248902/dissertation_defense.git` is recorded but does
 not exist yet — create it before the first push.
+
+The slides used to reach the dissertation's figures through `\graphicspath{{../}}`
+and `../figures/...`, which only worked from inside the dissertation repository.
+Both now resolve inside this one: `\graphicspath{{./}}` and `figures/...`, with
+the images copied in. Refresh a copy from `../dissertation_thesis/figures/` if the
+dissertation regenerates one.
 
 ## Keeping the slides and the dissertation consistent
 
