@@ -1,0 +1,185 @@
+DEFENSE REVIEW VALIDATION — 2026-10-03
+
+Review assessed: ../misc_ideas_feedback/defense_deck_math_review_2026-10-03.md
+Compared with: defense/core.tex, defense/backup.tex, local shared Ch2–4 bodies,
+Chapter 5, evaluation appendices, and staged figure evidence.
+
+Verdict
+-------
+The review is substantially accurate and its highest-priority recommendations
+improve the defense. Its strongest findings concern exposition, allocation, and
+committee preparation rather than invalid central slide theorems. It should not
+be applied verbatim: several generalizations and suggested answers need repair.
+The parent agent assessed the mathematics; GPT-6 Luna implements the selected
+changes. No experiments or manuscript edits are part of this task.
+
+Corrections to the review
+------------------------
+1. M1: the sharper temporal bound is correct for any positive diagonal Lambda.
+   Write ell=lambda_min^2, K=A^T A+Lambda^2. Then
+     K^-1 A^T A K^-1 <= K^-1-ell K^-2 <= (4 ell)^-1 I.
+   Thus ||K^-1 A^T|| <= 1/(2 lambda_min). The ratio of the old stated
+   bound to this bound is 2||A||/lambda_min, not universally 4/lambda_min.
+   Using ||A||<=2 gives the advertised 2,000,000 versus 500 when the floor
+   is 0.001. These are upper bounds, not measured amplification factors.
+   The older bound is conservative, not literally vacuous. In the review's
+   verified-items list, 1/(4 lambda^2) bounds SQUARED noise gain; amplitude
+   gain is bounded by 1/(2 lambda). A finite chain need not attain either.
+   The displayed kernel table actually spans CN 20.22–1375.75, rather than
+   22–1376: the review overlooked the Gaussian row at 20.22. The separate
+   Ch2 worst-case condition-number calculation at a ceiling of 100 is valid.
+
+2. M2: the displayed expression is an admissible coercivity lower bound,
+   not necessarily the optimal coercivity constant. For fixed positive
+   alpha, beta_B and C_P, its small-m leading coefficient is
+     min{1/(2|Omega|), alpha^2/(2|Omega| beta_B C_P^2)}.
+   Therefore c0~m/(2|Omega|) is not generally valid. Its dependence on the
+   common coefficient class and independence from b are correct and useful.
+
+3. Q-S1: the Gaussian interpretation and discrepancy-only likelihood-ratio
+   identity are valid for the fixed, unweighted model. Include the prior
+   normalization if writing the density explicitly:
+     -log p_gamma(y) = C_gamma(y) + .5 log det M_gamma
+                       - .5 log det M0_gamma + constant.
+   The extra terms are candidate-independent only with fixed common model
+   parameters and dimensions. The conditional mean is P^-1 T y_L with
+   precision 2P. For general diagonal Lambda it is a linear predictor,
+   not necessarily a scalar multiple or Euclidean contraction of y_L;
+   scalar Lambda gives attenuation mode by mode. The operator contracts in
+   the P metric. Comparing densities of different candidate observations is
+   not by itself a generative model or MAP theorem for disparity.
+   C_gamma-C_0=D is an exact algebraic identity; using D as a new score is
+   unevaluated. An ideal identical profile minimizes D when gamma>0 and A
+   has full row rank; identical competitors still tie.
+
+4. Q-F2: replacing quadratic H1 regularization by TV needs a separate
+   analysis. Integrated positive definiteness alone does not transfer the
+   abstract H1 theorem with arbitrary b to a TV energy. For example choose
+   B=I on part of Omega and zero on an open set U, and a nonzero smooth
+   vector field w compactly supported in U. With b=t w and t sufficiently
+   large, E(s w)=s[alpha TV(w)-t||w||^2] tends to minus infinity as s grows.
+   Nevertheless integral B is positive definite. Residual-square fidelity
+   has additional structure; suitable TV models do have existence results.
+   TV also need not lose uniqueness when fidelity is strictly convex.
+   The backup explains the modeling tradeoff without claiming a new BV theorem.
+
+5. C1: the SAR kernel can contain additional spatial modes; it need not
+   strictly exceed the constants for every projection family. The exact
+   characterization in prop:ch2_sar_solvability is the appropriate claim.
+   This proposition uses lambda I, not lambda^2 I, in its normal equations.
+
+6. Q-T5: temporal reconstruction has a separate unknown offset at EACH
+   pixel. A single global affine normalization of an image generally does
+   not remove that nullspace. Historical PSNR preprocessing must be traced
+   before claiming that it does. Q-F8 and Q-S3 likewise require actual
+   run evidence; the observed zero field does not identify its cause, and
+   typical normalized data norms cannot be guessed.
+
+7. Dissertation-side observations are mostly useful qualifications rather
+   than defense errors. An arbitrary L1 driver supplies W^{1,1}, not H1;
+   the particular finite-width bounded kernels may have stronger regularity.
+   Half-open interval conventions should agree with the chosen primitive.
+   Chapter 5 states gamma>0 as a sufficient SPD hypothesis; that statement
+   is true but unnecessarily restrictive, since gamma=0 also works. These
+   manuscript passages are outside the requested presentation edits.
+
+Disposition of recommendations
+------------------------------
+M1–M2: accept sharper temporal notes, weighted baseline selection, and explicit
+        uniform flow coercivity, with corrections above.
+M3–M4: accept precise source footers; mark positive q_i absorption as an
+        extension and distinguish bipartite alternating modes from odd cycles.
+M5–M6: accept fitted-surface regularity qualifications, competitor index,
+        explicit invariant radius, normalized NE label, and scalar example scope.
+C1: accept a core SAR bridge, adaptive-lambda backup, baseline identity and MAP
+    reading for the fixed Gaussian temporal estimator. Adaptive rules do not
+    share a proven optimality principle across the two chapters.
+C2: accept a qualitative MVSEC backup with no invented real-data AEE.
+C3: accept exact unaggregated joint optimization, scaled-candidate minimizer,
+    and weighted conditioning. Preserve fixed-parameter scope.
+C4: accept H1/TV comparison with qualified theory, and fixed-dimensional CM
+    interpretation. No continuum-limit theorem is added.
+C5/L2: retain regression in the full route and as an early short-route cut.
+       Keep JIF for the synthesis story; move pipeline detail to backup.
+L1/L3: introduce CM before its illustrations; explain reuse of the temporal
+       spectrum in stereo.
+L4: reduce the most distracting collisions (beta_B, Phi, b_cam). Keep established
+    bold selection T and other locally defined symbols; no wholesale rename.
+L5: use affirmative takeaways where they express a proved result; retain the
+    hypotheses and distinctions needed to avoid overselling theorems.
+L6: accept the definition of identifiability on a specified model class.
+Q-S1/Q-S2: add qualified Gaussian and non-MM explanations in backup/notes.
+Q-F4: the suggested FEM convergence route is plausible under suitable
+    discretization assumptions, but is not established for the evaluated
+    graph solver; do not promote it into a theorem.
+Q-T4/Q-T5/Q-F8/Q-S3: record model distinctions and evidenced limits; do not
+    fabricate implementation history, failure causes, or numerical diagnostics.
+
+Evidence and scope
+------------------
+Core algebra was checked directly against the source propositions and proofs.
+Small independent matrix checks (n=2,3,8, positive diagonal regularizers)
+confirmed the Gaussian determinant identity, conditional mean and precision,
+discrepancy positivity, and sharper temporal norm bound; maximum Gaussian
+identity residual was 3.6e-15. These are checks of the derivations, not new
+experiments. Exact rational arithmetic gives b*=2/7 and C(b*)=3/14.
+
+Background references checked for the qualifications (not new dissertation
+claims): S. Mukherjee, multivariate Gaussian conditional/marginal formulas,
+https://www2.stat.duke.edu/~sayan/Sta613/2018/lec/Bayesreg.pdf ; and Lieu–Vese,
+Image restoration and decomposition via bounded total variation,
+https://www.math.ucla.edu/~lvese/PAPERS/LieuVese.pdf . The deck-specific Gaussian
+and TV counterexample calculations above are independent derivations.
+
+Empirical evidence follow-up
+---------------------------
+The read-only delegate confirmed the Ch2 historical PSNR definition specifies
+MAX^2/MSE but does not recover the normalization/alignment used for the table.
+The local known-motion figure directory contains cropped images, not the cited
+README, manifest, run parameters, or stage.py needed to diagnose the zero TS
+output. No cause is established by the available artifacts.
+
+The Ch4 appendix records n=20, lambda_floor=.01, lambda0=.1 and epsilon=.5.
+Thus the unclipped-map sufficient condition requires
+  ||y|| < lambda * .5^(3/2) / [2 cos(pi/40)],
+whose threshold ranges from about .00177323 to .0177323 over that lambda
+range. No candidate-specific normalized norm is available to certify an actual
+q. This threshold calculation does not certify the clipped, stopped solver.
+
+Final build and presentation inspection are recorded in defense/validation.json
+and LOG/2026-10-03.md after implementation.
+
+Follow-up: lambda selection and adviser bilevel comparison
+--------------------------------------------------------
+The user prioritized these topics for the main talk. All three recommendations
+are mathematically appropriate with qualifications, but two were already
+implemented: the weighted zero-mean identity is on core slide 7 and the Gaussian
+prior reading is in its notes. The three adaptive rules were only on backup 60.
+
+Core slide 9 now explains the chosen sigmoid rule, empirical selection, and
+the scope of fixed-weight stability. The positive floor keeps each quadratic
+uniquely solvable; it does not by itself justify applying the same perturbation
+bound after recomputing the weights. The finite-difference normal-equation
+identity is supplementary algebra and does not require differentiability.
+Signed-accumulation magnitude is an activity proxy, not total event count.
+
+Core slide 10 compares the event-only model with Antil and Sayre (2023), using
+the dissertation's indoor/outdoor PSNR and condition-number tables. The parent
+read the original paper, https://arxiv.org/pdf/2302.02052, Section 3,
+Eqs. (3.1)--(3.3). Its outer variable z represents event thresholds, not a
+learned regularization parameter. Its frame-assisted observation model differs
+from Chapter 2, and its lower penalty coefficient lambda_2 is unsquared.
+Consequently this is not a controlled test of alternative lambda selectors.
+The table values are descriptive; neither universal superiority nor removal
+of preconditioning follows from them. Historical PSNR alignment remains unknown.
+
+The baseline identity is marked as a direct consequence of the normal
+equations. With fixed positive Lambda, unit Gaussian observation covariance,
+and Gaussian prior precision Lambda^T Lambda, the temporal minimizer is MAP.
+Weights derived from the same observations provide a plug-in interpretation;
+this does not establish a fixed-prior Bayesian model for the complete pipeline.
+
+GPT-6 Luna performed the local source audit and implementation; the parent
+reviewed the mathematics, external-paper description, and resulting slides.
+The former core slides 9–10 are retained verbatim on backup pages 76–77.
+The core remains 40 slides, with 49m15s of note targets (45 seconds added).

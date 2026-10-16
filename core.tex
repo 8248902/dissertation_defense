@@ -1,0 +1,664 @@
+% Every frame has presenter notes. Source labels refer to the dissertation,
+% not to labels in this standalone presentation. A = unscaled first difference;
+% B = flow data coefficient (renamed from A_data to prevent a notation collision).
+\section{The inverse problems}
+\begin{frame}[plain]
+\titlepage
+\talknote{Opening; about 30 seconds.}{The motivating question is how to estimate images, motion, and depth when the sensor reports changes rather than conventional image frames. The mathematical thread is the interaction of observation null spaces, regularization, and identifiability.}{The talk first introduces the sensor without assuming a computer-vision background, then develops the three inverse problems. The defense date is intentionally not specified beyond the semester.}
+\end{frame}
+
+\begin{frame}{What can changes tell us about a scene?}
+\begin{columns}[T]
+\column{.49\textwidth}
+\panel{.98}{figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_012.png}{A conventional camera records an image.}
+\column{.49\textwidth}
+\panel{.98}{figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_012.png}{Events can support a reconstructed view.}
+\end{columns}
+\vspace{3mm}
+\large What determines the answer when the observations leave part of the unknown free?
+\takeaway{A mathematically unique estimate can still depend on assumptions the sensor cannot verify.}
+\src{Chs. 1 and 5; Ch. 2, event-only comparison.}
+\talknote{Motivation; 45 seconds.}{These are a reference image and an event-only reconstruction from the dissertation's outdoor comparison. The reconstruction is a displayed event-derived state, not a recovery of calibrated absolute brightness. Use the image pair to introduce the inverse problem, rather than claim pixel-perfect reconstruction.}{Say: the sensor gives very precise temporal changes, but discards a baseline. The dissertation asks which quantities can be recovered, which are selected by a penalty, and what guarantees survive spatial or binocular coupling.}
+\end{frame}
+
+\begin{frame}{An event camera: each pixel reports threshold crossings}
+\begin{columns}[c]
+\column{.57\textwidth}
+\begin{tikzpicture}[x=.72cm,y=.72cm,>=Latex]
+\draw[->,muted] (0,0)--(7,0) node[right] {$t$};
+\draw[->,muted] (0,0)--(0,4) node[above] {$L=\log I$};
+\draw[teal,very thick] (0,1)--(1,1.2)--(2,2)--(3,3)--(4,3.15)--(5,2)--(6,1)--(6.6,1.2);
+\draw[amber,dashed] (0,1)--(2,1)--(2,2)--(3,2)--(3,3)--(5,3)--(5,2)--(6,2)--(6,1)--(6.6,1);
+\foreach \x/\y in {2/2,3/3,5/2,6/1}{\fill[ink] (\x,\y) circle (2pt);\draw[muted,dotted] (\x,\y)--(\x,-.55);}
+\node[teal] at (2,-.85) {$+$};\node[teal] at (3,-.85) {$+$};
+\node[amber] at (5,-.85) {$-$};\node[amber] at (6,-.85) {$-$};
+\node[muted,align=left,font=\scriptsize] at (3.4,3.8) {Solid: log-intensity\quad Dashed: reset reference};
+\end{tikzpicture}
+\column{.40\textwidth}
+An event is a tuple
+\[e_k=(\mathbf x_k,s_k,p_k),\qquad p_k=\pm1.\]
+For the ideal threshold model,
+\[L(\mathbf x_k,s_k)-L(\mathbf x_k,s_k^-)=p_k c_{\rm th}.\]
+The preceding reset $s_k^-$ is \textbf{local to that pixel}.
+\end{columns}
+\takeaway{Events record changes. Adding a constant to a pixel's log-intensity leaves its events unchanged.}
+\src{Ch. 2, eq:polarity; Ch. 3, eq:event\_integral. Diagram is schematic.}
+\talknote{Sensor primer; 90 seconds.}{Follow the solid curve. A positive event is emitted after an upward change of one threshold from the most recent reset; a negative event follows a downward change. Different pixels have independent reset times, so the observation times are asynchronous. Neuromorphic here refers to the change-triggered sensing architecture; these estimators do not require a neural network.}{The equality is an ideal noiseless threshold model. Real threshold uncertainty, missed events, refractory effects, and overshoot create discrepancies. The diagram is conceptual, with arbitrary axes and no claim about measured latency. A stationary bright pixel can produce no events: zero activity is not zero intensity.}
+\end{frame}
+
+\begin{frame}{A point measure needs a representation before optimization}
+\[\mathcal E=\sum_k p_k\,\delta_{(\mathbf x_k,s_k)}.\]
+\begin{tikzpicture}[node distance=5mm,>=Latex,every node/.style={font=\small},box/.style={draw=teal,fill=soft,rounded corners,align=center,text width=3.5cm,minimum height=1.05cm}]
+\node[box] (events) {Asynchronous events\\locations, times, signs};
+\node[box,right=9mm of events] (rep) {Aggregation / smoothing\\a chosen observation model};
+\node[box,right=9mm of rep] (estimate) {Variational estimator\\an image, flow, or depth};
+\draw[->,thick] (events)--(rep);\draw[->,thick] (rep)--(estimate);
+\end{tikzpicture}
+\vspace{5mm}
+\begin{itemize}
+\item Temporal kernels yield integrated changes at reconstruction times.
+\item Time surfaces and voxel grids yield coefficients for motion constraints.
+\item Stereo accumulation yields paired temporal event-feature observations.
+\end{itemize}
+\takeaway{The representation supplies usable coefficients and introduces modeling choices.}
+\src{Ch. 1; Ch. 2, eq:exy--eq:Exy; Ch. 3, sec:framework; Ch. 4, sec:normalization.}
+\talknote{Representations; 60 seconds.}{A finite signed atomic measure has no ordinary density that can simply be differentiated and squared in an integral energy. Convolution, interpolation, and binning produce the quantities the models use. Raw events do have distributional derivatives; the issue is that the proposed squared pointwise residuals cannot be formed directly from them.}{Distinguish physical intensity I, log-intensity L, event activity, and latent state f. In Chapter 2, f approximates threshold-scaled log-intensity changes; in Chapter 4, preprocessing makes f an uncalibrated event-feature profile. This distinction prevents a physical interpretation from being silently transferred between chapters.}
+\end{frame}
+
+\begin{frame}{The dissertation's progression}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{3.8cm}>{\raggedright\arraybackslash}p{5.9cm}}
+\toprule
+Problem & What the data leave free & How the model controls it\\
+\midrule
+Temporal reconstruction & Additive log-intensity baseline & Positive magnitude penalty; unique fixed-weight solve\\
+Dense optical flow & Motion tangent to an edge & Spatial smoothness plus integrated directional information\\
+Stereo depth & Competing correspondence candidates & Coupled profile solves; separate cost-gap conditions\\
+\bottomrule
+\end{tabular}
+\vspace{2mm}
+\large Three recurring questions: \textbf{existence}, \textbf{stability}, and \textbf{physical identifiability}.
+\src{Ch. 5, tab:contribution\_matrix.}
+\talknote{Road map; 45 seconds.}{Each step adds a type of coupling. Chapter 2 solves independent temporal chains. Chapter 3 couples neighboring velocities in a Sobolev space. Chapter 4 couples two temporal profiles at each candidate disparity, then compares candidates.}{Physical identifiability means the observation map is injective on a specified model class. A penalty selects among modes the observations leave unobserved; mathematical uniqueness of that selected estimate does not make those modes physically identifiable.}
+\end{frame}
+
+\section{Temporal reconstruction}
+\begin{frame}{Start with one pixel: integrated changes on a temporal chain}
+\begin{columns}[T]
+\column{.54\textwidth}
+Choose a unit-mass temporal kernel $\phi_{s_k}$:
+\[e(t)=\sum_{k\text{ at this pixel}}p_k\phi_{s_k}(t).\]
+\[y_i=\int_{t_i}^{t_{i+1}}e(t)\,dt.\]
+The reconstruction times $t_i$ are chosen by the algorithm.
+\column{.43\textwidth}
+\[\A=\begin{pmatrix}-1&1&&\\&-1&1&\\&&\ddots&\ddots\end{pmatrix}.\]
+\[\A\mathbf f\approx\mathbf y.\]
+\[\ker\A=\operatorname{span}\{\mathbf1\}.\]
+Events determine increments, leaving a constant free.
+\end{columns}
+\takeaway{Kernel width controls temporal averaging; a baseline requires an additional choice.}
+\src{Ch. 2, eq:exy, eq:Exy, eq:tempdiffA, lem:nullspace.}
+\talknote{Temporal observation model; 75 seconds.}{Suppress the pixel index to keep the notation readable. Integrating a unit-mass kernel across a bin assigns all or part of each event to that bin. Delta binning has no spread; Gaussian, rectangular, and spline kernels distribute influence over time. The entries of A are unscaled increments, not derivatives divided by a time step.}{If Af=0, every consecutive pair of components is equal, hence f is constant. Conversely A1=0. Under ideal threshold calibration the observed increments approximate changes in L/c\_th, with kernel-boundary, overshoot, and between-event endpoint errors. No absolute frame is used to set the baseline.}
+\end{frame}
+
+\begin{frame}{A regularized estimate is uniquely selected}
+For fixed $\Lam=\operatorname{diag}(\lambda_i)$ with every $\lambda_i>0$,
+\[\mathbf f^*=\arg\min_{\mathbf f\in\R^n}\left\{\frac12\norm{\A\mathbf f-\mathbf y}^2+\frac12\norm{\Lam\mathbf f}^2\right\}.\]
+\begin{block}{Temporal uniqueness theorem}
+\[\K_{\rm time}=\A^\top\A+\Lam^\top\Lam\succ0,\qquad \K_{\rm time}\mathbf f^*=\A^\top\mathbf y.\]
+The fixed-weight problem has a unique global minimizer.
+\end{block}
+% source: Direct consequence of Ch. 2 thm:uniqueness normal equations and A1=0; supplementary identity.
+The selected baseline satisfies $\mathbf1^\top\Lam^2\mathbf f^*=0$.
+\takeaway{The penalty chooses an unobserved baseline and also changes observable increments.}
+\src{Ch. 2, eq:in, thm:uniqueness. Baseline identity: direct consequence.}
+\talknote{Model and theorem; 75 seconds.}{The objective balances fidelity to observed changes against weighted magnitude. The normal equations follow by differentiating the quadratic. Solve this system by factorization rather than explicitly forming an inverse. Pixels are independent, so these temporal solves can be batched.}{Premultiply the normal equations by $\mathbf1^\top$ and use $\A\mathbf1=0$ to obtain the weighted zero-mean identity. Under the fixed model $\mathbf y\mid\mathbf f\sim N(\A\mathbf f,I)$ and $\mathbf f\sim N(0,(\Lam^\top\Lam)^{-1})$, this minimizer is the Gaussian MAP estimate. The unit noise covariance and fixed positive $\Lam$ are assumptions; data-derived weights give a plug-in fixed-weight interpretation, not a full-pipeline MAP or stability theorem. As scalar $\lambda\to0$, the solution tends to the minimum-norm exact fit, which sets the constant null mode to zero.}
+\end{frame}
+
+\begin{frame}{Why uniqueness and stability hold}
+Write $\lambda_{\min}=\min_i\lambda_i$. For $\mathbf z\ne0$,
+\[\mathbf z^\top\K_{\rm time}\mathbf z=\norm{\A\mathbf z}^2+\norm{\Lam\mathbf z}^2\ge\lambda_{\min}^2\norm{\mathbf z}^2>0.\]
+At the same fixed weights,
+\[\delta\mathbf f^*=\K_{\rm time}^{-1}\A^\top\delta\mathbf y,\qquad
+\norm{\delta\mathbf f^*}\le\frac{\norm{\A}_2}{\lambda_{\min}^2}\norm{\delta\mathbf y}.\]
+% source: Ch. 2 thm:uniqueness and prop:stability; analytic mixed-norm bound ||A||_2 <= 2.
+\[\norm{\A}_2\le2,\qquad \kappa_2(\K_{\rm time})\le\frac{4+\lambda_{\max}^2}{\lambda_{\min}^2}.\]
+\takeaway{Coercivity gives a stable estimate; weakening the penalty weakens these full-space bounds.}
+\src{Ch. 2, thm:uniqueness, prop:stability.}
+% source: direct sharper operator bound from Ch. 2 normal equations and Lambda^2 >= lambda_min^2 I.
+\talknote{Proof; 90 seconds.}{Walk through the quadratic form. Both terms are nonnegative, and the strictly positive diagonal penalty supplies a lower bound in every direction. Finite-dimensional coercivity gives existence; the positive-definite Hessian gives uniqueness. Subtracting the two normal equations gives the exact perturbation identity.}{The displayed full-space bound uses $\norm{\K^{-1}}_2\le\lambda_{\min}^{-2}$. A sharper operator bound is $\norm{\K^{-1}\A^\top}_2\le1/(2\lambda_{\min})$: from $\A^\top\A\preceq\K-\lambda_{\min}^2I$, the squared singular-value bound is at most $\max_{t\ge\lambda_{\min}^2}(1/t-\lambda_{\min}^2/t^2)=1/(4\lambda_{\min}^2)$. The original estimate is a worst-case bound; reported CN is a measured system condition number.}
+\end{frame}
+
+\begin{frame}{How are the temporal weights chosen?}
+For activity $a_i=|dc_i|$, the selected sigmoid rule is
+% source: Ch. 2 subsubsec:lambdacal; selected sigmoid formula and parameters.
+\[\lambda_i=10^{-3}+\frac{10}{1+e^{a_i}}.\]
+Here $dc_i$ is the signed event accumulation; $a_i$ is its magnitude, not a count of all events.
+\par\medskip
+% source: Ch. 2 tab:lambda_outdoor_avg; reported outdoor condition numbers.
+\begin{tabular}{lrrr}\toprule Rule & Sigmoid & Inverse proportional & Exponential\\\midrule
+Outdoor condition number & 29.60 & 81.50 & 100.74\\\bottomrule
+\end{tabular}
+\par\smallskip
+\small Chosen empirically to balance image fidelity and conditioning.
+\takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
+\src{Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.}
+\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its condition number is lower than the alternatives in the reported outdoor average, while inverse proportional has a lower condition number indoors.}{The other two rules and their exact formulas are in backup slide 60. The reported outdoor condition numbers are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; this direct identity does not establish a full adaptive stability theorem.}
+\end{frame}
+
+\begin{frame}{Relation to Antil--Sayre bilevel reconstruction}
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{This chapter}\par
+Events only $\longrightarrow$ activity-based $\Lam(dc)$ $\longrightarrow$ fixed convex temporal solve.
+\column{.48\textwidth}
+\textbf{Antil--Sayre (2023)}\par
+Events and intensity frames $\longrightarrow$ outer optimization over threshold parameters $z$.
+\end{columns}
+\medskip
+% source: https://arxiv.org/pdf/2302.02052, Sec. 3, Eqs. (3.1)--(3.3); Ch. 2 tab:bilevel_comp_indoor and tab:bilevel_comp_outdoor.
+\begin{tabular}{llrr}\toprule Sequence & Method & PSNR & CN\\\midrule
+% source: Ch. 2 tab:bilevel_comp_indoor; reported PSNR and CN values.
+Indoor & Bilevel / event-only & 15.37 / 10.85 & 39755 / 25.51\\
+% source: Ch. 2 tab:bilevel_comp_outdoor; reported PSNR and CN values.
+Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
+\end{tabular}
+\par\smallskip
+{\small PSNR: reference-image similarity (dB). CN: reported system condition number.}
+\takeaway{Frame information and a different optimization problem change the comparison.}
+\src{Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor.}
+\talknote{Relationship and comparison; 90 seconds.}{In Antil--Sayre, the outer variable is event threshold parameter $z$, not a learned regularization weight. Their problems are $u(z)=\arg\min_u\frac12\|Au-b(z)\|^2+\frac{\lambda_2}{2}\|u\|^2$ and $\min_z\frac12\|u(z)+g(z)-d\|^2+\frac{\lambda_1}{2}\|z\|^2$, with $d$ log frames, $g$ an event-dependent exposure term, and $b=A[d-g(z)]$. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{The table reproduces the dissertation's indoor and outdoor averages: PSNR/CN are 15.37/39755 versus 10.85/25.51 indoors, and 8.41/39755 versus 8.71/27.10 outdoors, for bilevel versus event-only. The methods receive different inputs, including absolute intensity frames for the comparator, so this is descriptive rather than controlled evidence of superiority. The historical PSNR normalization/alignment protocol was not recovered. The paper analyzes existence and conditional local uniqueness for its bilevel problem; our theorem establishes strict convexity and uniqueness for each fixed positive $\Lam$. These guarantees and the lambda coefficients have different roles.}
+\end{frame}
+
+\begin{frame}{Shared motion couples temporal profiles to one scene}
+% source: Ch. 2 eq:ch2_sar_projection, eq:ch2_sar_nullspace, prop:ch2_sar_solvability; fixed row-normalized projections.
+For $n$ frames, stack the fixed, row-normalized known-motion footprint projections $P_k$ into $P$; $P_k\mathbf1=\mathbf1$.
+With $A\in\R^{(n-1)\times n}$ the first-difference matrix,
+\[B_{\rm SAR}=(A\otimes I)P,\qquad
+\ker B_{\rm SAR}=\{\theta:P_{k+1}\theta=P_k\theta,\ 1\le k<n\},\qquad
+B_{\rm SAR}\mathbf1=0.\]
+With an unsquared coefficient $\lambda>0$,
+\[\left(B_{\rm SAR}^\top B_{\rm SAR}+\lambda I\right)\widehat\theta
+=B_{\rm SAR}^\top b.\]
+\takeaway{Motion links per-frame changes to a shared scene while retaining motion-invariant scene modes.}
+\src{Ch. 2, prop:ch2\_sar\_solvability.}
+\talknote{Shared-scene temporal model; 75 seconds.}{Here $\theta$ contains static scene values only. The projections $P_k$ encode fixed, known motion and map that scene to each frame; $A$ differences the profiles. The nullspace contains parameters whose projected profiles agree across frames. Constants are included because each projection is row-normalized; other invariant scene modes may also occur. This resembles flow's aperture ambiguity in that observations leave directions uncontrolled, but proves no motion ambiguity for SAR.}{Here lambda is the unsquared ridge coefficient in the normal equations. For this fixed-motion linear model, the stability estimate is $\norm{\delta\theta}\le\norm{B_{\rm SAR}}\norm{\delta b}/\lambda$. The theorem does not say every SAR nullspace is strictly larger than constants; that depends on P.}
+\end{frame}
+
+\section{Dense optical flow}
+\begin{frame}{Motion introduces a new invisible direction}
+\begin{columns}[c]
+\column{.49\textwidth}
+\begin{tikzpicture}[x=.7cm,y=.7cm,>=Latex]
+\fill[soft] (0,0) rectangle (6,4);
+\draw[ink,very thick] (2,0)--(2,4);
+\draw[teal,very thick,->] (2,2)--(4.4,2) node[right] {normal motion};
+\draw[amber,very thick,->] (2,2)--(2,3.5) node[right] {tangent};
+\draw[muted,dashed] (4,0)--(4,4);
+\node[font=\small,align=center] at (3,-.65) {A straight edge reveals its normal speed.};
+\end{tikzpicture}
+\column{.48\textwidth}
+A time surface $\mathcal T(\mathbf x)$ records an edge's crossing time.
+\[\nabla\mathcal T\cdot\vct=1.\]
+One scalar equation constrains a vector velocity.
+\[\vct=\frac{\nabla\mathcal T}{|\nabla\mathcal T|^2}+\tau\nabla\mathcal T^\perp.\]
+\end{columns}
+\takeaway{This is the aperture problem: an edge does not reveal motion along its tangent.}
+\src{Ch. 3, prop:time\_surface and following aperture remark.}
+\talknote{Transition and aperture problem; 75 seconds.}{Define optical flow as apparent image-plane velocity, rather than a physical three-dimensional velocity. The crossing-time surface has units of time, so its spatial gradient has units time/pixel and its dot product with pixels/time is dimensionless. This also makes the right-hand side one intuitive.}{The formula assumes a nonzero gradient. For a single translating straight edge, changing tangential velocity produces the same crossing-time observations. Regularizing spatial derivatives alone also leaves constant tangential velocities free unless the scene supplies another identifying direction.}
+\end{frame}
+
+\begin{frame}{Derive the time-surface constraint by following the edge}
+\small
+For an ideal single crossing, define
+\[\psi(\mathbf x,t)=t-\mathcal T(\mathbf x),\qquad \psi(\mathbf x(t),t)=0.\]
+If the edge translates with constant $\dot{\mathbf x}=\vct$, then
+\[0=\frac d{dt}\psi(\mathbf x(t),t)=1-\nabla\mathcal T\cdot\vct.\]
+\begin{block}{Model hypotheses}
+The edge crosses each location once, has nonzero normal speed, and its recorded timestamp equals a differentiable crossing-time map.
+\end{block}
+\takeaway{Interpolation, stale timestamps, and repeated crossings make this an approximate data constraint.}
+\src{Ch. 3, prop:time\_surface; def:time\_surface.}
+\talknote{Geometric derivation; 60 seconds.}{This chain-rule argument is accessible without any sensor-specific machinery. Follow a material point on the translating edge and differentiate the identity saying it stays on the zero level set.}{The coefficient bounds used later apply to fitted or mollified maps. The timestamp-regression result assumes a differentiable crossing-time map with Lipschitz Hessian, but raw last-timestamp maps do not automatically satisfy those assumptions. A timestamp may belong to an old edge or multiple crossings; the variational theorem bounds usable coefficient perturbations under uniform identifiability.}
+\end{frame}
+
+\begin{frame}{Time-surface gradient estimation: bias versus variance}
+\small
+Fit a plane to timestamps at offsets $\mathbf z_j$ around a pixel.
+\[Q=\sum_j\mathbf z_j\mathbf z_j^\top\succ0.\]
+For a centrally symmetric design and independent timestamp errors with common mean and finite variance $\sigma^2$:
+\[\operatorname{Cov}(\widehat{\nabla\mathcal T})=\sigma^2 Q^{-1}.\]
+With a Lipschitz Hessian of constant $L_H$ on a neighborhood containing the sample disk,
+% source: Ch. 3 prop:ts_regression_bound(iv), eq:ts_discrete_bias and eq:ts_discrete_mse; L_H renames its Lipschitz constant L.
+\[\norm{\operatorname{Bias}}\le\frac{L_H}{6}\norm{Q^{-1}}\sum_j\norm{\mathbf z_j}^4,\qquad
+\operatorname{MSE}=\norm{\operatorname{Bias}}^2+\sigma^2\operatorname{tr}(Q^{-1}).\]
+\takeaway{A larger neighborhood reduces variance but can increase curvature bias. Regression rank and velocity identifiability are different questions.}
+\src{Ch. 3, prop:ts\_regression\_bound.}
+\talknote{Gradient-estimation result; 75 seconds; shorten to the takeaway in a compressed talk.}{The design matrix Q depends on sample positions, not the observed slope. Central symmetry decouples the intercept and cancels the quadratic Taylor term in the slope. A Lipschitz Hessian leaves a cubic remainder bounded by L\_H |z|\textasciicircum{}3/6. Multiplication by z and Q\textasciicircum{}{-1} yields the bias bound. Independent equal-variance errors give the covariance, and the MSE decomposition combines both contributions for the same discrete estimator.}{A full-rank disk of timestamps around a moving straight edge can estimate its gradient well while the tangential velocity remains unidentified. The assumed timestamp-noise model is not derived from event-count statistics. The asymptotic radius heuristic is in the backup, with its finite-design qualifications.}
+\end{frame}
+
+\begin{frame}{Voxel projection: transport a represented event-activity field}
+Smooth and bin events into a spatiotemporal field $V(\mathbf x,t)$.
+\[a(\mathbf x,s)=\int_s^{s+T}V(\mathbf x,t)\,dt.\]
+If $V_t+\vct\cdot\nabla V=0$ with constant velocity over the window,
+\[a_s+\vct\cdot\nabla a=0,\qquad a_s=V(\mathbf x,s+T)-V(\mathbf x,s).\]
+The voxel-projection residual is $\nabla a\cdot\vct+a_s$.
+\takeaway{Activity is a count-derived field. Treating it as transported is an additional modeling assumption.}
+\src{Ch. 3, subsec:vox\_projection; derivative-operator qualifications.}
+\talknote{Voxel model; 75 seconds.}{A voxel grid adds a time axis to the image plane and stores represented event contributions in time bins. The activity field is not an intensity image: a bright stationary scene can have zero activity. For an exactly transported density with constant velocity, integrate the PDE over the sliding window; this gives the displayed transport identity exactly, even for a large displacement.}{Finite temporal projection changes the profile by averaging its translates. The evaluated spatial bin mean and temporal OLS slope need not be derivative-consistent partners, and asymmetric smoothing can add mismatch. The well-posedness theorem only needs fixed bounded coefficient fields; an accurate physical-velocity interpretation also needs the transport approximation.}
+\end{frame}
+
+\begin{frame}{The structure tensor pools directional information}
+At a fixed evaluation time $t_\star$, set
+\[\mathbf J(\mathbf x)=\int W(\mathbf x-\mathbf y)\,\nabla_3V(\mathbf y,t_\star)\nabla_3V(\mathbf y,t_\star)^\top\,d\mathbf y,
+\qquad W\ge0.\]
+Use the local residual energy
+\[\vct_3^\top\mathbf J\vct_3,\qquad \vct_3=(v_x,v_y,1)^\top,\qquad
+\mathbf J=\begin{pmatrix}\widetilde{\mathbf J}&\mathbf j_t\\\mathbf j_t^\top&J_{tt}\end{pmatrix}.\]
+\begin{itemize}
+\item Each gradient outer product is positive semidefinite and rank at most one.
+\item Pooling nonparallel spatial gradients can make $\widetilde{\mathbf J}$ full rank.
+\end{itemize}
+\takeaway{Pooling can identify both components locally; the global theorem needs only integrated identifiability.}
+\src{Ch. 3, subsec:vox\_struct, prop:vox\_tensor\_wellposed.}
+\talknote{Structure tensor; 75 seconds.}{Expand the quadratic: v\textasciicircum{}T Jtilde v + 2 j\_t\textasciicircum{}T v + J\_tt. The last term is independent of velocity, so the spatial block is the data curvature and the temporal cross terms give the forcing. The temporal component of v\_3 is fixed to one; this is an ordinary least-squares transport model, not a total-least-squares eigenvector model.}{Nonnegative pooling preserves positive semidefiniteness, since z\textasciicircum{}T J z is an integral of nonnegative squared directional derivatives. A locally planar event surface is a model assumption, and smoothing scale limits temporal detail. The theorem will not require every pixel's spatial block to be positive definite.}
+\end{frame}
+
+\begin{frame}{Three representations, one quadratic variational problem}
+Rename the flow data matrix $\B$ to distinguish it from temporal $\A$:
+\[E_{\B,b}(\vct)=\frac12\int_\Omega\bigl(\vct^\top\B\vct-2b^\top\vct\bigr)
++\frac{\alpha^2}{2}\int_\Omega|\nabla\vct|^2.\]
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lll}\toprule Representation & $\B$ & $b$\\\midrule
+Time surface & $\nabla\mathcal T\nabla\mathcal T^\top$ & $\nabla\mathcal T$\\
+Voxel projection & $\nabla a\nabla a^\top$ & $-a_s\nabla a$\\
+Structure tensor & $\widetilde{\mathbf J}$ & $-\mathbf j_t$\\\bottomrule
+\end{tabular}
+\takeaway{The representations change the coefficients; the analysis can be proved once.}
+\src{Ch. 3, thm:unified\_wellposedness and its three corollaries.}
+\talknote{Unification; 60 seconds.}{The energies agree with the representation-specific residual energies up to an overall positive factor and a constant independent of flow. The common space is H\textasciicircum{}1(Omega; R\textasciicircum{}2), and the Dirichlet term couples neighboring velocities.}{The notation B here is A\_data in the dissertation, and alpha is alpha\_smooth. The change avoids using A for two different operators on consecutive chapters. The common analysis is about fixed coefficients. A good mathematical estimator can still encode a poor representation of physical motion.}
+\end{frame}
+
+\begin{frame}{The main flow theorem: global information controls constants}
+\begin{block}{Unified well-posedness theorem}
+Let $\Omega\subset\R^2$ be bounded, connected, and Lipschitz; $\alpha>0$.
+Assume
+\[\B\in L^\infty,\quad \B=\B^\top\succeq0\text{ a.e.},\quad b\in L^2,\qquad
+\int_\Omega\B(\mathbf x)\,d\mathbf x\succ0.\]
+Then $E_{\B,b}$ has a unique minimizer in $H^1(\Omega;\R^2)$.
+\end{block}
+\vspace{2mm}
+The integrated matrix must identify \textbf{every constant velocity direction}.
+\takeaway{$\B$ may vanish on open regions; integrated directional information and smoothness still give a unique estimate.}
+\src{Ch. 3, thm:unified\_wellposedness, eq:integrated\_identifiability.}
+\talknote{Central theorem; 90 seconds.}{Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise.}
+\end{frame}
+
+\begin{frame}{Proof: control the mean and the fluctuation separately}
+Decompose $\vct=\bar{\vct}+\mathbf w$, with $\int_\Omega\mathbf w=0$.
+\[\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}.\]
+Let $\beta_B=\norm{\B}_{L^\infty}$ and $m=\lambda_{\min}(\int_\Omega\B)>0$.
+% source: Ch. 3 proof of thm:unified_wellposedness, eq:mean_control.
+\[m|\bar{\vct}|^2\le2\int_\Omega\vct^\top\B\vct+2\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2.\]
+Therefore the bilinear form satisfies
+% source: Ch. 3 proof of thm:unified_wellposedness; admissible lower bound, not optimal.
+\[\mathcal B(\vct,\vct)=\int\vct^\top\B\vct+\alpha^2\int|\nabla\vct|^2
+\ge c_0\norm{\vct}_{H^1}^2,\qquad
+c_0=c_0(\Omega,\alpha,\beta_B,m).\]
+\takeaway{Poincar\'e controls fluctuations, data control the mean, and Lax--Milgram supplies the unique weak solution.}
+\src{Ch. 3, proof of thm:unified\_wellposedness.}
+\talknote{Main proof; 2 minutes.}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part. Poincar\'e controls the latter. Use $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$, square with the factor-two inequality, and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$. Positive definiteness of the integrated matrix controls the mean.}{An admissible lower bound, not an optimal constant, is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$. Insert it into $\norm{\vct}_{H^1}^2=|\Omega||\bar{\vct}|^2+\norm{\mathbf w}_{L^2}^2+\norm{\nabla\vct}_{L^2}^2$. Lax--Milgram gives the unique minimizer. For fixed positive $\beta_B,\alpha$, this lower bound deteriorates linearly as $m$ decreases.}
+\end{frame}
+
+\begin{frame}{Stability follows by subtracting weak equations}
+Suppose two coefficient pairs share bounds
+\[\norm{\B_i}_{L^\infty}\le \beta_B,\qquad\lambda_{\min}\!\left(\int\B_i\right)\ge m>0,
+\qquad\norm{b_i}_{L^2}\le R_b.\]
+Here $c_0=c_0(\Omega,\alpha,\beta_B,m)$ is independent of $b_i$.
+For $\mathbf z=\vct_1^*-\vct_2^*$,
+\[\mathcal B_1(\mathbf z,\mathbf z)
+=\int(b_1-b_2)\cdot\mathbf z+\int\mathbf z^\top(\B_2-\B_1)\vct_2^*.\]
+Hence
+\[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
++c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
+\takeaway{The estimator is Lipschitz in its coefficients while identifiability remains uniformly positive.}
+\src{Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.}
+\talknote{Stability proof; 75 seconds.}{The same coercivity constant works on both coefficient pairs because the quantitative bounds are shared. Subtract their weak equations and test with the solution difference. Cauchy--Schwarz controls the right side, and $\norm{\vct_2^*}_{H^1}\le R_b/c_0$ follows from its own weak equation. Divide by $\norm{\mathbf z}_{H^1}$ if it is nonzero.}{The conclusion is stability of the chosen estimator, not an error bound to ground-truth velocity. The estimate may become poor as $m\to0$. If a density-dependent diffusion tensor is recomputed, the regularizer also changes; its $L^\infty$ perturbation must enter the bound.}
+\end{frame}
+
+\begin{frame}{Discrete flow: connectivity and sampled directions matter}
+% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks, extended to q_i>0 by absorbing q_i into B_i.
+For $\alpha>0$, symmetric nonnegative graph weights with degrees $d_i>0$, and $\B_i=\B_i^\top\succeq0$, the quadratic curvature is
+\[\mathbf H_h=\operatorname{diag}(q_i\B_i)+\alpha^2(L_G\otimes\mathbf I_2),\qquad q_i>0.\]
+\begin{block}{Discrete uniqueness and block-Jacobi convergence}
+If the graph is connected and $\sum_i q_i\B_i\succ0$, then the discrete energy has a unique minimizer. The corresponding simultaneous block-Jacobi sweep converges from every initial field.
+\end{block}
+\begin{itemize}
+\item Zero graph energy forces a constant field; the sampled Gram matrix eliminates it.
+\item For Jacobi, both $D-R\succ0$ and $D+R\succ0$ put its spectrum inside $(-1,1)$.
+\end{itemize}
+\src{Ch. 3, cor:vox\_projection\_wellposed; positive-$q_i$ extension of thm:convergence and cor:convergence\_psd\_blocks.}
+\talknote{Numerical theorem; 75 seconds.}{The discrete analogue of integrated identifiability is a sampled positive-definite Gram matrix. Continuum identifiability does not ensure a particular grid captures both directions. Connectivity is again what reduces the regularizer kernel to constants.}{The theorem covers the displayed positive per-node factors by absorbing each $q_i$ into $\B_i$. SPD alone is not a general Jacobi convergence theorem. Here the special graph structure also makes D+R positive definite: its zero modes would be alternating constants on a bipartite graph, removed by the same sampled data condition. The evaluated solvers have representation-specific stencils and schedules, so apply the theorem only after matching the discrete operator to these hypotheses. Full spectral argument is in the backup.}
+\end{frame}
+
+\begin{frame}{Contrast maximization changes the optimization problem}
+Warp each event to a common normalized reference time:
+\[\mathbf x_k^w=\mathbf x_k+(\widetilde t_{\rm ref}-\widetilde t_k)\mathbf q(\mathbf x_k),
+\qquad \mathbf q=T\vct_{\rm phys}.\]
+Represent $\mathbf q$ by continuous B-splines with coefficients $\mathbf c$.
+\[F(\mathbf c)=-\operatorname{Var}(I_{\mathbf c})+\mathbf c^\top\K_{\rm reg}\mathbf c,
+\qquad \K_{\rm reg}\succeq\tau_{\rm ridge}\mathbf I,\quad\tau_{\rm ridge}>0.\]
+\begin{itemize}
+\item A good warp concentrates aligned events.
+\item A flexible incorrect warp can also concentrate events by collapsing them.
+\end{itemize}
+\takeaway{The full objective is generally nonconvex. The quadratic flow theorem does not apply.}
+\src{Ch. 3, sec:cmax, prop:cmax\_wellposed, prop:cmax\_existence.}
+\talknote{Nonconvex extension; 60 seconds.}{In this model the unknown changes the represented data during optimization. q is displacement in pixels per normalized window, avoiding a confusion between velocity and normalized time. A continuous spline basis supplies well-defined event-location evaluations. General H1 equivalence classes in two dimensions cannot be evaluated at prescribed points without more regularity.}{The regularizer has a diffusion floor and a coefficient ridge with different roles. A positive diffusion floor penalizes all nonconstant spline variations but still leaves global translations free. The coefficient ridge controls those constant-flow directions and supplies coercivity of the full finite-dimensional objective.}
+\end{frame}
+
+\begin{frame}{A global minimizer exists, even though the solver is local}
+\small
+For finitely many fixed event weights, let $W_{\rm tot}=\sum_k|w_k|$.
+The bilinear accumulation is continuous and satisfies
+\[\operatorname{Var}(I_{\mathbf c})\le\frac{W_{\rm tot}^2}{HW}.\]
+Therefore
+\[F(\mathbf c)\ge-\frac{W_{\rm tot}^2}{HW}+\tau_{\rm ridge}\norm{\mathbf c}^2\longrightarrow\infty.
+\]
+\begin{block}{Proof mechanism}
+Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$\quad compact sublevel set\quad$\Rightarrow$\quad Weierstrass.
+\end{block}
+\takeaway{A global minimizer exists by finite-dimensional coercivity; the local solver has no global guarantee.}
+\src{Ch. 3, prop:cmax\_existence and evaluated-solver scope.}
+\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the returned solution is not certified global. The ridge bound $2\varepsilon/M$ is not uniform under refinement.}
+\end{frame}
+
+\begin{frame}{Known-motion examples make the aperture problem visible}
+\centering\small
+\begin{tabular}{lcccc}
+ & Ground truth & Voxel & Structure tensor & Contrast maximization\\
+\rotatebox{90}{Stripes}\! & \includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/gt.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_struct.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/cmax.png}\\
+\rotatebox{90}{Checker}\! & \includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png}&\includegraphics[width=2.5cm]{../figures/ch3_quivers_consistent/v2e_checker_f0022/crop/cmax.png}\\
+\end{tabular}
+\takeaway{Stripes emphasize a normal-flow constraint; checker texture supplies directions in both axes.}
+\src{Ch. 3, fig:ch3\_quiver\_v2e; v2e simulation, same window and arrow scale.}
+\talknote{Visual evidence; 60 seconds.}{The object translates diagonally. Red arrows show the ground truth and green arrows the estimates, at the common scale retained from the dissertation's panels. Vertical stripe interiors provide mainly horizontal gradients. The checkerboard provides gradient information in both spatial directions. Object boundaries can supply additional information even in the stripe scene.}{These are selected illustrative windows, not a cross-dataset method ranking. The full figure also includes time surface and other variants; its displayed time-surface result is zero in these scenes. The output does not diagnose which hypothesis or extraction step fails, so do not assign a cause.}
+\end{frame}
+
+\section{Stereo depth}
+\begin{frame}{Two viewpoints turn correspondence into depth}
+\begin{columns}[c]
+\column{.52\textwidth}
+\begin{tikzpicture}[x=.8cm,y=.8cm,>=Latex]
+\coordinate (L) at (0,0);\coordinate (R) at (5,0);\coordinate (P) at (2,4);
+\draw[ink,thick] (L)--(P)--(R);\fill[teal] (P) circle(2pt) node[above] {scene point};
+\draw[teal,thick] (-.6,1)--(1.2,1);\draw[teal,thick] (3.8,1)--(5.6,1);
+\fill[ink] (L) circle(2pt) node[below] {left};\fill[ink] (R) circle(2pt) node[below] {right};
+\draw[<->,amber] (0,-.7)--(5,-.7) node[midway,below] {baseline $b_{\rm cam}$};
+\draw[<->,muted] (5.8,0)--(5.8,4) node[midway,right] {depth $Z$};
+\end{tikzpicture}
+\column{.45\textwidth}
+Rectification makes the correspondence search horizontal:
+\[d=x_L-x_R.\]
+\[Z=\frac{f_{\rm cam}b_{\rm cam}}{d},\qquad d>0.\]
+Each candidate $d$ pairs a left observation with $\mathbf y_R(x-d,y)$.
+\end{columns}
+\takeaway{The correspondence is unknown; solving the latent profiles at a fixed candidate is only the inner problem.}
+\src{Ch. 4, sec:solution, eq:depth\_conversion. Geometry is schematic.}
+\talknote{Stereo introduction; 75 seconds.}{Explain rectification as a calibrated coordinate change that places corresponding rays on the same image row. Disparity is the horizontal pixel shift; similar triangles give depth as focal length times baseline divided by disparity. Farther objects have smaller disparity, so small disparity errors can create large depth errors.}{The event-feature observations are accumulated and normalized before matching, rather than synchronous brightness images. We assume a candidate disparity is approximately valid over the observation window and both views remain visible. Occlusion, parallax, changing depth, and differing sensor responses can break profile equality.}
+\end{frame}
+
+\begin{frame}{At each candidate, couple two temporal profiles}
+Suppress the pixel index; $\yR=\yR(d)$.
+\begin{align*}
+J_d(\fL,\fR;\W_L,\W_R)
+&=\frac12\norm{\W_L^{1/2}(\A\fL-\yL)}^2
++\frac12\norm{\W_R^{1/2}(\A\fR-\yR)}^2\\
+&\quad+\frac12\norm{\Lam\fL}^2+\frac12\norm{\Lam\fR}^2
++\frac\gamma2\norm{\fL-\fR}^2.
+\end{align*}
+\begin{itemize}
+\item Data fidelity estimates each temporal profile from its own view.
+\item Magnitude penalties control temporal baselines.
+\item Soft coupling penalizes left--right disagreement.
+\end{itemize}
+\takeaway{The right latent profile is auxiliary to this pixel and candidate, rather than a single globally shared right image.}
+\src{Ch. 4, eq:weighted\_objective; fixed-disparity model definition.}
+\talknote{Stereo model; 75 seconds.}{The temporal operator is exactly the first-difference matrix used earlier. Lambda is a fixed positive diagonal regularizer during the candidate's iteration, and gamma is nonnegative. The right observation varies with disparity. The right latent unknown is solved anew for every left pixel and candidate. Spatial coupling enters later through the candidate-cost aggregation.}{Keep the semantic distinction clear: these are uncalibrated event-feature profiles because warping, downsampling, and affine normalization transform the observations. Calling them absolute log-intensities would require a separate calibrated observation model. Unweighted theory is the case W\_L=W\_R=I.}
+\end{frame}
+
+\begin{frame}{Frozen weights give a unique, stable inner solve}
+Fix $d$, $\W_L,\W_R\succ0$, $\Lam\succ0$, and $\gamma\ge0$. Define
+\[\K_c=\A^\top\W_c\A+\Lam^\top\Lam,\qquad
+\M_W=\begin{pmatrix}\K_L+\gamma\mathbf I&-\gamma\mathbf I\\-\gamma\mathbf I&\K_R+\gamma\mathbf I\end{pmatrix}.\]
+For $\mathbf z=(\mathbf z_L,\mathbf z_R)$,
+\[\mathbf z^\top\M_W\mathbf z=\sum_{c=L,R}\left(\norm{\W_c^{1/2}\A\mathbf z_c}^2+\norm{\Lam\mathbf z_c}^2\right)
++\gamma\norm{\mathbf z_L-\mathbf z_R}^2.\]
+\begin{block}{Conclusion}
+$\M_W\succeq\lambda_{\min}^2\mathbf I\succ0$: the frozen quadratic has exactly one global minimizer.
+\end{block}
+\src{Ch. 4, eq:mw\_quadform, thm:weighted\_spd, thm:convexity.}
+\talknote{Stereo SPD proof; 90 seconds.}{The proof reuses the temporal argument, now with an additional nonnegative coupling term. The Hessian is M\_W. Every direction receives the magnitude-penalty lower bound, regardless of whether the data provide a strong temporal signal. This makes each frozen system invertible.}{With fixed weights, subtracting normal equations gives stable dependence on the data, governed quantitatively by the inverse matrix norm and conditioning. This says nothing yet about identifying a unique disparity. Nor does it mean that updating weights solves the same strictly convex function.}
+\end{frame}
+
+\begin{frame}{Sum and difference modes expose the coupling}
+For equal blocks $\K_L=\K_R=\K$, introduce
+% source: Ch. 4 lem:block_diag_M and thm:conditioning.
+\[\mathbf U=\frac1{\sqrt2}\begin{pmatrix}\mathbf I&\mathbf I\\\mathbf I&-\mathbf I\end{pmatrix},\qquad
+\mathbf U^\top\M\mathbf U=\begin{pmatrix}\K&0\\0&\K+2\gamma\mathbf I\end{pmatrix}.\]
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{Mean profile}\par
+The coupling cancels. Shared information is fused by the temporal solve.
+\column{.48\textwidth}
+\textbf{Difference profile}\par
+The coupling raises curvature and suppresses disagreement.
+\end{columns}
+\vspace{3mm}
+% source: Ch. 4 thm:conditioning, eq:kappa_scalar; scalar unweighted/equal-block assumption.
+For $\Lam=\lambda\mathbf I$ in the unweighted model,
+\[\kappa_2(\M)=1+\frac{g_{\max}+2\gamma}{\lambda^2}.\]
+\src{Ch. 4, lem:block\_diag\_M, thm:conditioning.}
+\talknote{Spectral structure; 90 seconds.}{Adding the two normal equations eliminates coupling; subtracting them adds 2 gamma to the temporal precision. The orthonormal transform makes this exact and preserves Euclidean condition numbers. For scalar regularization, K has smallest eigenvalue lambda squared and largest g\_max+lambda squared, so the displayed formula is exact.}{Coupling increases the largest curvature but does not repair the common constant baseline mode, so the full-space condition number rises with gamma at fixed lambda. Unequal weights do not admit this simple block diagonalization. The mean-zero restriction avoids the baseline mode for structured perturbations, but full-space conditioning remains relevant to unstructured numerical errors; see backup.}
+\end{frame}
+
+\begin{frame}{Profile out the latent variables to see what disparity compares}
+In the unweighted model, let $\K=\A^\top\A+\Lam^\top\Lam$ and
+\[m(\mathbf y)=\frac12\mathbf y^\top(\mathbf I-\A\K^{-1}\A^\top)\mathbf y.\]
+The exact minimized candidate cost is
+% source: Ch. 4 lem:matching_cost_closed_form; delta=A^T(y_L-y_R).
+\[C(d)=m(\yL)+m(\yR(d))+
+\frac14\boldsymbol\delta_d^\top\left[\K^{-1}-(\K+2\gamma\mathbf I)^{-1}\right]\boldsymbol\delta_d,
+\quad\boldsymbol\delta_d=\A^\top(\yL-\yR(d)).\]
+\begin{itemize}
+\item The final term measures left--right discrepancy.
+\item The right monocular cost also changes with the candidate.
+\end{itemize}
+\takeaway{The minimized regularized energy is more than a correspondence discrepancy.}
+\src{Ch. 4, lem:matching\_cost\_closed\_form, prop:global\_opt\_unweighted. Equal fixed weights admit a scaled analogue.}
+\talknote{Profiled cost; 90 seconds.}{Complete the square in the stacked latent variables: the minimum equals ||y|| squared over two minus h\textasciicircum{}T M\textasciicircum{}{-1} h over two. Use the sum--difference transform and the parallelogram identity to separate the independent monocular costs from the coupling discrepancy. The discrepancy matrix is PSD because the inverse difference is 2 gamma K\textasciicircum{}{-1}(K+2 gamma I)\textasciicircum{}{-1}.}{An exact winner of these unweighted, unaggregated profiled costs also minimizes the corresponding joint latent/disparity objective; it has no physical-correctness guarantee. For fixed common $\Lam,\gamma$ and unit observation noise, an ideal Gaussian model with latent prior precision $\mathbf M_0=\left(\begin{smallmatrix}\Lam^2+\gamma I&-\gamma I\\-\gamma I&\Lam^2+\gamma I\end{smallmatrix}\right)$ gives profiled $C_\gamma(y)$ as $-\log p_\gamma(y)$ up to a candidate-independent constant. Its linear conditional prediction is $\mathbf c=\mathbf P^{-1}\mathbf T\mathbf y_L$; scalar-$\Lam$ modes are attenuated. This is not disparity MAP or a consistency guarantee.}
+\end{frame}
+
+\begin{frame}{A perfect correspondence need not have the lowest cost}
+% source: Ch. 4 sec:identifiability, prop:attenuation_bias, rem:selection_modal; exact two-sample example.
+Take $\A=[-1,1]$, $\Lam=\mathbf I$, $\gamma=1$, $y_L=1$, and $y_R=b$.
+\begin{columns}[c]
+\column{.52\textwidth}
+% source: Ch. 4 lem:matching_cost_closed_form and rem:selection_modal; m=1/6, D=1/15.
+\[C(b)=\frac{1+b^2}{6}+\frac{(1-b)^2}{15}.\]
+\begin{tikzpicture}
+\begin{axis}[width=6.8cm,height=3.3cm,xmin=0,xmax=1.2,ymin=.18,ymax=.43,xlabel={Right-profile scale $b$},ylabel={Minimized cost},label style={font=\scriptsize},tick label style={font=\scriptsize},xtick={0,.5,1},ytick={.225,.333333}]
+\addplot[teal,thick,domain=0:1.2,samples=60]{(1+x^2)/6+(1-x)^2/15};
+% source: same exact example: C(1/2)=9/40, C(1)=1/3.
+\addplot[only marks,amber,mark=*] coordinates {(.5,.225) (1,.3333333333)};
+\end{axis}
+\end{tikzpicture}
+\column{.44\textwidth}
+% source: Ch. 4 sec:identifiability, exact minimized candidate costs.
+% source: Ch. 4 prop:attenuation_bias; exact two-sample example, b*=D/(m+D)=2/7.
+Let $D$ denote the discrepancy term in the preceding profiled-cost formula.
+\[C(1)=\frac13,\qquad C\!\left(\frac12\right)=\frac9{40}<\frac13.\]
+\[b^*=\frac{D(y_L)}{m(y_L)+D(y_L)}=\frac27.\]
+An attenuated wrong candidate beats the exact match if both are available.
+\end{columns}
+\takeaway{Inner uniqueness, distinct observations, and correct correspondence are separate claims.}
+\src{Ch. 4, prop:attenuation\_bias, sec:identifiability. Unweighted cost before aggregation.}
+\talknote{Counterexample; 90 seconds.}{The example has just two temporal latent samples, so one signed difference observation per view. For each b the objective is a strictly convex quadratic and is minimized exactly. Nevertheless the perfect right observation b=1 has greater cost than b=1/2 because attenuation reduces the right monocular penalty enough to offset the discrepancy.}{The result does not say the evaluated weighted algorithm always picks an attenuated match. It is a rigorous counterexample to deducing correct correspondence from the unweighted inner convexity theorem. In general C(b)=(1+b\textasciicircum{}2)m(y\_L)+(1-b)\textasciicircum{}2 D(y\_L), so C'(1)=2m(y\_L)>0 for a nonzero observation and positive regularization.}
+\end{frame}
+
+\begin{frame}{Correct disparity needs a separation condition}
+\small
+Write the unweighted cost as
+\[C(d)=m(\yL)+m(\mathbf y_d)+D(\yL-\mathbf y_d),\qquad D(\mathbf e)\ge0.\]
+\begin{block}{A sufficient correct-selection theorem}
+On a finite candidate set, suppose $\mathbf y_{d_*}=\yL$, the positive regularizer is common to both views and all candidates, and $\gamma>0$ is candidate-independent.
+If every competitor has
+\[\mathbf y_d\ne\yL\quad\text{and}\quad m(\mathbf y_d)\ge m(\yL),\]
+then $C(d)>C(d_*)$: the correct candidate is the unique winner.
+\end{block}
+\takeaway{The discrepancy must overcome candidate-dependent monocular bias. Stronger metric-separation criteria are also available.}
+\src{Ch. 4, prop:correct\_selection(b1); additional criterion in backup.}
+\talknote{Selection theorem; 75 seconds.}{Under gamma>0 and full row rank of the temporal difference matrix, the discrepancy quadratic D is positive definite on the observation space. Subtract C(d*)=2m(y\_L) from C(d). The monocular difference is nonnegative by assumption, and D is strictly positive for a distinct observation. Every competitor therefore loses.}{This is sufficient, not necessary. The theorem's second separation criterion handles competitors with lower monocular costs if they are far enough away in the induced metric. Both statements assume ideal equal profiles at the physical match and concern unweighted candidate-local costs before masking or aggregation. They do not assert these conditions hold on the experimental sequences.}
+\end{frame}
+
+\begin{frame}{A winning margin turns cost stability into selection stability}
+For a fixed finite set of at least two candidates with a unique winner $d_*$, define
+\[\Delta=\min_{d\ne d_*}\bigl(C(d)-C(d_*)\bigr)>0.\]
+If $|\widetilde C(d)-C(d)|\le\eta$ for all candidates, including $d_*$, then every $d\ne d_*$ satisfies
+% source: Ch. 4 cor:selection_robust, abstract winning-margin bound.
+\[\widetilde C(d)-\widetilde C(d_*)\ge\Delta-2\eta>0\qquad\text{when }\eta<\Delta/2.\]
+\begin{block}{A non-identifiability example}
+Two candidates with identical right-view profiles have identical local costs when the candidate procedures and parameters coincide.
+\end{block}
+\takeaway{Temporal activity alone cannot guarantee correspondence separation.}
+\src{Ch. 4, cor:selection\_robust, prop:disparity\_nonidentifiability.}
+\talknote{Stability and ambiguity; 75 seconds.}{A competitor's score may move down by eta while the winner's moves up by eta, so half the original margin is the sharp elementary threshold for this bound. The observation-based specialization is in the backup. This bridges continuous coefficient/data stability and the discrete argmin decision.}{For fixed parameters, the negative log coupled-versus-independent Gaussian likelihood ratio equals the discrepancy $D=C_\gamma-C_0$ up to candidate-independent determinant terms. The discrepancy $D$ alone favors an ideal identical profile over distinct competitors when $\gamma>0$ and $A$ has full row rank; this is an unevaluated alternative comparison, not a new result here. Coincident right profiles still tie under identical local procedures, though spatial aggregation can create contextual differences; keep this local observation scoped to local costs.}
+\end{frame}
+
+\begin{frame}{Heteroscedastic weights: statistical motivation and scope}
+As a working raw-count model,
+\[N_+\sim\operatorname{Poisson}(\theta_+),\qquad N_-\sim\operatorname{Poisson}(\theta_-),\]
+independently. For $b=N_+-N_-$,
+\[\mathbb Eb=\theta_+-\theta_-,\qquad\operatorname{Var}(b)=\theta_++\theta_-.\]
+\[|\theta_+-\theta_-|\le\theta_++\theta_-,\quad\text{with equality iff at least one rate is zero.}\]
+The evaluated reciprocal proxy is
+\[W_{ii}^{(k)}=\frac1{|(\A\mathbf f^{(k)})_i|+\varepsilon_{\rm noise}},\qquad\varepsilon_{\rm noise}>0.\]
+\takeaway{Net rate does not determine total variance. The processed-data weights define a frozen Gaussian surrogate.}
+\src{Ch. 4, def:skellam\_surrogate and following scope discussion.}
+\talknote{Weight motivation; 75 seconds.}{The difference of independent Poisson counts is Skellam. In a high-count regime, a Gaussian approximation motivates weighted least squares with an inverse-variance weight. But the raw variance is the sum of polarity rates while the mean is their difference. A net-rate-dependent variance is an added approximation, not a consequence of Skellam moments.}{Furthermore the actual observations are real signed masses after warp, downsampling, and normalization, not untouched integer Poisson counts. The weighting proxy is evaluated at the preceding state and then frozen. Its reciprocal form downweights high predicted activity relative to low activity. The matched experiment will support this specific rule empirically without elevating it to maximum likelihood.}
+\end{frame}
+
+\begin{frame}{IRLS: fixed-point existence and conditional convergence}
+\small
+Fix $d$, $\Lam$, and $\gamma$; stack $\mathbf y=(\yL,\yR)$. Let $\Phi(\mathbf g)$ minimize the quadratic with weights frozen at $\mathbf g$.
+For the \emph{unclipped reciprocal map}, set $\ell=\lambda_{\min}^2>0$:
+\[\norm{\Phi(\mathbf g)}^2\le\frac{\norm{\mathbf y}^2}{\ell\,\varepsilon_{\rm noise}}.\]
+A sufficiently large closed ball is invariant; continuity and Brouwer give a fixed point.
+\begin{block}{Sufficient convergence condition}
+\[q=\frac{\norm{\A}_2\norm{\mathbf y}}{\sqrt\ell\,\varepsilon_{\rm noise}^{3/2}}<1
+\quad\Rightarrow\quad\text{unique fixed point and geometric convergence}.\]
+For fixed damping $\omega\in(0,1]$, the bound is $q_\omega=1-\omega+\omega q$.
+\end{block}
+\takeaway{A fixed point exists; convergence follows under the displayed sufficient condition.}
+\src{Ch. 4, lem:fixed\_point\_existence, prop:irls\_contraction, sec:irls\_scope.}
+\talknote{IRLS analysis; 90 seconds.}{Compare the frozen minimizer's objective value with the value at zero. The regularizer bounds the squared norm from below, while reciprocal weights are uniformly bounded above by 1/epsilon. Thus every closed ball with radius $R\ge\norm{\mathbf y}/\sqrt{\ell\varepsilon_{\rm noise}}$ is invariant. The weights are continuous and frozen matrices remain SPD, so $\Phi$ is continuous. Brouwer proves a fixed point.}{A sharper difference-of-normal-equations argument gives the Lipschitz constant q. If q<1, Banach supplies uniqueness and convergence. This sufficient condition is not certified at reported parameters; the evaluated stopping and acceptance rules are additional steps. Damping preserves fixed points, but the stated upper bound does not prove damping helps when q>=1. A fixed point need not minimize the state-dependent score or a Gaussian likelihood.}
+\end{frame}
+
+
+
+\begin{frame}{Stereo benchmark: read accuracy alongside scored coverage}
+\small MVSEC indoor flying; raw outputs, including finest-level score interpolation.
+\renewcommand{\arraystretch}{1.25}
+\begin{center}\begin{tabular}{lrrrrrr}
+\toprule & \multicolumn{4}{c}{Mean depth error (cm) $\downarrow$}&log RMSE&Scored\\
+Method & Fl1&Fl2&Fl3&Fl4&$\times100\;\downarrow$&points (M)\\\midrule
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, control row.
+Unweighted control&140.23&115.40&142.35&113.00&96.18&1.43\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, sgm row.
+Unweighted SGM&83.45&72.90&85.33&71.62&50.55&2.39\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, wls row.
+\textbf{Soft-coupled WLS}&73.83&\textbf{58.35}&70.33&59.24&\textbf{44.54}&2.66\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Piatkowska row.
+Piatkowska adaptation&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1.20\\\bottomrule
+\end{tabular}\end{center}
+% source: appendix_bodies/ch4_protocol.tex tab:metrics, per-method population P_m,s.
+\small Each method is scored on its own finite estimates and ground truth in $[0.5,8]$ m. Point counts are summed across sequences; log RMSE is averaged across sequences.
+\takeaway{WLS is competitive with a larger scored population. This table does not compare accuracy on a common pixel set.}
+\src{Appendix, tab:unified\_benchmark, tab:metrics; external rows are local adaptations.}
+\talknote{Primary stereo results; 90 seconds.}{Introduce only the columns shown. Mean absolute depth error is in centimeters separately for each sequence. The displayed log RMSE is one hundred times the base metric, then averaged equally over sequence-level values. Point counts sum scored pixels across sequences. Piatkowska's local adaptation leads on most error metrics in the full dissertation table; WLS leads on Flying 2 and narrowly on log RMSE.}{The valid set differs by method. Both estimates and ground truth must be in the reporting depth band. A method can return many finite depths but have fewer in-band scored points. Complete configurations also differ in normalization, regularization, guidance, and final activity masking. No uncertainty intervals or independently recovered historical sampling manifest are provided, so report descriptive comparisons and keep claims conditional.}
+\end{frame}
+
+\begin{frame}{A matched ablation supports the selected weighting rule}
+\small
+Compare reciprocal versus rate-proportional weights while holding the remaining configuration fixed.
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lrrrr}\toprule & Flying 1&Flying 2&Flying 3&Flying 4\\\midrule
+% source: appendix_bodies/ch4_protocol.tex sec:success_wls, matched common-set weighting-rule reanalysis.
+Mean-error reduction (cm)&4.96&8.54&2.90&5.56\\\bottomrule
+\end{tabular}
+\end{center}
+The reciprocal rule improved every reported metric on every sequence in this common-set comparison.
+\begin{block}{Scope of this evidence}
+Both methods use their common valid pixel set. This is a reanalysis of the same benchmark run, and the rule was selected on these sequences.
+\end{block}
+\takeaway{A controlled weighting comparison supports the chosen rule; it does not validate the variance proxy or isolate all configuration improvements.}
+\src{Appendix, sec:success\_wls.}
+\talknote{Stronger empirical evidence; 60 seconds.}{This comparison is more focused than the control-versus-WLS benchmark. The same precision and configuration are used and scoring is restricted to the intersection of valid pixels. Thus it directly compares the two weighting rules, conditional on that population. The improvement numbers differ from subtracting the method-specific benchmark rows because the populations differ.}{The reciprocal rule was chosen using these sequences, so it is not a held-out validation result. No claim of maximum likelihood follows from empirical performance. A later controlled experiment could compare against truly homoscedastic weights under the same preprocessing, regularizer, and validity rules.}
+\end{frame}
+
+\begin{frame}{Hard fusion changes both the constraint and the regularization}
+Joint intensity fusion (JIF) imposes $\fL=\fR=\mathbf v$ and solves
+\[(2\A^\top\W\A+\Lam^2)\mathbf v=\A^\top\W(\yL+\yR).\]
+For fixed equal weights, the unchanged soft model has the limit
+\[\gamma\to\infty:\qquad\fL,\fR\to(\A^\top\W\A+\Lam^2)^{-1}\frac12\A^\top\W(\yL+\yR).\]
+% source: chapterFour.tex prop:jif_relation; JIF equation divided by two.
+JIF instead uses $\A^\top\W\A+\tfrac12\Lam^2$ after dividing its equation by two.
+% source: chapterFour.tex sec:jif_negative_result; means over tab:unified_benchmark Fl1--Fl4.
+\takeaway{Reported mean depth errors: JIF $102.10$ cm; soft WLS $65.44$ cm. Hard equality, regularization, weights, iteration budgets, and scored populations differ.}
+\src{Ch. 4, prop:jif\_relation, sec:jif\_negative\_result.}
+\talknote{Fusion result; 75 seconds.}{Set the two profiles equal in the soft energy: its two magnitude penalties add to ||Lambda v|| squared. The implemented JIF uses only half that penalty. Hence its reduced system is not simply the infinite-gamma limit with unchanged regularization. Divide its system by two to expose the effective half squared regularizer.}{The mean of the soft model is already a fused profile, as the sum equation shows. Therefore saying that averaging destroys contrast is not an established explanation for the JIF performance gap. The experiments compare complete configurations with different shared weights, maximum iteration counts, and scored populations. The counterfactual effect of hard equality alone remains to be isolated.}
+\end{frame}
+
+\section{Contributions and next questions}
+\begin{frame}{What is proved, and what remains a modeling question}
+\footnotesize\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{5.1cm}>{\raggedright\arraybackslash}p{4.8cm}}\toprule
+Problem & Established mathematical result & Additional physical / algorithmic question\\\midrule
+Temporal & Unique fixed-weight minimizer and perturbation bounds & Absolute baseline; adaptive-weight stability\\
+Quadratic flow & $H^1$ well-posedness; coefficient stability; scoped graph convergence & Representation accuracy and motion boundaries\\
+Contrast max. & Global minimizer exists with coefficient ridge & Nonconvex optimizer convergence and selection\\
+Stereo & Frozen SPD solves; fixed-point existence; conditional contraction; ideal selection margins & Full IRLS stopping rules; weighted, aggregated correspondence\\\bottomrule
+\end{tabular}
+\takeaway{Regularization makes an estimator determinate under stated hypotheses. Physical identifiability remains a separate requirement.}
+\src{Ch. 5, tab:contribution\_matrix.}
+\talknote{Contributions; 75 seconds.}{Recap the mathematical content rather than the implementation chronology. The temporal null mode is selected by a penalty. Spatial smoothness and integrated directional data make the flow energy coercive. Stereo requires both a well-posed latent solve and a sufficiently separated candidate comparison. Contrast maximization uses finite-dimensional compactness because it falls outside the quadratic theory.}{Position the originality accurately: the functional-analytic tools are classical; the dissertation organizes event-derived models under explicit hypotheses and derives the coupling, conditioning, bias, and selection consequences. The table is a useful reference when the committee asks exactly which theorem applies to the full procedure.}
+\end{frame}
+
+\begin{frame}{Next questions follow directly from the proved bounds}
+\begin{enumerate}
+\item \textbf{Quantify the represented observation error.}\par
+Separate timestamp estimation, binning, smoothing, and sensor uncertainty.
+\item \textbf{Close the adaptive-estimator gap.}\par
+Analyze weight recomputation, stopping rules, and cost perturbations together.
+\item \textbf{Extend correspondence separation.}\par
+Move from ideal unweighted costs to weighted and aggregated costs.
+\item \textbf{Test modeling choices under matched conditions.}\par
+Use common pixel populations, controlled fusion, and event-active residual diagnostics.
+\end{enumerate}
+\src{Ch. 5, Future Directions; Ch. 3 residual diagnostic; Ch. 4 selection and IRLS scope.}
+\talknote{Research directions; 60 seconds.}{Tie each direction to an existing mathematical quantity: coefficient perturbation norms for flow, Lipschitz constants for weights, a winning margin for correspondence, and identifiable experimental controls for model comparison. Characterize residuals on event-active pixels before choosing a heavy-tail penalty; pooled zeros alone can inflate kurtosis.}{A promising extension is a fixed uniformly elliptic diffusion tensor selected by a higher-level procedure, retaining a common ellipticity floor during each inner flow solve. Optimal transport between event measures is a broader option that would require explicit polarity handling, a ground cost, and a mass convention. Keep those larger changes for discussion if time is short.}
+\end{frame}
+
+\begin{frame}{From event changes to well-posed estimators}
+\vspace{4mm}
+\Large
+\textbf{Temporal:}\quad control an unobserved baseline.\par\vspace{6mm}
+\textbf{Spatial:}\quad combine directional constraints globally.\par\vspace{6mm}
+\textbf{Binocular:}\quad separate inner uniqueness from correspondence.\par
+\vspace{7mm}
+\large The common mathematical question is:\par\medskip
+\textcolor{teal}{\textbf{Which directions do the observations control, and which are selected by the model?}}
+\vfill\normalsize Thank you.\hfill Discussion and additional proofs follow.
+\talknote{Close; 30 seconds.}{Return to the opening question. The dissertation gives a route from sparse asynchronous changes to deterministic estimators, and makes explicit the conditions under which each mathematical guarantee holds.}{Stop here for committee questions. The appendix is organized by theorem mechanism and anticipated question; it is not part of the timed core talk.}
+\end{frame}

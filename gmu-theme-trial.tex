@@ -1,0 +1,65 @@
+% TRIAL ONLY (2026-10-04): defense.tex preamble with the CMAI/GMU beamer theme. Pending adviser input; see NEXT_SESSION.txt.
+% Build from defense/: latexmk -pdf -outdir=build gmu-theme-trial.tex
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,bm,booktabs,mathtools,array}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\pgfplotsset{compat=1.18}
+\graphicspath{{../}{./}}
+\pdfstringdefDisableCommands{\def\translate#1{#1}}
+\usepackage{mybeamertheme_light}
+\usecolortheme{CMAI}
+% keep the deck's palette names so TikZ/pgfplots figures follow the theme
+\colorlet{ink}{black}
+\colorlet{teal}{GMUgreen}
+\colorlet{amber}{darkgold}
+\colorlet{soft}{lightgreen}
+\definecolor{muted}{HTML}{5A5A5A}
+\setbeamercolor{frametitle}{fg=GMUgreen,bg=white}
+\setbeamercolor{block title}{fg=white,bg=GMUgreen}
+\setbeamercolor{block body}{fg=black,bg=lightgreen}
+\setbeamercolor{itemize item}{fg=GMUgreen}
+\setbeamercolor{enumerate item}{fg=GMUgreen}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setbeamertemplate{frametitle}{\vspace{2mm}\insertframetitle\par\vspace{1mm}\textcolor{GMUgold}{\rule{\textwidth}{1pt}}}
+\newif\ifbackup
+\backupfalse
+\newcommand{\MainFrames}{40}
+\newcommand{\R}{\mathbb R}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\A}{\mathbf A}
+\newcommand{\B}{\mathbf B}
+\newcommand{\K}{\mathbf K}
+\newcommand{\M}{\mathbf M}
+\newcommand{\W}{\mathbf W}
+\newcommand{\Lam}{\bm\Lambda}
+\newcommand{\vct}{\mathbf v}
+\newcommand{\fL}{\mathbf f_L}
+\newcommand{\fR}{\mathbf f_R}
+\newcommand{\yL}{\mathbf y_L}
+\newcommand{\yR}{\mathbf y_R}
+\newcommand{\takeaway}[1]{\vspace{1.5mm}\begin{beamercolorbox}[sep=1.6mm,wd=\textwidth]{block body}\small\textbf{Takeaway.} #1\end{beamercolorbox}}
+\newcommand{\src}[1]{\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Dissertation: #1\par}}
+\newcommand{\panel}[3]{\begin{minipage}{#1\textwidth}\centering\includegraphics[width=\linewidth,height=3.1cm,keepaspectratio]{#2}\par\vspace{1mm}{\small #3}\end{minipage}}
+% Presenter commentary is embedded beside each frame and hidden in the audience edition.
+\newcommand{\talknote}[3]{\note{\raggedright\textbf{Slide \insertframenumber. Purpose / pace:} #1\par\medskip\textbf{Talking points:} #2\par\medskip\textbf{Explanation / transition:} #3\par}}
+\ifdefined\DefenseNotes
+  \setbeameroption{show only notes}
+  \setbeamertemplate{note page}[compressed]
+\else
+  \setbeameroption{hide notes}
+\fi
+\title[Variational Approaches for Event-Based Vision]{Variational and Optimization-based Approaches\\for Event-Based Vision Applications}
+\subtitle{From unobserved modes to well-posed estimators}
+\author[Daniel Blauvelt]{Daniel Blauvelt}
+\institute{Department of Mathematics\quad\textbullet\quad George Mason University\\Dissertation Director: Harbir Antil}
+\date[Defense, Fall 2026]{Dissertation Defense\quad\textbullet\quad Fall 2026}
+\hypersetup{pdftitle={Daniel Blauvelt — Dissertation Defense},pdfauthor={Daniel Blauvelt},colorlinks=true,linkcolor=teal}
+\begin{document}
+\input{core.tex}
+\appendix
+\backuptrue
+\section{Discussion and additional proofs}
+\input{backup.tex}
+\end{document}

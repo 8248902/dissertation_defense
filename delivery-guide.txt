@@ -1,0 +1,198 @@
+DISSERTATION DEFENSE — DELIVERY AND EDITING GUIDE
+Daniel Blauvelt | updated 2026-10-03
+
+OPEN THESE FILES
+  defense.pdf          Audience edition: 40 timed core slides + 37 discussion pages.
+  defense-notes.pdf    Matching speaker pages, with thumbnail, pacing, proof
+                       explanations, and transitions.
+  defense.tex          Style, title, notation, and compilation switches.
+  core.tex             Timed talk. Each frame has a three-part \talknote comment.
+  backup.tex           Committee questions and additional derivations.
+  update_metadata.py   Regenerates slide source navigation and the current hash
+                       manifest after source edits.
+  source-map.csv       Slide-by-slide manuscript labels, theorem numbers, pages,
+                       and numerical provenance.
+  review-validation-2026-10-03.txt
+                       Disposition and corrections for the October 3 review.
+  math-review.txt      Original October 2 mathematical review.
+  slide-audit.txt      Original October 2 presentation audit.
+  validation.json      Dated build, source, figure, and note checks; check that
+                       its page counts include the current appended questions.
+  NEXT_SESSION.txt     Handoff notes for the next agent/session.
+  source-snapshot.sha256  Input hashes; verify from the dissertation directory.
+
+THE STORY
+  Events report changes, so the observations leave directions of the unknown
+  uncontrolled. A temporal penalty selects a baseline. Spatial smoothness
+  controls flow fluctuations, while integrated directional data control the
+  mean. A fixed-motion SAR model bridges temporal reconstruction to flow by
+  linking per-frame changes to one scene. Stereo adds another question: a
+  unique latent solve does not ensure the correct correspondence. The profiled
+  cost exposes that distinction.
+
+  Introduce the threshold diagram before inverse-problem notation. Define
+  optical flow as apparent image-plane velocity, a time surface as crossing
+  time, a voxel as a spatial-temporal bin, and disparity as a horizontal offset.
+  The talk assumes familiarity with linear algebra and variational analysis,
+  rather than familiarity with event cameras or computer-vision algorithms.
+
+FULL CORE: ABOUT 50–52 MINUTES INCLUDING TRANSITIONS
+  The 40 speaker-note targets add to 49 minutes 15 seconds. Allow another
+  30–150 seconds for slide changes and short transitions. This is a target
+  calculated from the current note durations, not a measured rehearsal time or
+  confirmed departmental limit.
+  The scheduled defense block is two hours. The exact split between the talk
+  and committee questions has not been confirmed.
+
+  Slides 1–5:    opening, sensor, representation, and roadmap (4m 30s)
+  Slides 6–10:   temporal model, theorem, lambda selection, and bilevel comparison (7m)
+  Slides 11–24:  shared-scene bridge and optical flow (17m 30s)
+  Slides 25–37:  stereo model, selection, IRLS, and results (17m 30s)
+  Slides 38–40:  contributions, next questions, and close (2m 45s)
+
+  Protect slide 19's mean/fluctuation proof and slide 30's explicit stereo
+  counterexample. Slide 11 bridges the temporal and spatial arguments. Introduce
+  contrast maximization on slide 22 before its existence proof and examples.
+  Slide 37 completes the synthesis story; keep it in the full route, with an
+  optional cut in a shorter route. On empirical slides, explain axes, units,
+  and the scored population before describing the result.
+
+  Slide 9 explains the selected sigmoid rule and its empirical motivation;
+  all three formulas remain on page 60. Slide 10 connects to Antil--Sayre's
+  frame-assisted bilevel inverse problem. Its outer variable is the event
+  threshold, not Chapter 2's regularization weights. Reported comparison
+  numbers use different input information and do not establish a universal
+  advantage. The former core spectrum and kernel-evidence slides are now
+  discussion pages 76 and 77; all earlier discussion page numbers are intact.
+
+45-MINUTE ROUTE
+  First cut slide 14 (timestamp regression, 1m 15s), then
+  slides 21 (discrete graph theorem, 1m 15s) and 37 (JIF, 1m 15s). Shorten
+  slides 9, 10, and 15 by a combined 90 seconds. This removes 5m 15s from the
+  49m 15s note total, leaving 44 minutes for the notes and about one minute
+  for transitions. JIF remains in the full core as an optional cut. Keep the
+  main flow proof and explicit stereo example.
+
+60-MINUTE ROUTE
+  Present the full core (49m 15s of note targets), then spend up to nine minutes
+  on questions using the discussion pages. Useful routes include pages 42–45
+  for temporal null spaces and the full kernel comparison; slide 8's notes give
+  the sharper temporal perturbation bound. Pages 46–52 cover flow proofs and
+  mean-zero conditioning, pages 53–56 cover disparity separation and IRLS, and
+  pages 62–65 cover the qualified H1/TV discussion, the non-MM explanation,
+  the Gaussian interpretation, and the implementation layers.
+  Choose pages in response to the question rather than attempting the entire
+  discussion section.
+
+30-MINUTE EMERGENCY ROUTE
+  Keep the opening, temporal theorem and proof, SAR bridge, central flow theorem
+  and proof, contrast-maximization existence result, and stereo selection arc.
+  First omit slide 14 (regression) and slide 37 (JIF), then omit slide 21
+  (discrete graph theorem), slide 28 (sum/difference spectrum), and slide 32
+  (selection stability). Shorten the sensor primer and empirical comparisons;
+  give only the takeaways for slides 13 and 39. This is a compressed rehearsal
+  route, not a verified 30-minute script; the listed remaining note targets
+  still exceed 30 minutes. Rehearse and remove further detail to meet a strict
+  limit.
+
+QUICK COMMITTEE NAVIGATION — PDF PAGE NUMBERS
+  41  Discussion guide / appendix index
+  42  Must every temporal penalty entry be positive?
+  43  The event measure has a jump primitive
+  44  Latent-signal gain and observation-noise gain are different
+  45  Kernel performance depends on the scene and adaptive weights
+  46  The weak equation supplies the natural boundary condition
+  47  Why block-Jacobi converges for this graph model
+  48  Anisotropy needs a uniform ellipticity floor
+  49  A variable diffusion tensor must stay inside the divergence
+  50  The regression radius formula is a heuristic
+  51  Uniform projection and OLS slope need not be transport partners
+  52  Mean-zero conditioning removes the unobserved mode
+  53  The selection theorem has an exact ellipsoid interpretation
+  54  An observation perturbation bound can protect a disparity winner
+  55  How the reciprocal IRLS contraction bound is obtained
+  56  A converged frozen-weight iteration need not be maximum likelihood
+  57  What the implemented IRLS procedure returns
+  58  Depth evaluation distinguishes returned coverage and scored coverage
+  59  Pooled kurtosis does not establish heavy-tailed active errors
+  60  Adaptive temporal weights are fixed in the theorem
+  61  Qualitative real-data flow example
+  62  Quadratic H1 regularization and TV answer different questions
+  63  Frozen prediction weights are not generally an MM majorizer
+  64  A Gaussian model gives an evidence interpretation of attenuation
+  65  The implemented estimator has several distinct layers
+  66  What does the dissertation contribute mathematically?
+  67  Literature anchors and where to find the claims
+  68  Stable estimates can still have regularization bias
+  69  The physical event stream loses more than one baseline
+  70  Integrated directional information is necessary for uniqueness
+  71  Coefficient stability is one stage of event-to-flow stability
+  72  Refinement requires a choice of continuum scaling
+  73  Strong smoothness selects one constant flow
+  74  Transporting a scalar differs from conserving a density
+  75  Correlation changes uncertainty without removing coercivity
+  76  What the penalty does to temporal information (former core slide 9)
+  77  Temporal evidence: structure without an absolute baseline (former core slide 10)
+
+MATHEMATICAL PRESENTATION CHOICES
+  A always denotes the unscaled temporal first difference. The flow data matrix
+  is B (A_data in the dissertation). State fixed-weight hypotheses before
+  showing normal equations. Separate coefficient stability from physical-motion
+  accuracy, and local candidate selection from the complete spatially aggregated
+  stereo estimator.
+  The flow theorem needs integrated positive definiteness, not full rank at
+  every pixel. The proof gives a quantitative coercivity bound. Contrast
+  maximization has a finite-dimensional existence result, not a convergence
+  guarantee for the local solver. The SAR kernel can contain other invariant
+  scene modes; do not claim they always occur.
+  The gamma/conditioning equality assumes equal blocks and scalar
+  regularization. Exact stereo profiling and selection concern the unweighted,
+  candidate-local model. Brouwer gives an IRLS fixed point; Banach adds
+  convergence only under a sufficient condition. No candidate-specific
+  normalized data norm is available to certify that condition for the runs.
+  Ch. 2 leaves a separate additive temporal offset at each pixel. The historical
+  PSNR normalization and alignment were not recovered, so do not claim that a
+  global image normalization resolves this per-pixel null space. The known-motion
+  figures establish that the time-surface output is zero in the shown scenes;
+  available staged artifacts do not establish why.
+
+REVIEW AND VALIDATION SCOPE
+  review-validation-2026-10-03.txt records the accepted recommendations and
+  corrections, including the sharper temporal perturbation bound, corrected
+  flow-coercivity interpretation, source limitations, and qualified Gaussian,
+  BV/TV, and MM discussions. The Gaussian interpretation is for a fixed common
+  model; it is not a disparity MAP result. The H1 theorem does not transfer to
+  an arbitrary TV energy, and the frozen-weight iteration is not generally an
+  MM majorizer.
+  math-review.txt and slide-audit.txt preserve the original October 2 audits.
+  They are historical records and do not certify the October 3 additions.
+  The October 3 review-validation file covers the math-review edits, while the
+  eight questions on pages 68–75 were appended afterward. The review-validation
+  file also records the later lambda/bilevel follow-up on core slides 9–10.
+  Read validation.json
+  and confirm its page counts before treating the latest edition as verified.
+
+EDIT AND REBUILD
+  From the dissertation directory:
+    make -C defense
+  Requires latexmk, a TeX installation with Beamer/TikZ/pgfplots, and the existing
+  repository figures. Both root PDFs are refreshed by make. If the core slide
+  count changes, update MainFrames in defense.tex. Preserve immediate
+  % source: comments when editing numerical results.
+  After source edits, regenerate source-map.csv and the current manifest from
+  any working directory with:
+    python3 defense/update_metadata.py
+  This leaves source-snapshot-2026-10-02.sha256 intact.
+  After editing the deck, run the portfolio check:
+    bash /home/q/g/r/drafts/check-ci.sh
+  To check the manuscript input snapshot from the dissertation directory:
+    sha256sum -c defense/source-snapshot.sha256
+
+VALIDATION
+  Both 77-page editions (40 core, 37 discussion) compile without layout or
+  reference warnings. Revised pages 7, 9–10 and relocated pages 76–77 were
+  visually inspected in both editions. All 77 speaker-note sections/endings
+  pass: 72 unaffected notes retain their previous text, two relocated notes
+  retain theirs, and three revised endings were checked. Source/figure checks
+  and all 32 input hashes pass; the portfolio retains three pre-existing stale
+  figure-baseline warnings. See validation.json for artifact hashes and scope.

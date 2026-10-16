@@ -1,0 +1,127 @@
+Mathematical review record, 2026-10-02.
+All required hypothesis corrections and the three minor backup precision edits were applied to the delivered presentation. Line references below describe the review snapshot; use source-map.csv for the final slide locations. This record does not independently reproduce the historical experiments.
+
+# Defense slide mathematical and claim-scope audit
+
+Reviewed `/home/q/g/r/drafts/dissertation_thesis/defense/core.tex` and `defense.tex` on 2026-10-02 against the current local dissertation. No presentation or manuscript sources changed. Backup review will be appended when the file is available. Line pointers below refer to the draft version read; exact phrases and frame titles identify targets after edits.
+
+## Verdict on the core
+
+The 40-slide narrative is mathematically coherent and unusually careful about the difference between a uniquely selected estimator and physical identifiability. The main derivations, displayed numerical claims, stereo counterexample, and JIF comparison agree with current dissertation sources. Two missing-hypothesis issues should be repaired before considering the deck mathematically complete. Several short clarifications will make the theorem slides safe when viewed independently.
+
+## Required corrections
+
+### A1. Regression bias bound needs common-mean noise
+
+Target: `core.tex:209–214`, frame “Estimating a time-surface gradient: a bias–variance tradeoff.”
+
+The slide assumes independent equal-variance timestamp errors, but its bias bound omits their means. Independence and equal variances alone allow spatially varying error means. In that case the slope bias gains `Q^{-1} Σ_j z_j E[n_j]`, which is not bounded by the displayed Hessian remainder. The source proposition assumes i.i.d. noise and explicitly permits a **common** mean, which symmetry removes.
+
+Suggested replacement: “For a centrally symmetric full-rank design and independent errors with common mean and finite variance σ²…” State that the true timestamp surface is C² with L_H-Lipschitz Hessian on a neighborhood containing the sample disk/segments. The quantitative bound and covariance are otherwise correct. The takeover sentence should preferably say “A larger nested neighborhood reduces variance…” because arbitrary larger-radius nonnested sample choices need not increase the design matrix in PSD order.
+
+Source: `shared_bodies/ch3_eb_hs_of_body.tex:156–204`, `prop:ts_regression_bound`, particularly D1/D2 and part (iv).
+
+### A2. State all discrete graph hypotheses
+
+Target: `core.tex:306–317`, frame “Discrete flow: connectivity and sampled directions matter.”
+
+As written “symmetric weighted graph” does not assert nonnegative weights, and “connected” permits a one-vertex graph with zero degree. The theorem also uses PSD data blocks and α>0 inherited from the preceding continuous section. Make them visible in this theorem:
+
+“Let α>0, q_i>0, B_i=B_iᵀ≽0, and let w_ij=w_ji≥0 define a connected graph with d_i=Σ_j w_ij>0.”
+
+Then `Σ_i q_i B_i ≻0` gives both discrete uniqueness and the specific block-Jacobi convergence claim. The q_i extension is valid: define `C_i=q_i B_i` and reuse the PSD-block theorem with C_i. For the spectral proof use
+
+`D_i=α²d_i I+C_i`, `R_ij=α²w_ij I`,
+
+`zᵀ(D∓R)z=Σ_i z_iᵀC_i z_i+α²Σ_{edges}w_ij|z_i∓z_j|²`.
+
+Zero modes of D−R are constant fields. Zero modes of D+R are alternating constants on a bipartite component, or zero on a component with an odd cycle. `Σ_i C_i≻0` removes any nonzero remaining constant vector. Consequently the symmetric similar Jacobi matrix has spectrum in (−1,1). This correctly proves convergence and does not appeal to the false general implication “SPD implies Jacobi convergence.”
+
+Sources: C3:829–837, 890–920, `cor:vox_projection_wellposed`, `thm:convergence`, `cor:convergence_psd_blocks`.
+
+## Recommended compact clarifications
+
+1. `core.tex:480–491`, correct-selection theorem: explicitly identify a finite candidate set containing d*, `n≥2`, Λ positive diagonal and shared by both views and all candidates, and fixed candidate-independent γ>0. All are the source theorem's hypotheses. The proof and conclusion are correct. The simple sufficient condition is well chosen for the main talk.
+2. `core.tex:494–499`, winning margin: say a finite candidate set **with at least two candidates**. Otherwise the minimum over competitors is undefined. The Δ−2η argument is correct and transferable to any finite score list once a uniform score bound is supplied.
+3. `core.tex:520–532`, IRLS: define stacked `y=(y_Lᵀ,y_Rᵀ)ᵀ`; state fixed d, Λ, γ≥0. The use of `||A||` in q is correct because `||diag(A,A)||=||A||`. The invariant-ball bound and scope sentence are correct. A missing stacked-data definition risks a factor/meaning ambiguity when presented independently.
+4. `core.tex:404–412`, frozen inner theorem: Λ and W_c are positive diagonal matrices in the model. The displayed theorem uses only `≻0`; this is mathematically sufficient if interpreted as symmetric positive definite, but stating “positive diagonal” keeps λ_min and later Λ² notation fully aligned.
+5. `core.tex:592–598`, JIF limit: “For equal weights W held fixed **independently of γ**…” is the safest wording. The current “fixed equal weights” is normally read this way and is not an error. The halved squared regularization comparison is correct.
+6. `core.tex:183`, time surface primer: “For an ideal single crossing, a time surface records the edge's crossing time” avoids equating all most-recent-event surfaces with ideal crossing-time maps. The following derivation frame already states the required hypothesis, so this is a pedagogical precision improvement.
+7. Add the weak Euler equation / natural Neumann PDE in backup (or one compact line in the core) if not yet present. For fixed quadratic coefficients: `−α²Δv+Bv=b`, natural `∂_n v=0`, interpreted weakly. This connects the abstract functional and the graph system for mathematicians.
+
+## Verified mathematical content
+
+- Temporal normal equations, SPD lower bound, absolute perturbation estimate, and condition-number bound are correct for fixed positive diagonal Λ. The talk does not repeat the manuscript's incorrect unscaled difference quotient or boundary-convention display.
+- Spectral latent-signal gain is `g/(g+λ²)`, kills the constant mode, and attenuates low temporal modes most. The plot formula uses degrees correctly in pgfplots (`sin(90*x)` for ω/2 with ω=πx), and is explicitly a continuous extension of discrete DCT gains.
+- Time-surface chain-rule derivation and normal-versus-tangential distinction are correct.
+- Voxel sliding-window transport is correctly treated as exact for an exactly transported density with constant velocity, while its physical applicability and coefficient conventions remain qualified.
+- Structure tensor's nonnegative integral preserves PSD; its spatial block and forcing have the correct signs in the unified coefficient table.
+- Flow theorem lists the correct boundedness, connectedness, Lipschitz-domain, α>0, PSD, L² forcing, and integrated-positivity assumptions. Mean/zero-mean coercivity inequality and stability derivation are correct. The stability conclusion is not incorrectly presented as ground-truth error control.
+- Finite-dimensional CM existence proof is sound: continuous bilinear accumulation, bounded image variance, positive coefficient ridge, compact sublevel set. It does not overclaim uniqueness, smoothness, or L-BFGS convergence. The spline-space point-evaluation motivation is correct.
+- Stereo fixed-weight SPD argument and γ≥0 scope are correct. The auxiliary right profile is correctly candidate-local.
+- Sum–difference decomposition is limited to equal blocks; the scalar condition-number equality is limited to the unweighted scalar case.
+- Profiled cost has the correct factor 1/4, the correct monocular costs, and the correct mismatch term. Its interpretation highlights the candidate-dependent monocular bias.
+- Counterexample is exact: `C(b)=(1+b²)/6+(1−b)²/15`; `C(1)=1/3`, `C(1/2)=9/40`. Graph and marked points are correct. The statement properly requires that such a candidate actually be available and concerns unweighted costs before aggregation.
+- Correct-selection sufficient condition gives a strictly positive discrepancy for nonzero errors because A has full row rank and γ>0. It is not claimed verified on experiments.
+- Local identical-profile ambiguity is not transferred to final spatially aggregated costs; notes explicitly distinguish them.
+- Raw signed-count mean/variance and the frozen Gaussian-proxy scope are correct. Reciprocal weights are not called exact Skellam likelihood weights or a proven MLE procedure.
+- Brouwer existence versus Banach contraction versus finite stopping is correctly separated. q≥1 is treated as inconclusive, and damping is not claimed guaranteed to rescue it.
+- WTA is correctly described as exact minimization of a computed score list, not a proof of global image-level SGM optimization or physical correctness.
+- JIF reduced system and γ→∞ soft-model limit differ by the stated factor-two squared regularization. The empirical gap is not attributed causally to fusion alone.
+
+## Verified empirical statements
+
+1. Temporal indoor rows copied exactly from C2 `tab:bump_avg_indoor`: spline 8.86 PSNR / 22.16 CN; delta 7.70 / 1375.75; Gaussian 8.84 / 20.22. Notes explicitly distinguish the outdoor image pair from the indoor table. Claims are descriptive and do not assert a universal spline ordering.
+2. All core stereo benchmark values match `appendix_bodies/ch4_protocol.tex:337–350`, `tab:unified_benchmark`: control, SGM, WLS, and Piatkowska adaptation rows are exact. Selected bold values correctly identify minima among the displayed rows. The full source has WLS best on Flying 2 and log RMSE, and Piatkowska best on most error columns.
+3. Method-specific in-band populations, sum of point counts, equal-weight average of per-sequence log RMSE, raw-output definition including finest-level subpixel interpolation, and exclusion of separate hole-filling refinement are described correctly. On-slide score-band wording can be read as applying to both estimates and ground truth; notes state that explicitly.
+4. Common-set matched reciprocal-versus-proportional improvements 4.96 / 8.54 / 2.90 / 5.56 cm match `sec:success_wls` at appendix line 410. The slide correctly identifies same-run reanalysis, selected-on-these-sequences status, and common-set conditioning. It does not treat this as held-out validation or proof of the noise model.
+5. JIF 102.10 cm versus WLS 65.44 cm matches `chapterFour.tex:119–123`; these are unweighted averages of four sequence mean errors. The slide names differing populations and configuration confounders.
+6. The selected v2e stripe/checker images come from `fig:ch3_quiver_v2e` and retain source captions' common motion/window/scale. No quantitative method ranking is inferred from them. Notes correctly flag boundary information and the unshown TS zero estimates.
+
+No unearned causal interpretation was found in the core numerical discussion. The most potentially misleading manuscript interpretations (spline always stabilizes, fusion alone causes the JIF gap, high pooled kurtosis proves a heavy-tail observation law) are avoided.
+
+## Completeness and pacing
+
+All essential main mathematical results are represented. Main proof time is devoted to the right objects: temporal quadratic form; mean/zero-mean flow coercivity; finite-dimensional CM existence; stereo block SPD; exact profiled cost; correct-selection/margin logic; Brouwer/Banach distinction. This is stronger than a list of theorem names.
+
+Good backup targets: Euler–Lagrange PDE and boundary condition; full D±R proof with q_i; mean-zero conditioning and noncommuting limits; scalar likelihood counterexample; complete selection ellipsoid and observation-based perturbation bound; full IRLS difference identity; anisotropic ellipticity; radius heuristic qualifications; metric/scored-population definitions; scope of numeric parameters and historical provenance.
+
+There are exactly 40 core frames, matching `MainFrames=40` at this audit. Speaker-note pace targets imply roughly a 47–50 minute core before interruptions. The flow regression frame can be abbreviated as its notes suggest; do not rush the main coercivity proof or counterexample.
+
+## Backup review and final cross-check
+
+Reviewed the completed `defense/backup.tex` (353 lines at this read) after the core pass. Re-read the two required core targets and confirmed that A1's common-mean/finite-variance/smoothness-neighborhood assumptions and A2's nonnegative symmetric weights, positive degrees, α>0, and PSD data-block assumptions are now explicitly present. Both required findings are resolved.
+
+### Backup verdict
+
+All substantive backup derivations are correct and stay within the dissertation's theorem scopes. No essential mathematical result is missing from the combined core/backup package. In particular the added weak Euler equation and natural Neumann trace provide the missing bridge from energy to PDE, while the q_i-absorbed block-Jacobi proof explicitly establishes both spectral inequalities.
+
+Three small precision edits are recommended:
+
+- `backup.tex:162`: replace `−2x/(1+x²)²≠0` by “not identically zero” or restrict the nonzero statement to x≠0. The expression vanishes at x=0; the intended demonstration that the full operator differs from its zero principal part is sound.
+- `backup.tex:314–318`: state `0≤π_0<1` and `σ>0` in the Gaussian/point-mass kurtosis example. Otherwise its variance denominator may vanish. Under those conditions the moment computation and excess kurtosis `3/(1−π_0)−3` are exact.
+- `backup.tex:248–255`: explicitly define `s=B_time g` and `s'=B_time g'` before using the reciprocal weight-increment inequality. This is an exposition omission; the contraction bound is mathematically correct.
+
+### Specific backup checks
+
+- Kernel-intersection SPD equivalence and one-diagonal-entry anchoring are correct; notes correctly warn against reusing a vanished λ_min² lower bound.
+- Jump primitive uses the corrected right-continuous `(a,b]` convention. The L¹ convergence claim is valid for finitely many interior events with a standard approximate identity; notes correctly separate L¹/W¹,¹ from L²/H¹ and distinguish the primitive limit from a regularized-estimator limit.
+- Signal, observation-amplitude, and noise-variance gains are correct. Noise table's third entry is a variance rather than a dimensionless gain, which its interpretation column makes explicit.
+- The full indoor/outdoor kernel table matches all eight source rows, including rectangular indoor PSNR 8.24/CN 423.59 and outdoor 7.20/148.33.
+- Under B∈L∞, b∈L², and v∈H¹, the distributional PDE yields Δv∈L². Thus ∇v∈H(div) componentwise and its weak normal trace is in H^(−1/2); unrestricted H¹ tests give zero natural normal trace. No H²/classical regularity is claimed.
+- D±R identity includes the absorbed q_i factors correctly. Positive degrees and α>0 are visible in the footer and explained in the notes. The odd-cycle/bipartite zero-mode distinction is correct.
+- Nagel–Enkelmann tensor has the stated normal/tangential eigenvalues and uniform floor. Notes correctly distinguish its edge-normal penalty from the opposite directional behavior of the CM tensor.
+- The radius asymptotics and `(162/π)^(1/8)(σh/L_H)^(1/4)` balancing radius are correct, with finite-design, positivity, large-lattice-radius, smoothness, and symmetry limitations.
+- The OLS parabolic temporal weight integrates to one; the transported cubic residual equals 1/10. Notes correctly explain why a quadratic-profile average mismatch does not imply a nonzero transport residual.
+- Mean-zero restricted spectrum and condition number are correct, including λ=0 invertibility, fixed-n/fixed-γ uniformity, and the distinction between λ→0 and fixed-positive-λ grid refinement.
+- Selection ellipsoid center `P^(−1)T y_L`, radius `y_LᵀSP^(−1)S y_L`, exact gap, and sufficient mismatch norm `>2ρ` are correct. If y_L=0 the radius is zero and the geometric “ellipsoid” degenerates to a point, without invalidating the algebra or theorem.
+- Right-observation perturbation bound follows from the exact quadratic expansion and `||P||≤1/2`. It is properly scoped to fixed left data, candidate set, and parameters, and is not transferred to adaptive normalization or SGM.
+- IRLS difference identity, inverse weighted-design bound `ℓ^(−1/2)`, frozen residual bound, and reciprocal weight identity give the correct ε^(−3/2) factor. The scalar likelihood derivative counterexample is correct and makes no assertion about the actual temporal operator beyond its logical purpose.
+- Implemented clipping, unclipped scoring, stopping, finite sentinels, and spatial aggregation are described without claiming a single descending objective or a hard final feasibility window.
+- Coverage values 50.17%/49.48%, retention 51.54%/96.40%, and 1.43M/2.66M agree exactly with the source coverage paragraph at `appendix_bodies/ch4_protocol.tex:433`. The note carefully avoids confusing returned coverage with in-band scored coverage or attributing the gap solely to weighting.
+- All five literature keys exist in `gmuETD.bib`, and the named authors and shortened work titles agree with those local entries: `gallego2022event`, `horn1981determining`, `benosman2014event`, `gallego2018unifying`, `MVSEC2018`.
+- All 12 unique figure paths referenced by core/backup exist. The selected v2e GT stripe and CM checker panels were visually inspected: arrow colors and diagonal-motion description agree with the notes. The existing source figure captions supply the common motion/window/scale claim; no new experiment is inferred.
+
+### Overall disposition
+
+After the two resolved core hypothesis repairs, the presentation passes substantive mathematical and empirical claim-scope review. Apply the three minor backup precision edits above and the short standalone core clarifications if convenient. There is no basis here to request a redesign or additional unperformed experiment. This review verifies the deck against the dissertation and the displayed algebra; it does not independently reproduce historical runs or certify every implemented operator against a theorem.

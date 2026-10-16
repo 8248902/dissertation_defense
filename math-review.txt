@@ -1,0 +1,437 @@
+Astra mathematical review record, 2026-10-02.
+All required hypothesis corrections and the three minor backup precision edits were applied to the delivered presentation. Line references below describe the review snapshot; use source-map.csv for the final slide locations. This record does not independently reproduce the historical experiments.
+
+# Mathematical defense review and slide-ready material
+
+Reviewed 2026-10-02 against the current local dissertation sources. No manuscript sources changed. Source aliases below are relative to `/home/q/g/r/drafts/dissertation_thesis`: C2 = `shared_bodies/ch2_dynamic_reconstruction_body.tex`; C3 = `shared_bodies/ch3_eb_hs_of_body.tex`; C4 = `shared_bodies/ch4_stereo_depth_body.tex`; C5 = `chapterFive.tex`. Line pointers refer to this review's read of those files; theorem labels are the more durable reference. Read applicable `/home/q/g/r/drafts/AGENTS.md`, portfolio state, latest local log, and shared memory for dissertation. Local `STATE.md` is absent. This is a mathematical source review, not a rerun of experiments or certification of implementation equivalence.
+
+## Recommended thesis arc
+
+**Events constrain changes; mathematical models must account for what those changes leave undetermined.** Across temporal reconstruction, optical flow, and stereo, ask four questions in order:
+
+1. What does the sensor actually observe?
+2. Which directions are invisible to that observation?
+3. Which assumptions and penalties make the reconstruction well posed?
+4. Does a unique numerical answer identify the physical quantity?
+
+This creates a progressively richer arc, rather than three unrelated applications:
+
+| Problem | Unknown | Invisible or ambiguous direction | What controls it | What remains unresolved |
+|---|---|---|---|---|
+| Temporal reconstruction | One time profile per pixel | Additive log-intensity constant | Positive Tikhonov penalty, or an explicit gauge | Physical absolute intensity; regularization bias |
+| Flow | A two-component field | Local tangent component; global constant field in gradient seminorm | Spatial regularization plus integrated data identifiability | Whether representation constraints faithfully describe true motion |
+| Stereo | Two latent profiles and a discrete disparity | Common constant offset; repeated or biased candidate profiles | Ridge for latent solve; a positive cost gap for disparity | Convergence/selection for the full adaptive, aggregated estimator |
+
+The strongest technical centerpiece is **the unified flow theorem** and its mean/zero-mean proof. The strongest conceptual payoff is **unique latent solves do not imply correct stereo correspondence**, demonstrated by an exact two-sample counterexample and then repaired conditionally through a separation theorem. The fixed-point argument and contraction criterion show mathematical depth without pretending the deployed procedure is fully covered.
+
+Use a small common motif on slides: “observation → nullspace → regularization → scope.” The term “kernel” will have two meanings (smoothing kernel and operator nullspace), so say “nullspace” for the latter.
+
+## Source-backed statements and proof sketches
+
+### 1. Sensor model and what an event means
+
+At a fixed pixel, ideal events record threshold crossings of **log intensity**:
+
+\[
+L(s_j)-L(s_j^-)=p_jc_{\rm th},\qquad p_j\in\{-1,+1\},\quad L=\log I.
+\]
+
+The preceding reset time is local to that pixel. This is not a brightness measurement and not generally a derivative sample at a common global time. Under brightness constancy, the integrated relation is
+
+\[
+p_jc_{\rm th}=-\int_{s_j^-}^{s_j}\nabla L(x_j,t)\cdot v(x_j,t)\,dt.
+\]
+
+Source: C3:33–43, labels `eq:log_brightness`, `eq:event_integral`; C2:204–223, `eq:exy`, `eq:Exy`, `eq:fxy`.
+
+Suggested diagram: a log-intensity curve, horizontal threshold increments, and signed ticks at irregular times. Then add another curve obtained by a vertical shift: same ideal event stream. A stationary positive-intensity image can produce no ideal events. Distinguish log intensity, signed event count, unsigned event activity, and transformed feature profiles throughout the presentation.
+
+### 2. Temporal reconstruction: a transparent finite-dimensional starting point
+
+Let A be the unscaled first-difference matrix, `(Af)_i=f_{i+1}-f_i`, and let y contain integrated event observations. For **fixed** positive diagonal Λ,
+
+\[
+f^*=\arg\min_f\frac12\|Af-y\|^2+\frac12\|\Lambda f\|^2,
+\qquad K=A^\top A+\Lambda^\top\Lambda.
+\]
+
+**Slide-ready theorem.** If `min_i λ_i>0`, then K is SPD, the unique minimizer is `K^{-1}A^T y`, and
+
+\[
+\|f^*(y+\delta y)-f^*(y)\|_2
+\le \frac{\|A\|_2}{\lambda_{\min}^2}\|\delta y\|_2
+\le \frac{2}{\lambda_{\min}^2}\|\delta y\|_2.
+\]
+
+**Proof in two lines.**
+
+\[
+z^\top Kz=\|Az\|^2+\|\Lambda z\|^2\ge\lambda_{\min}^2\|z\|^2;
+\quad \delta f=K^{-1}A^\top\delta y.
+\]
+
+**Interpretation.** `ker A=span{1}`. The penalty selects a baseline and biases nonconstant modes; it does not extract the missing physical baseline from the events. Pixels are uncoupled in this model, so the missing constant is one per pixel, not merely one global image constant. In scalar regularization the selected temporal mean is zero. An explicit reference value or mean-zero restriction is an alternative mathematical way to remove the nullspace, but does not add physical information.
+
+Sources: C2:247–259 (`eq:tempdiffA`); C2:272–318 (`prob:reconstruction`, `lem:nullspace`, `thm:uniqueness`); C2:321–354 (`prop:stability`). C5:70–80 gives the current careful interpretation.
+
+Useful backup observation: the minimal finite-dimensional definiteness condition is `ker A ∩ ker Λ={0}`. The theorem's strictly positive diagonal is sufficient, not necessary; on a connected temporal chain a single nonzero diagonal penalty is sufficient for definiteness (C4:97). Do not weaken the displayed stability bound using this observation without replacing its constant.
+
+### 3. Continuous-time connection: useful, but keep it precise
+
+Write the event measure `μ=Σ_j p_j δ_{s_j}`. Its cumulative primitive is BV, and if it has a nonzero interior jump it is not H¹. For a smooth temporal mollifier, `e_h=μ*φ_h` and `g_h(t)=f_0+∫e_h` approximate the jump primitive as the width tends to zero. This explains why an event stream naturally enters as a measure, and why smoothing supplies ordinary functions.
+
+The cumulative primitive is the **unregularized event-integral surrogate**, not the Tikhonov solution and not the absolute physical intensity. Source: C2:366–407, `eq:ivp`.
+
+For slides prefer the integrated relation `g(b)-g(a)=μ((a,b])` with a right-continuous primitive, or stipulate that bin endpoints contain no events. Avoid directly reproducing C2 `eq:difference_quotient` and `eq:ivp_integrated`; specific defects are recorded below.
+
+### 4. Time surfaces give an intuitive aperture problem
+
+A time surface records the most recent event time at each pixel. Under the proposition's ideal setting—a single translating edge, each point crossed exactly once in an open swept region, nonzero normal velocity, C¹ crossing-time function, and recorded timestamps equal to those crossing times—
+
+\[
+\nabla\mathcal T\cdot v=1.
+\]
+
+**Proof for a slide.** Along a point on the translating edge, `t−T(x(t))=0`. Differentiate: `1−∇T·v=0`.
+
+**Geometric interpretation.** One scalar equation leaves a line of admissible velocities. The minimum-norm solution is `v_min=∇T/|∇T|²`; its norm `1/|∇T|` is **normal speed**, not total speed. Draw a gradient arrow, its perpendicular tangent, and the line of admissible velocities. Then show a second nonparallel constraint intersecting it.
+
+Source: C3:105–150, `prop:time_surface`, `eq:time_surface_constraint`. Sparse interpolation, stale timestamps, repeated crossings, and mixed edges can invalidate the ideal equality. The stability theorem controls minimizer changes under bounded coefficient perturbations and preserved identifiability; it does not by itself bound physical flow error (C3:140–141).
+
+### 5. One functional-analytic theorem for three representations
+
+Use `A_d` or `A_data` for the spatial 2×2 coefficient, so it cannot be confused with the temporal difference matrix A.
+
+\[
+E(v)=\frac12\int_\Omega(v^\top A_dv-2b^\top v)
+ +\frac{\alpha^2}{2}\int_\Omega|\nabla v|^2.
+\]
+
+The representations enter only through:
+
+| Representation | A_d | b |
+|---|---|---|
+| Time surface | `∇T ∇Tᵀ` | `∇T` |
+| Voxel projection | `g gᵀ`, g = spatial activity gradient | `−a_t g` |
+| Structure tensor | Spatial 2×2 block `J_s` | `−(J_xt,J_yt)ᵀ` |
+
+**Slide-ready theorem.** Let Ω be bounded, connected, and Lipschitz; α>0; `A_d∈L∞` be symmetric PSD a.e.; `b∈L²`; and
+
+\[
+M=\int_\Omega A_d(x)\,dx\succ0.
+\]
+
+Then E has a unique minimizer in `H¹(Ω;R²)`. On coefficient families with common bounds `||A_d||∞≤K`, `λ_min(M)≥m>0`, `||b||₂≤R`, the minimizer is Lipschitz in A_d in L∞ and in b in L².
+
+Source: C3:742–772 (`thm:unified_wellposedness`, `eq:integrated_identifiability`, `eq:abstract_stability`); instantiations C3:824–861.
+
+**Approachable proof in three steps.**
+
+1. Split `v=bar v+w`, with `∫w=0`. Poincaré controls `||w||₂` by `||∇v||₂`.
+2. Integrated data positivity controls the constant field:
+   `m|bar v|² ≤ 2∫vᵀA_dv + 2KC_P²||∇v||²`.
+3. Therefore `B(v,v)≥κ||v||_{H¹}²`. Lax–Milgram gives the weak solution; strict positivity gives the unique minimizer. For stability, subtract two weak equations and test with the difference of their solutions.
+
+This is a good two-slide proof: first show the missing constants visually; then present the split and coercive inequality. Do not show a wall of the full derivation.
+
+**Why integrated positivity matters.** Every scalar-residual model has pointwise rank ≤1, so pointwise SPD would incorrectly exclude the time-surface and projection models. Data directions need only identify both constant velocity components collectively across the connected domain. If all gradients are parallel, one constant tangential flow remains invisible to both the data and gradient penalty. Smoothness alone does not solve that aperture ambiguity.
+
+The condition is also necessary for positive-definiteness of this bilinear form: if M is singular, a nonzero constant vector c with `cᵀMc=0` has zero quadratic energy. In the physical squared-residual models it is an unpenalized direction. Do not claim that every smooth image satisfies identifiability.
+
+### 6. Representation quality is distinct from solvability
+
+For the voxel projection, let `a(x,s)=∫_s^{s+T} V(x,t)dt`. If V satisfies constant-velocity transport, integrating gives `a_s+v·∇a=0` exactly. Thus temporal accumulation does **not** automatically destroy transport just because displacement exceeds one pixel. It blurs the profile and changes the coefficients; derivative conventions may then introduce additional error.
+
+Source: C3:321–354 and 356–398, especially `prop:taylor_truncation_bound`.
+
+A useful backup bound is
+
+\[
+\left|\bar a(x)-E_0(x)+\frac T2\nabla E_0(x)\cdot v\right|
+\le\frac{M}{6}|v|^2T^2
+\]
+
+for a translating C² profile with Hessian bound M along the sampled segments. This is a **profile approximation bound**, not a general optical-flow error bound. It follows by integrating the second-order Taylor remainder.
+
+The implementation pairs a uniform bin-mean spatial projection with an OLS temporal slope. These represent different temporal weights. For a transported cubic profile `(2+x−t)^3` on a unit window the resulting continuous residual is 1/10; a quadratic profile does not demonstrate a nonzero residual (C3:334–350). Keep this subtle example in backup rather than the main narrative.
+
+### 7. Local plane-fit bias–variance analysis
+
+This is a strong optional mathematical slide because it connects a preprocessing choice to an explicit tradeoff.
+
+For centrally symmetric offsets z_j spanning R², let `Q=Σ z_j z_jᵀ≻0`. Assume timestamp noise has independent common finite variance σ² and the smooth time surface has L-Lipschitz Hessian. For the OLS slope:
+
+\[
+\operatorname{Cov}(\hat g)=\sigma^2Q^{-1},\qquad
+\|\operatorname{Bias}(\hat g)\|\le\frac L6\|Q^{-1}\|\sum_j|z_j|^4.
+\]
+
+**Mechanism.** Symmetry removes the intercept and cancels the odd third moment generated by the quadratic Taylor term; the cubic remainder produces O(r²) bias. More samples reduce variance. For a complete disk on a square lattice of spacing h, the leading MSE expression is
+
+\[
+U_h(r)=\frac4{81}L^2r^4+\frac8\pi\sigma^2h^2r^{-4}.
+\]
+
+Its balancing radius scales as `(σh/L)^{1/4}`. This is the minimizer of a leading asymptotic expression, not a certified optimum of actual finite-design MSE. Requires r/h large, the disk inside the smoothness region, and positive L, σ, h. Regression full-rank design is distinct from flow identifiability: a full disk can estimate gradient `(1/u,0)` perfectly while tangential motion remains unknown.
+
+Source: C3:156–223, `prop:ts_regression_bound`, `eq:ts_discrete_bias`, `eq:ts_discrete_mse`, `eq:ts_radius_surrogate`.
+
+### 8. Discrete solver convergence: do not infer it from SPD alone
+
+For a connected symmetric graph with nonnegative weights and positive node degrees, and PSD local data blocks B_i with `ΣB_i≻0`, the chapter's **block-Jacobi** iteration converges from every initial guess.
+
+**Proof idea.** Write system matrix as D−R. Show both `D−R≻0` and `D+R≻0` using
+
+\[
+z^\top(D\mp R)z=\sum_i z_i^\top B_i z_i
+ +\alpha^2\sum_{\{i,j\}}w_{ij}|z_i\mp z_j|^2.
+\]
+
+The graph removes nonconstant fields; the Gram condition removes the remaining constant or alternating-constant mode. Hence the symmetric matrix `D^{-1/2}RD^{-1/2}` has spectrum in (−1,1), so its similar Jacobi iteration matrix has spectral radius below one.
+
+Source: C3:890–920, `thm:convergence`, `cor:convergence_psd_blocks`. Generic SPD does not ensure Jacobi convergence; the two-sided argument is doing real work. This theorem requires the analyzed symmetric graph and sweep schedule. Continuous identifiability does not imply a specific sampled grid sees both directions. Do not label arbitrary evaluated stencils, event-driven updates, or nonvariational local averaging as covered without verifying their discrete operator.
+
+### 9. Anisotropic extension
+
+The same existence/uniqueness argument works for a **fixed**, bounded symmetric tensor `D(x)≽θI`, θ>0. The Nagel–Enkelmann tensor has eigenvalue 1 tangential to the event-density edge and `γ_NE²/(|∇ρ|²+γ_NE²)` normal to it. Bounded density gradient gives a common positive lower bound. It reduces smoothing across edges without completely removing it.
+
+Source: C3:543–562, `lem:ne_elliptic`; C3:854–861, `cor:structure_wellposedness`. Anisotropic variable coefficients belong in `div(D∇u)`; replacing this by only `D:Hess u` omits drift terms. Its numerical realization is not analyzed further in this chapter (C3:594). If D is recomputed after data perturbation, stability includes `||δD||∞` and requires a common ellipticity bound.
+
+### 10. Contrast maximization marks the boundary of the quadratic framework
+
+Warp individual events by a spline displacement field and maximize image focus, with a quadratic regularizer. Work on a **continuous finite-dimensional spline space**, because point evaluation is not well-defined on general H¹ equivalence classes in two dimensions.
+
+**Slide-ready existence statement.** For finitely many fixed-weight events, bilinear event accumulation on a fixed image canvas, and positive coefficient ridge τ,
+
+\[
+F(c)=-\operatorname{Var}(I_c)+c^\top K_{\rm reg}c
+\]
+
+attains a global minimum. Indeed, bilinear splatting makes F continuous; fixed total event mass bounds variance above; and
+
+\[
+F(c)\ge-\frac{(\sum_j|w_j|)^2}{HW}+\tau\|c\|^2\to\infty.
+\]
+
+Weierstrass on a compact sublevel set proves existence. The **regularizer** is strongly convex; the full contrast-maximization objective is generally nonconvex and only piecewise differentiable. The local L-BFGS-B result is not certified as global or stationary by this existence theorem. An ellipticity floor in a gradient penalty still leaves constant flows unpenalized; the coefficient ridge removes that nullspace.
+
+Source: C3:629, 673–716 (`prop:cmax_wellposed`, `prop:cmax_existence`). The theorem is for fixed discretization, not a mesh-independent continuum limit. No empirical CM ranking should be invented from this chapter.
+
+### 11. Stereo: recover latent profiles while testing correspondence
+
+Explain rectified geometry first: candidate d pairs `(x,y)` with `(x−d,y)`, and depth is `Z=fB/d` for positive disparity. Let y_L and y_R(d) denote **transformed event-feature observations**, not calibrated intensities or raw Poisson counts. Each candidate has its own right auxiliary profile; this is not a single globally shared right latent image.
+
+For fixed d and frozen positive weights:
+
+\[
+J(f_L,f_R)=\tfrac12\|Af_L-y_L\|_{W_L}^2
++\tfrac12\|Af_R-y_R(d)\|_{W_R}^2
++\tfrac12\|\Lambda f_L\|^2+\tfrac12\|\Lambda f_R\|^2
++\tfrac\gamma2\|f_L-f_R\|^2.
+\]
+
+**Slide-ready theorem.** If Λ has positive diagonal entries, W_L,W_R are positive diagonal, and γ≥0, the block Hessian
+
+\[
+M_W=\begin{pmatrix}K_L+\gamma I&-\gamma I\\-\gamma I&K_R+\gamma I\end{pmatrix},
+\quad K_c=A^\top W_cA+\Lambda^\top\Lambda,
+\]
+
+is SPD, hence J has a unique minimizer.
+
+**One-line proof.** The quadratic form is a sum of weighted data energies, positive ridge energies, and `γ||z_L−z_R||²`.
+
+Source: C4:46–66 (`assump:S1`–`S3`, `eq:stereo_consistency`), 425–450 (`thm:weighted_spd`), 592–599 (`thm:convexity`). γ>0 is not required for latent SPD when the ridge is positive; it supplies correspondence coupling. At Λ=0 and γ>0 a common constant survives.
+
+### 12. Sum–difference modes reveal exactly what coupling does
+
+In the unweighted/shared-block case set `f_+=(f_L+f_R)/√2`, `f_-=(f_L−f_R)/√2`. The block operator becomes
+
+\[
+\operatorname{diag}(K,K+2\gamma I).
+\]
+
+Coupling penalizes inter-camera disagreement; the common component is unaffected. For scalar Λ=λI and N temporal samples,
+
+\[
+g_k=4\sin^2\frac{\pi k}{2N},\qquad
+\kappa_2(M)=\frac{g_{\max}+\lambda^2+2\gamma}{\lambda^2}.
+\]
+
+On profiles of zero temporal mean, the exact condition number is instead
+
+\[
+\kappa_2(M|_{V_0})=\frac{g_{\max}+\lambda^2+2\gamma}{g_1+\lambda^2}
+\le\frac{g_{\max}+2\gamma}{g_1}.
+\]
+
+That bound is uniform as λ↓0 **for fixed N and γ**. At λ=0 the unrestricted matrix is singular, but the restricted matrix is invertible. For fixed positive λ the unscaled-grid restricted condition number remains bounded as N→∞; the bound uniform over all λ grows like N². Do not conflate these limits.
+
+Source: C4:82–98 (`lem:A_spectrum`); 699–772 (`lem:block_diag_M`, `thm:conditioning`, `cor:mean_zero_conditioning`). The exact diagonalization does not hold with unequal left/right weighted blocks. General weights instead have `κ(M_W)≤(4W_max+λ_max²+2γ)/λ_min²` (C4:775–786).
+
+### 13. A memorable counterexample: a perfect match need not win
+
+For the ideal **unweighted, unaggregated** problem, profiling out the latent variables gives
+
+\[
+C(d)=m(y_L)+m(y_R(d))+D(y_L-y_R(d)),
+\]
+
+where
+
+\[
+m(y)=\tfrac12y^\top(I-AK^{-1}A^\top)y,\qquad
+D(e)=\tfrac14e^\top A[K^{-1}-(K+2\gamma I)^{-1}]A^\top e.
+\]
+
+The mismatch term is nonnegative, but the right-view monocular term varies across candidates. An easier-to-reconstruct wrong candidate can therefore win.
+
+**Slide example.** Take two latent samples, `A=[−1,1]`, `Λ=I`, γ=1, y_L=1. Then
+
+| Right observation | Meaning | Minimized cost |
+|---|---|---|
+| 1 | Perfect feature match | 1/3 |
+| 1/2 | Attenuated mismatch | 9/40 |
+
+The wrong candidate has the smaller objective. These exact toy-model values can be cited to C4:815–823; they are not benchmark measurements. A clean plot of C(b) for y_R=b y_L can make this result engaging. Here `m(1)=1/6`, `D(1)=1/15`, and `C(b)=(1+b²)/6+(1−b)²/15`, minimized at b=2/7.
+
+**Proof mechanism.** Complete the square in the block quadratic and apply the sum–difference transform. Along y_R=b y_L, `C'(1)=2m(y_L)>0`: a slight attenuation lowers cost even though mismatch increases only quadratically.
+
+Sources: C4:472–513 (`lem:matching_cost_closed_form`, `prop:attenuation_bias`); C4:815–836 (`prop:disparity_nonidentifiability`). Coincident right candidate profiles give equal costs, not necessarily zero costs or agreement with the left profile. Nonzero left temporal activity cannot certify candidate separation.
+
+### 14. What does suffice for correct selection?
+
+Keep the clean theorem on a main slide and the full ellipsoid characterization in backup.
+
+For a finite fixed candidate set, shared positive Λ and candidate-independent γ>0, assume the correct candidate is present and has ideal feature equality `y_R(d*)=y_L`. If every competitor differs from y_L and satisfies `m(y_R(d))≥m(y_L)`, then
+
+\[
+C(d)-C(d_*)\ge D(y_L-y_R(d))>0,
+\]
+
+so d* wins uniquely. Positivity of D follows from γ>0 and full row rank of A. This is one sufficient condition; it is not established for the evaluated transformed observations.
+
+More generally let `S=(I−AK^{-1}Aᵀ)/2`, `T=A[K^{-1}−(K+2γI)^{-1}]Aᵀ/4`, `P=S+T`, `ρ²=y_LᵀSP^{-1}Sy_L`. If each mismatch e satisfies `||e||_P>2ρ`, the correct candidate wins. Completing the square identifies an ellipsoid of candidates that tie or beat the ideal match. Because the ideal match lies on its boundary, arbitrarily small mismatches need not have higher cost.
+
+Source: C4:515–557, `prop:correct_selection`, `eq:selection_gap`, `eq:separation_condition`.
+
+**Robustness slide.** A finite score list with unique winner and gap Δ retains that winner when every score changes by at most η<Δ/2. Proof: any competitor's perturbed gap is at least Δ−2η. This sharp, understandable statement is the discrete analogue of continuous minimizer stability. The observation-derived η in C4 applies only to the ideal unweighted model with left observation and parameters fixed; it does not already certify SGM or the adaptive weighted pipeline.
+
+Source: C4:575–586, `cor:selection_robust`.
+
+### 15. Frozen weights, fixed points, and likelihoods are different claims
+
+Use an explicit three-level diagram:
+
+1. **Frozen W, fixed d:** unique quadratic minimizer.
+2. **Repeated weight map at fixed d:** fixed-point existence; convergence under a sufficient q<1 condition.
+3. **Finite iteration, stopping/rejection, candidate scores, spatial aggregation, disparity selection:** no general convergence or physical-correctness theorem here.
+
+For inverse weights `w_i(f)=1/(|(Af)_i|+ε)`, define T(g) as the exact minimizer with W(g) frozen. With `ℓ=λ_min(ΛᵀΛ)>0`, the energy comparison `Q_g(T(g))≤Q_g(0)` supplies an invariant ball:
+
+\[
+\ell\|T(g)\|^2\le\|y\|^2/\varepsilon.
+\]
+
+T is continuous because W is continuous and the Hessian stays SPD. Brouwer gives existence. It does not give uniqueness or iteration convergence.
+
+For the inverse map the chapter proves the global Lipschitz constant
+
+\[
+q=\frac{\sqrt{g_{\max}}\,\|y\|_2}{\sqrt\ell\,\varepsilon^{3/2}}.
+\]
+
+If q<1, Banach gives a unique fixed point and geometric convergence. Damping ω∈(0,1] preserves fixed points and gives the proved bound `q_ω=1−ω+ωq`. When q≥1 this bound is inconclusive; it does not prove divergence and does not prove damping restores contraction. The condition has not been verified at reported parameters. The proportional-weight version needs an invariant ball and its own q(R).
+
+Proof sketch: subtract two frozen normal equations; bound the inverse weighted design operator by `ℓ^{-1/2}`; compare each residual energy with the zero trial state; use the weight increment identity and `||B||=sqrt(g_max)`.
+
+Source: C4:605–691, `lem:fixed_point_existence`, `prop:irls_contraction`, `rem:irls_contraction_scope`.
+
+**Likelihood clarification.** Raw ON/OFF independent Poisson counts have signed-count mean `θ+−θ−` and variance `θ++θ−`, so variance is not a function of net mean alone. The two pairs `(2,1)` and `(101,100)` have the same net mean but very different variances. The inverse-rate rule is an additional proxy; processed observations are not raw Skellam counts. Freezing a state-dependent variance omits derivatives of the variance and log-variance term. In the scalar example, every frozen quadratic minimizes at θ=y>0, but the full Gaussian proxy likelihood has `ℓ'(y)=1/[2(y+ε)]>0`. Thus even convergence of IRLS would not establish MLE.
+
+Source: C4:323–366 (`def:skellam_surrogate`), 368–400 (`prop:irls_vs_nll`), 407–416 (fixed point need not be stationary for final-state-weighted score). Use the one-line derivative, not the long closed-form likelihood stationary point, on slides.
+
+### 16. Spectral interpretation: distinguish three transfer operators
+
+For scalar regularization and monocular γ=0:
+
+- Latent signal → reconstructed latent signal: `H_k=g_k/(g_k+λ²)`.
+- Observation perturbation → reconstructed profile: singular gain `sqrt(g_k)/(g_k+λ²)`.
+- White observation-noise variance → modal reconstruction variance: `σ²g_k/(g_k+λ²)²`.
+
+The first attenuates low temporal modes preferentially, with constant mode killed. It should not be described as a generic low-pass smoother. The noise transfer is different; its maximum over continuous g≥0 is `1/(4λ²)` in variance. These are **monocular, scalar, unweighted** formulas. Stereo full-space conditioning is a separate formula involving γ. Unequal adaptive weights do not inherit this fixed DCT diagonalization.
+
+Sources: C4:851–921 (`thm:frequency_response`, `prop:noise_gain`). The DCT frequencies `πk/N` do not include π; a continuous extension's Nyquist endpoint is not one of the finite-chain modes. A generic moving sinusoid on the finite chain must be expanded in DCT modes, unless an interior/infinite-grid approximation is explicitly being used. These details belong in backup.
+
+## Likely committee questions with concise answers
+
+**What is actually new if Lax–Milgram and Tikhonov are classical?** The classical theorems are proof tools. The contribution is formulating the event-derived inverse problems precisely, identifying representation-specific hypotheses that yield one shared well-posedness result, analyzing the fixed/adaptive stereo distinction, and deriving quantitative bias, conditioning, and candidate-separation limitations. Avoid claiming a new version of Lax–Milgram or universally novel Horn–Schunck physics.
+
+**Does regularization recover information that the sensor never measured?** No. It chooses a particular solution using a penalty. The temporal baseline and any physically unidentifiable component remain prior-dependent.
+
+**Why not fix one value or impose mean zero instead of adding a ridge?** Those remove the baseline ambiguity while changing the estimator's bias properties. The scalar mean-zero analysis explicitly separates the singular constant mode from identifiable temporal variation; magnitude regularization additionally controls nonconstant components and noise amplification.
+
+**Can smoothness alone solve the aperture problem?** Not when all data directions are parallel over a connected region: a constant tangential flow has zero smoothness cost and zero data response. Integrated positive definiteness eliminates it.
+
+**Do you assume pointwise texture everywhere?** No. Integrated positive definiteness permits rank-one data and event-free areas, provided globally identifying directions exist and the regularization domain/graph is connected. Quantitative stability deteriorates near degeneracy.
+
+**Why H¹ rather than BV for flow?** The quadratic gradient penalty gives a common linear variational analysis and tractable solvers, but smooths genuine discontinuities. BV/TV is a different modeling choice with different analysis. Atomic event data and the regularity of the unknown flow are separate questions.
+
+**Does a small timestamp-regression MSE imply small motion error?** Not automatically. The inversion of near-zero gradients can amplify errors, and the local scalar constraint leaves tangential motion free. The theorem also needs preserved integrated identifiability and the appropriate coefficient norms.
+
+**Why doesn't SPD immediately imply your iterative solver converges?** It certifies the minimizer and permits suitable solvers. Jacobi additionally needs spectral radius below one; the proof establishes it using positivity of both D−R and D+R for the particular graph structure.
+
+**Is every fixed-point iteration a descent algorithm?** No. Here the weights change the frozen quadratic. The iteration need not minimize one common objective, and the chapter has counterexamples to stationarity of the final weighted score and proxy likelihood.
+
+**Why does a wrong stereo candidate sometimes beat a perfect one?** The profiled objective includes a right-view monocular reconstruction cost, not only a left–right discrepancy. An attenuated candidate can reduce that cost linearly while the mismatch penalty initially rises quadratically.
+
+**Does finite enumeration find the global solution?** For exact unweighted candidate-local inner minimization without aggregation, yes, over that finite candidate set. WTA always minimizes the computed list. It does not certify physical correctness; the evaluated weighted scores and SGM aggregation change the problem and are outside that global-minimizer proof.
+
+**Does event activity guarantee depth identifiability?** No. Several candidate right pixels may have identical temporal features even when the left signal is active. Candidate separation and score gaps must be analyzed independently.
+
+**Could the coupling alone remove the unknown baseline?** It removes relative-offset freedom but leaves a common constant when both views have no magnitude anchoring. The common/difference decomposition makes this explicit.
+
+**Does increasing coupling improve conditioning?** In the unweighted scalar full-space formula it increases the largest eigenvalue while leaving the smallest common-mode eigenvalue unchanged, so the condition number grows. Coupling can still improve view agreement; this is a different criterion.
+
+**What does the noise model actually justify?** It motivates a frozen quadratic surrogate. The raw signed-count variance needs both polarity rates, preprocessing changes distributions, and the implemented weighting is not an established likelihood optimizer.
+
+**What is the most important open theorem?** A useful next step is a convergence/stability analysis matching the evaluated candidate-wise adaptive iteration and a perturbation analysis of the aggregated candidate-score gaps. Another is relating representation perturbations to sensor-level noise with controlled identifiability.
+
+## Source hazards to avoid reproducing in slides
+
+These are pre-existing presentation hazards discovered during this read, not reasons to weaken the sound core statements above. Manuscript sources were left untouched.
+
+1. **C2:384, `eq:difference_quotient`: missing temporal scaling.** By definition y is an integrated event count. The difference quotient equals `y_h/δt`, not y_h. Use `g(t_i)−g(t_{i−1})=∫e_h` directly, or divide both sides by δt.
+2. **C2:388 and 403: endpoint convention.** The right-continuous primitive `Σ_{s_j≤t}p_j` satisfies differences with `(a,b]`, not `[a,b)`, if events occur on bin boundaries. The assumption excludes only overall observation endpoints. Use a consistent convention or no-boundary-events stipulation.
+3. **C2:263: L¹ does not alone imply an H¹ primitive.** An L¹ driver gives an absolutely continuous/W¹,¹ primitive. H¹ requires an L² driver; the finite standard bounded bumps at positive widths have this property, but arbitrary L¹ kernels need not. Avoid a generic “L¹ implies H¹” slide.
+4. **C2:464–478: physical residual equality/endpoint issue.** From the definitions, the exact relation is `c_th^{-1}(L_k−L_i)=y(s_i,s_k)−B_ik+c_th^{-1}Σ ε_l`. The display currently presents the correction as if equal to y. Small support relative to spacing does not by itself make endpoint bleed small for symmetric bumps centered exactly at s_i and s_k: each endpoint can retain half-mass regardless of width. State the physical bridge as an approximation with explicit residual, not a proven uniformly small sensor error.
+5. **C2:279 and 357: interpretive overreach.** Ridge does not establish uniform compression of physical intensity range; false coloring does not recover the missing baseline. A condition-number upper bound increasing with λ_max is not proof that large scalar λ worsens actual conditioning: scalar λ improves conditioning while increasing bias. C5:80 already uses the safer interpretation.
+6. **C5:100 says γ>0 for SPD; the theorem permits γ≥0.** Present the sharper theorem with γ≥0, and explain positive coupling's correspondence role separately.
+7. **C3:961–966 weighted TS corollary has contextual assumptions.** Positive freshness weights do not alone guarantee uniqueness; retain the original integrated identifiability, regularity, and connectedness assumptions when stating it independently on a slide.
+8. **C3 anisotropy and CM use different tensors.** The Nagel–Enkelmann tensor reduces diffusion across density edges. The CM tensor `α_ani²J+εI` increases penalties in the large-gradient direction. Do not call both “edge-preserving diffusion” without distinguishing their roles (C3:668).
+9. **C4 theorem scope is highly specific.** Unweighted/shared Λ/candidate-independent γ/before aggregation for the exact cost and correct-selection theorem; fixed W and d for convexity; frozen maps and q<1 for contraction; fixed grid and positive coefficient ridge for CM existence. These qualifications belong visibly on their respective slides, not only in a final caveat slide.
+
+## Suggested mathematical slide allocation
+
+For a substantial defense, use roughly 14–18 mathematical content slides distributed through the story, with proofs split into manageable pieces:
+
+1. Event threshold model and identical-event baseline ambiguity.
+2. Temporal inverse problem and nullspace.
+3. Temporal SPD/stability proof.
+4. Time-surface crossing geometry and aperture line.
+5. Three representations, one coefficient table.
+6. Unified theorem with hypotheses.
+7. Mean/zero-mean coercivity proof.
+8. Optional regression bias–variance tradeoff.
+9. Numerical convergence under sampled graph hypotheses.
+10. CM: beyond the quadratic family, existence with ridge.
+11. Stereo geometry and candidate-local joint energy.
+12. Block SPD and sum–difference interpretation.
+13. Perfect-match attenuation counterexample.
+14. Correct-selection condition and margin robustness.
+15. Frozen solves → fixed points → conditional contraction.
+16. What the likelihood proxy does and does not claim.
+17. Optional spectral gain/mean-zero conditioning.
+18. Synthesis: well-posed subproblems, conditional identifiability, open adaptive stages.
+
+Move long constants, exact ellipsoid algebra, the OLS cubic counterexample, anisotropic product-rule detail, clipping bounds, spectral cutoff counts, and full implementation stopping logic to backup. The audience should leave remembering the nullspaces, the coercivity mechanism, and the separation between mathematical solvability and physical correctness.
