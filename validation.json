@@ -1,66 +1,39 @@
 {
-  "validated_on": "2026-10-03",
-  "audience_pages": 77,
-  "speaker_pages": 77,
-  "core_slides": 40,
-  "discussion_slides": 37,
-  "frames_with_complete_note_sections": 77,
-  "verified_note_endings": 77,
-  "compiler_layout_or_reference_warnings": [],
-  "mathematical_review": "Parent validation of earlier October 3 edits and eight committee questions, plus GPT-6 Luna lambda/bilevel implementation reviewed against Ch2 and Antil\u2013Sayre (2023), arXiv:2302.02052 Section 3; historical Astra audits retained",
-  "review_disposition": "review-validation-2026-10-03.txt",
-  "visual_inspection": "Previous unchanged-page inspection retained; revised audience/speaker pages 7, 9, 10 and relocated pages 76, 77 visually inspected",
-  "audience_out_of_page_text": [],
-  "portfolio_ci": "Passed; three pre-existing stale figure baseline entries",
-  "local_source_and_figure_ci": "Passed",
-  "manuscript_input_snapshot": "All 32 hashes verified; original October 2 snapshot retained separately",
-  "core_note_pacing_seconds": 2955,
-  "experiments_rerun": false,
-  "empirical_limits": [
-    "Historical Ch2 PSNR normalization/alignment not recovered",
-    "Cause of zero known-motion time-surface output not established",
-    "No candidate-specific normalized data norm available to certify experimental IRLS q"
-  ],
-  "artifact_sha256": {
-    "core.tex": "77bd4d81622869b08fefa5f06be3e0a635ed7c3ca7aba5acb2ec913ff5d92e9c",
-    "backup.tex": "be71beffbb1b4cc650b65c0de2a7e8b3518fa20ceebb84dac7b8034c27921bcb",
-    "defense.pdf": "2f3e2446e93398808366f019aaa8ebdb3ad6b330da4312bfcda68545d33b081a",
-    "defense-notes.pdf": "179f65494d0b06fa5f99175e5e776f9ef0c2fd80b0fea9689e4c273652e5b940",
-    "source-map.csv": "1b7b879dd22c2b65c442cf80dacf6bb2e2a8781a36d911f7df93b48fbe782ace",
-    "source-snapshot.sha256": "a5940037b86bb2b37255c1eea5c9d11da19b0c5092d8a25a535ecf07390bd0c4",
-    "delivery-guide.txt": "c6ff4b9e7d1240e5f2d5d10c630411c5e6a8ef0cc982f2c834fe5952925af093",
-    "update_metadata.py": "1adf4dad9e9e0074d9d1f71f4441adeff0b5467ae6caa030d2951ecf5ee2414b",
-    "review-validation-2026-10-03.txt": "ad4933cfad62ed827aaa44ed6cf6a0838375d0cfba52df99213d3d49dcf7c25b"
+  "generated_at_utc": "2026-10-18T23:43:46+00:00",
+  "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
+  "main_frames": 35,
+  "backup_frames": 53,
+  "referenced_figure_count": 42,
+  "checks": {
+    "script_titles_and_numbers_match_deck": true,
+    "backup_deck_pages_match": true,
+    "one_script_page_per_deck_frame": true
   },
-  "scheduled_defense_block_minutes": 120,
-  "presentation_question_deliberation_split": "Unspecified by advisor; 40 core slides, note pacing 49m15s (45 seconds added for requested lambda/bilevel emphasis)",
-  "original_67_note_pages_unchanged": false,
-  "new_question_pages": [
-    68,
-    69,
-    70,
-    71,
-    72,
-    73,
-    74,
-    75
-  ],
-  "fresh_agent_handoff": "../NEXT_SESSION.txt",
-  "latest_revision": {
-    "revised_core_pages": [
-      7,
-      9,
-      10
-    ],
-    "relocated_core_to_backup": {
-      "9": 76,
-      "10": 77
+  "pdfs": {
+    "defense.pdf": {
+      "pages": 88,
+      "compile_warnings": []
     },
-    "prior_discussion_pages_preserved": true,
-    "unchanged_notes_verified": 72,
-    "relocated_notes_verified": 2,
-    "revised_note_endings_verified": 3,
-    "paper_checked": "https://arxiv.org/pdf/2302.02052, Section 3, Eqs. (3.1)\u2013(3.3)"
+    "defense-notes.pdf": {
+      "pages": 88,
+      "compile_warnings": []
+    },
+    "defense-script.pdf": {
+      "pages": 91,
+      "compile_warnings": []
+    }
   },
-  "speaker_out_of_page_text": []
+  "sha256": {
+    "core.tex": "d8e5e353815010b0af7f793de557008f4f122331ef6df3666d437ae45ca50ecf",
+    "backup.tex": "df77a24e014469dbcfe940113f8479ba1e22f5a485d496d049d8688147b7a199",
+    "defense.tex": "0eb90bb9b14d8a22c0946ef340ffc97d16a210e99ec560f56ce4ef1683d24203",
+    "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
+    "defense-script.md": "87b158cf047ce23487ac3322b03c5f6211ea956cb4058bc09f55c40165732340",
+    "build_script.py": "09fefe61cf32e97a49775e98e70e16aa2a41d5a5d271aed8dad0a4a7ad76f9b0",
+    "update_metadata.py": "242d858aa82711e93eb4e6d8b5fc7a574ab74717b85b3368ceeaf7e9f527df0c",
+    "Makefile": "5b109e462d177b0a8a0bf4e6531e070e6c5c945a6c38360be42be13dc15dcfab",
+    "defense.pdf": "2512949e619311e277d420754fd690fb3e83ff30d06e8ad06637bcb7da14ce13",
+    "defense-notes.pdf": "faed43611a90f86aa1195914a8c44117c70a85ebe280e865272273318f6348dd",
+    "defense-script.pdf": "e06bf1e3b3fdb22bd3624d8be8b1a2a127082d0e3ecaad5f5ceb2eaaa46bb369"
+  }
 }

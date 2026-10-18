@@ -1,54 +1,42 @@
-# Defense presentation — state
+# Defense presentation — current state
 
-Status: delivered on 2026-10-03; current working sources and PDFs revised for reuse on 2026-10-17.
+Updated October 18, 2026. **Canonical location: `../dissertation_defense`, branch `main`.** The Opus route is now the actual defense. Continue all deck, notes, script, and strategy work here.
 
-The user applied R1 from the defense update audit. This session applied R2--R6,
-the C1 interim wording, and the optional substitutions across the defense and
-both candidates, preserving the user's R1 edits. Current audience and speaker
-editions build to 77 pages each. The original defense still has the R1b table
-comment/row; it was left unchanged because this request starts at R2.
+## Current deliverables
 
-Pre-edit sources/PDFs and current build evidence are preserved in
-`../misc_ideas_feedback/defense_replacements_2026-10-17/README.md`. Dated source maps, snapshots and validation records retain their
-historical scope; the linked record describes this revision.
+- `defense.pdf`: 88 pages, consisting of 35 main slides and 53 backups.
+- `defense-notes.pdf`: matching 88-page speaker edition.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 5,400 spoken words, approximately 43–49 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `strategy.md`: selected route, time priorities, and backup navigation.
+- `delivery-guide.txt`: practical delivery and build instructions.
+- `related-work.md`: precise comparisons, primary references, and contribution boundaries.
 
-## What is here
+The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–29, stereo on 30–31, and conclusions on 32–35. Literature backup is deck page 62; the formal aperture explanation is page 88. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
 
-| File | Role |
-|---|---|
-| `defense.tex`, `core.tex`, `notes.tex` | Beamer deck; `core.tex` holds the slide content, `notes.tex` the speaker notes. |
-| `backup.tex` | Backup slides held in reserve for questions. |
-| `gmu-theme-trial.tex`, `mybeamertheme_light.sty`, `beamercolorthemeCMAI.sty` | Theme sources and the GMU/CMAI colors. |
-| `Makefile` | `make` builds `defense.pdf` and `defense-notes.pdf` into `build/`. |
-| `defense.pdf`, `defense-notes.pdf` | Current revised audience and speaker editions; tracked deliberately. |
-| `source-map.csv` | Every slide claim mapped to its dissertation source. |
-| `source-snapshot.sha256`, `source-snapshot-2026-10-02.sha256` | Hashes of the dissertation sources the slides were checked against. |
-| `validation.json`, `review-validation-2026-10-03.txt`, `math-review.txt`, `slide-audit.txt` | Verification records for the claims and the mathematics on the slides. |
-| `delivery-guide.txt` | Timing and delivery notes. |
-| `figures/` | The 18 images the slides include, copied from the dissertation at the move so the deck builds from this repository alone. |
-| `update_metadata.py` | Refreshes `validation.json` and the source snapshot. |
+The new relevant-work slide distinguishes learned event-only reconstruction, flow-based image reconstruction, and frame-assisted bilevel reconstruction. It credits classical optical-flow regularization and well-posedness theory. The contribution is the particular event-derived models and their common analysis, with explicit author contribution for the published temporal work. Speaker notes, script, and expanded literature backup agree on these distinctions.
 
-## Provenance
+## User decisions to preserve
 
-This directory lived at `dissertation_thesis/defense/` until 2026-10-15, when it
-became a sibling submodule of the `drafts` umbrella so that the dissertation
-repository holds only what builds the dissertation. Its history before that date
-is in the `dissertation_thesis` repository (the move point is commit `6cb17bd`,
-and the state delivered to the committee is tag `committee-draft-2026-10-03`).
+Treat existing numerical and analytical results as established. Keep precise hypotheses, empirical scope, and conditional convergence assumptions; keep internal audit history and pending-verification language out of the audience deck and spoken script. Refer listeners to the dissertation for supporting detail when appropriate. Backup answers are self-contained responses for questions, rather than planned main-talk transitions.
 
-The remote `git@github.com:8248902/dissertation_defense.git` is recorded but does
-not exist yet — create it before the first push.
+The advisor permits a selective defense, with confidence in the material taking priority over covering every dissertation chapter. The selected route emphasizes published temporal reconstruction and the central flow theorem; stereo remains brief. Avoid broad novelty claims and do not describe event-only prior methods as frame-assisted.
 
-The slides used to reach the dissertation's figures through `\graphicspath{{../}}`
-and `../figures/...`, which only worked from inside the dissertation repository.
-Both now resolve inside this one: `\graphicspath{{./}}` and `figures/...`, with
-the images copied in. Refresh a copy from `../dissertation_thesis/figures/` if the
-dissertation regenerates one.
+## Build and verification
 
-## Keeping the slides and the dissertation consistent
+Run `make check`, then `make all` after content changes. The latter rebuilds all three PDFs, writes a dated `validation.json`, and refreshes `source-map.csv` and `source-snapshot.sha256`. Scratch files remain under `/tmp`. The script uses Markdown as its only prose source and checks all titles, deck pages, and one-page-per-frame sections. The source map uses current source lines; compiled dissertation label numbers are populated only when an explicit current thesis build is supplied to `update_metadata.py --thesis-build`.
 
-The dissertation has changed since the defense: `dissertation_thesis` branch
-`post-committee-minimal` reverts the post-defense restructuring back to what the
-committee received, so slide claims recorded in `source-map.csv` still refer to
-committee-era section and proposition numbers. Re-run `update_metadata.py` and
-re-check `source-map.csv` against the dissertation before reusing these slides.
+October 18 final build: audience 88 pages, notes 88 pages, script 91 pages; no build/layout/reference warnings. All 88 script sections match the deck. Metadata covers 88 frames and all 42 referenced figure assets, including 14 animation frames. Primary-source attribution and new slide layouts were reviewed. `validation.json` records build checks; historical committee mathematical reviews are kept separately.
+
+The defense-scoped numerical-source and figure-reference CI checks pass. The umbrella check still reports four source-comment issues in `dissertation_proof_reference_2026-10-10` and figure paths in historical proposal/snapshot documents and `optical-flow-manuscript`; these pre-existing portfolio issues are outside the active defense.
+
+## Consolidation and history
+
+The selected candidate was preserved at commit `1746292` on historical branch `candidate/advisor-split-opus` before promotion. Its separate worktree has been retired. Earlier main corrections were already present in the selected source and were retained.
+
+These folders are frozen history, not active editing destinations:
+
+- `../misc_ideas_feedback/_archive/defense_candidate_opus_2026-10-16/`
+- `../misc_ideas_feedback/_archive/defense_strategy_2026-10-16/`
+- `history/committee-review-2026-10-03/`
+
+Earlier defense history, before the October 15 split into a sibling submodule, is in `dissertation_thesis` through commit `6cb17bd`. The selected route, notes, figures, animations, script, and supporting strategy now live together here. Local commits preserve this consolidation; no remote push was requested. The umbrella repository has unrelated existing changes; its canonical defense gitlink update remains uncommitted until the submodule is pushed under the portfolio workflow.

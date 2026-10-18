@@ -1,166 +1,139 @@
-"""Regenerate defense source navigation and the current input hash manifest.
+#!/usr/bin/env python3
+"""Rebuild current source navigation and hashes; preserve dated historical records.
 
-Run from any working directory with Python 3. The dated October 2 manifest is
-kept as a historical record; this script updates only the current manifest.
+Compiled thesis numbers are included only with --thesis-build PATH. Manifest
+paths are relative to this defense directory and work with sha256sum --check.
 """
-
 from __future__ import annotations
-
+import argparse
 import csv
 import hashlib
+import os
 import re
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent
+FRAME = re.compile(r"\\begin\{frame\}(?:\[[^\]]*\])?")
 
-ROOT = Path(__file__).resolve().parent.parent
-DEFENSE = ROOT / "defense"
-
-
-def read_dissertation_labels() -> dict[str, tuple[str, str]]:
-    """Read compiled label numbers/pages when optional aux files are present."""
-    labels: dict[str, tuple[str, str]] = {}
-    aux_files = list(ROOT.glob("chapter*.aux")) + [ROOT / "appendixA.aux"]
-    pattern = re.compile(r"\\newlabel\{([^}]+)\}\{\{([^{}]*)\}\{([^{}]*)\}")
-    for path in aux_files:
-        if not path.is_file():
+def braced(text: str, start: int) -> tuple[str, int]:
+    """Read a balanced TeX argument, respecting escaped braces."""
+    while start < len(text) and text[start].isspace():
+        start += 1
+    if start >= len(text) or text[start] != '{':
+        raise ValueError(f'Expected braced argument at character {start}')
+    depth, end = 1, start + 1
+    while end < len(text):
+        if text[end] == '\\':
+            end += 2
             continue
-        for match in pattern.finditer(path.read_text(encoding="utf-8")):
-            labels[match.group(1)] = (match.group(2), match.group(3))
-    return labels
+        if text[end] == '{': depth += 1
+        if text[end] == '}': depth -= 1
+        if depth == 0: return text[start + 1:end], end + 1
+        end += 1
+    raise ValueError('Unclosed TeX argument')
 
+def commands(text: str, name: str) -> list[str]:
+    return [braced(text, m.end())[0] for m in re.finditer(r'\\' + name + r'\b', text)]
 
-def source_label_locations(source_paths: list[Path]) -> dict[str, list[str]]:
-    locations: dict[str, list[str]] = {}
-    for path in source_paths:
-        if not path.is_file():
-            continue
-        relative = path.relative_to(ROOT).as_posix()
-        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-            for label in re.findall(r"\\label\{([^}]+)\}", line):
-                locations.setdefault(label, []).append(f"{relative}:{line_number}")
-    return locations
+def read_frames(root: Path = ROOT) -> list[dict]:
+    frames = []
+    for filename, role in [('core.tex', 'core'), ('backup.tex', 'discussion')]:
+        text = (root / filename).read_text(encoding='utf-8')
+        for index, match in enumerate(FRAME.finditer(text), 1):
+            end = text.find(r'\end{frame}', match.end())
+            if end < 0: raise ValueError(f'Unclosed frame in {filename}')
+            rest = text[match.end():end].lstrip()
+            title = braced(rest, 0)[0] if rest.startswith('{') else 'Title'
+            sections = commands(text[:match.start()], 'section')
+            section = sections[-1] if sections else 'The inverse problems'
+            if role == 'discussion': section = 'Discussion and additional proofs'
+            frames.append(dict(page=len(frames) + 1, number=index, role=role,
+                               title=title, section=section, filename=filename,
+                               line=text.count('\n', 0, match.start()) + 1,
+                               block=text[match.start():end]))
+    return frames
 
+def figure_paths(root: Path = ROOT) -> set[Path]:
+    """Collect literal figure arguments and expand every animation frame."""
+    figures = set()
+    def resolve(name: str) -> Path:
+        path = root / name
+        if path.is_file(): return path
+        for suffix in ('.pdf', '.png', '.jpg', '.jpeg'):
+            if path.with_name(path.name + suffix).is_file():
+                return path.with_name(path.name + suffix)
+        raise FileNotFoundError(f'Referenced figure is missing: {name}')
+    for filename in ('core.tex', 'backup.tex'):
+        text = (root / filename).read_text(encoding='utf-8')
+        prefixes = set()
+        for match in re.finditer(r'\\animategraphics(?:\[[^\]]*\])?', text):
+            args, pos = [], match.end()
+            for _ in range(4):
+                value, pos = braced(text, pos)
+                args.append(value)
+            _, prefix, first, last = args
+            prefixes.add(prefix)
+            width = len(first) if first.startswith('0') else 0
+            for number in range(int(first), int(last) + 1):
+                figures.add(resolve(prefix + str(number).zfill(width)))
+        for name in re.findall(r'\{(figures/[^{}]+)\}', text):
+            if name not in prefixes: figures.add(resolve(name))
+    return figures
 
 def main() -> None:
-    labels = read_dissertation_labels()
-    source_paths = [
-        ROOT / name
-        for name in (
-            "chapterOne.tex",
-            "chapterTwo.tex",
-            "chapterThree.tex",
-            "chapterFour.tex",
-            "chapterFive.tex",
-            "appendixA.tex",
-        )
-    ]
-    source_paths += sorted((ROOT / "shared_bodies").glob("*.tex"))
-    source_paths += sorted((ROOT / "appendix_bodies").glob("*.tex"))
-    locations = source_label_locations(source_paths)
-
-    rows: list[list[object]] = []
-    slide_number = 0
-    section = "The inverse problems"
-    role_counts = {"core": 0, "discussion": 0}
-    for filename, role in (("core.tex", "core"), ("backup.tex", "discussion")):
-        path = DEFENSE / filename
-        content = path.read_text(encoding="utf-8")
-        matches = list(
-            re.finditer(
-                r"\\begin\{frame\}(?:\[[^\]]*\])?(?:\{([^\n]*)\})?",
-                content,
-            )
-        )
-        for index, match in enumerate(matches):
-            slide_number += 1
-            role_counts[role] += 1
-            block_end = matches[index + 1].start() if index + 1 < len(matches) else len(content)
-            block = content[match.start() : block_end]
-            before = content[: match.start()]
-            sections = re.findall(r"\\section\{([^}]+)\}", before)
-            if sections:
-                section = sections[-1]
-            if role == "discussion":
-                section = "Discussion and additional proofs"
-
-            title = (match.group(1) or "Title / opening").strip()
-            statements = re.findall(r"\\src\{([^\n]+)\}", block)
-            statement = "; ".join(statements).replace(r"\_", "_")
-            selected_labels: list[str] = []
-            for label in re.findall(r"\b[a-z]+:[A-Za-z0-9_]+", statement):
-                if label not in selected_labels:
-                    selected_labels.append(label)
-
-            references: list[str] = []
-            source_locations: list[str] = []
-            for label in selected_labels:
-                if label in labels:
-                    number, page = labels[label]
-                    references.append(f"{label} = {number}, dissertation p. {page}")
-                source_locations.extend(locations.get(label, []))
-
-            numerical_sources = re.findall(r"^% source:\s*(.*)$", block, re.MULTILINE)
-            source_line = content.count("\n", 0, match.start()) + 1
-            rows.append(
-                [
-                    slide_number,
-                    role,
-                    section,
-                    title,
-                    f"defense/{filename}:{source_line}",
-                    statement,
-                    "; ".join(dict.fromkeys(source_locations)),
-                    "; ".join(references),
-                    " | ".join(source.strip() for source in numerical_sources),
-                ]
-            )
-
-    source_map = DEFENSE / "source-map.csv"
-    with source_map.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.writer(stream, lineterminator="\n")
-        writer.writerow(
-            [
-                "pdf_slide",
-                "role",
-                "section",
-                "slide_title",
-                "editable_source",
-                "dissertation_source_footer",
-                "source_label_locations",
-                "compiled_dissertation_references",
-                "immediate_numerical_provenance",
-            ]
-        )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--thesis-root', type=Path, default=ROOT.parent / 'dissertation_thesis')
+    parser.add_argument('--thesis-build', type=Path, help='Explicit build directory containing current thesis .aux files')
+    parser.add_argument('--output-dir', type=Path, default=ROOT)
+    args = parser.parse_args()
+    thesis = args.thesis_root.resolve()
+    sources = sorted(thesis.glob('*.tex')) + sorted(thesis.glob('shared_bodies/*.tex')) + sorted(thesis.glob('appendix_bodies/*.tex'))
+    locations = {}
+    for path in sources:
+        for number, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
+            for label in re.findall(r'\\label\{([^}]+)\}', line):
+                locations.setdefault(label, []).append(f'{os.path.relpath(path, ROOT)}:{number}')
+    labels = {}
+    if args.thesis_build:
+        if not args.thesis_build.is_dir(): raise ValueError('--thesis-build must be an existing directory')
+        for path in sorted(args.thesis_build.rglob('*.aux')):
+            for match in re.finditer(r'\\newlabel\{([^}]+)\}\{\{([^{}]*)\}\{([^{}]*)\}', path.read_text(encoding='utf-8')):
+                labels[match[1]] = (match[2], match[3])
+    rows = []
+    frames = read_frames()
+    for frame in frames:
+        footer = '; '.join(commands(frame['block'], 'src'))
+        if not footer:
+            custom = re.search(r'Dissertation:\s*(.*?)(?:\\par|$)', frame['block'])
+            if custom:
+                footer = custom.group(1).strip()
+        footer = footer.replace(r'\_', '_')
+        selected = list(dict.fromkeys(re.findall(r'\b[a-z]+:[A-Za-z0-9_]+', footer)))
+        references = [f'{label} = {labels[label][0]}, dissertation p. {labels[label][1]}' for label in selected if label in labels]
+        provenance = re.findall(r'^\s*% source:\s*(.*)$', frame['block'], re.MULTILINE)
+        rows.append([frame['page'], frame['role'], frame['section'], frame['title'],
+                     f"{frame['filename']}:{frame['line']}", footer,
+                     '; '.join(dict.fromkeys(loc for label in selected for loc in locations.get(label, []))),
+                     '; '.join(references), ' | '.join(provenance)])
+    figures = figure_paths()
+    inputs = set(sources) | figures
+    for name in ['defense.tex', 'notes.tex', 'core.tex', 'backup.tex', 'defense-script.md',
+                 'build_script.py', 'update_metadata.py', 'Makefile', 'aperture-demo.html']:
+        path = ROOT / name
+        if path.is_file(): inputs.add(path)
+    inputs.update(path for path in thesis.glob('*.bib'))
+    inputs.update(path for path in thesis.glob('*.sty'))
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    with (args.output_dir / 'source-map.csv').open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.writer(stream, lineterminator='\n')
+        writer.writerow(['pdf_slide', 'role', 'section', 'slide_title', 'editable_source',
+                         'dissertation_source_footer', 'source_label_locations',
+                         'compiled_dissertation_references', 'immediate_numerical_provenance'])
         writer.writerows(rows)
+    entries = sorted((os.path.relpath(path, ROOT), hashlib.sha256(path.read_bytes()).hexdigest()) for path in inputs)
+    (args.output_dir / 'source-snapshot.sha256').write_text(''.join(f'{digest}  {name}\n' for name, digest in entries), encoding='utf-8')
+    print(f'Updated {len(rows)} source-map rows and {len(entries)} hashes, including {len(figures)} figures.')
+    if not args.thesis_build: print('Compiled thesis references left blank; supply --thesis-build to include current labels.')
 
-    figures: set[Path] = set()
-    figure_pattern = re.compile(r"\{((?:\.\./)?figures/[^}]+)\}")
-    for filename in ("core.tex", "backup.tex"):
-        content = (DEFENSE / filename).read_text(encoding="utf-8")
-        for figure in figure_pattern.findall(content):
-            relative = figure.removeprefix("../")
-            figures.add(ROOT / relative)
-
-    fixed_inputs = [ROOT / "gmuETD.bib", ROOT / "GMU-Diss_template.tex"]
-    inputs = set(source_paths + fixed_inputs) | figures
-    current_manifest = DEFENSE / "source-snapshot.sha256"
-    manifest_entries: list[tuple[str, str]] = []
-    for path in sorted(inputs):
-        if path.is_file():
-            manifest_entries.append(
-                (hashlib.sha256(path.read_bytes()).hexdigest(), path.relative_to(ROOT).as_posix())
-            )
-    with current_manifest.open("w", encoding="utf-8", newline="\n") as stream:
-        for digest, relative in manifest_entries:
-            stream.write(f"{digest}  {relative}\n")
-
-    print(
-        f"Updated {source_map.relative_to(ROOT)}: {len(rows)} slides "
-        f"({role_counts['core']} core, {role_counts['discussion']} discussion); "
-        f"updated {current_manifest.relative_to(ROOT)}: {len(manifest_entries)} inputs "
-        f"including {len(figures)} referenced figures."
-    )
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

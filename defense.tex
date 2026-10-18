@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,bm,booktabs,mathtools,array}
 \usepackage{tikz,pgfplots}
+\ifdefined\DefenseNotes\else\usepackage{animate}\fi
 \usetikzlibrary{arrows.meta,positioning,calc}
 \pgfplotsset{compat=1.18}
 \graphicspath{{./}}
@@ -28,8 +29,10 @@
 \setbeamertemplate{frametitle}{\vspace{2mm}\insertframetitle\par\vspace{1mm}\textcolor{teal}{\rule{\textwidth}{0.6pt}}}
 \newif\ifbackup
 \backupfalse
-\setbeamertemplate{footline}{\hspace{8mm}\scriptsize\textcolor{muted}{Daniel Blauvelt\quad|\quad\insertsectionhead}\hfill\ifbackup\textcolor{muted}{Discussion}\else\textcolor{muted}{\insertframenumber\,/\,\MainFrames}\fi\hspace{8mm}\vspace{3mm}}
-\newcommand{\MainFrames}{40}
+\newcommand{\routecrumb}[2]{\ifnum\value{section}=#1\textcolor{teal}{\textbf{#2}}\else\textcolor{muted}{#2}\fi}
+\newcommand{\routeseparator}{\;\textcolor{muted}{$\rightarrow$}\;}
+\setbeamertemplate{footline}{\hspace{8mm}\scriptsize\ifbackup\textcolor{muted}{Discussion}\hfill\textcolor{muted}{\insertframenumber}\else\routecrumb{1}{Sensor and data}\routeseparator\routecrumb{2}{Reconstruction}\routeseparator\routecrumb{3}{Optical flow}\routeseparator\routecrumb{4}{Stereo depth}\routeseparator\routecrumb{5}{Conclusions}\hfill\textcolor{muted}{\insertframenumber\,/\,\MainFrames}\fi\hspace{8mm}\vspace{3mm}}
+\newcommand{\MainFrames}{35}
 \newcommand{\R}{\mathbb R}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\A}{\mathbf A}

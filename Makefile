@@ -1,11 +1,22 @@
-.PHONY: all slides notes
+PYTHON ?= python3
 
-all: slides notes
+.PHONY: all slides notes script metadata check
+
+all:
+	$(PYTHON) build_script.py --target all
+	$(PYTHON) update_metadata.py
 
 slides:
-	latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build defense.tex
-	cp build/defense.pdf defense.pdf
+	$(PYTHON) build_script.py --target slides
 
 notes:
-	latexmk -pdf -interaction=nonstopmode -halt-on-error -jobname=defense-notes -outdir=build notes.tex
-	cp build/defense-notes.pdf defense-notes.pdf
+	$(PYTHON) build_script.py --target notes
+
+script:
+	$(PYTHON) build_script.py --target script
+
+metadata:
+	$(PYTHON) update_metadata.py
+
+check:
+	$(PYTHON) build_script.py --check-only
