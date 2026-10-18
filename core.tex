@@ -126,7 +126,7 @@ At the same fixed weights,
 \takeaway{Coercivity gives a stable estimate; weakening the penalty weakens these full-space bounds.}
 \src{Ch. 2, thm:uniqueness, prop:stability.}
 % source: direct sharper operator bound from Ch. 2 normal equations and Lambda^2 >= lambda_min^2 I.
-\talknote{Proof; 90 seconds.}{Walk through the quadratic form. Both terms are nonnegative, and the strictly positive diagonal penalty supplies a lower bound in every direction. Finite-dimensional coercivity gives existence; the positive-definite Hessian gives uniqueness. Subtracting the two normal equations gives the exact perturbation identity.}{The displayed full-space bound uses $\norm{\K^{-1}}_2\le\lambda_{\min}^{-2}$. A sharper operator bound is $\norm{\K^{-1}\A^\top}_2\le1/(2\lambda_{\min})$: from $\A^\top\A\preceq\K-\lambda_{\min}^2I$, the squared singular-value bound is at most $\max_{t\ge\lambda_{\min}^2}(1/t-\lambda_{\min}^2/t^2)=1/(4\lambda_{\min}^2)$. The original estimate is a worst-case bound; reported CN is a measured system condition number.}
+\talknote{Proof; 90 seconds.}{Walk through the quadratic form. Both terms are nonnegative, and the strictly positive diagonal penalty supplies a lower bound in every direction. Finite-dimensional coercivity gives existence; the positive-definite Hessian gives uniqueness. Subtracting the two normal equations gives the exact perturbation identity.}{The displayed full-space bound uses $\norm{\K^{-1}}_2\le\lambda_{\min}^{-2}$. A sharper operator bound is $\norm{\K^{-1}\A^\top}_2\le1/(2\lambda_{\min})$: from $\A^\top\A\preceq\K-\lambda_{\min}^2I$, the squared singular-value bound is at most $\max_{t\ge\lambda_{\min}^2}(1/t-\lambda_{\min}^2/t^2)=1/(4\lambda_{\min}^2)$. The original estimate is a worst-case bound; the reported CN diagnostic awaits historical matrix-provenance verification.}
 \end{frame}
 
 \begin{frame}{How are the temporal weights chosen?}
@@ -137,13 +137,13 @@ Here $dc_i$ is the signed event accumulation; $a_i$ is its magnitude, not a coun
 \par\medskip
 % source: Ch. 2 tab:lambda_outdoor_avg; reported outdoor condition numbers.
 \begin{tabular}{lrrr}\toprule Rule & Sigmoid & Inverse proportional & Exponential\\\midrule
-Outdoor condition number & 29.60 & 81.50 & 100.74\\\bottomrule
+Reported outdoor CN & 29.60 & 81.50 & 100.74\\\bottomrule
 \end{tabular}
 \par\smallskip
 \small Chosen empirically to balance image fidelity and conditioning.
 \takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
 \src{Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.}
-\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its condition number is lower than the alternatives in the reported outdoor average, while inverse proportional has a lower condition number indoors.}{The other two rules and their exact formulas are in backup slide 60. The reported outdoor condition numbers are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; this direct identity does not establish a full adaptive stability theorem.}
+\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in backup slide 60. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; this direct identity does not establish a full adaptive stability theorem.}
 \end{frame}
 
 \begin{frame}{Relation to Antil--Sayre bilevel reconstruction}
@@ -164,7 +164,7 @@ Indoor & Bilevel / event-only & 15.37 / 10.85 & 39755 / 25.51\\
 Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \end{tabular}
 \par\smallskip
-{\small PSNR: reference-image similarity (dB). CN: reported system condition number.}
+{\small PSNR: reference-image similarity (dB). CN: reported diagnostic; historical matrix provenance pending.}
 \takeaway{Frame information and a different optimization problem change the comparison.}
 \src{Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor.}
 \talknote{Relationship and comparison; 90 seconds.}{In Antil--Sayre, the outer variable is event threshold parameter $z$, not a learned regularization weight. Their problems are $u(z)=\arg\min_u\frac12\|Au-b(z)\|^2+\frac{\lambda_2}{2}\|u\|^2$ and $\min_z\frac12\|u(z)+g(z)-d\|^2+\frac{\lambda_1}{2}\|z\|^2$, with $d$ log frames, $g$ an event-dependent exposure term, and $b=A[d-g(z)]$. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{The table reproduces the dissertation's indoor and outdoor averages: PSNR/CN are 15.37/39755 versus 10.85/25.51 indoors, and 8.41/39755 versus 8.71/27.10 outdoors, for bilevel versus event-only. The methods receive different inputs, including absolute intensity frames for the comparator, so this is descriptive rather than controlled evidence of superiority. The historical PSNR normalization/alignment protocol was not recovered. The paper analyzes existence and conditional local uniqueness for its bilevel problem; our theorem establishes strict convexity and uniqueness for each fixed positive $\Lam$. These guarantees and the lambda coefficients have different roles.}
@@ -382,7 +382,7 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \end{tabular}
 \takeaway{Stripes emphasize a normal-flow constraint; checker texture supplies directions in both axes.}
 \src{Ch. 3, fig:ch3\_quiver\_v2e; v2e simulation, same window and arrow scale.}
-\talknote{Visual evidence; 60 seconds.}{The object translates diagonally. Red arrows show the ground truth and green arrows the estimates, at the common scale retained from the dissertation's panels. Vertical stripe interiors provide mainly horizontal gradients. The checkerboard provides gradient information in both spatial directions. Object boundaries can supply additional information even in the stripe scene.}{These are selected illustrative windows, not a cross-dataset method ranking. The full figure also includes time surface and other variants; its displayed time-surface result is zero in these scenes. The output does not diagnose which hypothesis or extraction step fails, so do not assign a cause.}
+\talknote{Visual evidence; 60 seconds.}{The object translates diagonally. Red arrows show the ground truth and green arrows the estimates, at the common scale retained from the dissertation's panels. Vertical stripe interiors provide mainly horizontal gradients. The checkerboard provides gradient information in both spatial directions. Object boundaries can supply additional information even in the stripe scene.}{These are selected illustrative windows, not a cross-dataset method ranking. The full figure also includes time surface and other variants; its reported TS AEE equals the zero-field baseline at the reported precision. The output does not diagnose which hypothesis or extraction step fails, so do not assign a cause.}
 \end{frame}
 
 \section{Stereo depth}
@@ -594,8 +594,8 @@ Compare reciprocal versus rate-proportional weights while holding the remaining 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{lrrrr}\toprule & Flying 1&Flying 2&Flying 3&Flying 4\\\midrule
-% source: appendix_bodies/ch4_protocol.tex sec:success_wls, matched common-set weighting-rule reanalysis.
-Mean-error reduction (cm)&4.96&8.54&2.90&5.56\\\bottomrule
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark; displayed WLS-Prop means minus displayed WLS means.
+Mean-error difference (cm)&4.44&8.28&2.73&5.17\\\bottomrule
 \end{tabular}
 \end{center}
 The reciprocal rule has lower reported mean error on all four sequences.

@@ -1,7 +1,16 @@
 # Defense presentation — state
 
-Status: delivered. Slides and speaker notes as presented to the committee on
-2026-10-03, plus the verification records built alongside them.
+Status: delivered on 2026-10-03; current working sources and PDFs revised for reuse on 2026-10-17.
+
+The user applied R1 from the defense update audit. This session applied R2--R6,
+the C1 interim wording, and the optional substitutions across the defense and
+both candidates, preserving the user's R1 edits. Current audience and speaker
+editions build to 77 pages each. The original defense still has the R1b table
+comment/row; it was left unchanged because this request starts at R2.
+
+Pre-edit sources/PDFs and current build evidence are preserved in
+`../misc_ideas_feedback/defense_replacements_2026-10-17/README.md`. Dated source maps, snapshots and validation records retain their
+historical scope; the linked record describes this revision.
 
 ## What is here
 
@@ -11,7 +20,7 @@ Status: delivered. Slides and speaker notes as presented to the committee on
 | `backup.tex` | Backup slides held in reserve for questions. |
 | `gmu-theme-trial.tex`, `mybeamertheme_light.sty`, `beamercolorthemeCMAI.sty` | Theme sources and the GMU/CMAI colors. |
 | `Makefile` | `make` builds `defense.pdf` and `defense-notes.pdf` into `build/`. |
-| `defense.pdf`, `defense-notes.pdf` | The delivered deck and the notes version; tracked deliberately. |
+| `defense.pdf`, `defense-notes.pdf` | Current revised audience and speaker editions; tracked deliberately. |
 | `source-map.csv` | Every slide claim mapped to its dissertation source. |
 | `source-snapshot.sha256`, `source-snapshot-2026-10-02.sha256` | Hashes of the dissertation sources the slides were checked against. |
 | `validation.json`, `review-validation-2026-10-03.txt`, `math-review.txt`, `slide-audit.txt` | Verification records for the claims and the mathematics on the slides. |

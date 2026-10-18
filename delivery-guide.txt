@@ -153,7 +153,7 @@ MATHEMATICAL PRESENTATION CHOICES
   Ch. 2 leaves a separate additive temporal offset at each pixel. The historical
   PSNR normalization and alignment were not recovered, so do not claim that a
   global image normalization resolves this per-pixel null space. The known-motion
-  figures establish that the time-surface output is zero in the shown scenes;
+  examples give TS AEE equal to the zero-field baseline at the reported precision;
   available staged artifacts do not establish why.
 
 REVIEW AND VALIDATION SCOPE

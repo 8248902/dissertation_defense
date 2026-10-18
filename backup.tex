@@ -106,7 +106,7 @@ Rectangular&8.24&423.59&7.20&148.33\\\bottomrule
 \item Reference-image scores do not identify an absolute intensity baseline from events.
 \end{itemize}
 \src{Ch. 2, tab:bump\_avg\_indoor, tab:bump\_avg\_outdoor.}
-\talknote{Question: why does a smoothing kernel change conditioning?}{The matrix K=A\textasciicircum{}T A+Lambda\textasciicircum{}T Lambda does not directly contain the bump kernel. However Lambda is computed adaptively from represented observations. Changing aggregation can change those weights, hence the numerical matrix. The observed condition-number difference cannot be attributed to smoothing of a fixed operator alone.}{The table is copied from the dissertation, with aggregate labels retained. Its outdoor ordering shows why it would be excessive to claim one kernel is uniformly best. The positivity theorem is independent of the empirical ranking and gives only a sufficient worst-case bound, not a causal explanation of every numerical comparison.}
+\talknote{Question: why does a smoothing kernel change conditioning?}{The matrix K=A\textasciicircum{}T A+Lambda\textasciicircum{}T Lambda does not directly contain the bump kernel. However Lambda is computed adaptively from represented observations. Changing aggregation can change those weights, hence the numerical matrix. The observed condition-number difference cannot be attributed to smoothing of a fixed operator alone.}{The table copies the dissertation's historical CN diagnostics; their matrix provenance remains pending. Its outdoor ordering shows why it would be excessive to claim one kernel is uniformly best. The positivity theorem is independent of the empirical ranking and gives only a sufficient worst-case bound, not a causal explanation of every numerical comparison.}
 \end{frame}
 
 \begin{frame}{The weak equation supplies the natural boundary condition}
@@ -448,7 +448,7 @@ Theorems describe specific layers; empirical evaluation describes the complete e
 \item \textbf{Evaluation data:} Zhu et al., \emph{The Multivehicle Stereo Event Camera Dataset}; \texttt{MVSEC2018}.
 \end{itemize}
 \vspace{2mm}
-Every slide's footer identifies its dissertation source. The companion source map records theorem labels, current theorem numbers, figures, numerical tables, and scope.
+Every slide's footer identifies its dissertation source. The companion source map records theorem labels, committee-era theorem numbers, figures, numerical tables, and scope.
 \src{GMU-Diss\_template.tex; gmuETD.bib; Ch. 3 related work; Appendix evaluation protocol.}
 \talknote{Attribution.}{These are literature anchors for the sensor model, classical flow framework, time-surface approach, event warping, and dataset. The talk's empirical numbers and theorem statements are drawn from the local dissertation, not assembled from an external search or new experiments.}{Dissertation label names are more durable than current page or theorem numbers, which can shift when the manuscript is edited. The source map provides both where available.}
 \end{frame}
@@ -600,7 +600,7 @@ Gaussian & 8.84 & 20.22\\\bottomrule
 \end{tabular}
 \end{columns}
 \takeaway{Kernel and adaptive-weight choices affect both the reconstruction and the solved system.}
-\src{Ch. 2, tab:bump\_avg\_indoor and outdoor bump-sweep gallery. CN: reported condition number.}
+\src{Ch. 2, tab:bump\_avg\_indoor and outdoor bump-sweep gallery. CN: reported diagnostic.}
 % source: Ch. 2 tab:bump_avg_indoor; CN values and source-limited PSNR interpretation.
-\talknote{Temporal results; 60 seconds.}{The pictures are an outdoor example; the compact table is an indoor aggregate. Say that distinction explicitly. PSNR is a reference-image similarity measure and CN the reported system condition number. The dissertation reports these values descriptively; the available historical sources do not recover the PSNR normalization or alignment protocol.}{No general guarantee says a spline always improves conditioning or reconstruction. The outdoor table has a different ordering, included in the backup. The scores are not proof of absolute-intensity recovery. The shown CN range is 20.22--1375.75: Gaussian 20.22, B-spline 22.16, Delta 1375.75. Display normalization and false color are visualization choices, not measured absolute brightness.}
+\talknote{Temporal results; 60 seconds.}{The pictures are an outdoor example; the compact table is an indoor aggregate. Say that distinction explicitly. PSNR measures reference-image similarity; CN is a reported diagnostic with historical matrix provenance pending. The dissertation reports these values descriptively; the available historical sources do not recover the PSNR normalization or alignment protocol.}{No general guarantee says a spline always improves conditioning or reconstruction. The outdoor table has a different ordering, included in the backup. The scores are not proof of absolute-intensity recovery. The shown CN range is 20.22--1375.75: Gaussian 20.22, B-spline 22.16, Delta 1375.75. Display normalization and false color are visualization choices, not measured absolute brightness.}
 \end{frame}
