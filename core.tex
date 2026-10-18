@@ -545,7 +545,7 @@ The evaluated reciprocal proxy is
 \[W_{ii}^{(k)}=\frac1{|(\A\mathbf f^{(k)})_i|+\varepsilon_{\rm noise}},\qquad\varepsilon_{\rm noise}>0.\]
 \takeaway{Net rate does not determine total variance. The processed-data weights define a frozen Gaussian surrogate.}
 \src{Ch. 4, def:skellam\_surrogate and following scope discussion.}
-\talknote{Weight motivation; 75 seconds.}{The difference of independent Poisson counts is Skellam. In a high-count regime, a Gaussian approximation motivates weighted least squares with an inverse-variance weight. But the raw variance is the sum of polarity rates while the mean is their difference. A net-rate-dependent variance is an added approximation, not a consequence of Skellam moments.}{Furthermore the actual observations are real signed masses after warp, downsampling, and normalization, not untouched integer Poisson counts. The weighting proxy is evaluated at the preceding state and then frozen. Its reciprocal form downweights high predicted activity relative to low activity. The matched experiment will support this specific rule empirically without elevating it to maximum likelihood.}
+\talknote{Weight motivation; 75 seconds.}{The difference of independent Poisson counts is Skellam. In a high-count regime, a Gaussian approximation motivates weighted least squares with an inverse-variance weight. But the raw variance is the sum of polarity rates while the mean is their difference. A net-rate-dependent variance is an added approximation, not a consequence of Skellam moments.}{Furthermore the actual observations are real signed masses after warp, downsampling, and normalization, not untouched integer Poisson counts. The weighting proxy is evaluated at the preceding state and then frozen. Its reciprocal form downweights high predicted activity relative to low activity. The reported comparison supports this rule on method-specific scored populations.}
 \end{frame}
 
 \begin{frame}{IRLS: fixed-point existence and conditional convergence}
@@ -588,7 +588,7 @@ Piatkowska adaptation&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1
 \talknote{Primary stereo results; 90 seconds.}{Introduce only the columns shown. Mean absolute depth error is in centimeters separately for each sequence. The displayed log RMSE is one hundred times the base metric, then averaged equally over sequence-level values. Point counts sum scored pixels across sequences. Piatkowska's local adaptation leads on most error metrics in the full dissertation table; WLS leads on Flying 2 and narrowly on log RMSE.}{The valid set differs by method. Both estimates and ground truth must be in the reporting depth band. A method can return many finite depths but have fewer in-band scored points. Complete configurations also differ in normalization, regularization, guidance, and final activity masking. No uncertainty intervals or independently recovered historical sampling manifest are provided, so report descriptive comparisons and keep claims conditional.}
 \end{frame}
 
-\begin{frame}{A matched ablation supports the selected weighting rule}
+\begin{frame}{A weighting comparison supports the selected rule}
 \small
 Compare reciprocal versus rate-proportional weights while holding the remaining configuration fixed.
 \begin{center}
@@ -598,13 +598,13 @@ Compare reciprocal versus rate-proportional weights while holding the remaining 
 Mean-error reduction (cm)&4.96&8.54&2.90&5.56\\\bottomrule
 \end{tabular}
 \end{center}
-The reciprocal rule improved every reported metric on every sequence in this common-set comparison.
+The reciprocal rule has lower reported mean error on all four sequences.
 \begin{block}{Scope of this evidence}
-Both methods use their common valid pixel set. This is a reanalysis of the same benchmark run, and the rule was selected on these sequences.
+Each method is scored on its own valid pixel set. The differences subtract the reported WLS means from the WLS-Prop means; the rule was selected on these sequences.
 \end{block}
-\takeaway{A controlled weighting comparison supports the chosen rule; it does not validate the variance proxy or isolate all configuration improvements.}
-\src{Appendix, sec:success\_wls.}
-\talknote{Stronger empirical evidence; 60 seconds.}{This comparison is more focused than the control-versus-WLS benchmark. The same precision and configuration are used and scoring is restricted to the intersection of valid pixels. Thus it directly compares the two weighting rules, conditional on that population. The improvement numbers differ from subtracting the method-specific benchmark rows because the populations differ.}{The reciprocal rule was chosen using these sequences, so it is not a held-out validation result. No claim of maximum likelihood follows from empirical performance. A later controlled experiment could compare against truly homoscedastic weights under the same preprocessing, regularizer, and validity rules.}
+\takeaway{The reported comparison supports the chosen rule on its scored populations; a common-set comparison requires rescoring the outputs.}
+\src{Appendix, tab:unified\_benchmark, sec:success\_wls.}
+\talknote{Stronger empirical evidence; 60 seconds.}{The stated configurations vary the weighting rule while keeping the remaining settings fixed. Each method is scored on its own valid population. The displayed differences subtract the WLS mean errors from the WLS-Prop mean errors in the benchmark table.}{The reciprocal rule was chosen using these sequences, so it is not a held-out validation result. No claim of maximum likelihood follows from empirical performance. A later controlled experiment could compare against truly homoscedastic weights under the same preprocessing, regularizer, and validity rules.}
 \end{frame}
 
 \begin{frame}{Hard fusion changes both the constraint and the regularization}
