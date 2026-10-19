@@ -226,17 +226,22 @@ when every support lies inside $[t_0,t_N]$.
 \end{frame}
 
 \begin{frame}{A regularized estimate is uniquely selected}
+\small
 For fixed $\Lam=\operatorname{diag}(\lambda_i)$ with every $\lambda_i>0$,
 \[\mathbf f^*=\arg\min_{\mathbf f\in\R^n}\left\{\frac12\norm{\A\mathbf f-\mathbf y}^2+\frac12\norm{\Lam\mathbf f}^2\right\}.\]
-\begin{block}{Temporal uniqueness theorem}
+The unique minimizer solves the normal equations:
 \[\K_{\rm time}=\A^\top\A+\Lam^\top\Lam\succ0,\qquad \K_{\rm time}\mathbf f^*=\A^\top\mathbf y.\]
-The fixed-weight problem has a unique global minimizer.
-\end{block}
+\textbf{Compute each pixel, then assemble frames}\par
+\begin{enumerate}\footnotesize\setlength{\itemsep}{0pt}
+% source: monocular_reconstruction/src/core/lat_image_af_with_lambda.m:87--96 and lat_image_af.m:52--61; independent pixel systems use MATLAB left division in parfor, then assemble L.
+\item Form the pixel's matrix and right-hand side; solve the linear system numerically.
+\item Run independent pixel solves in parallel; assemble their temporal profiles into frames.
+\end{enumerate}
 % source: Direct consequence of Ch. 2 thm:uniqueness normal equations and A1=0; supplementary identity.
 The selected baseline satisfies $\mathbf1^\top\Lam^2\mathbf f^*=0$.
 \takeaway{The penalty chooses an unobserved baseline and also changes observable increments.}
-\src{Ch. 2, eq:in, thm:uniqueness. Baseline identity: direct consequence.}
-\talknote{Model and theorem; 75 seconds.}{The objective balances fidelity to observed changes against weighted magnitude. The normal equations follow by differentiating the quadratic. Solve this system by factorization rather than explicitly forming an inverse. Pixels are independent, so these temporal solves can be batched.}{Premultiply the normal equations by $\mathbf1^\top$ and use $\A\mathbf1=0$ to obtain the weighted zero-mean identity. Under the fixed model $\mathbf y\mid\mathbf f\sim N(\A\mathbf f,I)$ and $\mathbf f\sim N(0,(\Lam^\top\Lam)^{-1})$, this minimizer is the Gaussian MAP estimate. The unit noise covariance and fixed positive $\Lam$ are assumptions; data-derived weights give a plug-in fixed-weight interpretation, not a full-pipeline MAP or stability theorem. As scalar $\lambda\to0$, the solution tends to the minimum-norm exact fit, which sets the constant null mode to zero.}
+\src{Ch. 2, eq:in, thm:uniqueness; monocular reconstruction implementation, per-pixel linear solves.}
+\talknote{Model, computation, and theorem; about 90 seconds.}{The objective balances fidelity to observed changes against weighted magnitude. For one pixel, differentiate the quadratic to obtain $\K_{\rm time}\mathbf f=\A^\top\mathbf y$. Form that pixel's matrix and right-hand side, solve the linear system numerically, and retain the resulting temporal profile. The implementation parallelizes these independent pixel solves and assembles the profiles into reconstructed frames. Its MATLAB routines use matrix left division inside a parallel pixel loop. Strictly positive fixed weights make $\K_{\rm time}$ positive definite and select one global minimizer.}{Premultiply the normal equations by the constant vector and use A times one equals zero to obtain the weighted zero-mean identity. The magnitude penalty selects the baseline while also changing fitted increments. Under a fixed Gaussian observation model with unit covariance and latent prior precision Lambda transpose Lambda, the same minimizer is the MAP estimate. That interpretation uses fixed positive weights; data-derived weights give a plug-in fixed-weight model. With scalar regularization tending to zero, the solution tends to the minimum-norm exact fit, which sets the constant null mode to zero.}
 \end{frame}
 
 \begin{frame}{Why uniqueness and stability hold}
@@ -512,18 +517,25 @@ Hence
 \end{frame}
 
 \begin{frame}{Discrete flow: connectivity and sampled directions matter}
-% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks, extended to q_i>0 by absorbing q_i into B_i.
-For $\alpha>0$, symmetric nonnegative graph weights with degrees $d_i>0$, and $\B_i=\B_i^\top\succeq0$, the quadratic curvature is
-\[\mathbf H_h=\operatorname{diag}(q_i\B_i)+\alpha^2(L_G\otimes\mathbf I_2),\qquad q_i>0.\]
-\begin{block}{Discrete uniqueness and block-Jacobi convergence}
-If the graph is connected and $\sum_i q_i\B_i\succ0$, then the discrete energy has a unique minimizer. The corresponding simultaneous block-Jacobi sweep converges from every initial field.
+\small
+Fix $\alpha>0$, $q_i>0$, and $\B_i=\B_i^\top\succeq0$ on a connected graph with
+$w_{ij}=w_{ji}\ge0$ and degree $d_i=\sum_jw_{ij}>0$.
+\begin{block}{One simultaneous block-Jacobi sweep}
+% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks; normal-equation block update with positive q_i absorbed into B_i and b_i.
+\[
+\underbrace{(q_i\B_i+\alpha^2d_i\mathbf I_2)}_{\text{local }2\times2\text{ matrix}}
+\vct_i^{(k+1)}
+=q_i b_i+\alpha^2\sum_jw_{ij}\vct_j^{(k)}.
+\]
 \end{block}
 \begin{itemize}
-\item Zero graph energy forces a constant field; the sampled Gram matrix eliminates it.
-\item For Jacobi, both $D-R\succ0$ and $D+R\succ0$ put its spectrum inside $(-1,1)$.
+\item At each node, solve for two velocity components using local data and the previous neighbor velocities.
+\item Update every node from the same old field; then repeat the sweep.
 \end{itemize}
+% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks, extended to q_i>0 by absorbing q_i into B_i.
+If $\sum_iq_i\B_i\succ0$, the discrete energy has a unique minimizer, and these sweeps converge to it from every initial field.
 \src{Ch. 3, cor:vox\_projection\_wellposed; positive-$q_i$ extension of thm:convergence and cor:convergence\_psd\_blocks.}
-\talknote{Numerical theorem; 75 seconds.}{The discrete analogue of integrated identifiability is a sampled positive-definite Gram matrix. Continuum identifiability does not ensure a particular grid captures both directions. Connectivity is again what reduces the regularizer kernel to constants.}{The theorem covers the displayed positive per-node factors by absorbing each $q_i$ into $\B_i$. SPD alone is not a general Jacobi convergence theorem. Here the special graph structure also makes D+R positive definite: its zero modes would be alternating constants on a bipartite graph, removed by the same sampled data condition. The evaluated solvers have representation-specific stencils and schedules, so apply the theorem only after matching the discrete operator to these hypotheses. Full spectral argument is in the backup.}
+\talknote{Numerical construction and theorem; about 90 seconds.}{Each node stores a two-component velocity. With coefficients fixed, the normal equation at node i has the local data matrix $q_i\B_i$ plus alpha squared times the weighted degree. Move the neighboring velocities to the right, and use their values from the previous sweep. This gives the displayed two-by-two solve. The $q_i b_i$ term carries the local observations, and the weighted neighbor sum carries the previous surrounding field. Compute every new velocity from the same old field, then replace the whole field and repeat.}{The theorem assumes a connected graph, symmetric nonnegative edge weights, positive degrees and node factors, PSD data blocks, and a positive-definite sampled Gram matrix. For this graph operator, zero graph energy forces a constant field, and the sampled data remove that constant null direction. Write $H=D-R$, where $D$ contains the local two-by-two blocks and $R$ contains the neighbor couplings. Both $D-R$ and $D+R$ are positive definite: possible alternating constants of the signless graph form are removed by the same sampled data condition. Hence the spectrum of the similar symmetric Jacobi matrix lies in $(-1,1)$. This proves convergence of the simultaneous schedule from every initial field. Match a representation's stencil and update schedule to these hypotheses before applying the result.}
 \end{frame}
 
 \begin{frame}{Known-motion examples make the aperture problem visible}

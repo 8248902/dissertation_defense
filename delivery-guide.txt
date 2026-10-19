@@ -14,10 +14,12 @@ CANONICAL MATERIAL
 DELIVERY
   Slide 3: concise outline; the footer highlights the active stage throughout.
   Slide 4: relevant work and the dissertation's contribution.
+  Slide 12: objective to normal equations, parallel pixel solves, then frames.
   Slide 16: matched indoor reconstruction image with indoor aggregate metrics.
   Slide 20: embedded aperture animations; play the left panel, then the right.
   Slide 25: main flow theorem; explain the integrated directional condition.
   Slide 26: separate mean and fluctuation in the proof.
+  Slide 28: explain the two-component Jacobi solve using the old neighbor field.
   Slide 31: brief stereo contribution summary.
   Slide 35: close, then take questions.
   Backup pages 36–88: select by question; page numbers match the script/index.
@@ -34,7 +36,7 @@ SCRIPT
   Ordinary paragraphs are spoken. Headings, likely questions, and bracketed
   italic instructions organize rehearsal and remain silent.
   Each substantive backup has an answer and an 'If asked for more' explanation.
-  The main talk is about 5,400 words; 43–49 minutes before pauses at110–125wpm.
+  The main talk is about 5,500 words; 44–50 minutes before pauses at110–125wpm.
   Time the actual rehearsal. Backup answers are outside the main-talk estimate.
 
 EDIT AND BUILD

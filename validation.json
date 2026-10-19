@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T23:43:46+00:00",
+  "generated_at_utc": "2026-10-19T00:54:30+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 35,
   "backup_frames": 53,
@@ -24,16 +24,16 @@
     }
   },
   "sha256": {
-    "core.tex": "d8e5e353815010b0af7f793de557008f4f122331ef6df3666d437ae45ca50ecf",
+    "core.tex": "3982783f59f790e1b2d910d056fdeecb3fe5669252e8ceeda2751f83dee160b1",
     "backup.tex": "df77a24e014469dbcfe940113f8479ba1e22f5a485d496d049d8688147b7a199",
     "defense.tex": "0eb90bb9b14d8a22c0946ef340ffc97d16a210e99ec560f56ce4ef1683d24203",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
-    "defense-script.md": "87b158cf047ce23487ac3322b03c5f6211ea956cb4058bc09f55c40165732340",
+    "defense-script.md": "1254048961682b37e168672ebe3e458b940b73d3970d0a72fa834ae699d664fb",
     "build_script.py": "09fefe61cf32e97a49775e98e70e16aa2a41d5a5d271aed8dad0a4a7ad76f9b0",
     "update_metadata.py": "242d858aa82711e93eb4e6d8b5fc7a574ab74717b85b3368ceeaf7e9f527df0c",
     "Makefile": "5b109e462d177b0a8a0bf4e6531e070e6c5c945a6c38360be42be13dc15dcfab",
-    "defense.pdf": "2512949e619311e277d420754fd690fb3e83ff30d06e8ad06637bcb7da14ce13",
-    "defense-notes.pdf": "faed43611a90f86aa1195914a8c44117c70a85ebe280e865272273318f6348dd",
-    "defense-script.pdf": "e06bf1e3b3fdb22bd3624d8be8b1a2a127082d0e3ecaad5f5ceb2eaaa46bb369"
+    "defense.pdf": "e30e07461d1402753b186cdf6129c9610aadbdaf5950101c8b2daf2d28879fd8",
+    "defense-notes.pdf": "2b4a56e2aef42c55cdc901baef300a0cc2b813b36270505f4834401f5cb5e324",
+    "defense-script.pdf": "95eb16065d36bb7a5971172a59cb0246efc264cc084056b264d963f1e61d62dc"
   }
 }

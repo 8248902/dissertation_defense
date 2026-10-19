@@ -6,7 +6,7 @@ Updated October 18, 2026. **Canonical location: `../dissertation_defense`, branc
 
 - `defense.pdf`: 88 pages, consisting of 35 main slides and 53 backups.
 - `defense-notes.pdf`: matching 88-page speaker edition.
-- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 5,400 spoken words, approximately 43–49 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 5,500 spoken words, approximately 44–50 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
 - `strategy.md`: selected route, time priorities, and backup navigation.
 - `delivery-guide.txt`: practical delivery and build instructions.
 - `related-work.md`: precise comparisons, primary references, and contribution boundaries.
@@ -14,6 +14,10 @@ Updated October 18, 2026. **Canonical location: `../dissertation_defense`, branc
 The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–29, stereo on 30–31, and conclusions on 32–35. Literature backup is deck page 62; the formal aperture explanation is page 88. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
 
 The new relevant-work slide distinguishes learned event-only reconstruction, flow-based image reconstruction, and frame-assisted bilevel reconstruction. It credits classical optical-flow regularization and well-posedness theory. The contribution is the particular event-derived models and their common analysis, with explicit author contribution for the published temporal work. Speaker notes, script, and expanded literature backup agree on these distinctions.
+
+## Optimization explanation — October 18
+
+Slides 12 and 28 now connect the optimization problems to their computation. Slide 12 follows the objective through normal equations, independent numerical pixel solves, and parallel assembly of temporal profiles into frames. The solver organization was checked against `monocular_reconstruction/src/core/lat_image_af_with_lambda.m` and `lat_image_af.m`; the presentation makes no specialized-factorization claim. Slide 28 shows the simultaneous block-Jacobi update, explains its local two-component solve and use of the previous neighbor field, and retains all graph and sampled-information hypotheses. Spectral proof details remain in speaker notes and backup. The corresponding full script sections match. Slide titles and counts are unchanged.
 
 ## User decisions to preserve
 

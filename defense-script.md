@@ -4,7 +4,7 @@ Daniel Blauvelt • Canonical defense • Updated October 18, 2026
 
 This rehearsal script covers all 35 main slides and all 53 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
-The main talk contains approximately 5,400 spoken words: about 43–49 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
+The main talk contains approximately 5,500 spoken words: about 44–50 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
 Slide 3 gives the five-stage outline. The footer highlights the current stage; backup footers show their deck page number. This script identifies each backup by its backup number and deck page. The clickable slide index and PDF bookmarks let you jump directly to a main slide or a backup response.
 
@@ -158,19 +158,20 @@ This cumulative signal describes the unregularized event integral. The next slid
 
 ## Slide 12 — A regularized estimate is uniquely selected
 
-The objective has two terms. The first fits the reconstructed increments to y. The second penalizes the magnitude of the profile, with a positive diagonal matrix Lambda.
+The objective has two terms. The first fits the reconstructed increments to y. The second penalizes the magnitude of the profile, with a positive diagonal matrix Lambda. For this theorem, those weights are fixed and strictly positive.
 
-For this theorem, those weights are fixed, and every diagonal entry is strictly positive.
+*[Follow the objective down to the normal equations and the computation steps.]*
 
-Differentiating the quadratic gives the normal equations. The matrix is A transpose A plus Lambda transpose Lambda. It is positive definite, so the problem has a unique global minimizer, obtained by solving that linear system.
+Differentiating the quadratic gives a linear system. Its matrix is A transpose A plus Lambda transpose Lambda, and its right-hand side is A transpose y. Positive definiteness gives a unique global minimizer.
 
-*[Point to the baseline identity below the theorem.]*
+To compute it, we form this matrix and right-hand side for each pixel, solve the system numerically, and keep the resulting temporal profile. The pixel problems are independent, so the implementation solves them in parallel. At each reconstruction time, taking the corresponding value from every pixel's profile assembles one image frame.
 
-We can also say exactly how the level is selected. Premultiply the normal equations by the constant vector. Since A annihilates constants, the data term disappears and the displayed weighted zero-mean identity follows.
+*[Point to the baseline identity.]*
 
-The penalty therefore chooses a baseline. It also changes the fitted increments, because the minimizer balances both terms in the objective.
+The system also tells us how the level is selected. Premultiply the normal equations by the constant vector. Since A annihilates constants, the data term disappears and the displayed weighted zero-mean identity follows.
 
-Each pixel has its own temporal solve. Let me show why this construction gives uniqueness and a quantitative stability bound.
+The penalty therefore chooses a baseline. It also changes the fitted increments, because the solution balances both objective terms. The next slide shows why this construction gives uniqueness and a quantitative stability bound.
+
 
 ## Slide 13 — Why uniqueness and stability hold
 
@@ -416,15 +417,18 @@ This is stability with respect to represented coefficients. Connecting it to raw
 
 ## Slide 28 — Discrete flow: connectivity and sampled directions matter
 
-The discrete model has the same basic structure. There is a positive-semidefinite data block at each node, together with a graph Laplacian that penalizes differences between neighboring velocities.
+For this discrete model, each node stores two velocity components. Its data matrix B describes the measured directions, and b carries the corresponding observations. The positive node factor q weights that local contribution.
 
-For the displayed graph model, assume symmetric nonnegative edge weights, positive degrees and node factors, and a connected graph. If the sum of the weighted data blocks is positive definite, the discrete energy has a unique minimizer.
+*[Point to the local two-by-two matrix, then to the two terms on the right.]*
 
-The proof mirrors the continuous argument. Zero graph energy forces the velocity to be constant across the connected graph. The sampled data matrix then controls that constant direction.
+At node i, the matrix combines the local data with alpha squared times the weighted degree. The degree is the sum of the neighboring edge weights. On the right, we combine the local observation term with a weighted sum of the previous neighbor velocities. Solving this two-by-two system gives the new velocity at that node.
 
-This graph structure also gives convergence of the simultaneous block-Jacobi iteration. The spectral argument uses positivity of both D minus R and D plus R to place the iteration eigenvalues strictly between minus one and one.
+Every node uses the same old field. After computing all the new velocities, we replace the field and repeat. That simultaneous schedule is block Jacobi.
 
-The convergence claim belongs to this specified graph operator and update rule. Applying it to an implementation requires matching its stencil and schedule to those hypotheses. Sampling also matters: the discrete observations must actually capture the identifying directions.
+For the convergence statement, the graph is connected, its edge weights are symmetric and nonnegative, its degrees and node factors are positive, and each data block is positive semidefinite. If the weighted sum of the data blocks is positive definite, these sweeps converge to the unique discrete minimizer from every initial field.
+
+The reason follows the continuous argument: the graph controls variation, and the sampled data control the remaining constant direction. The graph structure also supplies the spectral condition needed for this particular iteration. The theorem applies when the stencil and update schedule match these hypotheses. The next slide shows velocity estimates on known-motion examples.
+
 
 ## Slide 29 — Known-motion examples make the aperture problem visible
 
