@@ -9,7 +9,9 @@
 \externaldocument[thesis-]{thesis-labels}
 \newcommand{\dref}[2]{#1~\ref*{thesis-#2}}
 \newcommand{\drefpage}[1]{p.~\pageref*{thesis-#1}}
-\ifdefined\DefenseNotes\else\usepackage{animate}\fi
+\ifdefined\DefenseNotes\else
+  \ifdefined\DefensePresenter\usepackage{multimedia}\else\usepackage{animate}\fi
+\fi
 \usetikzlibrary{arrows.meta,positioning,calc}
 \pgfplotsset{compat=1.18}
 \graphicspath{{./}}

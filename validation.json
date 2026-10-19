@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-10-19T13:41:29+00:00",
+  "generated_at_utc": "2026-10-19T17:31:28+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 35,
   "backup_frames": 53,
-  "referenced_figure_count": 44,
+  "referenced_figure_count": 46,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
     "backup_deck_pages_match": true,
@@ -26,18 +26,18 @@
     }
   },
   "sha256": {
-    "core.tex": "94edfec42e9634954a972e7b21b6a33deb5c608e7e4fa8724979ba9a2bd4616d",
+    "core.tex": "184dc63fb34cee1900d334139510c8f5dd9eccd7a0c3c733d1103f0599d5a48a",
     "backup.tex": "a06671cb38f3335920b97ebb6b2abf80c56826489f1f273c8fa9fc68699721be",
-    "defense.tex": "9edb15268174edce2b60a526c2f0b019f0ceb6bac8963fcf3211f93e5ac1bfe4",
+    "defense.tex": "6bd239453f83a1bd80cea9db69e7131173f555601f28e3dfd9e7198db718e1c4",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
-    "defense-script.md": "e9f64d0420879ec0e3638429fda1e58a9d2853f81349002585a01f3ae241e798",
+    "defense-script.md": "b4c3980dda16c427108264c5ad2b6492089084526ec2efee0cf33bb005560345",
     "build_script.py": "7a926e79274724ce61a7b630ea12650ccb3715c4a5a5f4402a56649c71c49613",
-    "update_metadata.py": "09dba42433baf3dabcf252cbe794bbd2a141f46e6c1675bd5dbb4f61fb423b86",
-    "Makefile": "21214266f19f3d41adedced76adf53bbf75f65fc7879c11cdc5faeef384249cf",
+    "update_metadata.py": "dfbbc3a789266b72cead928fb909ee3ffb1f7a1a9d220b939dbe74dc55a96974",
+    "Makefile": "825cf64faf344b132940dd0e352e3f5aff387ce8127b853d42c1fc29d7a88531",
     "reference_support.py": "e4e605db8196c1dbcd1925fb9801ac12535f2cc301c0199e5fa966881fd7701f",
     "thesis-references.json": "82effdfcf87b59b98515320ce5b3ae348bdaade001ee62287139d72f3de6ef95",
-    "defense.pdf": "3b327ea2136ff9552eca1f080e347310a785c9b4fdabfc5e10923138c9368e2b",
-    "defense-notes.pdf": "8c01d06eb9b3a53081e3a064f06416b849f04609306798e91d225fc5da26c3bb",
-    "defense-script.pdf": "ecdd7ecf67020f5ac315008694abf16ad5b95cab65b95e5da033a7d00fa023d7"
+    "defense.pdf": "e3e086b392bd7a41709672ba054f65261f74a503215de6e7ef17c86cc4a2bfa3",
+    "defense-notes.pdf": "f816a813bc0857826a58db6960d1f58b90f958b1539d283c1c578a1d8a483d7c",
+    "defense-script.pdf": "7229692a20a9d3f24da7f24db505d94eb04df445211a9545631ad5ec898cddc1"
   }
 }

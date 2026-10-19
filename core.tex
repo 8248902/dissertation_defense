@@ -147,17 +147,17 @@ The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 \column{.32\textwidth}
 \centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/bspline_reconstruction.png}\par\vspace{1mm}
 {\small\textbf{Image reconstruction}}\par
-{\footnotesize Ch.\ 2: B-spline kernel}\par
+{\footnotesize Ch.\ 2}\par
 {\scriptsize Grayscale: reconstructed value.}
 \column{.32\textwidth}
 \centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/cmax_flow_event_pixels.png}\par\vspace{1mm}
 {\small\textbf{Optical-flow estimate}}\par
-{\footnotesize Ch.\ 3: CMAX, event-active pixels}\par
+{\footnotesize Ch.\ 3; event-active pixels}\par
 {\scriptsize Color: direction and magnitude.}
 \column{.32\textwidth}
 \centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/wls_depth.png}\par\vspace{1mm}
 {\small\textbf{Stereo-depth estimate}}\par
-{\footnotesize Ch.\ 4: Weighted least squares}\par
+{\footnotesize Ch.\ 4}\par
 % source: figures/indoor_flying2_t47p6/metadata.json, wls_display.
 {\scriptsize Depth: $0.5$--$8$\,m, blue to red (jet).}
 \end{columns}
@@ -168,7 +168,7 @@ The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 % source detail: Saved HPC estimates; provenance, hashes, timestamps, display scales, and masks in figures/indoor_flying2_t47p6/metadata.json.
 \src{Methods: \dref{Chapter}{ch:monocular_reconstruction}, \dref{Chapter}{ch:optical_flow}, and \dref{Chapter}{ch:stereo_depth_estimation}; MVSEC [Zhu et al.\ 2018].}
 % source: figures/indoor_flying2_t47p6/metadata.json, timestamps, observation windows, display rules, and geometry.
-\talknote{Accessibility primer; 90 seconds. Introduce the three estimated outputs.}{Left: B-spline temporal reconstruction with sigmoid regularization. Middle: contrast maximization (CMAX), with color encoding direction and displacement magnitude at pixels that recorded events. Right: WLS stereo depth. All three show the same indoor flying 2 scene. Explain the brightness baseline, motion along an edge, and stereo correspondence. CMAX illustrates the flow task; its objective differs from the quadratic family analyzed later.}{Reconstruction: 47.690 s. CMAX: 47.592--47.719 s; color magnitude represents displacement over this window. White flow pixels have zero events: the mask shows event support, not confidence. WLS: center 47.598 s, 250 ms window. Different windows and stereo rectification permit scene-level comparison, with separate pixel geometries. Depth colors clip to 0.5--8 m; white masks nonfinite values and the maximum finite depth. Reconstruction grayscale uses a histogram/percentile scale. Exact timestamps, normalization, and provenance are in the adjacent metadata file.}
+\talknote{Accessibility primer; 90 seconds. Introduce the three estimated outputs.}{Left: temporal image reconstruction. Middle: optical-flow estimate, with color encoding direction and displacement magnitude at pixels that recorded events. Right: stereo depth. All three show the same indoor flying 2 scene. Present the panels as the three estimation targets. Explain the brightness baseline, motion along an edge, and stereo correspondence.}{If asked which methods: B-spline kernel with sigmoid weights; contrast maximization, whose nonconvex objective lies outside the quadratic family analyzed later (existence result in backup); weighted least squares. Reconstruction: 47.690 s. Flow: 47.592--47.719 s; color magnitude represents displacement over this window. White flow pixels have zero events: the mask shows event support, not confidence. WLS: center 47.598 s, 250 ms window. Different windows and stereo rectification permit scene-level comparison, with separate pixel geometries. Depth colors clip to 0.5--8 m; white masks nonfinite values and the maximum finite depth. Reconstruction grayscale uses a histogram/percentile scale. Exact timestamps, normalization, and provenance are in the adjacent metadata file.}
 \end{frame}
 
 \begin{frame}{A point measure needs a representation before optimization}
@@ -438,7 +438,11 @@ With an unsquared coefficient $\lambda>0$,
 \ifdefined\DefenseNotes
 \includegraphics[width=\linewidth,height=2.65cm,keepaspectratio]{figures/aperture/masked.png}
 \else
+\ifdefined\DefensePresenter
+\movie[loop]{\includegraphics[width=\linewidth,height=2.3cm,keepaspectratio]{figures/aperture/masked.png}}{figures/aperture/app5-hide.mp4}
+\else
 \animategraphics[label=aperturemasked,width=\linewidth,height=2.3cm,keepaspectratio,poster=first,loop,controls={play,stop},buttonsize=2.5mm,buttonfg=0:0.498:0.514,method=widget,alttext={Masked stripes with ambiguous local motion}]{5}{figures/aperture/app5-hide/frame-}{0}{6}
+\fi
 \fi\par
 {\footnotesize The visible stripe motions look the same.}\par\smallskip
 \href{https://cdn.sinauer.com/wolfe4e/ch/08/act0802/app5-hide.gif}{\scriptsize\textcolor{teal}{Movie 5 source (GIF)}}
@@ -447,7 +451,11 @@ With an unsquared coefficient $\lambda>0$,
 \ifdefined\DefenseNotes
 \includegraphics[width=\linewidth,height=2.65cm,keepaspectratio]{figures/aperture/revealed.png}
 \else
+\ifdefined\DefensePresenter
+\movie[loop]{\includegraphics[width=\linewidth,height=2.3cm,keepaspectratio]{figures/aperture/revealed.png}}{figures/aperture/app6-show.mp4}
+\else
 \animategraphics[label=aperturerevealed,width=\linewidth,height=2.3cm,keepaspectratio,poster=first,loop,controls={play,stop},buttonsize=2.5mm,buttonfg=0:0.498:0.514,method=widget,alttext={Full stripe patterns with distinct translation directions}]{5}{figures/aperture/app6-show/frame-}{0}{6}
+\fi
 \fi\par
 {\footnotesize The patterns translate in different directions.}\par\smallskip
 \href{https://cdn.sinauer.com/wolfe4e/ch/08/act0802/app6-show.gif}{\scriptsize\textcolor{teal}{Movie 6 source (GIF)}}

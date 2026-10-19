@@ -14,9 +14,9 @@ Slide 20 contains embedded animations with play controls. Playback has been chec
 
 ## Slide 1 — Title
 
-Thank you for being here. My dissertation studies variational and optimization-based approaches to event-based vision.
+Thank you for being here. This dissertation studies variational and optimization-based approaches to event-based vision.
 
-The central question is how to estimate an image, motion, or depth when the sensor gives us changes in brightness. I will focus on temporal reconstruction, then develop the main optical-flow result, and finish with a brief stereo summary and future directions.
+The central question is how to produce an estimation, of an image, motion, or depth, when the sensor gives us changes in brightness. This talk will focus on temporal reconstruction, then develop the main optical-flow result, and finish with a brief stereo summary and future directions.
 
 *[Advance.]*
 
@@ -38,11 +38,11 @@ Here is the route through the talk.
 
 *[Follow the five stages from top to bottom.]*
 
-I will begin with the sensor and how we turn its events into data for an estimator. Then I will spend the largest part of the talk on reconstructing an image over time, starting with a single pixel.
+We'll begin with the sensor and how we turn its events into data for an estimator. Then we will spend the largest part of the talk on reconstructing an image over time, starting with a single pixel.
 
 Next comes optical flow: how spatial information helps determine motion. I will explain the central theorem and its proof. I will then give a brief stereo-depth summary and finish with the contributions and next questions.
 
-The same question connects these stages: what do the observations determine, and what does the model supply? The highlighted stage at the bottom of each slide will show where we are.
+The same question connects these stages: what do the observations determine, and what does the model supply?
 
 Before describing the sensor, let me position this work relative to the approaches it builds on.
 
@@ -68,9 +68,9 @@ An event camera lets each pixel respond independently. When the leading edge of 
 
 This gives a stream of locations, timestamps, and signs. It also explains why event displays often look like moving outlines. Under steady illumination, a boundary passing across a pixel changes its brightness. A uniform region undergoing the same translation produces little activity. Motion along an ideal straight edge also preserves the local brightness pattern. The sensor responds to temporal brightness change, so changes in illumination can produce events too.
 
-The sensor characteristics listed below, including microsecond timing and high dynamic range, are background figures from the cited survey. They motivate using this kind of data for scenes with rapid changes or challenging lighting.
+So, event-based sensors are distinguished by their microsecond timing and high dynamic range which motivates using this kind of data for scenes with rapid changes or challenging lighting.
 
-For the mathematics, the essential feature is that each pixel measures changes relative to its own reference. Let me make that rule precise.
+For the mathematics, an essential feature is that each pixel measures changes relative to its own reference. Let me make that rule precise.
 
 ## Slide 6 — An event camera: each pixel reports threshold crossings
 
@@ -92,11 +92,13 @@ Real measurements introduce threshold variation and other errors. I use the idea
 
 These are three estimates from the same indoor flight scene near 47.6 seconds. Each method uses its own observation window, and the depth method uses two cameras.
 
-On the left, the temporal method reconstructs an image using a B-spline kernel. In the middle, contrast maximization estimates optical flow: apparent motion in the image plane. The colors show direction and displacement magnitude where events occurred. On the right, weighted least squares estimates depth from the two event cameras; the color scale runs from 0.5 to 8 meters.
+On the left is an image reconstructed by the temporal model. In the middle is an optical-flow estimate: apparent motion in the image plane. The colors show direction and displacement magnitude where events occurred. On the right is a depth estimate from the two event cameras; the color scale runs from 0.5 to 8 meters.
 
 The underlying questions differ. Temporal reconstruction has an unknown brightness baseline. A local edge observation constrains motion across the edge while leaving motion along it free. Stereo requires deciding which locations in two views correspond to the same scene point.
 
-I will spend most of the talk on the temporal model and the main flow theorem. The CMAX image introduces the flow task; later I analyze a quadratic family of flow models. The stereo summary will show how the distinction between a well-defined estimate and physical identification appears in correspondence.
+I will spend most of the talk on the temporal model and the main flow theorem. The stereo summary will show how the distinction between a well-defined estimate and physical identification appears in correspondence.
+
+*[If asked which methods produced these panels: a B-spline temporal kernel, contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is in the backup.]*
 
 ## Slide 8 — A point measure needs a representation before optimization
 

@@ -121,7 +121,7 @@ def main() -> None:
     figures = figure_paths()
     inputs = set(sources) | figures
     for name in ['defense.tex', 'notes.tex', 'core.tex', 'backup.tex', 'defense-script.md',
-                 'build_script.py', 'update_metadata.py', 'Makefile', 'aperture-demo.html',
+                 'build_script.py', 'build_presenter.py', 'update_metadata.py', 'Makefile', 'aperture-demo.html',
                  'reference_support.py', 'thesis-references.json']:
         path = ROOT / name
         if path.is_file(): inputs.add(path)

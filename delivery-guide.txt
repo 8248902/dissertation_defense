@@ -1,5 +1,5 @@
 DISSERTATION DEFENSE — DELIVERY GUIDE
-Daniel Blauvelt | updated October 18, 2026
+Daniel Blauvelt | updated October 19, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
@@ -50,3 +50,21 @@ EDIT AND BUILD
   THESIS_BUILD=/path/to/that/fresh/build, then make all. Missing or stale
   references stop the build. See README for the full reference workflow.
   See README.md for validation commands and the fresh-session entry point.
+
+ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
+  Install Pympress and its video backend; Ubuntu commands are in README.md.
+  Build: make presenter PYTHON=/usr/bin/python3
+  Start: pympress --notes=after defense-presenter.pdf
+  Use an extended desktop. Keep the presenter window private and share only
+  the audience window in Zoom. S swaps screens. Next/previous slide actions
+  advance the full script with the slide, including backup slides.
+  The script is shown a page at a time; enlarge the notes pane for reading.
+  Click slide 20's panels to play the linked, looping MP4s. Keep both videos
+  in figures/aperture when moving the PDF. Rehearse playback and Zoom sharing
+  on the actual presentation computer. Distribute defense.pdf to the audience;
+  defense-presenter.pdf also contains the private full script.
+
+  The full script appears in the large presenter pane. N toggles notes mode.
+  If updating an already-open presenter PDF, close both Pympress windows and
+  reopen it. The builder uses script: page labels for grouped notes; notes:
+  labels select Pympress's different, interleaved layout and hide the script.

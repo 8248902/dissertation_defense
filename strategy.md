@@ -1,6 +1,6 @@
 # Defense strategy
 
-The active presentation develops temporal reconstruction in depth, then the central optical-flow theorem and proof, followed by a brief stereo summary and research directions. This is the selected route formerly developed as the Opus candidate. Its sources and supporting documents now live only in this repository.
+The active presentation develops temporal reconstruction in depth, then the central optical-flow theorem and proof, followed by a brief stereo summary and research directions.
 
 The advisor's guidance is to select material the presenter feels confident discussing; the defense can cover a subset of the dissertation. The published temporal work anchors the talk. The common question is what the observations determine and what the model supplies.
 

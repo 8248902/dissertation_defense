@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: all slides notes script metadata check refs
+.PHONY: all slides notes script metadata check refs presenter
 
 all:
 	$(PYTHON) build_script.py --target all
@@ -25,3 +25,7 @@ check:
 refs:
 	@test -n "$(THESIS_BUILD)" || (echo "Usage: make refs THESIS_BUILD=/path/to/fresh/build"; exit 2)
 	$(PYTHON) reference_support.py --thesis-build "$(THESIS_BUILD)"
+
+# Full script and linked MP4 panels for Pympress on two monitors.
+presenter:
+	$(PYTHON) build_presenter.py
