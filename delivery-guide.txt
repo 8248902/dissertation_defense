@@ -17,12 +17,13 @@ DELIVERY
   Slide 12: objective to normal equations, parallel pixel solves, then frames.
   Slide 16: matched indoor reconstruction image with indoor aggregate metrics.
   Slide 20: embedded aperture animations; play the left panel, then the right.
-  Slide 25: main flow theorem; explain the integrated directional condition.
-  Slide 26: separate mean and fluctuation in the proof.
-  Slide 28: explain the two-component Jacobi solve using the old neighbor field.
-  Slide 31: brief stereo contribution summary.
-  Slide 35: close, then take questions.
-  Backup pages 36–89: select by question; page numbers match the script/index.
+  Slide 21: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 26: main flow theorem; explain the integrated directional condition.
+  Slide 27: separate mean and fluctuation in the proof.
+  Slide 29: explain the two-component Jacobi solve using the old neighbor field.
+  Slide 32: brief stereo contribution summary.
+  Slide 36: close, then take questions.
+  Backup pages 37–90: select by question; page numbers match the script/index.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original

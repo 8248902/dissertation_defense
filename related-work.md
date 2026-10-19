@@ -60,6 +60,14 @@ Classical variational flow already has well-posedness theory. This dissertation 
 
 Dissertation bibliography key: `weickert2001theoretical`.
 
+## Edward H. Adelson and J. Anthony Movshon (1982)
+
+[Phenomenal Coherence of Moving Visual Patterns](https://doi.org/10.1038/300523a0). *Nature* 300, 523–525.
+
+Introduced the velocity-space intersection-of-constraints construction: each oriented component allows a line of velocities, and two orientations intersect at one. Slide 21 uses this picture to illustrate the integrated-identifiability requirement of the main flow theorem; the theorem itself is the dissertation's.
+
+Not in the dissertation bibliography; credited on slide 21 only.
+
 ## Published temporal work
 
 Harbir Antil, Daniel Blauvelt, and David Sayre (2026). [Dynamic reconstruction from neuromorphic data](https://doi.org/10.3934/fods.2026017).

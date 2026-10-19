@@ -343,7 +343,7 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \small MVSEC indoor flying 3\par\medskip
 % source: 	 /scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying3_bump_08/reconstruction.h5. /scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying3.npz event-only B-spline order 1, width 10 ms, sigmoid regularization ; nearest actual saved camera frame by epoch timestamp
 \panel{.48}{figures/reconstruction_evaluation/reference.png}{Reference}
-\hfill\panel{.48}{figures/reconstruction_evaluation/event_only_bspline.png}{Event-only reconstruction}
+\hfill\panel{.48}{figures/reconstruction_evaluation/event_only_bspline_contrast_1p5.png}{Event-only reconstruction}
 \column{.42\textwidth}
 \small MVSEC indoor aggregate results\par\medskip
 \begin{tabular}{lrr}\toprule Kernel & PSNR & CN\\\midrule
@@ -463,7 +463,53 @@ With an unsquared coefficient $\lambda>0$,
 \takeaway{An edge reveals perpendicular (normal) speed; motion along it (tangent) stays free. More observed directions can constrain the full velocity.}
 % source detail: Ch. 3, prop:time_surface and following aperture remark.
 \vfill{\fontsize{6.5}{8}\selectfont\color{muted}Perceptual illustration: Wolfe et al., \emph{Sensation and Perception}, 4th ed., Sinauer \textcopyright\ 2015. \href{https://cdn.sinauer.com/wolfe4e/wa08.02.html\#Aperture}{\textcolor{teal}{Activity 8.2, Movies 5--6}}.\par Dissertation: \dref{Proposition}{prop:time_surface} and the following aperture discussion.\par}
-\talknote{Define the aperture problem visually; about 90 seconds.}{Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free. These publisher animations illustrate motion perception. They are conceptual demonstrations, rather than measured event-camera data.}{The two animations are embedded on this slide. Play the masked panel first using its forward-play control, then play the revealed panel; each loops at the original rate. First-frame posters preserve the visual comparison in static viewers and print. Use a PDF viewer with animation support and JavaScript enabled, as documented with the assets. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next derive the crossing-time constraint that expresses this ambiguity mathematically. Scene-terms summary (spoken): velocity at every pixel; events give speed perpendicular to each edge; neighbors move alike; requirement is edges in two orientations somewhere.}
+\talknote{Define the aperture problem visually; about 90 seconds.}{Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free. These publisher animations illustrate motion perception. They are conceptual demonstrations, rather than measured event-camera data.}{The two animations are embedded on this slide. Play the masked panel first using its forward-play control, then play the revealed panel; each loops at the original rate. First-frame posters preserve the visual comparison in static viewers and print. Use a PDF viewer with animation support and JavaScript enabled, as documented with the assets. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next, draw the same ambiguity for one edge and state the flow model in scene terms.}
+\end{frame}
+
+\begin{frame}{Motion introduces a new invisible direction}
+\footnotesize
+\vspace*{-3mm}
+\begin{columns}[T]
+\column{.47\textwidth}\centering
+{\scriptsize\textbf{Image: one moving edge}}\par\smallskip
+\begin{tikzpicture}[x=.45cm,y=.45cm,>=Latex]
+\fill[soft] (0,0) rectangle (6,4);
+\draw[ink,very thick] (2,0)--(2,4);
+\draw[teal,very thick,->] (2,2)--(4.4,2) node[right,font=\scriptsize,align=left] {normal\\motion};
+\draw[amber,very thick,->] (2,2)--(2,3.5) node[left,font=\scriptsize] {tangent};
+\draw[muted,dashed] (4,0)--(4,4);
+\end{tikzpicture}\par
+{\scriptsize A straight edge reveals its normal speed.}
+\column{.51\textwidth}\centering
+{\scriptsize\textbf{Velocity: what the events allow}}\par\smallskip
+\begin{tikzpicture}[x=.4cm,y=.4cm,>=Latex]
+\draw[muted,->] (-.3,0)--(5.6,0) node[right,font=\scriptsize] {$v_x$};
+\draw[muted,->] (0,-.3)--(0,4.4) node[left,font=\scriptsize] {$v_y$};
+\draw[amber,very thick] (2.5,-.2)--(2.5,4.3) node[right,font=\scriptsize] {edge 1};
+\draw[ink,very thick] (.6,3.9)--(4.2,.3) node[pos=.9,above right,font=\scriptsize] {edge 2};
+\fill[teal] (2.5,2) circle (3pt);
+\node[teal,font=\scriptsize,anchor=west] at (2.7,2.5) {one velocity};
+\end{tikzpicture}\par
+{\scriptsize Each edge allows a line of velocities, parallel to it.\\Two orientations cross at one velocity.}
+\end{columns}
+\vspace{1mm}
+{\scriptsize\textbf{The flow model in scene terms}}
+\begin{columns}[T]
+\column{.49\textwidth}
+\begin{itemize}\scriptsize\setlength{\itemsep}{0pt}
+\item \textbf{Unknown:} image-plane velocity at every pixel.
+\item \textbf{Edges:} events give the speed perpendicular to each edge.
+\end{itemize}
+\column{.49\textwidth}
+\begin{itemize}\scriptsize\setlength{\itemsep}{0pt}
+\item \textbf{Neighbors move alike:} supplies motion along edges and where no events occur.
+\item \textbf{Requirement:} edges in at least two orientations somewhere.
+\end{itemize}
+\end{columns}
+\takeaway{As with the temporal baseline, the data leave one quantity free; smoothness carries information from other edge orientations to supply it.}
+% source detail: Ch. 3, prop:time_surface and aperture remark (normal-speed constraint); thm:unified_wellposedness (integrated identifiability). Velocity-space intersection of constraints: Adelson and Movshon (1982).
+\vspace{-1mm}{\fontsize{6.5}{8}\selectfont\color{muted}Intersection of constraints [Adelson \& Movshon 1982]. Dissertation: \dref{Proposition}{prop:time_surface}; requirement in \dref{Theorem}{thm:unified_wellposedness}.\par}
+\talknote{Flow model in scene terms; about 90 seconds.}{Left: the dark edge, its normal motion in teal, its tangent in amber; the dashed line is the edge's later position. Right, in velocity space: every velocity on the amber line moves edge 1 across itself at the same speed, so all of them fit its events. That line runs parallel to the edge, along the free tangent direction. A second edge with a different orientation allows a different line, and the two cross at one velocity. Smoothness lets pixels share that information, so the two edges can be in different places.}{Mathematically, the time-surface coefficient at an edge is the rank-one matrix of the crossing-time gradient, proportional to n n-transpose. Two non-parallel normals give a positive-definite sum: that is the integrated-identifiability condition of the main theorem for the constant mode. Smoothness controls the fluctuation; the integrated data control the mean. Slide 30 shows the consequence on simulated data: the stripes supply one orientation in their interior, the checkerboard supplies two. The velocity-space picture is the classical intersection-of-constraints construction of Adelson and Movshon.}
 \end{frame}
 
 \begin{frame}{Derive the time-surface constraint by following the edge}
@@ -574,7 +620,7 @@ For $\mathbf z=\vct_1^*-\vct_2^*$,
 Hence
 \[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
 +c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
-{\footnotesize In scene terms: coefficient changes come from timestamp jitter, binning, and noise events; the constants grow as $m$ shrinks (stripes, slide 29).\par}
+{\footnotesize In scene terms: coefficient changes come from timestamp jitter, binning, and noise events; the constants grow as $m$ shrinks (stripes, slide 30).\par}
 \takeaway{The estimator is Lipschitz in its coefficients while identifiability remains uniformly positive.}
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
