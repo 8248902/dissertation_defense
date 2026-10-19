@@ -2,7 +2,9 @@
 
 This is the single active defense, on `main`.
 
-- [Audience deck](defense.pdf): 35 main slides and 53 backups.
+The [spoken-recall Anki deck](anki/README.txt) has a 48-card core package and a 90-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
+
+- [Audience deck](defense.pdf): 36 main slides and 59 backups.
 - [Speaker edition](defense-notes.pdf): slide-level notes.
 - [Rehearsal script](defense-script.pdf): full main-talk scripts and self-contained backup answers; editable source is [defense-script.md](defense-script.md).
 - [Synchronized presenter edition](defense-presenter.pdf): slides and full script paired for Pympress; rebuild with `make presenter`.
@@ -15,7 +17,9 @@ Edit slide content and embedded speaker notes in `core.tex` and `backup.tex`; ed
 
 Slide 20 contains the credited aperture animations. Playback depends on PDF-viewer support; `aperture-demo.html` provides a self-contained browser alternative. Static posters remain visible in print and the speaker edition.
 
-Earlier proposal folders are preserved under `../misc_ideas_feedback/_archive/`. The old candidate branch is historical; continue work here on `main`. Dated committee review evidence is under `history/committee-review-2026-10-03/`. Current `validation.json` reports build and synchronization checks, not a new mathematical review.
+Earlier proposal folders are preserved under `../misc_ideas_feedback/_archive/`. The old candidate branch is historical; continue work here on `main`. The five reviewed backup additions are integrated at pages 42, 43, 77, 81, and 89, with matching script answers and notes. Continue editing the active files here; the separate draft package is a review record.
+
+Dated committee review evidence is under `history/committee-review-2026-10-03/`. Current `validation.json` reports build and synchronization checks, not a new mathematical review.
 
 ## Dissertation references
 

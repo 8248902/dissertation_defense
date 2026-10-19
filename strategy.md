@@ -31,8 +31,10 @@ The intended claims concern the specified models and analyses. They distinguish 
 
 ## Questions and deeper explanations
 
-Pages 37–90 contain the backup slides. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides have private cues. Follow the question rather than presenting the backup as another planned section.
+Pages 37–95 contain the backup slides. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides have private cues. Follow the question rather than presenting the backup as another planned section.
 
-Useful anchors: temporal uniqueness page 38; natural boundary condition page 42; Jacobi convergence page 43; stereo cost geometry page 49; reciprocal IRLS proof page 51; evaluation populations page 54; mathematical contribution page 62; literature page 63; contrast maximization (what it models, evidence) page 74; full stereo arc pages 77–89; formal aperture model page 90.
+New backups: metric computations page 42; real-time reconstruction page 43; controlled-flow protocol page 77; stereo alignment page 81; disparity-to-depth sensitivity page 89.
+
+Useful anchors: temporal uniqueness page 38; natural boundary condition page 44; Jacobi convergence page 45; stereo cost geometry page 51; reciprocal IRLS proof page 53; evaluation populations page 56; mathematical contribution page 64; literature page 65; contrast maximization (what it models, evidence) page 76; full stereo arc pages 80–94; formal aperture model page 95.
 
 Keep the hypotheses with the corresponding claim: fixed positive penalties for the temporal solve; integrated directional information for unrestricted quadratic flow; a finite candidate set and margin for selection stability; the sufficient contraction condition for IRLS convergence. The reported empirical results are established results, and the spoken material contains no audit or pending-verification commentary.

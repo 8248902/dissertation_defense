@@ -3,7 +3,7 @@ Daniel Blauvelt | updated October 19, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
-  defense.pdf          Audience presentation: 35 main slides + 53 backup slides.
+  defense.pdf          Audience presentation: 36 main slides + 59 backup slides.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
   defense-script.md    Editable, authoritative script prose.
@@ -23,7 +23,8 @@ DELIVERY
   Slide 29: explain the two-component Jacobi solve using the old neighbor field.
   Slide 32: brief stereo contribution summary.
   Slide 36: close, then take questions.
-  Backup pages 37–90: select by question; page numbers match the script/index.
+  New backups: metrics 42; real-time 43; flow protocol 77; alignment 81; depth sensitivity 89.
+  Backup pages 37–95: select by question; page numbers match the script/index.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original

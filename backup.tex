@@ -9,14 +9,14 @@
 \item Minimal uniqueness condition / gauge
 \item Measure-valued continuous-time limit
 \item Signal gain versus noise gain
-\item Kernel comparison on indoor and outdoor data
+\item Kernels; \ifdefined\DefenseNotes metrics; real-time use\else\hyperlink{metricguide}{metrics}; \hyperlink{realtime}{real-time use}\fi
 \end{itemize}
 \textbf{Flow analysis}
 \begin{itemize}
 \item Weak Euler equation and boundary condition
 \item Exact block-Jacobi spectral argument
 \item Anisotropy and ellipticity
-\item Regression design and projection mismatch
+\item Regression, projection and \ifdefined\DefenseNotes evaluation\else\hyperlink{flowprotocol}{evaluation}\fi
 \item \ifdefined\DefenseNotes Straight-edge aperture model\else\hyperlink{aperturemodel}{Straight-edge aperture model}\fi
 \end{itemize}
 \column{.48\textwidth}
@@ -30,7 +30,7 @@
 \end{itemize}
 \textbf{Evidence and interpretation}
 \begin{itemize}
-\item Depth evaluation, coverage, and selection
+\item Depth coverage; \ifdefined\DefenseNotes alignment; sensitivity\else\hyperlink{stereoalignment}{alignment}; \hyperlink{depthsensitivity}{sensitivity}\fi
 \item What is contributed by the dissertation?
 \item Literature anchors and source map
 \end{itemize}
@@ -113,6 +113,51 @@ Rectangular&8.24&423.59&7.20&148.33\\\bottomrule
 % source detail: Ch. 2, tab:bump\_avg\_indoor, tab:bump\_avg\_outdoor.
 \src{\dref{Table}{tab:bump_avg_indoor}, \dref{Table}{tab:bump_avg_outdoor}.}
 \talknote{Question: why does a smoothing kernel change conditioning?}{The matrix K=A\textasciicircum{}T A+Lambda\textasciicircum{}T Lambda does not directly contain the bump kernel. However Lambda is computed adaptively from represented observations. Changing aggregation can change those weights, hence the numerical matrix. The observed condition-number difference cannot be attributed to smoothing of a fixed operator alone.}{The table reports the dissertation's condition-number diagnostics. The outdoor ordering shows that kernel performance depends on the scene and adaptive weights. The positivity theorem is independent of the empirical ranking and gives only a sufficient worst-case bound, not a causal explanation of every numerical comparison.}
+\end{frame}
+
+\begin{frame}[t,label=metricguide]{What the reconstruction scores measure}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{.17\textwidth}p{.35\textwidth}p{.37\textwidth}}
+\toprule Quantity & What it compares & What it establishes\\\midrule
+PSNR / SSIM & Reconstruction and reference images & Image agreement under the scoring convention\\
+TC / TG & Temporal changes in the output & Smoothness of the returned sequence\\
+ERC & Magnitudes of reconstructed changes and represented events & Correlation with event activity\\
+CN & Sensitivity of a specified matrix & A numerical conditioning diagnostic\\\bottomrule
+\end{tabular}
+\begin{block}{A simple check on interpretation}
+% source: Ch. 2 metric definitions and degenerate-case conventions, lines 603-611.
+A constant sequence has $\mathrm{TC}=1$ and $\mathrm{ERC}=0$ under the stated conventions.
+\end{block}
+{\let\small\footnotesize\takeaway{Consider reference fidelity, event consistency, and conditioning together. Smoothness alone rewards a static output.}}
+\src{Evaluation metrics (\drefpage{subsubsec:metrics}); \dref{Table}{tab:metrics_summary}.}
+\talknote{Question: how is each metric computed, and what does it establish? About 2 minutes if all definitions are requested.}{PSNR converts the peak-squared to mean-squared pixel-error ratio to decibels. SSIM combines local means, variances and covariance to compare luminance, contrast and structure. EPI correlates mean-image gradient magnitudes with the normalized event-count map. ERC correlates absolute frame changes with absolute bump-integrated event data. TC exponentiates the negative RMS frame change divided by the reconstruction range. TG averages absolute frame changes. TV averages the sum of absolute horizontal and vertical gradients. SC averages each frame's fraction of Fourier power in the central low-frequency disk. CN divides the largest singular value of the evaluated matrix by its smallest.}{Use the script for aggregation and degenerate-case details. A constant sequence has maximal TC and zero ERC under the conventions, separating smoothness from event consistency. CN describes the specified diagnostic matrix. Answer only the definitions requested; the existing slide remains an interpretation guide.}
+\end{frame}
+
+\begin{frame}[t,label=realtime]{Can the reconstruction run in real time?}
+\footnotesize
+\textbf{Practical experience:} a native C++/CUDA implementation used for live reconstruction in iniVation DV.
+\vspace{2mm}
+\begin{columns}[T]
+\column{.47\textwidth}
+\textbf{Why live processing is feasible}
+\begin{itemize}
+\item Pixel histories give independent temporal problems.
+\item First differences give sparse temporal systems.
+\item GPU computation supports repeated reconstruction of incoming event batches.
+\end{itemize}
+\column{.49\textwidth}
+\textbf{The processing budget}
+\begin{itemize}
+\item Active pixels and event workload.
+\item Number of temporal samples per reconstruction.
+\item Event-window length and output cadence.
+\end{itemize}
+These choices balance temporal detail, event context and responsiveness.
+\end{columns}
+{\let\small\footnotesize\takeaway{The live implementation supports near-real-time use; workload and temporal settings determine the operating point.}}
+\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Source: Native DV module, C++ dispatcher, CUDA engine and build target (reconstruction\_live\_demo).\par}
+\talknote{Question: can the reconstruction run in real time? About 60 seconds.}{I developed and used a native C++/CUDA version in iniVation DV for live reconstruction. Independent pixel histories and sparse temporal systems make repeated windowed processing practical. The GPU implementation is supporting experience for that answer. The useful operating choices are active pixels, event workload, temporal sample count, event context and output cadence. They set the balance between temporal detail and responsiveness.}{Keep the answer centered on real-time operation. If asked about implementation, explain native DV event input, C++ preparation, CUDA/cuSOLVER solution and DV frame output. The module supports event-count and time-window accumulation. Explain a specific latency or throughput figure with its settings when one is requested. Sensor timestamps, reconstruction spacing, completed output cadence and camera-to-display delay are separate timing quantities.}
 \end{frame}
 
 \begin{frame}{The weak equation supplies the natural boundary condition}
@@ -674,6 +719,25 @@ On the stripes, CMAX recovers the diagonal motion: warping the events over the w
 \talknote{What CMAX models and why it is promising; 60 seconds.}{Describe the warp in scene terms: the right motion turns a smeared trail into a sharp edge. The quadratic models first compress events into a time surface or bins and fit coefficients; CMAX keeps each event's own time. In all three known-motion scenes its AEE is the lowest, by 0.66 to 1.66 px over the structure tensor. On the stripes it recovers the diagonal, where interior pixels alone determine only the across-stripe component (normal-flow reference error 2.12 px).}{Scope: one representative window (chosen by the median-deviation rule) on simulated scenes with known motion. On the idealized stripes CMAX also assigns flow to the surrounding background. The dissertation reports no aggregate real-data AEE for any flow method. Its guarantee is existence of a global minimizer; the quasi-Newton solver is local. The next two backups give the objective and the existence proof.}
 \end{frame}
 
+\begin{frame}[t,label=flowprotocol]{How the known-motion comparison was evaluated}
+\footnotesize\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{.20\textwidth}p{.71\textwidth}}
+\toprule Aspect & Reported protocol\\\midrule
+% source: Ch. 3 known-motion comparison, line 1058.
+Stimulus & A $60\times40$ px object translates diagonally at $3$ px per window; direct idealized events and v2e-simulated events.\\
+% source: Ch. 3 known-motion comparison, line 1058; the 100-iteration cap belongs to these figures, not the separate MVSEC run.
+Settings & Quadratic variants: $\alpha_{\rm smooth}=20$, no pyramid. Contrast maximization: $100$ L-BFGS iterations.\\
+% source: Ch. 3 known-motion window-selection rule, line 1060.
+Selection & Window $22$ minimizes summed deviation from each variant's median AEE over windows $1$--$31$.\\
+Display / error & Common arrow scale; AEE is mean Euclidean displacement error, in pixels per evaluation window.\\\bottomrule
+\end{tabular}
+\vspace{2mm}
+\footnotesize Equal numerical $\alpha$ values give different stencil-dependent smoothing strengths.
+{\let\small\footnotesize\takeaway{These controlled examples show directional-information effects at the reported solver settings.}}
+\src{\dref{Figure}{fig:ch3_quiver_synth} and \dref{Figure}{fig:ch3_quiver_v2e}; smoothing stencils (\drefpage{app:ch3_discrete_stencils}).}
+\talknote{Question: how were the examples selected, and how fair is the comparison? About 90 seconds.}{State the motion and event generators, the shared display scale, the selection rule, and AEE units. The zero-field reference has error equal to the displacement magnitude. The settings describe the evaluated implementations; equal numerical alpha does not calibrate their effective smoothing or computational work.}{The appendix distinguishes an eight-neighbor VOX stencil from a four-neighbor structure-tensor stencil. The separate MVSEC contrast-maximization protocol has a different iteration cap. The evaluation mask is denoted by M in the cited passage; avoid assigning it an unsupported event-active or object-only definition. Use existing real-data and CMAX backups for generalization and optimization questions.}
+\end{frame}
+
 \begin{frame}{Contrast maximization changes the optimization problem}
 Warp each event to a common normalized reference time:
 \[\mathbf x_k^w=\mathbf x_k+(\widetilde t_{\rm ref}-\widetilde t_k)\mathbf q(\mathbf x_k),
@@ -721,6 +785,25 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \vspace{1mm}
 These results separate the inner temporal solve from the outer correspondence decision.
 \talknote{Divider for questions; the full stereo arc runs about 17 minutes if presented in sequence.}{Choose the page that matches the question. For ``does the correct disparity win?'', go to the counterexample and then the selection theorem. For ``does IRLS converge?'', go to the fixed-point slide and its backup proof.}{The summary slide in the core states the four results these pages prove.}
+\end{frame}
+
+\begin{frame}[t,label=stereoalignment]{Stereo alignment after motion compensation}
+\footnotesize
+The model pairs synchronized, rectified observations of a scene point visible in both cameras.
+\begin{block}{Each camera fits its own translation within each temporal slice}
+\[\mathbf x'_c=\mathbf x_c+(t_{\rm ref}-s)\mathbf v_c,\qquad c\in\{L,R\}.\]
+For simultaneous rectified correspondences,
+\[d_{\rm w}(s)=d(s)+(t_{\rm ref}-s)(v_{x,L}-v_{x,R}).\]
+\end{block}
+\begin{itemize}
+\item A horizontal warp mismatch changes the disparity presented to the matcher.
+\item A vertical warp mismatch moves a correspondence away from its scanline.
+% source: appendix_bodies/ch4_protocol.tex, tab:ch4_parameters, T and N_L rows and latent slice width.
+\item Reported slices are $12.5$ ms wide within a $0.25$ s evaluation window.
+\end{itemize}
+{\let\small\footnotesize\takeaway{A unique inner solve fits the supplied profiles; physical correspondence also relies on compatible timing, calibration, and warps.}}
+\src{Motion-compensated accumulation (\drefpage{sec:mc_accumulation}); \dref{Table}{tab:ch4_parameters}.}
+\talknote{Question: why should corresponding profiles agree while the rig or scene moves? About 75 seconds.}{Rectification puts simultaneous correspondences on a row. Events in each slice are then warped to a common slice end, using a separately fitted global translation in each camera. Subtract the two warped horizontal coordinates to obtain the displayed disparity equation. Closely matching per-camera warps preserve the intended row correspondence; mismatched warps alter it before optimization.}{The velocities here belong to the Chapter 4 preprocessing step, not to the Chapter 3 dense-flow estimator. For originally equal vertical coordinates, their warped difference is (reference time minus event time) times the vertical-velocity difference. Global translation approximates a slice; parallax, changing disparity, or independently moving objects can introduce profile mismatch. An occluded point has no visible mate. The left-right consistency check belongs to the separate refined ablation path; the main benchmark reports raw outputs.}
 \end{frame}
 
 \begin{frame}{At each candidate, couple two temporal profiles}
@@ -855,6 +938,34 @@ Two candidates with identical right-view profiles have identical local costs whe
 % source detail: Ch. 4, cor:selection\_robust, prop:disparity\_nonidentifiability.
 \src{\dref{Corollary}{cor:selection_robust}, \dref{Proposition}{prop:disparity_nonidentifiability}.}
 \talknote{Stability and ambiguity; 75 seconds.}{A competitor's score may move down by eta while the winner's moves up by eta, so half the original margin is the sharp elementary threshold for this bound. The observation-based specialization is in the backup. This bridges continuous coefficient/data stability and the discrete argmin decision.}{For fixed parameters, the negative log coupled-versus-independent Gaussian likelihood ratio equals the discrepancy $D=C_\gamma-C_0$ up to candidate-independent determinant terms. The discrepancy $D$ alone favors an ideal identical profile over distinct competitors when $\gamma>0$ and $A$ has full row rank; this is an unevaluated alternative comparison, not a new result here. Coincident right profiles still tie under identical local procedures, though spatial aggregation can create contextual differences; keep this local observation scoped to local costs.}
+\end{frame}
+
+\begin{frame}[t,label=depthsensitivity]{Depth sensitivity grows with distance}
+\footnotesize
+For fixed calibration and positive $d$ and $d+\delta d$,
+\[Z(d)=\frac{fB}{d},\qquad
+|Z(d+\delta d)-Z(d)|=\frac{fB|\delta d|}{d(d+\delta d)}.\]
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{Small relative disparity error}
+\[|\delta Z|\approx\frac{Z^2}{fB}|\delta d|,\qquad
+\frac{|\delta Z|}{Z}\approx\frac{|\delta d|}{d}.\]
+At the same disparity precision, absolute depth error grows quadratically with distance.
+\column{.48\textwidth}
+\textbf{Illustrative exact calculation}
+\footnotesize\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lrr}\toprule
+&Reference $d$&Estimated $d$\\\midrule
+% source: analytic illustration using Z=fB/d with delta d=+1 px; 1-4/5=20%, 1-20/21=4.7619%.
+Farther point&$4$ px&$5$ px\\
+Nearer point&$20$ px&$21$ px\\\bottomrule
+\end{tabular}
+% source: same analytic illustration; these are not measured benchmark errors.
+\par\vspace{2mm}Depth is underestimated by $20\%$ and $4.76\%$, respectively.
+\end{columns}
+{\let\small\footnotesize\takeaway{Read depth errors with the disparity precision, depth range, calibration, and scored population.}}
+\src{\dref{Eq.}{eq:depth_conversion} and \dref{Eq.}{eq:depth_disparity_sensitivity}; example percentages are illustrative arithmetic.}
+\talknote{Question: how does a pixel of matching error translate into centimeters? About 60 seconds.}{The conversion is reciprocal in disparity. The exact difference formula applies for positive disparities. For a small disparity perturbation, absolute depth sensitivity is Z squared divided by focal length times baseline. Farther points therefore turn the same disparity error into a larger depth error. The displayed arithmetic holds focal length and baseline fixed and is an illustration, not a benchmark result.}{The approximation requires the disparity error to be small relative to the reference disparity; use the exact formula for the examples. Calibration uncertainty adds another source of error: to first order, delta Z/Z is delta f/f plus delta B/B minus delta d/d. A winner margin protects a label under score perturbations; subpixel interpolation and reciprocal conversion are later stages. Existing coverage backups explain method-specific evaluation populations.}
 \end{frame}
 
 \begin{frame}{Heteroscedastic weights: statistical motivation and scope}

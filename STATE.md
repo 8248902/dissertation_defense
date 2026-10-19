@@ -1,17 +1,23 @@
 # Defense presentation — current state
 
+**Schedule: pre-defense October 22, 2026; defense November 23, 2026.**
+
 Updated October 19, 2026. **Canonical location: `../dissertation_defense`, branch `main`.** The Opus route is now the actual defense. Continue all deck, notes, script, and strategy work here.
 
 ## Current deliverables
 
-- `defense.pdf`: 90 pages, consisting of 36 main slides and 54 backups.
-- `defense-notes.pdf`: matching 90-page speaker edition.
-- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 93-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `anki/defense-core.apkg`: 48 essential spoken-recall cards; `anki/defense-oral.apkg`: the same core plus 42 deeper follow-ups. Prompts practice accessible explanations of results, proof mechanisms, assumptions, and consequences for this talk. Source-linked answers, editable card source, a browser preview, and import/rebuild instructions are under `anki/`; start with `anki/README.txt`.
+The five reviewed backups are now integrated with their scripts and notes: metrics page 42, real-time reconstruction page 43, controlled-flow protocol page 77, stereo alignment page 81, and depth sensitivity page 89. Continue editing the active files here; the sibling draft package is a review record. The timed core and its current main-talk script were preserved.
+
+- `defense.pdf`: 95 pages, consisting of 36 main slides and 59 backups.
+- `defense-notes.pdf`: matching 95-page speaker edition.
+- `defense-presenter.pdf`: 190 pages, pairing the 95 audience slides with their 95 full-script pages.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 98-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
 - `strategy.md`: selected route, time priorities, and backup navigation.
 - `delivery-guide.txt`: practical delivery and build instructions.
 - `related-work.md`: precise comparisons, primary references, and contribution boundaries.
 
-The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–30, stereo on 31–32, and conclusions on 33–36. Slide 21 states the flow model in scene terms with the edge diagram and a velocity-space intersection-of-constraints panel for the two-orientation requirement. Literature backup is deck page 63; the formal aperture explanation is page 90. Contrast maximization backups are pages 74–76: what it models and its known-motion evidence, then its objective and existence proof. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
+The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–30, stereo on 31–32, and conclusions on 33–36. Slide 21 states the flow model in scene terms with the edge diagram and a velocity-space intersection-of-constraints panel for the two-orientation requirement. Literature backup is deck page 65; the formal aperture explanation is page 95. Contrast maximization and its evaluation protocol occupy pages 76–79: the model and known-motion evidence, the controlled protocol, then the objective and existence proof. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
 
 The new relevant-work slide distinguishes learned event-only reconstruction, flow-based image reconstruction, and frame-assisted bilevel reconstruction. It credits classical optical-flow regularization and well-posedness theory. The contribution is the particular event-derived models and their common analysis, with explicit author contribution for the published temporal work. Speaker notes, script, and expanded literature backup agree on these distinctions.
 
@@ -74,3 +80,25 @@ README.md and delivery-guide.txt include Ubuntu installation, rebuild, launch, s
 The user's Pympress 1.8.4 run exposed a startup-mode conflict in the initial presenter PDF: its grouped script pages used the reserved `notes:` label prefix, which makes Pympress select an adjacent-slide/notes mapping during startup, overriding the earlier command-line setting. Reproduced the failure with the installed Pympress parser: 176 detected slides and zero valid script pairings.
 
 Changed the grouped pages to `script:` labels and rebuilt defense-presenter.pdf. Validated through the installed Pympress Document API that auto-detection selects AFTER, reports exactly 88 audience slides, and maps all 88 to their matching full-script pages. Every parsed script page has nonempty text identical to the fresh script build; both MP4s resolve with repeat enabled. Updated README/delivery guide and source metadata. Close both existing Pympress windows, then reopen with `pympress --notes=after defense-presenter.pdf`; this clears the old instance's cached mode. N toggles notes mode in the presenter window. The runtime check used the real installed parser without opening GUI windows or changing user configuration. Scratch build and evidence: /tmp/defense-presenter-notes-fix.
+
+## Separate backup drafts from committee-question review — October 19
+
+A review of the current main/backup deck against Chapters 2–4 produced five proposed backups: reconstruction metric interpretation; sensor timing versus batch output delay; controlled-flow evaluation protocol; stereo alignment after motion compensation; and disparity-to-depth sensitivity. Draft slides, notes, full responses, presenter followups, source map, and insertion rationale are preserved in `../misc_ideas_feedback/defense_backup_drafts_2026-10-19/README.md`. They are separate from the active presentation. The active deck and script were not edited by this review task; another agent was concurrently editing the script. Draft PDFs validate at 5 slides / 5 notes / 6 script pages with zero layout/reference warnings.
+
+## Backup draft metric and live prototype revision — October 19
+
+Updated the separate package at `../misc_ideas_feedback/defense_backup_drafts_2026-10-19/`: D1 script/notes now explain all nine metric computations without adding a slide. D2 now presents the author's September 2025 DAVIS346 live reconstruction prototype and historically reported 0.4–0.7 s MATLAB reconstructions / approximately one-second updates. Read-only inspection of `~/g/r/reconstruction_live_demo` confirmed windowed background processing and compiled CPU/CUDA DV modules. Historical timings, current settings, GPU projections, and camera-to-display delay remain distinguished. Revised draft PDFs: 5/5/6 pages, zero layout/reference warnings. Active deck/script and thesis source untouched; D3–D5 bodies/scripts and earlier user edits preserved.
+
+## Correction to backup D2 native GPU inference account — October 19
+
+Author clarified that live inference used the native GPU modules in iniVation DV, not MATLAB. This supersedes the preceding draft revision's MATLAB-centered account. Corrected D2 slide/script/notes in the separate package to show DV events → native C++ preparation → CUDA/cuSOLVER sparse solution → DV frame output, with CPU backend selection when CUDA is unavailable. Removed the separate MATLAB prototype's timing figures from the slide and spoken answer. Source tracing confirms the native module/dispatcher/CUDA engine/build target; the author's clarification establishes the implementation used. D1 and D3–D5 preserved, active deck/script untouched. Corrected PDFs5/5/6 pages, zero final layout/reference warnings; build `/tmp/defense-backup-draft-build-zqhamb1g`.
+
+## Restore the real-time question for draft D2 — October 19
+
+At the author's correction, D2 is again “Can the reconstruction run in real time?” Its purpose is real-time feasibility, supported by the author's established native GPU DV implementation, rather than questioning whether GPU implementation exists. The slide/script now explain live processing and the workload/temporal-detail/event-context/output-cadence tradeoff. GPU mechanics sit in followups. Revised separate drafts build5/5/6pages, zero final layout/reference warnings; `/tmp/defense-backup-draft-build-v_pilhxl`. Other drafts and active presentation/software sources unchanged.
+
+## Five reviewed backups integrated — October 19
+
+Merged the current user-edited draft slides, notes and responses into the active appendix at pages 42 (metrics), 43 (real-time reconstruction), 77 (controlled-flow protocol), 81 (stereo alignment), and 89 (depth sensitivity). Core source and current main-talk script are byte-for-byte preserved. Original backup titles are preserved; existing answers changed only for numbering and one CMAX navigation sentence. New sources use actual imported thesis numbers where applicable and a software-source footer for the live implementation. The discussion guide links directly to all five new pages. Standalone draft package is now a review record; continue edits here.
+
+Final verification: make check passed; audience/notes/script95/95/98pages with zero compile warnings. Presenter190pages with95exact script pairings and two looping movies on main slide20. All95script sections fit one page,98used thesis labels resolve, all13validation input hashes and72source/figure hashes match. New slides, metric notes, and discussion guide visually reviewed; all five new PDF destinations checked. Scratch: `/tmp/defense-integrate-backups-2026-10-19/`. No thesis edits, commits, or pushes.

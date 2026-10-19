@@ -106,7 +106,7 @@ def main() -> None:
     for frame in frames:
         footer = '; '.join(commands(frame['block'], 'src'))
         if not footer:
-            custom = re.search(r'Dissertation:\s*(.*?)(?:\\par|$)', frame['block'])
+            custom = re.search(r'(?:Dissertation|Source):\s*(.*?)(?:\\par|$)', frame['block'])
             if custom:
                 footer = custom.group(1).strip()
         raw_footer = footer

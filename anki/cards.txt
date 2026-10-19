@@ -1,0 +1,544 @@
+# Oral-defense cards. Fields: @ ID | topic | priority | slide keys | thesis labels
+# Slide keys resolve through slide_titles.json to titles, then to current PDF pages.
+# Q = spoken prompt; A = sample spoken answer; Keep = recall anchors; More = optional precision.
+# Wording is a model answer, not a script to memorize. Core cards are ordered before followups at export.
+
+@ F01 | foundations | core | 5,6 | eq:polarity
+Q: What does one event actually tell you about the scene?
+A: A pixel reports that its log brightness has changed by a threshold since its last reset. The event gives the location, time, and sign of that change. It measures a relative change; both motion and changing illumination can produce it.
+Keep: threshold crossing; local reference; motion or illumination
+More: The ideal rule uses fixed contrast thresholds. Threshold variation and other sensor errors enter the observation-model discussion.
+
+@ F02 | foundations | core | 6,9 | lem:nullspace
+Q: Why do events leave a brightness baseline undetermined?
+A: Adding a constant to a pixel's entire log-brightness history preserves all its changes, provided its reset reference shifts with it. The temporal difference model therefore determines the history only up to an additive level. The regularizer chooses that level; a measured reference could supply physical information about it.
+Keep: changes unchanged; one offset per pixel; chosen versus measured baseline
+More: Independent per-pixel offsets in log intensity correspond to independent multiplicative brightness factors after exponentiation.
+
+@ F03 | foundations | followup | 65 | eq:polarity,lem:nullspace
+Q: Is a constant offset all the information that the physical sensor loses?
+A: The threshold sensor also hides changes that stay below threshold. A constant signal and a small oscillation around the same reset reference can both produce no events. The constant null space exactly describes our discrete increment operator; connecting that surrogate to physical brightness needs the sensor assumptions as well.
+Keep: subthreshold oscillation; same reset reference; sensor versus surrogate
+More: Choose the oscillation amplitude strictly smaller than the contrast threshold throughout the window.
+
+@ F04 | foundations | core | 8 | sec:framework
+Q: Why is representing the event stream part of the mathematical model?
+A: Raw events are a signed point measure. Binning, smoothing, interpolation, or timestamp fitting turns them into the quantities used in our residuals. Those choices determine which information survives and how errors enter the estimator, so they are part of the model we analyze.
+Keep: atomic measurements; represented coefficients; information and error propagation
+More: The flow theorem begins with fixed represented coefficients. It needs a separate preprocessing bound to become a raw-event stability theorem.
+
+@ F05 | foundations | followup | 8,23,31 | sec:normalization
+Q: How do physical brightness, event activity, and a latent stereo profile differ?
+A: Physical brightness describes the scene's light level. Event activity describes threshold-triggered changes and can be small in a bright uniform region. The stereo latent profile fits processed event features, whose scale comes from preprocessing. I keep those meanings explicit when interpreting each model.
+Keep: light level; triggered changes; processed feature scale
+More: Temporal reconstruction is motivated by log brightness, while normalization in stereo gives its fitted profiles a different interpretation.
+
+@ F06 | foundations | core | 2,33,64 | thm:uniqueness,thm:unified_wellposedness
+Q: What does well-posedness buy you when the estimate might still be inaccurate?
+A: It gives an estimate that exists, is unique, and changes continuously with the specified inputs. That makes the model's answer determinate and controlled. Accuracy also depends on whether the observations identify the physical quantity and whether the model's assumptions and regularization describe the scene well.
+Keep: existence; uniqueness and stability; physical accuracy needs more
+More: Name the input in each claim: temporal observations at fixed weights, or represented flow coefficients under common bounds.
+
+@ T01 | temporal | core | 9 | lem:nullspace
+Q: Why is the temporal difference operator's null space exactly the constants?
+A: If every consecutive difference is zero, every sample equals its neighbor, so the entire temporal chain has one value. Conversely, a constant profile has zero differences. This identifies the precise freedom in the increment model and tells us what an anchoring rule must control.
+Keep: consecutive equality; connected chain; one free level
+More: A computes increments. Dividing by the time step would give difference quotients.
+
+@ T02 | temporal | core | 12,13 | thm:uniqueness
+Q: Give the temporal uniqueness argument in words.
+A: The data term controls differences, and the positive magnitude penalty supplies curvature in every remaining direction. In any nonzero perturbation, the sum of the squared data change and squared penalized profile is positive. The normal matrix is positive definite, so this quadratic has one global minimizer.
+Keep: sum of squares; positive curvature; unique global minimum
+More: Fixed strictly positive diagonal weights give a lower eigenvalue bound by the smallest weight squared.
+
+@ T03 | temporal | followup | 38 | lem:nullspace,thm:uniqueness
+Q: Must every temporal penalty entry be positive for uniqueness?
+A: The exact requirement is that the observation operator and penalty share no nonzero null vector. Since a connected temporal chain leaves only constants free, even one nonzero diagonal penalty entry removes that ambiguity. A fully positive diagonal also gives the simple quantitative lower bound used in the theorem.
+Keep: no common null direction; one anchor suffices; bound changes
+More: Fixing a reference value or imposing zero mean can also select a representative. A magnitude penalty additionally shrinks the fitted nonconstant modes.
+
+@ T04 | temporal | core | 12,15 | thm:uniqueness,subsubsec:lambdacal
+Q: How does the magnitude penalty actually choose the temporal baseline?
+A: Testing the normal equations against a constant removes the data term. What remains says that the history has zero mean when weighted by the squared penalty entries. With the selected rule, quiet intervals get larger penalties, so they exert the most influence on that reference level.
+Keep: data term vanishes; squared-weight mean zero; quiet intervals anchor
+More: This is a baseline convention selected by optimization. An event-free pixel reconstructs at that convention, whatever its physical brightness.
+
+@ T05 | temporal | core | 10 | prop:l1_bump_properties,prop:dist_bump_properties
+Q: What do the temporal kernels change, and what do they preserve?
+A: A kernel distributes an event's signed contribution across time bins. Unit mass preserves its total contribution when the full support is included, while the width controls how far the influence spreads. The difference operator stays fixed; the observations and any weights derived from them can change.
+Keep: signed unit contribution; temporal spread; same difference operator
+More: A kernel crossing the observation-window boundary needs boundary treatment to preserve the full mass identity.
+
+@ T06 | temporal | followup | 10,14 | thm:frequency_response
+Q: Why can both kernel smoothing and magnitude regularization change temporal detail?
+A: They act at different stages. A wider kernel spreads event contributions before the solve and can blur rapid changes. The magnitude penalty acts on the reconstructed history; in the scalar model it suppresses slow latent modes most strongly. Their effects should be interpreted separately.
+Keep: preprocessing blur; reconstruction shrinkage; distinct stages
+More: Stronger scalar magnitude regularization increases attenuation of every nonconstant latent mode, with low modes attenuated most.
+
+@ T07 | temporal | core | 11,39 | subsubsec:ode
+Q: Why is the cumulative event signal naturally BV rather than H-one?
+A: Accumulating finitely many signed events gives a staircase with finite total variation. A nonzero jump contributes an atom to its distributional derivative. H-one would require a square-integrable derivative, so a genuine jump belongs naturally in bounded variation instead.
+Keep: staircase; atomic derivative; finite variation
+More: At positive smoothing width, the kernels used here give a square-integrable driver and an H-one primitive.
+
+@ T08 | temporal | followup | 11,39 | subsubsec:ode
+Q: What does a distributional derivative mean in the event-integral picture?
+A: We test the cumulative signal against smooth functions and transfer the derivative onto the test function by integration by parts. A jump then contributes its signed size at the event time, which is exactly an event atom. This describes abrupt changes without pretending they have ordinary derivatives.
+Keep: smooth tests; integration by parts; jumps become atoms
+More: For finite interior events, narrowing normalized kernels gives primitives converging in L-one. Endpoint and bin-boundary conventions must be consistent.
+
+@ T09 | temporal | core | 13 | prop:stability
+Q: What is the mechanism behind temporal data stability?
+A: Compare two reconstructions using the same positive weights and subtract their normal equations. Their difference is the data perturbation passed through the fixed reconstruction operator. The positive lower eigenvalue bounds the inverse, so it limits how much the recovered history can move.
+Keep: fixed weights; subtract equations; inverse controlled by eigenvalue floor
+More: The displayed estimate uses the norm of A divided by the smallest penalty weight squared. It is a sufficient bound, not a sharp noise-gain formula.
+
+@ T10 | temporal | followup | 13 | prop:l1_bump_properties,prop:stability
+Q: Why can you turn the temporal stability estimate into a statement about one noise event?
+A: A nonnegative unit-mass kernel splits one unit of polarity across the bins. Those bin contributions have total absolute mass at most one, so their Euclidean norm is at most one as well. Inserting or deleting one such event therefore gives a controlled observation perturbation for the fixed-weight estimate.
+Keep: nonnegative normalized kernel; observation norm at most one; fixed-weight bound
+More: A polarity reversal changes the contribution by two units. Recomputing adaptive weights introduces an additional change beyond this observation term.
+
+@ T11 | temporal | core | 15,56 | subsubsec:lambdacal,thm:uniqueness
+Q: How can you have adaptive weights and still state a fixed-weight theorem?
+A: The activity rule first supplies a positive diagonal matrix, which is then held fixed during the quadratic solve. The theorem guarantees that particular solve. If we perturb the events and recompute the weights, a full sensitivity argument must include changes in both the observations and the penalty.
+Keep: compute then freeze; positive floor; two perturbation channels
+More: Chapter 2 decreases the penalty with net activity. Chapter 4 uses a distinct magnitude-weight rule based on pre-normalization energy; the rules should not be conflated.
+
+@ T12 | temporal | core | 14 | lem:A_spectrum,thm:frequency_response
+Q: Explain the temporal spectral result without reciting its formula.
+A: With one scalar penalty, the temporal modes diagonalize the reconstruction map. The data leave the constant mode free, and the penalty selects zero for it. Slow nonconstant modes are reduced most, while faster modes retain more of their latent amplitude. That explains the emphasis on changing structure in the reconstruction.
+Keep: scalar penalty; constant removed; slow latent modes attenuated
+More: For a mode with difference-energy eigenvalue g, the latent gain is g/(g + lambda squared). General diagonal penalties need matrix analysis.
+
+@ T13 | temporal | followup | 40 | thm:frequency_response,prop:noise_gain
+Q: Why is the latent-signal gain different from the observation-noise gain?
+A: A latent signal first passes through the difference operator and then through reconstruction. Observation noise enters after differencing and passes only through the inverse map. The extra differencing factor changes the modal gain, so suppression of slow latent structure is a different statement from noise amplification.
+Keep: noise enters at a different stage; extra difference factor; use SVD
+More: Latent gain is g/(g + lambda squared); observation-amplitude gain is square root of g divided by (g + lambda squared). Squaring the latter gives the white-noise variance factor.
+
+@ T14 | temporal | core | 64 | thm:uniqueness,prop:stability
+Q: How would you explain regularization bias to the committee?
+A: The penalty deliberately pulls the estimate toward smaller profiles. Even with exact increments, that changes the recovered nonconstant modes and fixes the invisible baseline. Reconstruction error therefore contains both this shrinkage bias and propagated observation error; increasing regularization trades more shrinkage for stronger noise control.
+Keep: deliberate shrinkage; noiseless bias; bias and propagated error
+More: On a fixed grid, noiseless mean-zero latent profiles are recovered as the scalar penalty tends to zero. The missing constant still requires a convention.
+
+@ T15 | temporal | core | 13,16,41 | prop:stability,tab:bump_avg_indoor
+Q: What does a smaller condition number tell you about a reconstruction?
+A: It says the linear system has less uneven sensitivity across directions. It helps assess the numerical solve, while image accuracy also depends on the represented data and regularization bias. Kernel changes affect this matrix through adaptive weights; changing only the right-hand side at fixed weights leaves its condition number unchanged.
+Keep: sensitivity of the solve; accuracy also needs model fit; adaptive matrix change
+More: A uniform scalar penalty raises the smallest eigenvalue but also increases shrinkage. Better conditioning alone does not establish better images.
+
+@ T16 | temporal | followup | 48 | cor:mean_zero_conditioning
+Q: What does restricting the scalar temporal system to mean zero accomplish?
+A: It removes the unobserved constant mode explicitly. On a fixed grid the first remaining temporal eigenvalue is positive, so the restricted condition number stays finite as the magnitude penalty goes to zero. The full-space matrix still has a null mode at zero penalty, and grid refinement changes the bound.
+Keep: remove gauge; fixed-grid bound; restriction must be enforced
+More: In the unscaled chain the first nonzero eigenvalue decreases like the inverse square of the number of samples. General diagonal penalties need separate invariant-subspace analysis.
+
+@ T17 | temporal | followup | 68 | eq:tempdiffA,eq:in
+Q: How should regularization change if you refine the temporal grid?
+A: First specify the continuum energy and whether the observations are increments or derivatives. For the smooth illustrative model in the backup, matching the quadrature factors makes the discrete scalar penalty proportional to the time step. That is a scaling calculation for that target functional; convergence also needs approximation and noise control.
+Keep: specify target energy; increment units; derive scaling
+More: For the integral of squared derivative residual plus beta squared times squared signal, the slide's convention gives lambda at spacing h equal to beta times h.
+
+@ T18 | temporal | core | 12,live | eq:in,thm:uniqueness
+Q: What is actually computed after you write down the temporal objective?
+A: Differentiating gives one positive-definite linear system per pixel. We solve those independent systems in parallel to obtain temporal histories. At any reconstruction time, taking that time sample from each history assembles an image. The optimization variable is the whole history, even though the output is displayed as frames.
+Keep: normal equations; independent pixel solves; assemble time slices
+More: I developed and used a native C++/CUDA DV version for live windowed reconstruction. Workload, temporal samples, observation window, and output cadence govern responsiveness; fine event timestamps and camera-to-display latency are different quantities.
+
+@ T19 | temporal | core | 19 | prop:ch2_sar_solvability
+Q: How does the shared-scene, known-motion extension change the inverse problem?
+A: Instead of fitting each pixel history independently, we ask one static scene to explain observations along a known camera trajectory. We project that scene at each time and then difference the projections. A positive ridge makes the fixed-motion scene solve unique and stable, while the projection sequence determines its invisible scene directions.
+Keep: one scene; known projections then differences; ridge controls invisible directions
+More: SAR means synthetic aperture radar. Here the transferred idea is combining moving-sensor observations into one scene estimate; camera motion is supplied to the model.
+
+@ T20 | temporal | followup | 19 | prop:ch2_sar_solvability
+Q: Which scene directions remain invisible in the known-motion model?
+A: Any scene perturbation whose projected image stays the same at every observation time disappears under temporal differencing. Row-normalized projections make constant scenes one example. Other invariant directions depend on the trajectory, so determining the full null space is a geometry question about that sequence of projections.
+Keep: time-invariant projections; constants included; trajectory-dependent invariants
+More: Ridge regularization makes the solve invertible even when the scene operator retains these null directions; it selects their values rather than measuring them.
+
+@ T21 | temporal | followup | 16,18,41,metrics | subsec:validation,tab:bump_avg_indoor
+Q: How do you interpret image metrics when the reconstruction selects its baseline?
+A: Reference-image scores compare the displayed estimate with a reference under the evaluation convention. They measure the usefulness of that reconstruction, including its baseline choice and shrinkage. I interpret them alongside visible structure and conditioning, while the sensor model explains which brightness information the events actually supply.
+Keep: evaluated estimate; reference convention; structure and conditioning
+More: Smoothness metrics can reward an unchanging output. Consider reference fidelity, agreement with event-derived changes, and conditioning together; the metric backup defines all nine diagnostics.
+
+@ T22 | temporal | followup | 16,18,41 | tab:bump_avg_indoor,tab:bump_avg_outdoor
+Q: Which temporal kernel is best according to your evidence?
+A: The ordering depends on the scene and the adaptive weights. Spline and Gaussian choices perform similarly in the indoor comparison, while the outdoor ordering differs. The evidence supports selecting the representation and penalty together for the intended regime, with reconstruction quality and conditioning assessed separately.
+Keep: scene-dependent ordering; kernel plus weights; quality and conditioning
+More: Qualitative office, high-speed, and orbital examples demonstrate recognizable structure across regimes; they answer a different question from a controlled aggregate ranking.
+
+@ T23 | temporal | core | 4,17 | tab:bilevel_comp_indoor,tab:bilevel_comp_outdoor
+Q: How does your temporal method relate to the Antil–Sayre bilevel approach?
+A: Our method uses events to set activity-based magnitude penalties and then solves a fixed convex temporal problem. Antil and Sayre use events with intensity frames and an outer optimization of event-threshold parameters. The comparison therefore concerns complete approaches with different information and optimization variables, as well as different guarantees.
+Keep: event-only weights; frame-assisted threshold optimization; different guarantees
+More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions.
+
+@ V01 | flow | core | 20,21,90 | prop:time_surface
+Q: Explain the aperture problem to a mathematician outside vision.
+A: A straight edge reveals how quickly it moves across itself. Sliding it along itself produces the same local brightness history, so one velocity component stays free. In velocity space one edge permits a line of answers; another edge orientation can intersect that line and determine both components.
+Keep: normal measured; tangent free; intersect directional constraints
+More: The ideal example assumes steady illumination, matching sensor references, and no visible endpoints or other distinguishing features in the local window.
+
+@ V02 | flow | core | 22 | prop:time_surface
+Q: Derive the time-surface motion constraint in a few sentences.
+A: The crossing-time map tells us when the edge reaches each location. Along a point translating with that edge, its crossing time equals the current time. Differentiating along the trajectory says that crossing-time gradient dotted with velocity equals one. The gradient measures slowness in the measured direction.
+Keep: follow crossing trajectory; chain rule; gradient is slowness
+More: This gives one scalar constraint on a two-component velocity. A large crossing-time gradient corresponds to slow normal motion.
+
+@ V03 | flow | followup | 22,90 | ass:regularity,prop:time_surface
+Q: What assumptions make that time-surface derivation valid?
+A: We need an ideal differentiable single-crossing map and nonzero normal motion for the translating-edge interpretation. Multiple crossings and stale stored timestamps can break that interpretation. The theorem therefore analyzes the represented coefficient fields after fitting, with the physical crossing assumptions stated separately.
+Keep: differentiable single crossing; nonzero normal speed; stale timestamps matter
+More: Brightness changes caused by illumination also need separate treatment when interpreting all events as motion.
+
+@ V04 | flow | core | 23 | subsec:vox_projection
+Q: What does the voxel-projection flow model assume is being transported?
+A: It assumes a represented event-activity pattern obeys scalar transport over the window, with constant velocity in the derivation. Integrating that relation gives a projected spatial gradient and a temporal change to use in the motion residual. Event activity is the modeled quantity, so its connection to scene brightness needs its own justification.
+Keep: represented activity; scalar transport; integrated constraint
+More: For a sliding uniform window, the temporal derivative of the projection is the activity entering at the end minus that leaving at the beginning.
+
+@ V05 | flow | followup | 47 | subsec:vox_projection
+Q: Why do the spatial projection and temporal derivative need compatible weights?
+A: They come from the same integrated transport identity. If we change the temporal averaging in one term, we need the matching averaging in the other. An ordinary least-squares slope uses a parabolic derivative weight, so pairing it with a uniform spatial projection can introduce a residual even for exact transport.
+Keep: one transport identity; same averaging; mismatch becomes coefficient error
+More: The backup's transported cubic makes this mismatch explicit. Well-posedness for the resulting fixed coefficients and exact physical transport are separate questions.
+
+@ V06 | flow | followup | 70 | sec:vox_cont_exclusion
+Q: How does scalar transport differ from density conservation?
+A: Scalar transport keeps a pattern value constant along a trajectory. Density conservation also accounts for compression and expansion of space. Expanding the continuity equation adds the value times the divergence of velocity, so using it for event activity requires a density model and possibly sources for event creation or loss.
+Keep: pattern value; compression term; event sources
+More: The equations agree when the represented value times velocity divergence vanishes, including divergence-free flow.
+
+@ V07 | flow | core | 24 | subsec:vox_struct,prop:vox_tensor_wellposed
+Q: What directional information does the structure tensor add?
+A: It pools outer products of nearby space-time gradients with nonnegative weights. Each contribution is a squared directional constraint, so the tensor is positive semidefinite. Nonparallel spatial gradients can constrain both velocity components locally; the unified theorem only requires enough information across the connected domain.
+Keep: pooled outer products; nonnegative squares; local versus global rank
+More: Its spatial block supplies data curvature, the space-time cross terms supply forcing, and the final temporal term is constant in velocity.
+
+@ V08 | flow | core | 25 | thm:unified_wellposedness
+Q: What makes the three quadratic flow representations one mathematical family?
+A: Each supplies a local quadratic data-curvature matrix and a forcing vector, coupled to the same spatial gradient penalty. The time surface, projected voxel field, and pooled tensor build those coefficients differently. Once their hypotheses are checked, one theorem gives existence, uniqueness, and coefficient stability for all three.
+Keep: coefficients differ; same quadratic structure; verify hypotheses per representation
+More: Contrast maximization changes the represented image with the unknown motion and belongs to a separate nonconvex analysis.
+
+@ V09 | flow | core | 26 | thm:unified_wellposedness
+Q: State the main flow theorem in spoken mathematical language.
+A: On a bounded connected image domain with Lipschitz boundary, take positive spatial smoothing, bounded symmetric nonnegative data curvature, and square-integrable forcing. If the data curvature integrated over the domain measures every constant velocity direction, the quadratic energy has one H-one minimizer. Shared quantitative bounds also give stability to coefficient changes.
+Keep: regular domain and coefficients; positive smoothing; integrated full rank
+More: Uniform stability uses common upper bounds on curvature and forcing, and a common positive lower eigenvalue for the integrated curvature matrix.
+
+@ V10 | flow | core | 21,26 | eq:integrated_identifiability
+Q: Why can edges in different locations determine motion even if no pixel measures both components?
+A: Spatial smoothness couples those locations. A field with zero gradient is one constant velocity on a connected domain, so the remaining freedom is a common drift. Directional observations from different places can jointly fix that drift when their integrated matrix has full rank.
+Keep: spatial coupling; common drift; global directional information
+More: Two orientations is the rank-one edge picture. The exact condition is positive integrated curvature, which requires positive information in every constant direction rather than isolated points of zero measure.
+
+@ V11 | flow | core | 26,27 | thm:unified_wellposedness
+Q: Why is connectedness essential to your flow proof?
+A: On a connected domain, zero spatial gradient means one constant vector across the whole image. On disconnected components, each component can carry its own constant drift. The data would then have to identify every component separately; a full-rank matrix summed over the entire disconnected domain could hide a component's ambiguity.
+Keep: one constant per component; global sum can hide gaps; componentwise information
+More: In the graph version, connectedness concerns edges carrying positive smoothing weight.
+
+@ V12 | flow | core | 27 | thm:unified_wellposedness,eq:mean_control
+Q: Walk through the flow proof in about thirty seconds.
+A: Split the field into its spatial mean and a zero-mean fluctuation. Poincaré controls the fluctuation using the gradient penalty. Integrated data information controls the mean, after bounding the interaction with the fluctuation. Together they control the full H-one norm, so Lax–Milgram gives the unique weak solution and quadratic minimizer.
+Keep: split mean and fluctuation; control both; apply Lax–Milgram
+More: The mean estimate uses the positive square root of the data-curvature matrix and the squared triangle inequality. The upper curvature bound controls the fluctuation term it creates.
+
+@ V13 | flow | core | 27 | eq:mean_control
+Q: What does Poincaré's inequality contribute here, and what freedom does it leave?
+A: It says that on our bounded connected domain, a zero-mean field's size is controlled by the size of its gradient. Spatial smoothing therefore controls departures from a uniform drift. The mean remains free because a constant field has zero gradient; the integrated data term controls that part.
+Keep: subtract mean; gradient controls fluctuation; data controls drift
+More: This is the mean-zero form of Poincaré, not the zero-boundary-value form. No velocity is prescribed on the boundary.
+
+@ V14 | flow | core | 27 | thm:unified_wellposedness
+Q: What does Lax–Milgram let you conclude in this defense?
+A: Once a bounded bilinear form controls the full Hilbert-space norm from below, every bounded linear forcing has one weak solution. Here the mean-and-fluctuation argument supplies that lower bound in H-one. Symmetry identifies the weak solution with the unique minimizer of our quadratic energy.
+Keep: bounded form; coercivity; unique weak solution and minimizer
+More: The lower bound also bounds the solution by the forcing divided by the coercivity constant. Boundedness alone gives no such inverse control.
+
+@ V15 | flow | followup | 13,27,76 | thm:uniqueness,thm:unified_wellposedness,prop:cmax_existence
+Q: What do you mean by coercivity, and why is it stronger than positivity here?
+A: For the flow bilinear form, coercivity gives one positive lower bound times the full squared H-one norm. That prevents large fields from escaping energy control, including constant drift. In finite-dimensional optimization, saying the objective is coercive means it grows without bound at large parameter norm, which keeps minimizing sequences in a bounded region.
+Keep: quantitative norm control; no escaping directions; bounded minimizing sequences
+More: Pointwise positivity in an infinite-dimensional space need not give a uniform lower bound. For the quadratic flow energy, the linear forcing is controlled by the coercive quadratic part.
+
+@ V16 | flow | followup | 25,27,42 | thm:euler_lagrange
+Q: Why formulate flow with weak derivatives and H-one test fields?
+A: The quadratic smoothness energy only requires square-integrable velocity and weak first derivatives. Taking its variation gives an equation against test fields, which remains meaningful at that regularity. This avoids assuming classical second derivatives of the solution before proving anything about them.
+Keep: energy's natural regularity; test-field equation; no assumed classical smoothness
+More: For smooth functions, integration by parts recovers the interior PDE. The weak formulation also determines the natural boundary condition.
+
+@ V17 | flow | followup | 42 | thm:euler_lagrange
+Q: Which flow boundary condition follows from the variational problem?
+A: We minimize over all H-one fields, so boundary values are free. After the first variation, Green's identity shows that the normal derivative vanishes in the weak trace sense. With anisotropic diffusion it is the normal flux that vanishes. These are natural boundary conditions arising from the energy.
+Keep: free boundary values; zero normal derivative; anisotropic zero flux
+More: On a Lipschitz domain this is a weak Neumann or conormal statement. Classical boundary derivatives require additional regularity.
+
+@ V18 | flow | core | 28 | eq:abstract_stability
+Q: How do you prove stability of the flow estimate to its coefficients?
+A: Subtract the two weak equations and test with the difference of the solutions. Coercivity controls that difference on the left. The right separates into changed forcing and changed data curvature acting on one solution. Common coefficient and identifiability bounds turn those terms into a quantitative H-one estimate.
+Keep: subtract and test; two coefficient terms; common coercivity bound
+More: The norms are essential supremum for curvature changes and L-two for forcing changes. The domain and spatial smoothing strength stay fixed.
+
+@ V19 | flow | followup | 28,30 | eq:abstract_stability,eq:integrated_identifiability
+Q: What does the smallest eigenvalue of integrated directional information mean in scene terms?
+A: It measures the scene's weakest observed constant-motion direction. Nearly parallel edges give little information along their common tangent, so that eigenvalue becomes small. The stability constants then deteriorate, even before exact ambiguity is reached. More balanced orientations strengthen the estimate's worst directional control.
+Keep: weakest direction; nearly parallel edges; worsening stability constant
+More: Distinguish poor quantitative identifiability from exact singularity. Object boundaries can supply directions that stripe interiors lack.
+
+@ V20 | flow | followup | 66 | thm:unified_wellposedness
+Q: Why is integrated full rank necessary for uniqueness in the unrestricted quadratic flow model?
+A: A null direction of the integrated nonnegative matrix is invisible to the data almost everywhere. Adding that constant direction changes neither quadratic term. If the forcing sees it, the energy can decrease without bound; otherwise the direction stays flat. A unique minimizer therefore requires that freedom to be controlled.
+Keep: invisible constant direction; flat or unbounded energy; unrestricted H-one model
+More: Boundary constraints or an added magnitude penalty change the model and can remove this freedom. If the energy is flat, every existing minimizer has a family of equally good shifts.
+
+@ V21 | flow | followup | 67 | eq:abstract_stability
+Q: What extra step would turn coefficient stability into raw-event stability?
+A: Choose a meaningful distance between event streams, then bound how preprocessing changes the coefficients in the norms used by the theorem. That estimate can compose with coefficient stability while identifiability stays uniformly positive. Hard bin boundaries, smoothing bandwidth, and neighborhood changes all affect this first step.
+Keep: event metric; preprocessing bound; compose under uniform identifiability
+More: Shifting a unit atom slightly has total-variation distance two, but Wasserstein distance equal to the shift. Continuity depends on the chosen metric and representation.
+
+@ V22 | flow | followup | 44 | lem:ne_elliptic,cor:structure_wellposedness
+Q: What assumption lets directional smoothing retain your flow well-posedness result?
+A: The diffusion tensor must have one uniform positive eigenvalue floor across the domain. It may penalize variation across an event-density edge less than variation along it, while still controlling gradients in every direction. The coercivity proof then works with a weaker smoothing constant, together with the same integrated data condition.
+Keep: uniform ellipticity floor; directional smoothing; data still controls constants
+More: Positive eigenvalues at individual points can approach zero. The normalized tensor's bounded density gradient and positive parameter give the uniform floor used here.
+
+@ V23 | flow | followup | 45 | rem:aniso_discretization
+Q: Why must a spatially varying diffusion tensor remain inside the divergence?
+A: The energy produces divergence of the flux: the tensor multiplied by the gradient. If the tensor varies in space, its variation contributes to that divergence as well. Keeping only tensor-weighted second derivatives drops those contributions and generally approximates a different operator.
+Keep: vary energy; differentiate flux; coefficient variation matters
+More: An affine test field has zero Hessian but can have nonzero flux divergence under a variable tensor. The weak form remains meaningful for bounded measurable tensors.
+
+@ V24 | flow | core | 29 | thm:convergence,cor:convergence_psd_blocks
+Q: What happens in one block-Jacobi sweep for the discrete flow model?
+A: Every pixel solves a local two-component system combining its directional data with its neighbors' previous velocities. All updates use the same old field, and then the whole field is replaced at once. Under the stated graph and sampled-information assumptions, repeating these sweeps converges to the unique discrete minimizer.
+Keep: local two-by-two solve; simultaneous old field; specified convergence hypotheses
+More: The assumptions include positive smoothing, positive node factors and degrees, symmetric nonnegative edge weights, connected positive-weight support, PSD data blocks, and a positive-definite weighted sum of those blocks.
+
+@ V25 | flow | core | 29,43 | thm:convergence
+Q: What exactly must be connected in the discrete flow theorem?
+A: Pixels must be connected through edges with positive smoothing weight. A listed edge of zero weight transmits no information. If a zero-weight bridge separates components, each side can retain its own constant drift, so the total sampled information matrix alone may hide a local ambiguity.
+Keep: positive-weight support; zero bridge transmits nothing; componentwise constants
+More: The proof reference explicitly clarifies this graph hypothesis. The weighted sum of sampled data blocks must measure every constant direction on each connected component.
+
+@ V26 | flow | followup | 43 | thm:convergence
+Q: Why does Jacobi converge here? Is positive definiteness alone enough?
+A: This proof uses more than positive definiteness of the system. The graph structure makes both the diagonal block matrix minus and plus the coupling positive definite. After symmetric scaling, those two bounds place the iteration spectrum strictly between minus one and one, so errors decay from every starting field.
+Keep: both signs; symmetric scaling; spectral radius below one
+More: Squared edge differences control constant fields; squared edge sums control alternating fields. Integrated sampled data remove the surviving zero modes. General SPD systems do not automatically give Jacobi convergence.
+
+@ V27 | flow | followup | 29,33 | thm:convergence
+Q: Does convergence of your discrete iteration prove convergence to the continuum flow?
+A: It proves convergence to the minimizer of the specified finite graph problem. A continuum limit additionally needs compatible discretization, scaling, approximation, and uniform estimates as the grid changes. It also needs sampled directional information; a continuum full-rank condition alone does not certify a particular coarse sample.
+Keep: iteration limit; discretization limit; sampled hypotheses
+More: Solver convergence, grid refinement, and physical accuracy answer separate questions and require their own arguments.
+
+@ V28 | flow | followup | 73 | prop:ts_regression_bound
+Q: How can the time-surface plane fit be well determined while velocity is still ambiguous?
+A: The regression design can span both spatial coordinates and determine the crossing-time gradient accurately. That gradient still provides only one scalar motion constraint at a straight edge. Regression rank concerns estimating the gradient; velocity identifiability concerns collecting enough independent motion directions.
+Keep: estimate gradient; one normal constraint; different rank questions
+More: Under the symmetric design and stated independent timestamp errors, slope covariance is noise variance times inverse design information. Curvature contributes bias to the plane fit.
+
+@ V29 | flow | followup | 46,73 | prop:ts_regression_bound
+Q: What principle guides the time-surface regression neighborhood size?
+A: More samples reduce variance, while a larger neighborhood can include more curvature and increase the bias of a plane fit. Balancing the leading terms gives a useful radius scaling with noise and curvature variation. It is a guide under the disk and smoothness assumptions; a finite neighborhood uses the exact design bound.
+Keep: averaging reduces variance; curvature increases bias; leading-order guide
+More: The displayed leading squared-bias term grows like radius to the fourth and variance falls like its inverse. An affine surface has zero curvature bias and no finite optimum from that balance.
+
+@ V30 | flow | followup | 69 | thm:unified_wellposedness
+Q: What happens when spatial flow smoothing becomes extremely strong?
+A: Spatial variation becomes increasingly expensive, so the solution approaches one constant velocity. The remaining value balances all the directional data together: integrated curvature times that velocity equals integrated forcing. Positive integrated information makes this constant compromise unique.
+Keep: suppress spatial variation; one aggregate drift; integrated data balance
+More: With fixed coefficients under the unified theorem, the convergence is in H-one. Local motion differences are progressively suppressed.
+
+@ V31 | flow | followup | 58 | thm:unified_wellposedness
+Q: Why use quadratic H-one smoothing rather than total variation?
+A: Quadratic smoothing gives a bilinear weak equation and a common coercivity and stability analysis for the three representations. It also smooths sharp motion transitions. Total variation is attractive for preserving jumps, but it changes the function space and variational structure, so its existence, uniqueness, and stability require analysis of that model.
+Keep: quadratic proof structure; smoothed boundaries; TV needs its own theorem
+More: The natural jump-permitting space is BV. Simply replacing the gradient-square term by TV in an abstract energy with arbitrary linear forcing need not preserve a lower energy bound.
+
+@ V32 | flow | core | 30,74,75 | sec:cmax
+Q: Explain contrast maximization in scene terms.
+A: Events from a moving edge form a trail over the time window. A candidate motion warps them to one reference time; good alignment stacks the trail into a sharper edge. The method rewards that concentration and regularizes the motion field. Because the warp changes with motion, its objective is generally nonconvex.
+Keep: warp to reference time; sharpen accumulation; nonconvex search
+More: The quadratic flow theorem uses fixed data coefficients. Contrast maximization has a separate finite-dimensional existence argument.
+
+@ V33 | flow | core | 76 | prop:cmax_existence
+Q: Why does regularized contrast maximization have a global minimizer?
+A: Finitely many fixed-weight events bound the maximum focus reward. A positive coefficient ridge then makes the objective grow at large parameter norm, while bilinear accumulation keeps it continuous. We can restrict minimization to a compact sublevel set and apply the extreme-value theorem to obtain a global minimizer.
+Keep: bounded reward; positive ridge; continuity and compactness
+More: This is a finite-dimensional argument. Continuity at pixel crossings follows from the tent weights. The full objective can still have multiple local minima.
+
+@ V34 | flow | followup | 75,76 | prop:cmax_wellposed,prop:cmax_existence
+Q: Why does a strongly convex contrast-maximization regularizer not settle the whole optimization problem?
+A: The regularizer controls parameter growth, including constant-motion directions through its ridge. The focus term still depends nonlinearly on the warp and can make the full objective nonconvex. The existence proof ensures a global minimum is attained; the evaluated local solver returns the result reached by its search.
+Keep: regularizer versus full objective; existence; local solver outcome
+More: Diffusion alone leaves constant fields free. The positive coefficient ridge supplies the missing control for the stated coercivity proof.
+
+@ V35 | flow | followup | 75 | sec:cmax
+Q: Why use continuous splines to evaluate motion at individual events?
+A: Each warped event needs a velocity value at its own location. A general two-dimensional H-one field is an equivalence class and does not give well-defined values at prescribed points. A continuous spline representation supplies those point evaluations and makes the finite-dimensional warping objective well defined.
+Keep: pointwise warp; H-one equivalence class; continuous spline field
+More: In the evaluated model the coefficient field represents displacement over a normalized window, equal to physical velocity times the window duration.
+
+@ V36 | flow | core | 30,57,74,flowprotocol | fig:ch3_quiver_v2e,fig:vox_comparison
+Q: What do the flow examples establish experimentally?
+A: The known-motion simulations connect directional texture to flow error: stripes expose weak tangential information, while checker texture supplies both directions. The selected windows also support the reported contrast-maximization comparison. The real-data figure gives a qualitative example; Chapter 3 reports no aggregate real-data endpoint-error ranking for these methods.
+Keep: controlled known motion; selected windows; qualitative real-data scope
+More: Object boundaries and the full warping window can add information beyond the stripe interior. The simulations illustrate the aperture mechanism without making it an impossibility claim for the whole image.
+
+@ S01 | stereo | core | 31,depth | eq:depth_conversion
+Q: Why does a small disparity error matter more for distant objects?
+A: Rectified stereo gives depth as focal length times camera baseline divided by disparity. Distant points have smaller disparities, so the same small absolute disparity error produces a larger depth change. That reciprocal geometry makes far-depth accuracy especially sensitive to correspondence precision.
+Keep: inverse disparity; small disparity at distance; amplified depth error
+More: Locally, the magnitude of depth sensitivity is focal length times baseline divided by disparity squared. Positive valid disparity is needed for this conversion.
+
+@ S02 | stereo | core | 31,32,78,79 | thm:weighted_spd,thm:convexity
+Q: Why is the stereo inner problem uniquely solvable at a fixed candidate?
+A: With weights frozen, its energy is a sum of weighted squared observation residuals, positive magnitude penalties for both profiles, and a nonnegative coupling penalty. The magnitude terms control every nonzero profile perturbation. The resulting block matrix is positive definite, giving one latent-profile solution for that candidate.
+Keep: frozen weights; positive magnitude control; unique profiles per candidate
+More: Observation weights may be nonnegative and coupling may be zero. Candidate choice and reweighting introduce separate mathematical questions.
+
+@ S03 | stereo | followup | 80 | lem:block_diag_M,thm:conditioning
+Q: What do sum and difference coordinates reveal about stereo coupling?
+A: With equal temporal blocks, adding the two equations isolates their common profile, while subtracting isolates disagreement. Coupling leaves the common equation unchanged and increases the penalty on disagreement. It enforces closer agreement but leaves the shared baseline to the magnitude penalty, and it can increase full-space conditioning cost.
+Keep: equal blocks; common mode unchanged; disagreement suppressed
+More: The exact scalar conditioning formula requires unweighted equal blocks and a scalar magnitude penalty. Unequal adaptive blocks generally mix these coordinates.
+
+@ S04 | stereo | core | 32,81 | lem:matching_cost_closed_form
+Q: What does profiling out the latent stereo variables reveal?
+A: It exposes what the candidate comparison actually rewards. In the unweighted local model, the minimized cost is a left monocular cost, a right monocular cost, and a nonnegative discrepancy term. The right monocular cost varies with the candidate, so matching quality competes with how cheaply that candidate reconstructs on its own.
+Keep: two monocular costs; discrepancy; candidate-dependent reconstruction cost
+More: The left observation and shared parameters are fixed. These are candidate-local costs before the weighted pipeline's spatial aggregation.
+
+@ S05 | stereo | core | 32,82 | prop:attenuation_bias
+Q: How can a weaker wrong stereo profile beat a perfect match?
+A: Attenuating the right profile lowers its individual reconstruction cost. The added disagreement can cost less than that saving. In the exact two-sample example, the perfect match costs one third and the half-strength candidate costs nine fortieths. Each inner solve is unique, yet that comparison favors the wrong candidate.
+Keep: reduced monocular cost; discrepancy tradeoff; inner uniqueness versus selection
+More: This example concerns the fixed unweighted local model. It exposes a selection mechanism rather than asserting that every weighted, aggregated output has this behavior.
+
+@ S06 | stereo | core | 83 | prop:correct_selection
+Q: Give an accessible sufficient condition for the correct disparity to win.
+A: In the fixed unweighted local model, assume the true candidate has exactly the left observation. If every competitor differs from it and has at least as much monocular reconstruction cost, no competitor gains an attenuation advantage. Positive coupling and the full-row-rank temporal operator then make every competitor's discrepancy strictly positive, so the true candidate wins uniquely.
+Keep: ideal true match; competitors no cheaper monocularly; positive discrepancy
+More: The positive regularizer and positive coupling are shared across candidates in a finite set. The condition is sufficient; a cheaper competitor can still lose if its discrepancy is large enough.
+
+@ S07 | stereo | core | 32,84 | cor:selection_robust
+Q: Explain the half-margin rule for stereo selection.
+A: Start with a unique winner and its smallest cost gap to a competitor. If every cost moves by at most an error bound, the winner can rise by that bound while a competitor falls by it. The gap shrinks by at most twice the bound, so errors strictly below half the original margin preserve the winner.
+Keep: positive winning gap; both costs move; strict half-margin
+More: The uniform bound includes the original winner. It preserves whichever candidate originally won; correctness needs a separate premise.
+
+@ S08 | stereo | followup | 84 | prop:disparity_nonidentifiability
+Q: Does rich temporal activity guarantee identifiable stereo correspondence?
+A: Two different candidate locations can supply identical temporal observations. With the same local procedure and parameters, their local scores then tie, however active the profiles are. Local correspondence needs candidate separation; spatial context may add information beyond those identical local profiles.
+Keep: identical candidate profiles; local tie; activity versus separation
+More: The statement is scoped to the local scoring model. It is not an impossibility theorem for all spatially contextual stereo methods.
+
+@ S09 | stereo | followup | 49 | prop:correct_selection
+Q: What is the geometric meaning of the stereo selection ellipsoid?
+A: Completing the square centers the candidate cost at an attenuated prediction in a positive-definite metric. The ideal equal-profile match lies on an equal-cost ellipsoid. Candidates inside cost less and candidates outside cost more. The geometry describes both the amount and direction of a competitor's advantage.
+Keep: shifted center; ideal on boundary; inside wins
+More: This is the fixed unweighted candidate-local model. A mismatch larger than twice the ellipsoid radius in its metric is a sufficient condition for losing to the ideal match.
+
+@ S10 | stereo | core | 85 | def:skellam_surrogate
+Q: What is the statistical motivation for reciprocal activity weighting?
+A: Independent positive and negative Poisson counts have a difference whose variance is the sum of their rates. That motivates inverse-variance weighting when counts admit a Gaussian approximation. The implemented reciprocal predicted-activity rule is a practical variance proxy for processed event features, with a positive floor keeping weights finite.
+Keep: count variance grows with activity; inverse variance; processed-feature surrogate
+More: Weights are frozen during each quadratic solve. Warping, normalization, and using predicted net activity introduce modeling approximations beyond the raw-count identity.
+
+@ S11 | stereo | followup | 85 | def:skellam_surrogate
+Q: Why is net signed activity an imperfect proxy for count uncertainty?
+A: Positive and negative counts can cancel in their mean while both contribute to variance. A bin with little net activity can therefore still have substantial uncertainty. Treating variance as a function of predicted net magnitude is an additional approximation, rather than the exact variance identity for the two raw count streams.
+Keep: mean cancels; variance adds; extra proxy assumption
+More: Absolute rate difference is at most the rate sum, with equality when one polarity rate is zero. Normalized observations require their own statistical interpretation.
+
+@ S12 | stereo | core | 86 | lem:fixed_point_existence
+Q: How does Brouwer enter the reweighted stereo analysis?
+A: The positive magnitude penalty bounds each frozen minimizer by comparison with the objective at zero. The reciprocal weights have a fixed upper bound, so every update lands in a sufficiently large closed ball. The update is continuous, and Brouwer gives a fixed point of that self-map in finite dimensions.
+Keep: bounded updates; continuous invariant ball; fixed-point existence
+More: Brouwer needs a nonempty compact convex invariant set. This result fixes disparity, regularizer, and coupling and concerns the analyzed unclipped reciprocal map.
+
+@ S13 | stereo | core | 86 | prop:irls_contraction
+Q: What extra conclusion does Banach give when the IRLS map is a contraction?
+A: If the analyzed update shrinks distances by one uniform factor strictly below one on its complete invariant space, its fixed point is unique and repeated updates converge geometrically. The displayed bound is a sufficient parameter condition. A bound at least one simply leaves this contraction argument inconclusive.
+Keep: strict contraction; complete invariant space; unique geometric convergence
+More: Fixed damping preserves fixed points. Its bound becomes one minus omega plus omega times the undamped bound, so this estimate does not certify contraction when the original bound is at least one.
+
+@ S14 | stereo | followup | 52,86 | prop:irls_vs_nll
+Q: Why can a converged reweighting iteration differ from a maximum-likelihood estimate?
+A: Each frozen solve treats its weights as constants. A state-dependent likelihood also changes when its variance changes, and a Gaussian likelihood includes a log-variance term. Those derivatives can remain nonzero at the frozen-map fixed point. Convergence establishes consistency of the update rule; likelihood optimality needs a separate argument.
+Keep: frozen versus changing weights; variance derivatives; fixed point versus optimum
+More: The dissertation supplies counterexamples, including a positively regularized temporal example for the state-dependent weighted score. The scalar unregularized example is only a logical illustration.
+
+@ S15 | stereo | followup | 59 | prop:irls_vs_nll
+Q: What would you need before calling the frozen-weight scheme majorization–minimization?
+A: A surrogate would have to lie above the actual score and touch it at the current state. For differentiable functions that contact also matches derivatives. Freezing prediction-dependent weights generally drops a denominator derivative, so matching the score value alone does not establish a majorizer.
+Keep: global upper bound; contact; derivative agreement
+More: The fixed-point and contraction arguments analyze the update map directly. Any score-descent claim must come from a valid surrogate inequality or the actual acceptance rule.
+
+@ S16 | stereo | followup | 53,61 | sec:solution,app:protocol_ch4
+Q: How do the analyzed IRLS map and the implemented estimator differ?
+A: The implementation uses clipped solve weights, damping, acceptance tests, and stopping rules, then returns its last accepted iterate. Scoring recomputes unclipped weights, and later aggregation modifies candidate comparisons. The frozen-solve and map theorems explain their specified mathematical stages; the experiments evaluate this full procedure.
+Keep: clipped solve; recomputed score; last accepted iterate
+More: Stopping can precede a fixed point. Semi-global matching aggregates along paths and does not solve an arbitrary two-dimensional labeling energy exactly.
+
+@ S17 | stereo | core | 54,87 | tab:metrics,tab:unified_benchmark
+Q: Why should stereo accuracy be read alongside coverage?
+A: Each method's reported errors are computed on its own valid, in-band estimates and ground truth. A method can improve the errors while changing which pixels are scored. I therefore read accuracy together with returned coverage, in-band retention, and scored counts; a common-pixel comparison would isolate accuracy on the same population.
+Keep: method-specific population; returned versus scored; common-pixel comparison
+More: The reporting band is 0.5 to 8 meters. Similar returned coverage can coexist with very different scored counts if estimate-side in-band retention differs.
+
+@ S18 | stereo | followup | 89 | prop:jif_relation
+Q: Why is the hard-fusion comparison not simply the infinite-coupling limit?
+A: Infinite soft coupling with unchanged equal blocks forces the profiles together while retaining the soft model's full effective magnitude penalty. The implemented hard-fusion system has half that penalty after normalizing its equation. The evaluated configurations also differ in other settings, so their performance gap combines several design effects.
+Keep: hard equality; effective penalty changes; complete configurations
+More: The reported hard-fusion versus soft-WLS difference motivates controlled comparisons with matched regularization, weights, budgets, and scoring pixels.
+
+@ S19 | stereo | followup | 31,61,alignment | sec:solution,app:protocol_ch4
+Q: Where does motion compensation fit in the stereo assumptions?
+A: Rectification organizes the correspondence search along image rows, while motion compensation aligns observations over time before their profiles are compared. The candidate should describe approximately the same visible scene point over the window. Occlusion, changing correspondence, or inconsistent warps can then create model mismatch beyond the inner quadratic solve.
+Keep: rectify spatially; compensate temporally; shared visible scene point
+More: The pipeline includes binning, normalization, candidate solves, masking, aggregation, and disparity-to-depth conversion. Each theorem attaches to its specified stage.
+
+@ S20 | stereo | followup | 32,87,88 | tab:unified_benchmark
+Q: What is the defensible takeaway from the stereo benchmark?
+A: Weighted least squares leads on indoor Flying 2 and narrowly on the aggregate log-RMSE metric, with a larger scored population than the compared local adaptation. Other methods lead on some sequence errors. This supports the evaluated configuration and its coverage tradeoff; the weighting choice was also selected on these sequences.
+Keep: particular metric and sequence; scored population; design-selection data
+More: The external rows are local adaptations. The weighting comparison supports the selected reciprocal rule on its reported populations, with held-out and common-pixel evaluations as useful extensions.
+
+@ X01 | synthesis | core | 4,33,62 | sec:contribution_matrix,tab:contribution_matrix
+Q: What is your mathematical contribution if the proof tools are classical?
+A: I construct event-derived inverse models and make their information limits and guarantees explicit. The temporal analysis exposes baseline selection and spectral bias; the unified flow analysis identifies the directional information needed for stable estimation. Stereo profiling exposes attenuation in candidate selection and leads to separation and margin results, alongside the adaptive-map analysis.
+Keep: event-derived models; explicit hypotheses; consequential analysis
+More: Credit classical variational flow and well-posedness theory. Contrast maximization adds a separate existence result for the full regularized nonconvex objective.
+
+@ X02 | synthesis | core | 13,27,76,86 | thm:uniqueness,thm:unified_wellposedness,prop:cmax_existence,lem:fixed_point_existence,prop:irls_contraction
+Q: Which classical result belongs to each main proof mechanism?
+A: Positive-definite quadratic algebra gives the temporal and frozen stereo solves. Poincaré and Lax–Milgram give the unified flow result. Continuity and coercivity give contrast-maximization existence through compactness and the extreme-value theorem. Brouwer gives an IRLS fixed point, while Banach adds uniqueness and iteration convergence under contraction.
+Keep: quadratic solves; coercive weak flow; compactness and fixed-point tools
+More: The different conclusions matter: a global minimizer existing, a fixed point existing, and an iteration reaching it are separate statements.
+
+@ X03 | synthesis | followup | 34,35 | eq:abstract_stability,cor:selection_robust
+Q: Which next research questions follow directly from your results?
+A: For flow, quantify how raw-event errors become coefficient errors. For adaptive reconstruction, control the full weight-update map and its sensitivity. For stereo, extend the candidate-margin analysis to the weighted aggregated score. Controlled common-pixel comparisons would help connect those mathematical refinements to physical accuracy.
+Keep: representation error; full adaptive map; implemented stereo margins
+More: Learned temporal regularization can start from the smooth fixed-positive-weight solution map. Shared-scene sensing can start from trajectory-dependent invariant modes.
+
+@ X04 | synthesis | core | 36 | lem:nullspace,thm:unified_wellposedness,prop:correct_selection
+Q: What single idea connects the three parts of the defense?
+A: Ask which directions the observations control and which choices the model supplies. Temporal differences leave a brightness level free. Edge measurements leave tangential motion free, and spatial coupling combines directions. Stereo then shows that even a unique reconstruction for every candidate needs a separate argument to select the right correspondence.
+Keep: observed directions; model-selected freedoms; selection is another layer
+More: This is a useful closing answer and a way to return to the talk's central question after a detailed committee exchange.
+
+@ X05 | synthesis | core | 4,62,63 | sec:related_work,tab:contribution_matrix
+Q: How do you position the work relative to its main predecessors?
+A: Event reconstruction includes learned event-only methods, flow-based image inverse models, and frame-assisted bilevel methods. Our temporal construction uses event increments and explicit activity-based penalties. For flow I build on classical data-plus-smoothness theory and event timestamp geometry, then analyze three event-derived coefficient constructions in a common framework.
+Keep: distinguish reconstruction families; credit classical flow; specify present analysis
+More: Useful anchors are Rebecq and colleagues for learned reconstruction; Zhang, Yezzi, and Gallego for flow-based reconstruction; Antil–Sayre for bilevel reconstruction; Horn–Schunck, Benosman, and Weickert–Schnörr for flow foundations.
