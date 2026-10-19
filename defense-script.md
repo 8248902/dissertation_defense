@@ -4,7 +4,7 @@ Daniel Blauvelt • Canonical defense • Updated October 18, 2026
 
 This rehearsal script covers all 35 main slides and all 53 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
-The main talk contains approximately 5,500 spoken words: about 44–50 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
+The main talk contains approximately 6,000 spoken words: about 48–55 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
 Slide 3 gives the five-stage outline. The footer highlights the current stage; backup footers show their deck page number. This script identifies each backup by its backup number and deck page. The clickable slide index and PDF bookmarks let you jump directly to a main slide or a backup response.
 
@@ -22,11 +22,13 @@ The central question is how to estimate an image, motion, or depth when the sens
 
 ## Slide 2 — What can changes tell us about a scene?
 
-*[Point first to the reference image, then to the reconstruction.]*
+*[Point to the reference image, the accumulated events, and the reconstruction.]*
 
-On the left is a conventional image. On the right is a reconstruction formed from events alone. We can recognize structure in the scene, even though the event camera gives us a very different kind of measurement.
+On the left is a conventional image of an outdoor scene. The center shows a 50-millisecond sample of the event measurements used by our reconstruction. Blue marks brightness increases, orange decreases, and purple locations with both. On the right is our reconstruction from events, using a longer observation interval.
 
-An event tells us that brightness changed at a particular location and time. That immediately raises an inverse problem: what can those changes determine, and what additional choices are needed to produce an image?
+An event tells us that brightness changed at a particular location and time. The center panel shows those changes; the estimator uses them to rebuild an image. The reference on the left helps us recognize the scene.
+
+That raises the central inverse problem: what can the changes determine, and what additional choices produce the reconstructed view? The model supplies a brightness baseline and balances the observations with regularization.
 
 Throughout the talk, I will distinguish information supplied by the observations from information selected by the model. Regularization can select a unique estimate. Understanding what that estimate means requires understanding both parts.
 
@@ -84,17 +86,17 @@ A constant shift of the entire log-intensity curve preserves these changes. That
 
 Real measurements introduce threshold variation and other errors. I use the ideal rule to motivate the observation model, and then formulate reconstruction as a regularized fit to the represented data.
 
-## Slide 7 — One event stream, three estimation targets
+## Slide 7 — From events to images, motion, and depth
 
 *[Indicate the three panels from left to right.]*
 
-These are the three quantities considered in the dissertation.
+These are three estimates from the same indoor flight scene near 47.6 seconds. Each method uses its own observation window, and the depth method uses two cameras.
 
-The left panel is an image reconstructed by the temporal method. The middle panel illustrates optical flow: a velocity vector in the image plane. Those arrows are the known ground-truth motion in a simulation. The right panel shows lidar-derived reference depth for an MVSEC scene. The middle and right images show the targets we want to estimate.
+On the left, the temporal method reconstructs an image using a B-spline kernel. In the middle, contrast maximization estimates optical flow: apparent motion in the image plane. The colors show direction and displacement magnitude where events occurred. On the right, weighted least squares estimates depth from the two event cameras; the color scale runs from 0.5 to 8 meters.
 
-The underlying questions differ. Temporal reconstruction has an unknown brightness baseline. A local motion observation may constrain only one component of velocity. Stereo requires deciding which locations in two views correspond to the same scene point.
+The underlying questions differ. Temporal reconstruction has an unknown brightness baseline. A local edge observation constrains motion across the edge while leaving motion along it free. Stereo requires deciding which locations in two views correspond to the same scene point.
 
-I will spend most of the talk on the temporal model and the main flow theorem. The stereo summary will show how the same distinction between a well-defined estimate and physical identification appears in correspondence.
+I will spend most of the talk on the temporal model and the main flow theorem. The CMAX image introduces the flow task; later I analyze a quadratic family of flow models. The stereo summary will show how the distinction between a well-defined estimate and physical identification appears in correspondence.
 
 ## Slide 8 — A point measure needs a representation before optimization
 
@@ -113,6 +115,8 @@ I will also keep the meanings of the variables explicit. Physical intensity, log
 With those observations defined, I will start with the single-pixel temporal problem.
 
 ## Slide 9 — Start with one pixel: integrated changes on a temporal chain
+
+Here is the temporal model in scene terms. The unknown is each pixel's log-brightness history over the recording. The events tell us how much that brightness rose or fell in each interval. Each pixel is reconstructed on its own, and the model chooses the reference level that the events leave open. A pixel that produces no events stays at that reference level, whatever its actual brightness.
 
 Fix a pixel and consider its events over a time window. For each event, place a kernel at the event time and multiply it by the polarity. Summing these contributions gives the represented temporal signal on the left.
 
@@ -170,7 +174,7 @@ To compute it, we form this matrix and right-hand side for each pixel, solve the
 
 The system also tells us how the level is selected. Premultiply the normal equations by the constant vector. Since A annihilates constants, the data term disappears and the displayed weighted zero-mean identity follows.
 
-The penalty therefore chooses a baseline. It also changes the fitted increments, because the solution balances both objective terms. The next slide shows why this construction gives uniqueness and a quantitative stability bound.
+In scene terms, the weighted average of each pixel's history is zero, so the intervals with the largest weights set the reference level. (Replaces: The penalty therefore chooses a baseline.) The penalty also changes the fitted increments, because the solution balances both objective terms. The next slide shows why this construction gives uniqueness and a quantitative stability bound.
 
 
 ## Slide 13 — Why uniqueness and stability hold
@@ -183,7 +187,7 @@ The first term is nonnegative. The second is at least the smallest weight square
 
 This supplies coercivity and strict convexity: a minimizer exists and is unique.
 
-For stability, compare two data vectors using the same weights. Subtracting their normal equations gives the exact solution difference shown here. Bounding the inverse matrix gives the displayed estimate in terms of the data difference and the smallest weight.
+For stability, compare two data vectors using the same weights. Subtracting their normal equations gives the exact solution difference shown here. Bounding the inverse matrix gives the displayed estimate. In scene terms, one spurious or missed event changes the observations by at most one in norm, because each kernel splits a single unit of polarity across the bins. The bound therefore limits how far one noise event can move a pixel's history, and the smallest weight sets that limit. (Replaces: Bounding the inverse matrix gives the displayed estimate in terms of the data difference and the smallest weight.)
 
 The final expression bounds the condition number using the largest and smallest weights. Reducing the lower weight bound weakens these worst-case guarantees.
 
@@ -199,7 +203,7 @@ The eigenvectors of A transpose A describe temporal modes. In that basis, recons
 
 *[Point first to zero frequency, then along the two curves.]*
 
-The constant mode has eigenvalue zero, so its reconstructed amplitude is zero. The low nonconstant modes are attenuated most. Increasing lambda increases the attenuation.
+The constant mode has eigenvalue zero, so its reconstructed amplitude is zero. The low nonconstant modes are attenuated most. In the images, slow brightness drift fades and passing edges remain, which is why the reconstructions look edge-enhanced. (Replaces: The low nonconstant modes are attenuated most.) Increasing lambda increases the attenuation.
 
 This is the effect of the magnitude penalty on the latent signal. Kernel averaging is a separate operation, which can blur rapid temporal changes before the solve.
 
@@ -213,7 +217,7 @@ The selected rule uses the magnitude of the signed accumulation in each bin. Pos
 
 *[Point to the sigmoid expression.]*
 
-As that activity increases, the sigmoid rule decreases the magnitude penalty. A positive floor keeps every weight above zero. The practical intention is to allow stronger changes in active intervals while applying stronger magnitude control in quieter intervals.
+As that activity increases, the sigmoid rule decreases the magnitude penalty. A positive floor keeps every weight above zero. Quiet intervals therefore receive the largest weights, and through the weighted-average identity they set each pixel's reference level. Busy intervals receive the smallest weights: they move freely, and they set the worst-case noise bound from the stability result. (Replaces: The practical intention is to allow stronger changes in active intervals while applying stronger magnitude control in quieter intervals.)
 
 The rule was selected empirically as a compromise between reconstruction and conditioning. Outdoors, the sigmoid gives the lowest condition number among these three choices. Indoors, inverse proportional weighting gives a lower condition number, so the selection balances conditioning with reconstruction quality.
 
@@ -295,7 +299,7 @@ The full patterns reveal three different motions: diagonally, upward, and leftwa
 
 These animations illustrate the geometry. For an event camera, the same ambiguity appears under steady illumination: these ideal local patterns produce the same brightness changes and therefore the same events, given the same sensor thresholds and starting references.
 
-Spatial smoothness couples neighboring velocities. Additional observed edge directions can constrain the remaining component. The main flow theorem will make that requirement precise.
+Here is the flow model in scene terms. The unknown is the image-plane velocity at every pixel. At each edge, the events give the speed perpendicular to that edge. The model assumes neighboring pixels move alike, which supplies the motion along edges and the motion in regions without events. The three representations differ in how they obtain the edge measurement: from crossing times, from transported event activity, or from gradients pooled over a small window. The main theorem makes the requirement precise: the scene must contain edges in at least two orientations somewhere. (Replaces: Spatial smoothness couples neighboring velocities. Additional observed edge directions can constrain the remaining component. The main flow theorem will make that requirement precise.)
 
 First, I will derive the local constraint using the time at which an edge crosses each location.
 
@@ -304,6 +308,8 @@ First, I will derive the local constraint using the time at which an edge crosse
 Define psi as time minus the crossing-time map. At the position of a point moving with the translating edge, psi is zero: the current time agrees with the crossing time there.
 
 Differentiate that identity along the trajectory. The time derivative contributes one. The spatial part contributes minus the gradient of the crossing-time map dotted with velocity. Setting the result to zero gives the time-surface constraint: the gradient of the crossing-time map dotted with velocity equals one.
+
+In scene terms, the size of that gradient is the edge's slowness. An edge that takes ten milliseconds to cross one pixel moves at one hundred pixels per second perpendicular to itself. Motion along the edge leaves the crossing times unchanged, so this one equation already contains the aperture problem.
 
 *[Pause at the hypotheses box.]*
 
@@ -349,7 +355,7 @@ We now have three representations. Their coefficients differ, but they lead to t
 
 This retains the classical data-plus-smoothness structure, with the event representation supplying its coefficients.
 
-The first integral measures agreement with the represented motion constraints. B is the data-curvature matrix and b is the forcing vector. The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
+The first integral measures agreement with the represented motion constraints. B is the data-curvature matrix: it records which motion directions the local edges measure, and how strongly. The forcing vector b carries the measured values. (Replaces: B is the data-curvature matrix and b is the forcing vector.) The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
 
 For the time surface, B is the outer product of the time-surface gradient. For voxel projection, it is the outer product of the activity gradient. For the tensor model, it is the pooled spatial block.
 
@@ -369,9 +375,9 @@ The domain is bounded, connected, and Lipschitz, and the smoothness coefficient 
 
 The key assumption is that the integral of B over the domain is positive definite. Under these hypotheses, the energy has a unique minimizer in H one.
 
-Here is the meaning of the integrated condition. Take any nonzero constant velocity direction. Across the domain, the observations must supply positive quadratic energy in that direction.
+Here is the meaning of the integrated condition. Take any nonzero constant velocity direction. Across the domain, the observations must supply positive quadratic energy in that direction. In scene terms, the recording contains edges in at least two orientations, possibly at different pixels.
 
-Individual locations may supply only one direction, and some open regions may supply zero data curvature. Spatial coupling allows the estimator to combine information from different locations.
+Individual locations may supply only one direction. Textureless or event-free regions supply zero data curvature, and their neighbors supply the motion there. (Replaces: Individual locations may supply only one direction, and some open regions may supply zero data curvature. Spatial coupling allows the estimator to combine information from different locations.)
 
 Connectedness matters because a field with zero gradient is then a single constant vector across the domain. The integrated matrix controls that remaining freedom.
 
@@ -381,11 +387,11 @@ The proof follows this interpretation directly: separate the field into its mean
 
 *[Slow down. Point to each line as its role is explained.]*
 
-Write the velocity as its spatial mean plus a zero-mean fluctuation, w. The gradient of w is the same as the gradient of the full field.
+Write the velocity as its spatial mean plus a zero-mean fluctuation, w. The gradient of w is the same as the gradient of the full field. Physically, the mean is the common drift of the whole field, such as a camera pan, and the fluctuation is how motion varies across the image: rotation, zoom, or separately moving objects.
 
 Poincare's inequality controls the L two norm of w by the gradient norm. The smoothness term therefore controls the fluctuation.
 
-The remaining task is to control the constant mean. Let m be the smallest eigenvalue of the integrated matrix B. By hypothesis, m is positive. Evaluating that integrated quadratic form on the mean gives a lower bound of m times the squared size of the mean.
+The remaining task is to control the mean. Smoothness charges nothing for a uniform pan, so the data must determine it, and one edge orientation fixes only one of its components. Let m be the smallest eigenvalue of the integrated matrix B; it measures how well the scene's edges, taken together, cover every motion direction. (Replaces: The remaining task is to control the constant mean. Let m be the smallest eigenvalue of the integrated matrix B.) By hypothesis, m is positive. Evaluating that integrated quadratic form on the mean gives a lower bound of m times the squared size of the mean.
 
 To connect this with the energy of the full field, write the mean as v minus w. Apply the square root of B and use the squared triangle inequality. This bounds the mean term by twice the data energy of v, plus twice a B-weighted fluctuation term.
 
@@ -397,7 +403,7 @@ We now control the mean, the fluctuation, and the gradient using the quadratic e
 
 The bilinear form is bounded and coercive, so Lax--Milgram gives a unique weak solution. Since it is the first-order condition of this strictly convex quadratic energy, that solution is the unique minimizer.
 
-The mechanism is the important part: smoothness controls fluctuations, and integrated data control constants.
+The mechanism is the important part: smoothness controls how motion varies across the image, and edges in different orientations fix the common drift. (Replaces: smoothness controls fluctuations, and integrated data control constants.)
 
 ## Slide 27 — Stability follows by subtracting weak equations
 
@@ -411,7 +417,7 @@ The right side has two contributions. One comes from the change in b. The other 
 
 *[Point to the two terms in the bound.]*
 
-Thus small changes in the coefficients produce controlled changes in the estimate while identifiability stays uniformly positive. As the lower identifiability bound approaches zero, this guarantee deteriorates.
+Thus small changes in the coefficients produce controlled changes in the estimate while identifiability stays uniformly positive. In scene terms, coefficient changes come from timestamp jitter, binning choices, and noise events, and the flow changes in proportion. The constants grow as m shrinks; the stripe scene two slides ahead, dominated by one edge orientation, approaches that case. (Replaces: As the lower identifiability bound approaches zero, this guarantee deteriorates.)
 
 This is stability with respect to represented coefficients. Connecting it to raw sensor errors or ground-truth motion requires an additional model of representation error.
 
@@ -421,9 +427,9 @@ For this discrete model, each node stores two velocity components. Its data matr
 
 *[Point to the local two-by-two matrix, then to the two terms on the right.]*
 
-At node i, the matrix combines the local data with alpha squared times the weighted degree. The degree is the sum of the neighboring edge weights. On the right, we combine the local observation term with a weighted sum of the previous neighbor velocities. Solving this two-by-two system gives the new velocity at that node.
+At node i, the matrix combines the local data with alpha squared times the weighted degree, the sum of the neighboring edge weights. Solving this two-by-two system blends the pixel's own edge measurement with its neighbors' previous velocities. (Replaces: The degree is the sum of the neighboring edge weights. On the right, we combine the local observation term with a weighted sum of the previous neighbor velocities. Solving this two-by-two system gives the new velocity at that node.)
 
-Every node uses the same old field. After computing all the new velocities, we replace the field and repeat. That simultaneous schedule is block Jacobi.
+Every node uses the same old field. After computing all the new velocities, we replace the field and repeat. That simultaneous schedule is block Jacobi. Edge information therefore spreads one neighbor per sweep into textureless regions.
 
 For the convergence statement, the graph is connected, its edge weights are symmetric and nonnegative, its degrees and node factors are positive, and each data block is positive semidefinite. If the weighted sum of the data blocks is positive definite, these sweeps converge to the unique discrete minimizer from every initial field.
 
@@ -436,7 +442,7 @@ The reason follows the continuous argument: the graph controls variation, and th
 
 These examples use known diagonal motion. The top row has stripe texture, and the bottom row has checker texture. The ground-truth arrows and estimates use a common scale.
 
-Inside a vertical stripe region, the dominant spatial gradients are horizontal, so they primarily constrain normal motion. The checker texture supplies directions along both axes. Object boundaries can contribute additional directional information as well.
+Inside a vertical stripe region, the dominant spatial gradients are horizontal, so they primarily constrain normal motion. In the theorem's terms, this texture gives the integrated matrix little energy along the stripes. The checker texture supplies directions along both axes. Object boundaries can contribute additional directional information as well.
 
 The voxel and structure-tensor columns illustrate the quadratic representations discussed in the talk.
 
@@ -456,7 +462,7 @@ Similar triangles give depth as focal length times camera baseline divided by di
 
 For each left location, we compare candidate right locations along the row. Each candidate supplies a right-view temporal observation to pair with the left-view observation.
 
-This creates two levels of estimation. At a fixed candidate, we solve for the latent temporal profiles. We then compare candidates to choose a disparity.
+Here is the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they observe the same changes over time, so their event profiles should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. Busy intervals have noisier event counts, so the weights trust quiet intervals more. The best-scoring candidate gives the disparity, and hence the depth. This creates two levels of estimation: solving the profiles at a fixed candidate, then comparing candidates. (Replaces: This creates two levels of estimation. At a fixed candidate, we solve for the latent temporal profiles. We then compare candidates to choose a disparity.)
 
 The model assumes the candidate correspondence is approximately valid over the observation window, with the scene point visible in both views. The main distinction is between solving the profiles and selecting the correspondence.
 
@@ -468,9 +474,9 @@ The model takes one temporal profile in each view and adds a soft penalty on the
 
 The correspondence analysis then studies the unweighted, candidate-local cost, before spatial aggregation. After minimizing over the profiles, that cost contains a monocular term for each view and a coupling discrepancy. The right-view monocular term changes with the candidate.
 
-In the exact example, the perfect match costs one third, while an attenuated candidate costs nine fortieths. The attenuated candidate wins because the reduction in its monocular penalty outweighs the discrepancy cost.
+In the exact example, the perfect match costs one third, while an attenuated candidate costs nine fortieths. The attenuated candidate wins because its smaller monocular penalty outweighs the discrepancy: a right view that is a weaker copy of the left can outscore the true match, so the cost favors quieter candidates. (Replaces: The attenuated candidate wins because the reduction in its monocular penalty outweighs the discrepancy cost.)
 
-A separate separation condition guarantees selection of the correct candidate in that analyzed model. Once a winner has a positive margin, uniformly perturbing all costs by less than half that margin preserves the winner.
+A separate separation condition guarantees selection of the correct candidate in that analyzed model. Once a winner has a positive margin, cost errors each smaller than half that margin, for example from noise events or mismatched thresholds between the two sensors, leave the winner unchanged. (Replaces: Once a winner has a positive margin, uniformly perturbing all costs by less than half that margin preserves the winner.)
 
 For the reciprocal reweighting map, a fixed point exists. Under the sufficient contraction condition, the fixed point is unique and the iteration converges. Each frozen inner solve has its own uniqueness guarantee from the positive-definite quadratic model.
 

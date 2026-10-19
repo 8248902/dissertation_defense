@@ -1,0 +1,169 @@
+{
+  "dataset": "MVSEC indoor_flying2",
+  "camera": "left DAVIS for monocular and flow; stereo WLS uses rectified left and right",
+  "stereo_time_origin_epoch_s": 1504645267.7128353,
+  "wls_center_relative_s": 47.59821861668637,
+  "wls_center_epoch_s": 1504645315.311054,
+  "wls_time_evidence": "Source January run log prints sample 12/20 at 47.60 s; unrounded 47.59821861668637 s is the later per-sequence JSON's 20-sample schedule for the same sequence and 250 ms setting.",
+  "wls_window_s": 0.25,
+  "wls_display": "d2z depth in meters; jet range 0.5 to 8.0 m, clipped outside range; exporter masks NaN/Inf and the maximum finite value to white",
+  "cmax_gray_frame_index_zero_based": 1493,
+  "cmax_gray_window_epoch_s": [
+    1504645315.3045604,
+    1504645315.4319983
+  ],
+  "cmax_gray_window_midpoint_relative_s": 47.655444,
+  "cmax_time_evidence": "The saved CMAX filename and per-frame stats identify gray-frame index 1493. Its 4-frame endpoint timestamps were looked up in indoor_flying2_data.hdf5/davis/left/image_raw_ts; flow harness uses gray_ts[i] through gray_ts[i+4].",
+  "cmax_mask_rule": "Saved harness visualization: gaussian_filter((count_map > 0).astype(float32), sigma=1.5) > 1e-3; outside support is RGB [40,40,40]. Masked and unmasked PNGs use separate 95th-percentile magnitude normalization, so their colors should not be compared as if on one common magnitude scale.",
+  "cmax_event_pixel_rule": "Additional sparse export uses the saved per_pixel/event_count > 0 exactly, without dilation, and saved u_est/v_est displacement; white means no event in the 4-gray-frame window. This is a display mask, not an estimator validity or confidence test.",
+  "alternate_cmax_frame_index_zero_based": 1595,
+  "alternate_cmax_gray_window_epoch_s": [
+    1504645318.5542152,
+    1504645318.6816523
+  ],
+  "alternate_wls_center_relative_s": 51.015932773288924,
+  "alternate_wls_montage_source": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/stereo_experiments/mvsec/indoor_flying2_w250ms_20260129_112123/SOTA_All_Methods_d2z_indoor_flying2_t51.02.png",
+  "geometry_note": "All exported panels are 346x260. Monocular release is left-camera source geometry; WLS uses rectified stereo events, so equal raster size does not establish pixelwise registration.",
+  "estimator_rerun": false,
+  "items": {
+    "sigmoid_reconstruction.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_lambda_00/reconstruction.h5",
+      "sha256": "0c70766f04dda4690f5ad6f9fb5d10aa1e331af7d9dac5488ea10be95e3abb0a",
+      "frame_index_zero_based": 0,
+      "epoch_s": 1504645315.4026263,
+      "relative_to_stereo_start_s": 47.68979096412659,
+      "parameter": "gaussian(sigma=0.050)",
+      "regularization_rule": "sigmoid",
+      "display": {
+        "rule": "per-run global histogram background and 1st/99th percentile scale; clip to [0,1]",
+        "background": -0.0023770053264621227,
+        "scale": 10.97689528444069
+      }
+    },
+    "bspline_reconstruction.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_bump_08/reconstruction.h5",
+      "sha256": "cd6a9d757b671f305ed795342df480ee54be531b34bc5f566dbd531339c712fd",
+      "frame_index_zero_based": 0,
+      "epoch_s": 1504645315.4026263,
+      "relative_to_stereo_start_s": 47.68979096412659,
+      "parameter": "bspline(order=1.000,width=0.010)",
+      "regularization_rule": "sigmoid",
+      "display": {
+        "rule": "per-run global histogram background and 1st/99th percentile scale; clip to [0,1]",
+        "background": 0.00015493037881086913,
+        "scale": 2.315612657339202
+      }
+    },
+    "sigmoid_reconstruction_t51p0.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_lambda_00/reconstruction.h5",
+      "sha256": "ffaf38f6193399ef5ac2985018f392906aec665eb05e38cde0abfdad27f746af",
+      "frame_index_zero_based": 84,
+      "epoch_s": 1504645318.7090888,
+      "relative_to_stereo_start_s": 50.996253490448,
+      "parameter": "gaussian(sigma=0.050)",
+      "regularization_rule": "sigmoid",
+      "display": {
+        "rule": "per-run global histogram background and 1st/99th percentile scale; clip to [0,1]",
+        "background": -0.0023770053264621227,
+        "scale": 10.97689528444069
+      }
+    },
+    "bspline_reconstruction_t51p0.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_bump_08/reconstruction.h5",
+      "sha256": "fb1389ad35d2db4cf09a39856567db083c1513947b098b9f01df4f5b98a67561",
+      "frame_index_zero_based": 84,
+      "epoch_s": 1504645318.7090888,
+      "relative_to_stereo_start_s": 50.996253490448,
+      "parameter": "bspline(order=1.000,width=0.010)",
+      "regularization_rule": "sigmoid",
+      "display": {
+        "rule": "per-run global histogram background and 1st/99th percentile scale; clip to [0,1]",
+        "background": 0.00015493037881086913,
+        "scale": 2.315612657339202
+      }
+    },
+    "cmax_flow.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0030_indoor_flying2_cmax_spline_alpha1_beta0.001/alpha_1.0_dt4_diag_v2/flow/flow_cmax_spline_1493.png",
+      "source_sha256": "3e2b65b5c7cf4cb2eb027ed9452f79a829a033e4ea28b14a15cca62f044ae388",
+      "sha256": "3e2b65b5c7cf4cb2eb027ed9452f79a829a033e4ea28b14a15cca62f044ae388",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "cmax_flow_masked.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0030_indoor_flying2_cmax_spline_alpha1_beta0.001/alpha_1.0_dt4_diag_v2/masked_flow/flow_cmax_spline_masked_1493.png",
+      "source_sha256": "32f704eae74de0911f86f70bcb079fcc690c68ecceb2e49ab6b47b405adccd1e",
+      "sha256": "32f704eae74de0911f86f70bcb079fcc690c68ecceb2e49ab6b47b405adccd1e",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "cmax_flow_overlay.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0030_indoor_flying2_cmax_spline_alpha1_beta0.001/alpha_1.0_dt4_diag_v2/quivers/overlay_cmax_spline_1493.png",
+      "source_sha256": "5ce07c8c37940577e0c0d8e4afb29e1270b483272cc110654cfc4948a57a7990",
+      "sha256": "5ce07c8c37940577e0c0d8e4afb29e1270b483272cc110654cfc4948a57a7990",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "wls_depth.png": {
+      "source": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/stereo_experiments/mvsec/indoor_flying2_w250ms_20260129_224625/figs_d2z/t_47.60/06_Ours_WLS_t47.60.png",
+      "source_sha256": "c68aa1edea11091e5714eff3d31cea4749fb521ef79010b57ca0fcf27332a1e2",
+      "sha256": "c68aa1edea11091e5714eff3d31cea4749fb521ef79010b57ca0fcf27332a1e2",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "cmax_flow_t50p9.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0042_indoor_flying2_cmax_spline_alpha1_beta0.001/alpha_1.0_dt4_diag_v2/flow/flow_cmax_spline_1595.png",
+      "source_sha256": "31bb9951c5c48026ccdd95fce53ffc6d6c76056131de2728638a6456a0a17bce",
+      "sha256": "31bb9951c5c48026ccdd95fce53ffc6d6c76056131de2728638a6456a0a17bce",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "cmax_flow_masked_t50p9.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0042_indoor_flying2_cmax_spline_alpha1_beta0.001/alpha_1.0_dt4_diag_v2/masked_flow/flow_cmax_spline_masked_1595.png",
+      "source_sha256": "5fcca97324e8be22a77a9654a2e557b262751849b097e33fe5b7eaff5d64e909",
+      "sha256": "5fcca97324e8be22a77a9654a2e557b262751849b097e33fe5b7eaff5d64e909",
+      "geometry_px": [
+        346,
+        260
+      ]
+    },
+    "cmax_flow_event_pixels.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0030_indoor_flying2_cmax_spline_alpha1_beta0.001/per_pixel/frame_01493.npz",
+      "source_sha256": "72e1eeb39f7b85af8daf6f6b9a1747660840538d9fe882fd0c58290c015f10d4",
+      "sha256": "724c0055bc1434dee2b570c39af02bd3370fe83c47135891c561ee61bd91bdfd",
+      "frame_index_zero_based": 1493,
+      "dt_s": 0.12743806838989258,
+      "event_pixel_count": 12253,
+      "event_pixel_fraction": 0.13620497999110717,
+      "display_magnitude_p95_px_per_window": 14.227080345153809,
+      "display": "saved CMAX displacement, shown only where saved event_count>0; white elsewhere; HSV direction and magnitude scaled to displayed-pixel p95"
+    },
+    "cmax_flow_event_pixels_t50p9.png": {
+      "source": "/scratch/dblauvel/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/mvsec_cmax_spline_evflownet_v0.04_dt4_converge_no_git/mvsec_dt4_polarity_off_alpha_1.0_movie_off/trial0042_indoor_flying2_cmax_spline_alpha1_beta0.001/per_pixel/frame_01595.npz",
+      "source_sha256": "b61982bc61d21d5a19236272def1706d4313657818a6274911ffd73a3b97df84",
+      "sha256": "32962392a19da35dc0fa61da1363616208e5ffe87ad1645d087c0a66ad11a2d7",
+      "frame_index_zero_based": 1595,
+      "dt_s": 0.12743711471557617,
+      "event_pixel_count": 10230,
+      "event_pixel_fraction": 0.11371720764784349,
+      "display_magnitude_p95_px_per_window": 4.22497034072876,
+      "display": "saved CMAX displacement, shown only where saved event_count>0; white elsewhere; HSV direction and magnitude scaled to displayed-pixel p95"
+    },
+    "reference.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying2.npz",
+      "frame_index_zero_based": 0,
+      "epoch_s": 1504645315.4319983,
+      "relative_to_stereo_start_s": 47.719162940979004,
+      "sha256": "41f110c61501c4c7f3f4648376ab209ca680abbcf051ab8d5bdd33b19689067d"
+    }
+  }
+}

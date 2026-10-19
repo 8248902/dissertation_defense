@@ -1,12 +1,12 @@
 # Defense presentation — current state
 
-Updated October 18, 2026. **Canonical location: `../dissertation_defense`, branch `main`.** The Opus route is now the actual defense. Continue all deck, notes, script, and strategy work here.
+Updated October 19, 2026. **Canonical location: `../dissertation_defense`, branch `main`.** The Opus route is now the actual defense. Continue all deck, notes, script, and strategy work here.
 
 ## Current deliverables
 
 - `defense.pdf`: 88 pages, consisting of 35 main slides and 53 backups.
 - `defense-notes.pdf`: matching 88-page speaker edition.
-- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 5,500 spoken words, approximately 44–50 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
 - `strategy.md`: selected route, time priorities, and backup navigation.
 - `delivery-guide.txt`: practical delivery and build instructions.
 - `related-work.md`: precise comparisons, primary references, and contribution boundaries.
@@ -24,6 +24,16 @@ Slides 12 and 28 now connect the optimization problems to their computation. Sli
 Main and backup footers now use actual `\ref*` / `\pageref*` values imported through `xr`, rendered via `\dref` and `\drefpage`. They show named, numbered results (for example, Theorem 2.2.5 and Theorem 3.6.1); unnumbered topics use their names and page numbers. The old `sec:irls_scope` key was replaced by the existing specific results and sections relevant to those slides. Internal keys remain in source and metadata for maintenance.
 
 The reference snapshot comes from the complete current 208-page dissertation build in `/tmp/udts_recheck.NFS9fQ/build`, which passed 35 formatting rules with zero warnings/failures. A stray prose paste inside the `pan2019bringing` BibTeX entry was removed to restore compilation; the author's other thesis edits were preserved. The snapshot records 297 labels and 147 thesis input hashes. Missing labels and stale source hashes stop the defense build with refresh instructions. README documents the reference-update workflow.
+
+## Scene-terms framing — October 19
+
+Each approach now has a plain-language summary of what it models, folded into existing slides (no new frames): temporal on slide 9, flow on slide 20's script and slide 24's table (new "Edge measurement from" column), stereo on slide 30. Proof and result slides 12, 13, 14, 15, 21, 25, 26, 27, 28, and 31 carry short "In scene terms" glosses (e.g., mean = common drift/camera pan, m = how well edges cover every direction, |∇T| = edge slowness, one noise event gives ‖δy‖ ≤ 1). Speaker notes carry matching cues. In the script, each gloss that replaced a sentence keeps the original as "(Replaces: …)" for the presenter's reference; that text is not spoken. Main talk rose from 5,490 to 6,019 spoken words (counting excludes stage directions and Replaces text), over the 45–50 minute target; the trims already named in strategy.md (slides 28, 19, 22) are the user's call.
+
+## Three estimated outputs — October 19
+
+Slide 7 now uses the transferred HPC estimates from MVSEC indoor_flying2 near 47.6 s: B-spline temporal reconstruction, CMAX flow displayed at event-active pixels, and WLS stereo depth. Its title is “From events to images, motion, and depth.” All panels are estimates; the flow example uses contrast maximization, while the later central theorem concerns the quadratic flow family. The slide has display keys, and notes explain the different task windows, stereo rectification, and white-pixel masks. Original image bytes and HPC metadata are preserved under figures/indoor_flying2_t47p6. The script section matches.
+
+Slide 2 uses the corrected, timestamped outdoor_day1 release triptych from the full defense_mvsec_20261019 bundle, preserved under figures/mvsec_outdoor_day1/defense_matched with metadata.json. The event display is a 50 ms sample ending at the reconstruction target; blue denotes positive-only pixels, orange negative-only, and purple both polarities. The reference is 4.672 ms later. The reconstruction uses the full saved 500,000-event interval, while the display shows a short sample. Full-bundle provenance revealed that the old frame_012 reference and reconstruction used different temporal grids, so both were replaced. The pending-metadata limitation from the partial transfer is resolved; no estimator rerun was needed.
 
 ## User decisions to preserve
 

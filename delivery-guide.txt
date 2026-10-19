@@ -36,7 +36,7 @@ SCRIPT
   Ordinary paragraphs are spoken. Headings, likely questions, and bracketed
   italic instructions organize rehearsal and remain silent.
   Each substantive backup has an answer and an 'If asked for more' explanation.
-  The main talk is about 5,500 words; 44–50 minutes before pauses at110–125wpm.
+  The main talk is about 6,000 words; 48–55 minutes before pauses at 110–125 wpm.
   Time the actual rehearsal. Backup answers are outside the main-talk estimate.
 
 EDIT AND BUILD

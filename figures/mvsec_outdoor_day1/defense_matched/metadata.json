@@ -1,0 +1,97 @@
+{
+  "dataset": "MVSEC outdoor_day1",
+  "camera": "left DAVIS",
+  "raw_data_path": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/mvsec_data/source/outdoor_day1/outdoor_day1_data.bag",
+  "event_cache_path": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/mvsec_processed_data/outdoor_day1_events.mat",
+  "staged_frame_path": "/scratch/dblauvel/ch2_mvsec_release_20261018/bilevel_inputs_v2/outdoor_day1_frames.mat",
+  "source_panels": {
+    "reference.png": "/home/dblauvel/g/r/monocular_reconstruction/audits/ch2/release_frames/outdoor_day1_bilevel_ground_truth_t50.png",
+    "reconstruction.png": "/home/dblauvel/g/r/monocular_reconstruction/audits/ch2/release_frames/outdoor_day1_bilevel_event_only_t50.png"
+  },
+  "run_identifier": "ch2_mvsec_release_20261018/bilevel_v3/outdoor_day1",
+  "source_revision": "258f88bffb55c3c2fae3091dbde7e729549c7cd4 (current checkout; release scripts untracked, exact execution revision not recorded)",
+  "reconstruction_array_index_zero_based": 10,
+  "reference_raw_frame_index_zero_based": 6783,
+  "reference_raw_frame_index_one_based": 6784,
+  "reference_frame_index_evidence": "Timestamp lookup in 11,937-frame outdoor_day1_davis_images.mat and exact pixel equality after saved reference normalization.",
+  "reconstruction_time_epoch_s": 1506118045.9162312,
+  "reference_time_epoch_s": 1506118045.9209034,
+  "reference_minus_reconstruction_s": 0.00467228889465332,
+  "event_prefix_interval_epoch_s": [
+    1506118045.4932256,
+    1506118046.3392365
+  ],
+  "event_prefix_count": 500000,
+  "event_prefix_sha256_numpy_bytes": "138e99da4f1ccbdf20707bdd902362018c6e561545ce4ab240f34ac5fe6e579a",
+  "cache_selection_origin": "The cached raw-left event slice was extracted after the configured 60% position of the bag event count; this export takes its first 500,000 events without another offset.",
+  "display_event_window_epoch_s": [
+    1506118045.8662312,
+    1506118045.9162312
+  ],
+  "display_event_window_convention": "[start, end), ending at reconstruction target time",
+  "display_event_window_duration_s": 0.05,
+  "display_event_count": 23780,
+  "positive_count": 9673,
+  "negative_count": 14107,
+  "active_pixel_count": 11110,
+  "both_polarity_pixel_count": 3518,
+  "geometry": {
+    "width": 346,
+    "height": 260,
+    "coordinates": "1-based cache x,y converted to 0-based pixels; y increases downward",
+    "rectification": "none; raw left events and raw left image, no crop, rotation or resampling"
+  },
+  "polarity_encoding": {
+    "positive": 1,
+    "negative": -1
+  },
+  "accumulation_rule": "Count events per pixel and polarity; positive-only blue, negative-only orange, both purple; neutral RGB (246,246,246). Chroma log1p(total)/log1p(4) clipped to 1; counts >=4 saturate.",
+  "reference_display": {
+    "min": 0.0,
+    "max": 255.0,
+    "rule": "reference global min-max"
+  },
+  "reconstruction_display": {
+    "background": -0.026027843429623942,
+    "scale": 2.4664055199701527,
+    "clipped_fraction": 0.013521009337483327
+  },
+  "estimator_rerun_for_bundle": false,
+  "same_sequence_candidates": {
+    "indoor_flying2_reconstruction.png": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/monocular_experiments/mvsec/mvsec_comprehensive_results/run_5645909/indoor_flying2/bilevel_comparison/frame_our_011.png",
+    "indoor_flying2_flow.png": "/home/dblauvel/g/r/drafts/dissertation_defense/figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_struct_0340.png",
+    "indoor_flying2_depth.png": "/home/dblauvel/g/r/drafts/stereo-depth-manuscript/figures/indoor_flying2_upd_robust_linear_temp_decay_0.70_lambda_0.1_window_0.25/sample_03_T42/10_Depth_Final.png",
+    "indoor_flying3_reconstruction.png": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/monocular_experiments/mvsec/mvsec_comprehensive_results/run_5645909/indoor_flying3/bilevel_comparison/frame_our_011.png",
+    "indoor_flying3_flow.png": "/home/dblauvel/g/r/drafts/optical-flow-manuscript/figures/indoor_flying3_acc_vs_ts/alpha_1.0/flow_ts_0340.png",
+    "indoor_flying3_depth.png": "/home/dblauvel/g/r/drafts/stereo-depth-manuscript/figures/indoor_flying3_w250ms_t_45.07_all_algorithms/06_Ours_WLS_t45.07.png"
+  },
+  "same_sequence_candidate_timing": "Same MVSEC sequence per filename/source directory only; cross-task timestamps are unverified.",
+  "historical_slide2_pair": {
+    "draft_reference_sha256": "43c9dc2c1d0b825a2495d0366e19757f2cb7bc0199e4fdb1ef7773093b805829",
+    "draft_reconstruction_sha256": "a6422eac0d1b7c27f261d03530e9034a05c6ae91d42fe680f871e394bee9120e",
+    "source_run_candidate": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/monocular_experiments/mvsec/mvsec_comprehensive_results/run_5640439/outdoor_day1/bilevel_comparison",
+    "source_run_event_only_ind_frame_012_decoded_pixels_equal_draft": true,
+    "source_run_ground_truth_ind_frame_012_decoded_pixels_equal_draft": false,
+    "draft_reference_raw_frame_timestamp_epoch_s": 1506118045.6134725,
+    "draft_reference_raw_frame_index_zero_based": 6769,
+    "draft_reference_timestamp_evidence": "Exact 8-bit pixel match to left raw frame in release/reference/outdoor_day1.npz, zero-based subset position 5.",
+    "source_run_reference_frame_timestamp_epoch_s": 1506118045.6793504,
+    "source_run_reference_raw_frame_index_zero_based": 6772,
+    "historical_event_only_array_index_one_based": 12,
+    "historical_event_only_time_epoch_s_inferred": 1506118045.9585316,
+    "historical_time_inference": "Twenty latent frames over saved 500,000-event interval; f_12 assigned left boundary 11/20 of interval by saved-code difference operator and uniform cube grid. Exact historical runtime code revision is unrecorded.",
+    "conclusion": "The draft reference and reconstruction are not temporally paired; corrected saved-release pair used here."
+  },
+  "bundle_sha256": {
+    "reference.png": "476d8820b96a56f14d99b89d61c10a2d262a7488fd72fbc74e4a15947d5ed03e",
+    "events_accumulation.png": "92ade22ce670f9371e79f0d1da86bbd9af795e7f137044f539e420722b28400d",
+    "reconstruction.png": "95d426d8602b4a3532bcd52ad81c9198f53ab2458ff8bc05a7888f526220ce1e",
+    "triptych_preview.png": "878b853fba8f79ddb4ef8f56df56442ec15f9f6b9a7b5f9bd93ea3c9889866b2",
+    "indoor_flying2_reconstruction.png": "0d72fbc0aa1bdced6b33b4155a0cf018a5381411662144f88deb76d50bbd2a9d",
+    "indoor_flying2_flow.png": "008f604beb8f804a7bc9fbef2db3d32eb67f7ddfc5171f345eee550572d801d9",
+    "indoor_flying2_depth.png": "05bdbb1800c3639d98b450421b31f89f0d5ed93ebe0425536b163805249cb391",
+    "indoor_flying3_reconstruction.png": "750668efbae6112e465427067b267775e7a4b2f5b92bff6f631196face1ece32",
+    "indoor_flying3_flow.png": "95977a92f18c0644c654822487381e6d93872693b9d92d75e6be3634d6ae0461",
+    "indoor_flying3_depth.png": "ce0c7c07934da11926a901abf978f2e0d290b94e190fa747c76d8f2d39aae1ad"
+  }
+}

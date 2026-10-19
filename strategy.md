@@ -19,7 +19,7 @@ The outline and footer use the same five stages: Sensor and data, Reconstruction
 
 ## Timing and rehearsal
 
-The main script has about 5,500 spoken words, approximately 44–50 minutes at 110–125 words per minute before pauses and questions. This is an estimate from the text; rehearsal determines the actual duration. The advisor's approximate 30-minute expectation for the introduction, data modeling, and monocular reconstruction concerns that part of the talk, not a requirement to cover every chapter.
+The main script has about 6,000 spoken words, approximately 48–55 minutes at 110–125 words per minute before pauses and questions. This is an estimate from the text; rehearsal determines the actual duration. The advisor's approximate 30-minute expectation for the introduction, data modeling, and monocular reconstruction concerns that part of the talk, not a requirement to cover every chapter.
 
 Protect the temporal formulation and proof, the integrated-information interpretation, and the mean/fluctuation proof. If rehearsal runs long, first shorten the discrete-flow discussion on page 28, the shared-scene extension on page 19, and the voxel derivation on page 22. Retain the brief prior-work positioning so the audience can distinguish established ingredients from the dissertation's contribution.
 

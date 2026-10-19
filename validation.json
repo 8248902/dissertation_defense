@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-10-19T02:08:47+00:00",
+  "generated_at_utc": "2026-10-19T13:41:29+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 35,
   "backup_frames": 53,
-  "referenced_figure_count": 42,
+  "referenced_figure_count": 44,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
     "backup_deck_pages_match": true,
@@ -26,18 +26,18 @@
     }
   },
   "sha256": {
-    "core.tex": "795ce6843240e08fe0363a7505daea8c3216abc804150a3fe7e71a5403fc005c",
+    "core.tex": "94edfec42e9634954a972e7b21b6a33deb5c608e7e4fa8724979ba9a2bd4616d",
     "backup.tex": "a06671cb38f3335920b97ebb6b2abf80c56826489f1f273c8fa9fc68699721be",
     "defense.tex": "9edb15268174edce2b60a526c2f0b019f0ceb6bac8963fcf3211f93e5ac1bfe4",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
-    "defense-script.md": "1254048961682b37e168672ebe3e458b940b73d3970d0a72fa834ae699d664fb",
+    "defense-script.md": "e9f64d0420879ec0e3638429fda1e58a9d2853f81349002585a01f3ae241e798",
     "build_script.py": "7a926e79274724ce61a7b630ea12650ccb3715c4a5a5f4402a56649c71c49613",
     "update_metadata.py": "09dba42433baf3dabcf252cbe794bbd2a141f46e6c1675bd5dbb4f61fb423b86",
     "Makefile": "21214266f19f3d41adedced76adf53bbf75f65fc7879c11cdc5faeef384249cf",
     "reference_support.py": "e4e605db8196c1dbcd1925fb9801ac12535f2cc301c0199e5fa966881fd7701f",
     "thesis-references.json": "82effdfcf87b59b98515320ce5b3ae348bdaade001ee62287139d72f3de6ef95",
-    "defense.pdf": "0522720c7a1067daf0af15d4a388b658313f941820d57d819d0f6534c9337607",
-    "defense-notes.pdf": "7650ae2b6223930ea8eef6b0cdd78c224cf2b7e137ff80137fded0130802b16f",
-    "defense-script.pdf": "3a2a91667593a4947f3b68ea8390dfc1834333b3b5b6254174cb31aebd4b2b86"
+    "defense.pdf": "3b327ea2136ff9552eca1f080e347310a785c9b4fdabfc5e10923138c9368e2b",
+    "defense-notes.pdf": "8c01d06eb9b3a53081e3a064f06416b849f04609306798e91d225fc5da26c3bb",
+    "defense-script.pdf": "ecdd7ecf67020f5ac315008694abf16ad5b95cab65b95e5da033a7d00fa023d7"
   }
 }
