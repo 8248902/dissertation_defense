@@ -1,0 +1,1948 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-19T02:06:25+00:00",
+  "thesis_main": "GMU-Diss_template",
+  "thesis_pdf_sha256": "4d37f55f49bd4dd02c9be08a30db7824ab4e0cd3e785d8a7cd42de8ab9cc66d5",
+  "source_sha256": {
+    "GMU-Diss_template.tex": "afba0bdcf878a9ae1429a10d4bfb4009f36544b9183ff6c153885250d64d6b55",
+    "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
+    "appendix_bodies/ch3_protocol.tex": "071b3ec3a260d4d4b6fa56dbed66ca271c090c76cf6bd69ab3497ffabecbe180",
+    "appendix_bodies/ch4_protocol.tex": "0db0e060e730fa0b54e8cb8aa5e3f681ae5588a0bd6c14fb3359fa0e42d236c9",
+    "chapterFive.tex": "07febc113efa11afa713b04c26dc033d5753a8132b3d32fb9b1cf4435fc8df33",
+    "chapterFour.tex": "61833340a30a540f872f2f5d037925f658c1082cd37b4ae621254a2b8dd7fb4c",
+    "chapterOne.tex": "cf7147746755b6ee3c7a76f0aba0356bbdb5d6aaede68eb9b97df0b94ea9816f",
+    "chapterThree.tex": "86151bef2b50a4df848477d4b037de4983383a5fd7e596e602526bedf9100460",
+    "chapterTwo.tex": "f7731d10eff79cef6d323598a09ec55dd777fbaeb61ba70156875231254797d7",
+    "figures/ISS/109_09751_reflected.png": "089c3e7d650bf617bd44abb1c284a46170246f59545ec295ad2fb7ddde5d50f4",
+    "figures/ISS/109_09751g_reflected.png": "5086784de5872903a4569b621b53de9c3986093a253e1124eaa779a6577eb37f",
+    "figures/ISS/110_0993_reflected.png": "58bf4b5ea591647f605254a1d99b09607f9015a5a775d098763a785f26062c5b",
+    "figures/ISS/110_0993g_reflected.png": "717b07acf8347a0469dd6ccef6da487af3a8b04318b8ca06693e7c4b4a1f55ab",
+    "figures/ISS/112_087501_reflected.png": "4f27cb6c5b12ed5a1bf5e43d632eef3fed4ec52f222005983288ecf125dd261c",
+    "figures/ISS/112_087501g_reflected.png": "7ea71c2d8919511a5ef146f327df0a5eae36a753fce103e6d1862eb7985f1bf0",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/cmax.png": "d95e10634027f196d3b9857e4deb78cb3e488d0b8342dfdcc23e64627f9bb620",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/gt.png": "21c1b265e5aab5b24deba082897e4280a857de53fad48c2782329e85a1b35f83",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/ts.png": "320e8177655afaa4bd6dc7768f0d09814ac719899404f998d33ff2d19ce76f94",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/vox.png": "b75ef9baf291b2c57c2099a2459f53171d6057e03ab56a5f813737a3109a3d0e",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/vox_aniso_tensor.png": "3e136659c295137bec0deeff22be06b2ed236f041864a16eb1784bb5ab072f03",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/vox_cont.png": "68378a5f7856907596c83dc5685651ef27e9df3db6c33cde03c3de3fda5a8f14",
+    "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/vox_struct.png": "ac0c72f805cba2fe479d09ca5fcd5759ad0594c6a247997cac278b0efe7bc670",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/cmax.png": "1aba051e932d9346421571f3043bcc6f701c93caef8a1a2a4a2eaae09555141b",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png": "5604b98acab363d05eaa2e40153055f27a2f46242dffd6a83fc3d2f79f4a7a25",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/ts.png": "a9cd0a56819f1f5aa81543ee5efb1555f5dad58af130634c32b5656606261dfe",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox.png": "d36048dd79de4ff353dcb47a280bc7c303e256b37cd372365416ae14cba4bcf2",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_aniso_tensor.png": "4189c3da01fe5aae3a8fa8bc30928cfc1900d7ba7917d6e5ab4292225dfc292d",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_cont.png": "12d0fac68a0c45b81b03b607df1c8e0da45df8f4398a550dcb9400a45c905992",
+    "figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png": "415a59c475545ea1eb6f33e0560be4df394198726e2d3819854e1bbc98271b3d",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/cmax.png": "ed36c6ea349ed2f30d720f786014cff6c3b10374ae7a38c73dd5608018f24163",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/gt.png": "1892ea302f2c491bae80dc54adbddaf16956f5810cdf6a5591aa7ce9384064a2",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/ts.png": "481c38f5e32d4dfa74c1264c33874408cfa8740b3658cd7a745adc7fc03766f0",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox.png": "32bc60537efc7737b29f9f4517071f8880accc5f9dc4bfa898fcb5d785586355",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_aniso_tensor.png": "aec0701504966d88095c2dfe14695010791cf00b91818ec2775b00fc7e0b8fe1",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_cont.png": "2c3c8f8485da083083e030a85491e406f5a68eec8f161ea929eced447b02e08d",
+    "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_struct.png": "ea5a0febdcb8717f7d1daf578e0db72c6ea259fefa28e472062061a3f7b0533f",
+    "figures/cup/cm_cup/cup_12_0.0510_colormapped_adj.png": "c4965723cdbcdaa150d641d753f037a27397c3773305a04ee2a3bee57dbdef87",
+    "figures/cup/cm_cup/cup_2_0.0510_colormapped.png": "997ff1ac9effbc97489a56232f11ce84a4f1b700dba023defb89c21127af7d3f",
+    "figures/cup/cm_cup/cup_3_0.0510_colormapped.png": "c4f8a6d3b7f9fbd272dcde35076d472d44f738050fff93f355c328ac1510f516",
+    "figures/cup/cm_cup/cup_5_0.0510_colormapped.png": "b5c73e1d23a005b7fcc8a4d0ca006e36739373044b1590a350c307a8e83d27f6",
+    "figures/cup/cm_cup/cup_7_0.0510_colormapped_adj.png": "c148ef35a8b47d1496a95f5d0a870d0aaac1da37e9f0f822ae31027cc7325b25",
+    "figures/cup/cup_ex_12-eps-converted-to.pdf": "b8a991c6e4efb266c4f090e56f061e92ed0b6c90da8330398982500b36f7ef78",
+    "figures/cup/cup_ex_12.eps": "f0f0cf4c0ee5d2b9d4c8251f5bfcd1b20c8190de2db4e3ace98952aa3381c0cb",
+    "figures/cup/cup_ex_2-eps-converted-to.pdf": "ac7e259d932105f8ec55151ce53f87314043dfaa17e4d521c2b6d39643299a2f",
+    "figures/cup/cup_ex_2.eps": "04f8a0daae7de33ca22386e5481dc51e21ae2b5147e24435139298ad62e8ebe4",
+    "figures/cup/cup_ex_3-eps-converted-to.pdf": "743609ca8cdba968a04f54b36b77d1a63c68f92f11cb0403a5a56d08b0b455be",
+    "figures/cup/cup_ex_3.eps": "f6ed286bfa40437a0bd41aab866ef068c579170c9e6b1564a3b38f25be40c4e5",
+    "figures/cup/cup_ex_5-eps-converted-to.pdf": "2f372bddb43c9e83e80e9d2c01eaac707ff1ceda507dc1857b444998480dcf7c",
+    "figures/cup/cup_ex_5.eps": "92de40eb312178757dbff24508d1f4d44cf5eae9602411f6f821bd576f597665",
+    "figures/cup/cup_ex_7-eps-converted-to.pdf": "0582de29720f7a7a301a58e711973f9554beffdfa28bc0318afa1739e0ad932b",
+    "figures/cup/cup_ex_7.eps": "e6438b646727efbcf85cf281d731daa553fd5f0af46ee6f5f70ae79b8e174857",
+    "figures/fig_supp_M2_residual_density.png": "590e6099f7b5daaccf5a887e27d7dd3ed4fed7c857e1a93d5d41cc331e6e3b32",
+    "figures/indoor_flying3_wls_w250ms/SOTA_All_Methods_d2z_indoor_flying3_t25.59.png": "def81d99357ab09ecf6bc1160743454507171bd7c5e60839edd4e8c9e5887dbb",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame001.png": "a69b7fb5fc798cc4f757c89d56194b2ca9b98453729252838d4cf3ab9dde427b",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame061.png": "35d93324826b202571f6937a861dcfb52d543193cacb34d1f2c89760365bfd8a",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame120.png": "d60e3e35ed572de319b87848c11470bae9c3847bd28492ab86460ad127deaac8",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame001.png": "beeb09a01b3db4b54634ac26494bf2b041e9153188bfd3c3be48f1f157eeed9e",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame061.png": "349ec98cd49358223b1d2f52295bcb6036ed663610c992526ec085cc853f6cd2",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame120.png": "7ce88c7739b0b0f77c00017f108e66f6406584bce56499b976ad4d46fd9dd0d7",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame001.png": "25b5f52ec7eafc3bd6295c2cf1addcb74248ded6472cf6eae888a98c047134bf",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame061.png": "a6abf345ad60fa88994168a8694a99ec68e15aa7c561194931a16d224b485ce2",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame120.png": "1b5169e58446aeaa3c777577402040c95539ece00f25e09f19eec82a8c639dc0",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame001.png": "1d99709a509ab2caf2edccfbc3ff10f669d1c8739f0a4096799c6d441d511b6a",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame061.png": "0d1dc22403a38d0876838f682c252ebafe524c02c19c6129a799072ef30eb567",
+    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame120.png": "de550e8bb166e12e0bf94e7bdae84c93df94580ef32d5cc8288c8db1f042e1bd",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_acc_0340.png": "ee198e1aac936bdb6b7431a6ac3b8b9ae01c01170f06b9fb3e283e906aa5fa4a",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_gt_0340.png": "7ed78bc8050d449d5803460a22a51819caccf1307ff7528caa56fc2eeaa9e731",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_ts_0340.png": "95c8f245d52ace3429d712e9b4bfd78a2bad649a0958df10db5994d05d25b31a",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_0340.png": "6b5d54ad8add8688cb5833c31d5567f02e6788ef1a5836cdc5977b1b96caf303",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_struct_0340.png": "008f604beb8f804a7bc9fbef2db3d32eb67f7ddfc5171f345eee550572d801d9",
+    "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/gray_0340.png": "737c1cc77994dee0c92c856c0b099694c1a728eb946373b3ddbdd94599f8d851",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_009.png": "bcf548e00f91c9bc6775baf8380880f8c673ac78356cd6f7c34caa2e850fbbb1",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_012.png": "9ea22f3c50f0a1941012bfe81284a1e71497020bf113d40773a3c55e9e8364d0",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_016.png": "19e416fbc000fd0f0a8acd18d0b7b96aeeb3b2d4e839b64253230436cec4a22c",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_009.png": "22f94bf15b057c58fe544c32073c399be4501c36071c3a68883972ba2e4a92a8",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_012.png": "a6422eac0d1b7c27f261d03530e9034a05c6ae91d42fe680f871e394bee9120e",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_016.png": "5144a4c701e1654feecc0af3671178b66ce7ee2001d5c07228992f33bcd14da0",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_009.png": "0e028f3ec6701a6b6ac7bc2c7cd9965ed1f169c4db7cd14c3b1ab40669d4aabf",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_012.png": "43c9dc2c1d0b825a2495d0366e19757f2cb7bc0199e4fdb1ef7773093b805829",
+    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_016.png": "d42d86b6171618babc4c6d6a9d91fa14053e9cc6be5f784a89b8cdf251106d22",
+    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame001.png": "84fcffb58b06fffe530d8eaf778313f78637e314fe90648ea718c87b7e2ac431",
+    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame076.png": "328e5c270bbc1d3588316494713194a25c430dcc399bd4b247f69d429e598dcb",
+    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame150.png": "576edb9308570214b4467072673dec3fbbd0b05611db72935bc21f4eaca4a627",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame001.png": "6cccb12df3af152df313bf208b184e38122c99b6d5edbcde0eace0ee55d2770d",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame076.png": "54512821311a76655b4649612b8868791fab0a01a28af1bcefba8ebfd2bf6959",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame150.png": "bbedebd66dba7e927228458fee6634ca6c3bcef549d22e78ad705693ca9bc8a5",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame001.png": "5860ec94633b065d7dee0765be60ca31962818cee6be805e228716cc52e1abd1",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame076.png": "840aa42436b571ae24d28e607f0e90d960a498eabb83077ba960d985da977a4b",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame150.png": "a5d6a93e3a39e1af86abc21d57ae9e20f0dc27f88ea0fe1968be270613b33645",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame001.png": "7e022fbd599990330de612ee072db005c84d50cf822901175f3064090a65ad7b",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame076.png": "f8a9f19ab045657369c95eae2410cb46e921bdbacd137b05cb6e4a0d2d353a2e",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame150.png": "f690dc528303defac85cd3e18eb346ecaffbb1bd89c10fe790372810a98f2a7d",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame001.png": "43f292264790c838c4e7852061cfd193281f85bb883f741f757116da229839c4",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame076.png": "e8b87240f62ec402b6a4230a440ab5bc7f96470c27f0d1f7943718dedf2e569b",
+    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame150.png": "18d7305f23628ff52d86170834466bc128a03f818dd5d89278f7056cad00bb6e",
+    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame001.png": "1e1fc37638314a1746c4660498c834a5de9bed7f7f9ce5c379154a74cc55997e",
+    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame061.png": "f49aed7ed6e882e47fbfad5d865f7436918468c139f204b9f64dbb64390080c8",
+    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame120.png": "9de595156bd6f11fbfb1b755130c9c2a37e529440e8dd34510720ed77be350b1",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame001.png": "d42b9083dabb51bc536b15972d5103eb4bb25acf5ebb445ba5c575e6a7080f88",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame061.png": "cc5eb6da25d50bd876314bc2016c1df4eb7b17091be25babf11e5eb01a6c2272",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame120.png": "9c2234d38c732b85e967e71f1a2f4c86b5541a749617d15b8fab356e500fe7be",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame001.png": "3fac67f112d8767b7b4c9def02e4e88f9651b957b250da663eb664522d4000f4",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame061.png": "323db683841e1c0444763f88c3f4bf827b6db43743e64599d302a18855a67d7e",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame120.png": "5fbbfca2c02996e858a9b7eb2f53ad77e5cf4bf17b3d7a678875f7ea948e60e4",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame001.png": "472fcac6a0523d63fcf9b2ec232875254200589ca6b124c3e709f3c0248ae142",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame061.png": "39d98557134e6c89002ebc2d2931bcddebdd63b9efc39f285c14115118b14e5e",
+    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame120.png": "71fd2a4e9aaeb0d44502435b0d80e78b3078adceb3314380a48efc8f63d970e7",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_009.png": "09bf2e9ac433d499e088a144d28616a10d4543f88cdcf292aae47f7cd829ad85",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_012.png": "5f622b736641f61ce1ed7465b6ac471fa73667ed694bfeea94f000a77ff89ca1",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_016.png": "8802a29b4d601d1556d90a1f705b46c08f100fa174331776281b9f72f741777a",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_009.png": "c35d4ce2440078952dc408469ceb9574b05301ef8503fa1bbacb695abf4f52b8",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_012.png": "f9aea24e8e9ee62d988115b8e9a6f3f369d92402286f0316134c9a291e729b3c",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_016.png": "78b5d701b2200413d27439bf80f8e90e74c81195bf9e4d7b6d78bc8688e11aed",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_009.png": "ddac67967912d46190f6508aed93e1e32ae77b7ac85f326bb57a8334955848ea",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_012.png": "d7143718e5ecf95c5594fee50e71e11ef952c08ecd02c0333f39d503f00c9776",
+    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_016.png": "c0e312b1fba6e6f899e3cc6686824d2fb917a49c8210c8f49795758117270aa5",
+    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame001.png": "135563bcc1bcde66a81ee441955ad6969e459988153f76cdb246bc622c5b3824",
+    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame076.png": "cc27dc3fbe92913fb7e9e1960688d88fda9018a2806f9c303fc6ffa34f8ef6c1",
+    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame150.png": "aaa97e8025ccbe246424d3db21b5e66da8d869d8fc71664441e8facf049c2e73",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame001.png": "eab934e96297c98623a5d682720debdaeb4b1c1ab187b41ed6a0b9ff07b7d0c4",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame076.png": "f8cdff180b94aa67d06dae2739684f57cd19a3b37f4a96d2553b6587feb95232",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame150.png": "e1582baa2f0036a1ddc5d4417788e765282288c57ed516742bc7ff76304d1046",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame001.png": "2c8d1d096d24cd8ce4840c0c1b6bbacf66c5fd2cd08a7554d13b848239b21f77",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame076.png": "5970315a62d3e50ed964aee77c4d4a1450e83b6ab246f8f26cfbd424da57771d",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame150.png": "a43ddae6c955a2794b49d3a11dcfae3677f01963d90f5ad9104c118baa0a767d",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame001.png": "2cbab93db85e14507d800d3d79ec4486b283bd8b697dc85bb812469b8c78a395",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame076.png": "af953e23a66725f4324de2ebcff18bfe0f16dd90ae9582ac74ed5b667d48f943",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame150.png": "ab6a62e8bbe87a615114c7908c37b828beb96f7f60b26e4d17a4e19978ec6993",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame001.png": "3b374e2aa77ae42446eee7a4938954144676771d9fba1a3d2333e354285ae32e",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame076.png": "40b3821ff75227e623c7ebf97f9ce819df44a82bc0eaba3fde3eaa781288e2ef",
+    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame150.png": "4198457c753c9b494bb0ac2861ba888f4a661510a6a16fe99b9126f21c5f816b",
+    "figures/office/office_ex_1-eps-converted-to.pdf": "5af2c235322bd66a3f2e020a5010ed6de1dfd9dbba274f34f6a7edde7fc7fe3d",
+    "figures/office/office_ex_1.eps": "66e381b00172cc78c46a54f3124fe6abfdad87d94c9ad0b54543eee9320f0461",
+    "figures/office/office_ex_11-eps-converted-to.pdf": "401d9186275fe76cbc4187ccc5d551a3ec87a483a84be0b80d093581a73088ba",
+    "figures/office/office_ex_11.eps": "27217b7d891c21ff3fe9cc91218912ce4be1bbdff14417ac4e77d3d49bbf6561",
+    "figures/office/office_ex_12-eps-converted-to.pdf": "7fb37628656c5fca8a814d37a8f17dacd3d93758e7c2f8fb1e9756485509085b",
+    "figures/office/office_ex_12.eps": "16975595b3b844d46d640f461acd16a234288052df8606fca41f7040d32613e3",
+    "figures/office/office_ex_3-eps-converted-to.pdf": "c3e06bba29de4746a73a99e66c6ea96e3e930bfafade242419b047c9dc342439",
+    "figures/office/office_ex_3.eps": "4de36cd189aac029764b1aeb7d7d0e344b9b9b07508bcc2bebc566b893e04209",
+    "figures/office/office_ex_6-eps-converted-to.pdf": "d535ecbe064069c22a770e2d4e1f564665fa5869ef5e3df9d133d5fe4e913fce",
+    "figures/office/office_ex_6.eps": "a96497fd13e3aadeb1696dd67f2752969e870e115e487a3f24aad94e56a79aea",
+    "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
+    "gmuETD.bib": "10792ca7952ec4e94c00b9ad5df1ac3e8fa29a7107e7899f5ac32496062a3dab",
+    "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
+    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "ba36f23a77acd5e6a71df377967755e11ce1d4be58ecd2613a5b1ada39b2f42d",
+    "shared_bodies/ch3_eb_hs_of_body.tex": "f6a1b4f0690ab3de50d6e7897e8a99069745b7578488ae53cc0103718132eaec",
+    "shared_bodies/ch4_stereo_depth_body.tex": "aed15f1fc87abdff5e29e41b6912ecefe900e0308d5ec6c5ce534c195d0f02da"
+  },
+  "auxiliary_sha256": {
+    "GMU-Diss_template.aux": "f820e1ecfed3fbd91410878d3e56946d84bb3a721b568e5fdc40da411c4b29d1",
+    "chapterOne.aux": "974dd06f478f99e9622b9b0c78fec62d88c4d0c483b194f5eb9c05f9c45ed8e5",
+    "chapterTwo.aux": "4403db73ca73bd189f07a76c2ce83bbe3e108d9d821f77b91edb86725be3a933",
+    "chapterThree.aux": "b577220cd8e20bc6e837b4444853897c195d1d9eecfec347d601d32010f02dac",
+    "chapterFour.aux": "c88ac18c45dac90ac06d239722c157437bd057f08457e001658c65552a82c50e",
+    "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
+    "appendixA.aux": "8e1e0095c3dbe0a100b4febe335088b664a16be92cac1e02efa86127b69b9c4b"
+  },
+  "labels": {
+    "app:ch3_accumulation": {
+      "number": "A.1.4",
+      "page": "165",
+      "title": "Event-Accumulation and Flow Rendering",
+      "anchor": "subsection*.489"
+    },
+    "app:ch3_cmax_params": {
+      "number": "A.1.5",
+      "page": "165",
+      "title": "Contrast Maximization: Run Parameters",
+      "anchor": "subsection*.490"
+    },
+    "app:ch3_discrete_stencils": {
+      "number": "A.1.3",
+      "page": "164",
+      "title": "Evaluated Smoothing Stencils and Iteration Schedules",
+      "anchor": "subsection*.487"
+    },
+    "app:ch3_photometric_proxy": {
+      "number": "A.1.1",
+      "page": "163",
+      "title": "Voxel Projection: Event-Accumulation Convention",
+      "anchor": "subsection*.482"
+    },
+    "app:ch3_vox_derivative_ops": {
+      "number": "A.1.2",
+      "page": "163",
+      "title": "Voxel Projection: Instantiated Derivative Operators",
+      "anchor": "subsection*.483"
+    },
+    "app:ch4_numerical_illustrations": {
+      "number": "A.2.4",
+      "page": "175",
+      "title": "Illustrative Numerical Evaluations",
+      "anchor": "subsection*.513"
+    },
+    "app:ch4_parameters": {
+      "number": "A.2.1",
+      "page": "167",
+      "title": "Parameter Table",
+      "anchor": "subsection*.497"
+    },
+    "app:ch4_wta_detail": {
+      "number": "A.2.2",
+      "page": "170",
+      "title": "Candidate Search: Implementation Details",
+      "anchor": "subsection*.501"
+    },
+    "app:protocol": {
+      "number": "A",
+      "page": "163",
+      "title": "Conclusion",
+      "anchor": "chapter*.480"
+    },
+    "app:protocol_ch3": {
+      "number": "A.1",
+      "page": "163",
+      "title": "Optical Flow (Chapter~\\ref {ch:optical_flow})",
+      "anchor": "section*.481"
+    },
+    "app:protocol_ch4": {
+      "number": "A.2",
+      "page": "167",
+      "title": "Stereo Depth (Chapter~\\ref {ch:stereo_depth_estimation})",
+      "anchor": "section*.496"
+    },
+    "ass:ch3:A1": {
+      "number": "{A1}",
+      "page": "58",
+      "title": "",
+      "anchor": "Item*.172"
+    },
+    "ass:ch3:A2": {
+      "number": "{A2}",
+      "page": "58",
+      "title": "",
+      "anchor": "Item*.173"
+    },
+    "ass:ch3:A3": {
+      "number": "{A3}",
+      "page": "58",
+      "title": "",
+      "anchor": "Item*.174"
+    },
+    "ass:ch3:A4": {
+      "number": "{A4}",
+      "page": "58",
+      "title": "",
+      "anchor": "Item*.175"
+    },
+    "ass:ch3:A5": {
+      "number": "{A5}",
+      "page": "58",
+      "title": "",
+      "anchor": "Item*.176"
+    },
+    "ass:p1": {
+      "number": "{{(P1)}}",
+      "page": "23",
+      "title": "Standing Assumptions for the Physical Connection",
+      "anchor": "Item*.71"
+    },
+    "ass:p2": {
+      "number": "{{(P2)}}",
+      "page": "23",
+      "title": "Standing Assumptions for the Physical Connection",
+      "anchor": "Item*.72"
+    },
+    "ass:p3": {
+      "number": "{{(P3)}}",
+      "page": "23",
+      "title": "Standing Assumptions for the Physical Connection",
+      "anchor": "Item*.73"
+    },
+    "ass:p4": {
+      "number": "{{(P4)}}",
+      "page": "24",
+      "title": "Standing Assumptions for the Physical Connection",
+      "anchor": "Item*.74"
+    },
+    "ass:regularity": {
+      "number": "3.3.3",
+      "page": "57",
+      "title": "",
+      "anchor": "assumption.171"
+    },
+    "assump:S1": {
+      "number": "{(S1)}",
+      "page": "110",
+      "title": "Standing Assumptions",
+      "anchor": "Item*.318"
+    },
+    "assump:S2": {
+      "number": "{(S2)}",
+      "page": "110",
+      "title": "Standing Assumptions",
+      "anchor": "Item*.319"
+    },
+    "assump:S3": {
+      "number": "{(S3)}",
+      "page": "110",
+      "title": "Standing Assumptions",
+      "anchor": "Item*.320"
+    },
+    "assump:S4": {
+      "number": "{(S4)}",
+      "page": "111",
+      "title": "Standing Assumptions",
+      "anchor": "Item*.321"
+    },
+    "ch:discussion_conclusion": {
+      "number": "5",
+      "page": "155",
+      "title": "Discussion and Future Directions",
+      "anchor": "chapter*.460"
+    },
+    "ch:monocular_reconstruction": {
+      "number": "2",
+      "page": "5",
+      "title": "Monocular Reconstruction: Dynamic Intensity Profiles",
+      "anchor": "chapter*.10"
+    },
+    "ch:optical_flow": {
+      "number": "3",
+      "page": "53",
+      "title": "Optical Flow: Continuous Spatial Regularization",
+      "anchor": "chapter*.154"
+    },
+    "ch:stereo_depth_estimation": {
+      "number": "4",
+      "page": "106",
+      "title": "Stereo Depth Estimation: Joint Optimization",
+      "anchor": "chapter*.306"
+    },
+    "cond:time_surface:i": {
+      "number": "{i}",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "Item*.178"
+    },
+    "cond:time_surface:ii": {
+      "number": "{ii}",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "Item*.179"
+    },
+    "cond:time_surface:iii": {
+      "number": "{iii}",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "Item*.180"
+    },
+    "cond:time_surface:iv": {
+      "number": "{iv}",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "Item*.181"
+    },
+    "cor:convergence_psd_blocks": {
+      "number": "3.7.2",
+      "page": "98",
+      "title": "Block-Jacobi convergence for PSD data blocks",
+      "anchor": "corollary.289"
+    },
+    "cor:cutoff_frequency": {
+      "number": "4.6.22",
+      "page": "145",
+      "title": "Half-Power Crossing",
+      "anchor": "corollary.437"
+    },
+    "cor:low_lambda_conditioning": {
+      "number": "4.6.19",
+      "page": "142",
+      "title": "Small-$\\lambda $ Conditioning",
+      "anchor": "corollary.429"
+    },
+    "cor:mean_zero_conditioning": {
+      "number": "4.6.17",
+      "page": "140",
+      "title": "Conditioning on the mean-zero subspace",
+      "anchor": "corollary.424"
+    },
+    "cor:selection_robust": {
+      "number": "4.6.10",
+      "page": "134",
+      "title": "Robustness of the winning margin",
+      "anchor": "corollary.404"
+    },
+    "cor:structure_wellposedness": {
+      "number": "3.6.4",
+      "page": "95",
+      "title": "Structure-Tensor model",
+      "anchor": "corollary.281"
+    },
+    "cor:ts_weighted": {
+      "number": "3.7.3",
+      "page": "100",
+      "title": "Weighted time-surface model",
+      "anchor": "corollary.297"
+    },
+    "cor:ts_wellposedness": {
+      "number": "3.6.2",
+      "page": "95",
+      "title": "Time-surface model",
+      "anchor": "corollary.279"
+    },
+    "cor:unweighted_spd": {
+      "number": "4.6.5",
+      "page": "130",
+      "title": "Unweighted Block Matrix SPD",
+      "anchor": "corollary.391"
+    },
+    "cor:vox_projection_wellposed": {
+      "number": "3.6.3",
+      "page": "95",
+      "title": "Voxel-projection model",
+      "anchor": "corollary.280"
+    },
+    "def:energy": {
+      "number": "3.3.8",
+      "page": "67",
+      "title": "Energy Functional",
+      "anchor": "definition.198"
+    },
+    "def:skellam_surrogate": {
+      "number": "4.6.1",
+      "page": "125",
+      "title": "Frozen-variance inverse-variance surrogate",
+      "anchor": "definition.376"
+    },
+    "def:time_surface": {
+      "number": "3.3.2",
+      "page": "57",
+      "title": "Time Surface",
+      "anchor": "definition.169"
+    },
+    "eq:Exy": {
+      "number": "2.4",
+      "page": "13",
+      "title": "Event Model",
+      "anchor": "equation*.41"
+    },
+    "eq:abs_stability": {
+      "number": "2.11",
+      "page": "18",
+      "title": "Uniqueness and Stability",
+      "anchor": "equation*.52"
+    },
+    "eq:abstract_coercivity": {
+      "number": "3.64",
+      "page": "94",
+      "title": "Unified Well-Posedness and Stability",
+      "anchor": "equation*.278"
+    },
+    "eq:abstract_quadratic_energy": {
+      "number": "3.60",
+      "page": "93",
+      "title": "Quadratic variational well-posedness and stability",
+      "anchor": "equation*.274"
+    },
+    "eq:abstract_stability": {
+      "number": "3.61",
+      "page": "93",
+      "title": "Quadratic variational well-posedness and stability",
+      "anchor": "equation*.275"
+    },
+    "eq:activity_mask": {
+      "number": "4.65",
+      "page": "149",
+      "title": "Confidence Masking",
+      "anchor": "equation*.446"
+    },
+    "eq:aniso_divergence_expansion": {
+      "number": "3.49",
+      "page": "83",
+      "title": "Anisotropic Numerical Discretization",
+      "anchor": "equation*.252"
+    },
+    "eq:aniso_regularizer": {
+      "number": "3.45",
+      "page": "81",
+      "title": "Image-Adaptive Anisotropic Regularization",
+      "anchor": "equation*.244"
+    },
+    "eq:approxE": {
+      "number": "2.28",
+      "page": "26",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.82"
+    },
+    "eq:approxQ": {
+      "number": "2.26",
+      "page": "25",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.80"
+    },
+    "eq:block_diag_M": {
+      "number": "4.50",
+      "page": "139",
+      "title": "Block Diagonalization and Spectrum of $\\mathbf {M}$",
+      "anchor": "equation*.418"
+    },
+    "eq:block_system": {
+      "number": "4.16",
+      "page": "121",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "equation*.361"
+    },
+    "eq:blur_contraction": {
+      "number": "3.32",
+      "page": "74",
+      "title": "A General Family of Consistent Derivative Operators",
+      "anchor": "equation*.225"
+    },
+    "eq:ch2_sar_estimator": {
+      "number": "2.49",
+      "page": "50",
+      "title": "Unobservable scene modes and regularized inversion",
+      "anchor": "equation*.149"
+    },
+    "eq:ch2_sar_forward": {
+      "number": "2.47",
+      "page": "50",
+      "title": "Outlook: Coupling Views Through a Shared Scene",
+      "anchor": "equation*.146"
+    },
+    "eq:ch2_sar_fusion": {
+      "number": "2.51",
+      "page": "51",
+      "title": "Outlook: Coupling Views Through a Shared Scene",
+      "anchor": "equation*.152"
+    },
+    "eq:ch2_sar_normal": {
+      "number": "2.50",
+      "page": "50",
+      "title": "Unobservable scene modes and regularized inversion",
+      "anchor": "equation*.150"
+    },
+    "eq:ch2_sar_nullspace": {
+      "number": "2.48",
+      "page": "50",
+      "title": "Unobservable scene modes and regularized inversion",
+      "anchor": "equation*.148"
+    },
+    "eq:ch2_sar_projection": {
+      "number": "2.46",
+      "page": "50",
+      "title": "Outlook: Coupling Views Through a Shared Scene",
+      "anchor": "equation*.145"
+    },
+    "eq:cmax_energy": {
+      "number": "3.53",
+      "page": "87",
+      "title": "Continuous-Time Energy Functional",
+      "anchor": "equation*.260"
+    },
+    "eq:cmax_focus": {
+      "number": "3.52",
+      "page": "87",
+      "title": "Continuous-Time Energy Functional",
+      "anchor": "equation*.259"
+    },
+    "eq:cmax_ridge_K": {
+      "number": "3.56",
+      "page": "89",
+      "title": "Strong Convexity and Conditioning of the Discrete Galerkin Regularizer",
+      "anchor": "equation*.265"
+    },
+    "eq:cond_bound": {
+      "number": "2.12",
+      "page": "19",
+      "title": "Numerical Stability",
+      "anchor": "equation*.56"
+    },
+    "eq:data_fidelity": {
+      "number": "4.3",
+      "page": "111",
+      "title": "Joint Optimization Model",
+      "anchor": "equation*.324"
+    },
+    "eq:datacube": {
+      "number": "2.41",
+      "page": "31",
+      "title": "Data Cube Construction",
+      "anchor": "equation*.106"
+    },
+    "eq:depth_conversion": {
+      "number": "4.11",
+      "page": "119",
+      "title": "Depth Recovery",
+      "anchor": "equation*.355"
+    },
+    "eq:depth_disparity_sensitivity": {
+      "number": "4.12",
+      "page": "120",
+      "title": "Depth Recovery",
+      "anchor": "equation*.356"
+    },
+    "eq:difference_quotient": {
+      "number": "2.17",
+      "page": "22",
+      "title": "Continuous-Time ODE Connection",
+      "anchor": "equation*.65"
+    },
+    "eq:energy_functional": {
+      "number": "3.14",
+      "page": "67",
+      "title": "Energy Functional",
+      "anchor": "equation*.199"
+    },
+    "eq:energy_struct": {
+      "number": "3.38",
+      "page": "77",
+      "title": "The Kinematic Plane (3D Structure Tensor)",
+      "anchor": "equation*.233"
+    },
+    "eq:euler_lagrange_u": {
+      "number": "3.15",
+      "page": "67",
+      "title": "Euler-Lagrange Equations",
+      "anchor": "equation*.201"
+    },
+    "eq:euler_lagrange_v": {
+      "number": "3.16",
+      "page": "67",
+      "title": "Euler-Lagrange Equations",
+      "anchor": "equation*.202"
+    },
+    "eq:event_integral": {
+      "number": "3.3",
+      "page": "56",
+      "title": "Event Generation Model",
+      "anchor": "equation*.165"
+    },
+    "eq:exy": {
+      "number": "2.2",
+      "page": "13",
+      "title": "Event Model",
+      "anchor": "equation*.39"
+    },
+    "eq:forward_error_bound": {
+      "number": "4.58",
+      "page": "143",
+      "title": "Small-$\\lambda $ Conditioning",
+      "anchor": "equation*.430"
+    },
+    "eq:freshness_weight": {
+      "number": "3.72",
+      "page": "100",
+      "title": "Weighted Update with Temporal Decay",
+      "anchor": "equation*.295"
+    },
+    "eq:fxy": {
+      "number": "2.5",
+      "page": "13",
+      "title": "Event Model",
+      "anchor": "equation*.42"
+    },
+    "eq:generic_representation_energy": {
+      "number": "3.4",
+      "page": "56",
+      "title": "Unified Variational Framework",
+      "anchor": "equation*.167"
+    },
+    "eq:in": {
+      "number": "2.8",
+      "page": "16",
+      "title": "Regularized Intensity Reconstruction",
+      "anchor": "equation*.47"
+    },
+    "eq:integrated_identifiability": {
+      "number": "3.59",
+      "page": "93",
+      "title": "Quadratic variational well-posedness and stability",
+      "anchor": "equation*.273"
+    },
+    "eq:irls_contraction_q": {
+      "number": "4.47",
+      "page": "137",
+      "title": "A sufficient contraction condition for fixed-disparity IRLS",
+      "anchor": "equation*.412"
+    },
+    "eq:irls_rate": {
+      "number": "4.48",
+      "page": "137",
+      "title": "A sufficient contraction condition for fixed-disparity IRLS",
+      "anchor": "equation*.413"
+    },
+    "eq:ivp": {
+      "number": "2.20",
+      "page": "22",
+      "title": "Continuous-Time ODE Connection",
+      "anchor": "equation*.68"
+    },
+    "eq:ivp_integrated": {
+      "number": "2.21",
+      "page": "23",
+      "title": "Continuous-Time ODE Connection",
+      "anchor": "equation*.69"
+    },
+    "eq:jif_objective": {
+      "number": "4.67",
+      "page": "152",
+      "title": "Mathematical Formulation",
+      "anchor": "equation*.452"
+    },
+    "eq:jif_system": {
+      "number": "4.70",
+      "page": "152",
+      "title": "Derivation of the Fixed-Disparity Minimizer",
+      "anchor": "equation*.456"
+    },
+    "eq:kappa_bound": {
+      "number": "4.51",
+      "page": "139",
+      "title": "Condition Number Bounds",
+      "anchor": "equation*.420"
+    },
+    "eq:kappa_mean_zero": {
+      "number": "4.56",
+      "page": "141",
+      "title": "Conditioning on the mean-zero subspace",
+      "anchor": "equation*.426"
+    },
+    "eq:kappa_scalar": {
+      "number": "4.52",
+      "page": "140",
+      "title": "Condition Number Bounds",
+      "anchor": "equation*.421"
+    },
+    "eq:kappa_weighted": {
+      "number": "4.57",
+      "page": "142",
+      "title": "Conditioning of the Heteroscedastic Operator",
+      "anchor": "equation*.428"
+    },
+    "eq:log_brightness": {
+      "number": "3.2",
+      "page": "55",
+      "title": "Event Generation Model",
+      "anchor": "equation*.164"
+    },
+    "eq:matching_cost_closed_form": {
+      "number": "4.36",
+      "page": "131",
+      "title": "Closed form of the unweighted matching cost",
+      "anchor": "equation*.394"
+    },
+    "eq:mean_control": {
+      "number": "3.62",
+      "page": "94",
+      "title": "Unified Well-Posedness and Stability",
+      "anchor": "equation*.276"
+    },
+    "eq:modal_noise_gain": {
+      "number": "4.63",
+      "page": "147",
+      "title": "Motion Blur and Temporal Resolution",
+      "anchor": "equation*.442"
+    },
+    "eq:mu_nll": {
+      "number": "4.33",
+      "page": "127",
+      "title": "IRLS--Likelihood Stationary-Point Gap",
+      "anchor": "equation*.385"
+    },
+    "eq:mw_quadform": {
+      "number": "4.34",
+      "page": "130",
+      "title": "Candidate-Dependent Log-Variance",
+      "anchor": "equation*.389"
+    },
+    "eq:ne_tensor": {
+      "number": "3.46",
+      "page": "82",
+      "title": "The Nagel--Enkelmann Tensor",
+      "anchor": "equation*.246"
+    },
+    "eq:nll_approx": {
+      "number": "4.30",
+      "page": "125",
+      "title": "Frozen-variance inverse-variance surrogate",
+      "anchor": "equation*.378"
+    },
+    "eq:nll_full": {
+      "number": "4.31",
+      "page": "126",
+      "title": "Frozen Gaussian Surrogate",
+      "anchor": "equation*.380"
+    },
+    "eq:nll_scalar_derivative": {
+      "number": "4.32",
+      "page": "127",
+      "title": "Frozen Gaussian Surrogate",
+      "anchor": "equation*.381"
+    },
+    "eq:normal_L": {
+      "number": "4.14",
+      "page": "120",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "equation*.359"
+    },
+    "eq:normal_R": {
+      "number": "4.15",
+      "page": "120",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "equation*.360"
+    },
+    "eq:normal_equations": {
+      "number": "2.9",
+      "page": "17",
+      "title": "Optimization Formulation and Regularization",
+      "anchor": "equation*.48"
+    },
+    "eq:objective_simplified": {
+      "number": "4.13",
+      "page": "120",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "equation*.358"
+    },
+    "eq:parabolic_refinement": {
+      "number": "4.9",
+      "page": "118",
+      "title": "Procedure (per Pyramid Level)",
+      "anchor": "equation*.350"
+    },
+    "eq:polarity": {
+      "number": "2.1",
+      "page": "8",
+      "title": "Data",
+      "anchor": "equation*.19"
+    },
+    "eq:pos": {
+      "number": "2.22",
+      "page": "24",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.76"
+    },
+    "eq:pxyDelta": {
+      "number": "2.25",
+      "page": "25",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.79"
+    },
+    "eq:qxylog": {
+      "number": "2.24",
+      "page": "25",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.78"
+    },
+    "eq:regularization": {
+      "number": "4.4",
+      "page": "111",
+      "title": "Joint Optimization Model",
+      "anchor": "equation*.325"
+    },
+    "eq:selection_eta": {
+      "number": "4.43",
+      "page": "135",
+      "title": "Robustness of the winning margin",
+      "anchor": "equation*.405"
+    },
+    "eq:selection_gap": {
+      "number": "4.39",
+      "page": "132",
+      "title": "A sufficient condition for correct disparity selection",
+      "anchor": "Item*.399"
+    },
+    "eq:separation_condition": {
+      "number": "4.40",
+      "page": "133",
+      "title": "A sufficient condition for correct disparity selection",
+      "anchor": "Item*.400"
+    },
+    "eq:signed_anscombe": {
+      "number": "4.18",
+      "page": "121",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.364"
+    },
+    "eq:sol_stability": {
+      "number": "2.13",
+      "page": "19",
+      "title": "Numerical Stability",
+      "anchor": "equation*.58"
+    },
+    "eq:solution": {
+      "number": "4.17",
+      "page": "121",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "equation*.362"
+    },
+    "eq:stereo_consistency": {
+      "number": "4.5",
+      "page": "111",
+      "title": "Joint Optimization Model",
+      "anchor": "equation*.326"
+    },
+    "eq:tempdiffA": {
+      "number": "2.7",
+      "page": "15",
+      "title": "Event Model",
+      "anchor": "equation*.44"
+    },
+    "eq:time_surface_constraint": {
+      "number": "3.6",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "equation*.182"
+    },
+    "eq:transfer_function": {
+      "number": "4.60",
+      "page": "145",
+      "title": "Frequency Response Characterization",
+      "anchor": "equation*.436"
+    },
+    "eq:ts_discrete_bias": {
+      "number": "3.10",
+      "page": "63",
+      "title": "Bias and Variance of the Local Plane Fit",
+      "anchor": "Item*.191"
+    },
+    "eq:ts_discrete_mse": {
+      "number": "3.11",
+      "page": "63",
+      "title": "Bias and Variance of the Local Plane Fit",
+      "anchor": "Item*.192"
+    },
+    "eq:ts_radius_surrogate": {
+      "number": "3.12",
+      "page": "65",
+      "title": "Radius Selection as a Heuristic",
+      "anchor": "equation*.194"
+    },
+    "eq:unique_sol": {
+      "number": "2.10",
+      "page": "17",
+      "title": "Uniqueness and Stability",
+      "anchor": "equation*.51"
+    },
+    "eq:update_u": {
+      "number": "3.67",
+      "page": "97",
+      "title": "Iterative Update Scheme",
+      "anchor": "equation*.286"
+    },
+    "eq:update_v": {
+      "number": "3.68",
+      "page": "97",
+      "title": "Iterative Update Scheme",
+      "anchor": "equation*.287"
+    },
+    "eq:vconnectq": {
+      "number": "2.29",
+      "page": "26",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "equation*.83"
+    },
+    "eq:vib_index": {
+      "number": "2.45",
+      "page": "48",
+      "title": "Method",
+      "anchor": "equation*.142"
+    },
+    "eq:vib_psd": {
+      "number": "2.44",
+      "page": "48",
+      "title": "Method",
+      "anchor": "equation*.141"
+    },
+    "eq:vox_impl_I": {
+      "number": "1.1",
+      "page": "163",
+      "title": "Voxel Projection: Instantiated Derivative Operators",
+      "anchor": "equation*.484"
+    },
+    "eq:vox_impl_It": {
+      "number": "1.3",
+      "page": "164",
+      "title": "Voxel Projection: Instantiated Derivative Operators",
+      "anchor": "equation*.486"
+    },
+    "eq:vox_impl_Ixy": {
+      "number": "1.2",
+      "page": "164",
+      "title": "Voxel Projection: Instantiated Derivative Operators",
+      "anchor": "equation*.485"
+    },
+    "eq:w_inverse": {
+      "number": "4.22",
+      "page": "122",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.368"
+    },
+    "eq:w_proportional": {
+      "number": "4.23",
+      "page": "123",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.369"
+    },
+    "eq:weighted_block_system": {
+      "number": "4.27",
+      "page": "124",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.373"
+    },
+    "eq:weighted_data_fidelity": {
+      "number": "4.19",
+      "page": "122",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.365"
+    },
+    "eq:weighted_normal_L": {
+      "number": "4.25",
+      "page": "124",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.371"
+    },
+    "eq:weighted_normal_R": {
+      "number": "4.26",
+      "page": "124",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.372"
+    },
+    "eq:weighted_objective": {
+      "number": "4.24",
+      "page": "123",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "equation*.370"
+    },
+    "eq:weighted_update": {
+      "number": "3.74",
+      "page": "101",
+      "title": "Weighted Update with Temporal Decay",
+      "anchor": "equation*.298"
+    },
+    "eq:wta": {
+      "number": "4.10",
+      "page": "118",
+      "title": "Procedure (per Pyramid Level)",
+      "anchor": "equation*.351"
+    },
+    "f:bilevel_visual_day1": {
+      "number": "2.5",
+      "page": "45",
+      "title": "MVSEC Outdoor Day Sequence 1: Event-Only and Bilevel Reconstructions",
+      "anchor": "figure.caption.130"
+    },
+    "f:bilevel_visual_day2": {
+      "number": "2.6",
+      "page": "46",
+      "title": "MVSEC Outdoor Day Sequence 2: Event-Only and Bilevel Reconstructions",
+      "anchor": "figure.caption.131"
+    },
+    "f:cup": {
+      "number": "2.8",
+      "page": "47",
+      "title": "Bullet Impact on a Cup: Grayscale and False-Color Reconstructions",
+      "anchor": "figure.caption.136"
+    },
+    "f:iss": {
+      "number": "2.9",
+      "page": "48",
+      "title": "Honduras Coastline Reconstructed from ISS Event-Camera Data",
+      "anchor": "figure.caption.138"
+    },
+    "f:mvsec_day1_lambda_comparison": {
+      "number": "2.3",
+      "page": "41",
+      "title": "MVSEC Outdoor Day Sequence 1: Adaptive Regularization Methods",
+      "anchor": "figure.caption.125"
+    },
+    "f:mvsec_day2_lambda_comparison": {
+      "number": "2.4",
+      "page": "42",
+      "title": "MVSEC Outdoor Day Sequence 2: Adaptive Regularization Methods",
+      "anchor": "figure.caption.126"
+    },
+    "f:mvsec_outdoor_day1_bump_comp": {
+      "number": "2.1",
+      "page": "36",
+      "title": "MVSEC Outdoor Day Sequence 1: Bump-Function Reconstructions",
+      "anchor": "figure.caption.117"
+    },
+    "f:mvsec_outdoor_day2_bump_comp": {
+      "number": "2.2",
+      "page": "37",
+      "title": "MVSEC Outdoor Day Sequence 2: Bump-Function Reconstructions",
+      "anchor": "figure.caption.118"
+    },
+    "f:office": {
+      "number": "2.7",
+      "page": "47",
+      "title": "Office Scene Reconstructed from Event-Camera Data",
+      "anchor": "figure.caption.134"
+    },
+    "fig:all_method_comparison_indoor3": {
+      "number": "A.1",
+      "page": "181",
+      "title": "MVSEC Indoor Flying 3: Stereo-Depth Method Comparison",
+      "anchor": "figure.caption.531"
+    },
+    "fig:aperture_problem": {
+      "number": "3.1",
+      "page": "61",
+      "title": "The aperture problem for a straight edge",
+      "anchor": "figure.caption.187"
+    },
+    "fig:ch2_sar_synthetic": {
+      "number": "2.10",
+      "page": "51",
+      "title": "Static-Scene Reconstruction from v2e-Simulated Events",
+      "anchor": "figure.caption.151"
+    },
+    "fig:ch3_quiver_synth": {
+      "number": "3.3",
+      "page": "103",
+      "title": "Flow Estimates for Idealized Translating Stripes",
+      "anchor": "figure.caption.301"
+    },
+    "fig:ch3_quiver_v2e": {
+      "number": "3.4",
+      "page": "103",
+      "title": "Flow Estimates for v2e-Simulated Stripes and Checkerboard",
+      "anchor": "figure.caption.302"
+    },
+    "fig:m2-residual": {
+      "number": "3.5",
+      "page": "104",
+      "title": "Fitted Voxel-Projection Residual Distribution",
+      "anchor": "figure.caption.304"
+    },
+    "fig:vox_comparison": {
+      "number": "3.2",
+      "page": "102",
+      "title": "Optical-Flow Estimates on an MVSEC Indoor-Flying Frame",
+      "anchor": "figure.caption.300"
+    },
+    "lem:A_spectrum": {
+      "number": "4.4.1",
+      "page": "112",
+      "title": "Spectral Analysis of the Temporal Differential Operator",
+      "anchor": "lemma.329"
+    },
+    "lem:block_diag_M": {
+      "number": "4.6.15",
+      "page": "139",
+      "title": "Block Diagonalization and Spectrum of $\\mathbf {M}$",
+      "anchor": "lemma.416"
+    },
+    "lem:fixed_point_existence": {
+      "number": "4.6.12",
+      "page": "135",
+      "title": "Existence of IRLS Fixed Points",
+      "anchor": "lemma.407"
+    },
+    "lem:matching_cost_closed_form": {
+      "number": "4.6.6",
+      "page": "130",
+      "title": "Closed form of the unweighted matching cost",
+      "anchor": "lemma.392"
+    },
+    "lem:ne_elliptic": {
+      "number": "3.4.6",
+      "page": "82",
+      "title": "Uniform ellipticity of the Nagel-Enkelmann tensor",
+      "anchor": "lemma.247"
+    },
+    "lem:nullspace": {
+      "number": "2.2.4",
+      "page": "17",
+      "title": "Null Space of Difference Matrix",
+      "anchor": "lemma.49"
+    },
+    "prob:reconstruction": {
+      "number": "2.2.1",
+      "page": "16",
+      "title": "Regularized Intensity Reconstruction",
+      "anchor": "section*.46"
+    },
+    "prop:attenuation_bias": {
+      "number": "4.6.7",
+      "page": "131",
+      "title": "Attenuation bias of the unweighted cost",
+      "anchor": "proposition.395"
+    },
+    "prop:ch2_sar_solvability": {
+      "number": "2.4.1",
+      "page": "50",
+      "title": "Unobservable scene modes and regularized inversion",
+      "anchor": "proposition.147"
+    },
+    "prop:cmax_existence": {
+      "number": "3.5.2",
+      "page": "90",
+      "title": "Existence of a Minimizer of the Discrete CM Objective",
+      "anchor": "proposition.266"
+    },
+    "prop:cmax_wellposed": {
+      "number": "3.5.1",
+      "page": "88",
+      "title": "Strong Convexity and Conditioning of the Discrete Galerkin Regularizer",
+      "anchor": "proposition.264"
+    },
+    "prop:comp_supp": {
+      "number": "3",
+      "page": "11",
+      "title": "Properties of $L^1$ Bump Functions",
+      "anchor": "Item*.31"
+    },
+    "prop:correct_selection": {
+      "number": "4.6.8",
+      "page": "132",
+      "title": "A sufficient condition for correct disparity selection",
+      "anchor": "proposition.397"
+    },
+    "prop:disparity_nonidentifiability": {
+      "number": "4.6.20",
+      "page": "143",
+      "title": "Non-identifiability under coincident right-view profiles",
+      "anchor": "proposition.432"
+    },
+    "prop:dist_bump_properties": {
+      "number": "2.2.2",
+      "page": "11",
+      "title": "Properties of the Distributional Kernel",
+      "anchor": "proposition.32"
+    },
+    "prop:global_opt_unweighted": {
+      "number": "4.5.1",
+      "page": "119",
+      "title": "Global optimality without aggregation",
+      "anchor": "proposition.353"
+    },
+    "prop:irls_contraction": {
+      "number": "4.6.13",
+      "page": "136",
+      "title": "A sufficient contraction condition for fixed-disparity IRLS",
+      "anchor": "proposition.411"
+    },
+    "prop:irls_vs_nll": {
+      "number": "4.6.2",
+      "page": "127",
+      "title": "IRLS--Likelihood Stationary-Point Gap",
+      "anchor": "proposition.382"
+    },
+    "prop:jif_relation": {
+      "number": "4.9.1",
+      "page": "152",
+      "title": "Relation of JIF to the soft-coupled model",
+      "anchor": "proposition.457"
+    },
+    "prop:l1_bump_properties": {
+      "number": "2.2.1",
+      "page": "11",
+      "title": "Properties of $L^1$ Bump Functions",
+      "anchor": "proposition.28"
+    },
+    "prop:noise_gain": {
+      "number": "4.6.23",
+      "page": "146",
+      "title": "Modal noise gain",
+      "anchor": "proposition.441"
+    },
+    "prop:stability": {
+      "number": "2.2.7",
+      "page": "19",
+      "title": "Numerical Stability",
+      "anchor": "proposition.54"
+    },
+    "prop:taylor_truncation_bound": {
+      "number": "3.4.1",
+      "page": "73",
+      "title": "Taylor Truncation Bound for 2D Projection",
+      "anchor": "proposition.221"
+    },
+    "prop:time_surface": {
+      "number": "3.3.4",
+      "page": "59",
+      "title": "Time Surface Constraint",
+      "anchor": "proposition.177"
+    },
+    "prop:transl_inv": {
+      "number": "2",
+      "page": "11",
+      "title": "Properties of $L^1$ Bump Functions",
+      "anchor": "Item*.30"
+    },
+    "prop:ts_regression_bound": {
+      "number": "3.3.7",
+      "page": "62",
+      "title": "Bias and Variance of the Local Plane Fit",
+      "anchor": "proposition.190"
+    },
+    "prop:unit_norm": {
+      "number": "1",
+      "page": "11",
+      "title": "Properties of $L^1$ Bump Functions",
+      "anchor": "Item*.29"
+    },
+    "prop:vox_tensor_wellposed": {
+      "number": "3.4.4",
+      "page": "78",
+      "title": "Local Invertibility and Global Uniqueness",
+      "anchor": "proposition.240"
+    },
+    "prop:weighted_conditioning": {
+      "number": "4.6.18",
+      "page": "142",
+      "title": "Conditioning of the Heteroscedastic Operator",
+      "anchor": "proposition.427"
+    },
+    "rem:aniso_discretization": {
+      "number": "3.4.3",
+      "page": "83",
+      "title": "Anisotropic Numerical Discretization",
+      "anchor": "section*.251"
+    },
+    "rem:aperture_condition_number": {
+      "number": "3.4.5",
+      "page": "80",
+      "title": "The aperture problem and regularization stability",
+      "anchor": "remark.242"
+    },
+    "rem:irls_contraction_noise": {
+      "number": "4.6.14",
+      "page": "138",
+      "title": "Dependence on $\\varepsilon _{\\mathrm {noise}}$ and $\\omega $",
+      "anchor": "remark.414"
+    },
+    "rem:notation_convention": {
+      "number": "2.1.1",
+      "page": "5",
+      "title": "Scalar vs. Vector Notation Convention",
+      "anchor": "remark.15"
+    },
+    "rem:selection_modal": {
+      "number": "4.6.9",
+      "page": "134",
+      "title": "Modal form and scaled right-view profiles",
+      "anchor": "remark.401"
+    },
+    "rem:vox_projection_update": {
+      "number": "3.7.1",
+      "page": "99",
+      "title": "Voxel Grid Updates",
+      "anchor": "section*.290"
+    },
+    "s:Data": {
+      "number": "2.1.2",
+      "page": "8",
+      "title": "Data",
+      "anchor": "section*.18"
+    },
+    "s:chap_summ2": {
+      "number": "2.4",
+      "page": "52",
+      "title": "Chapter Summary",
+      "anchor": "section*.153"
+    },
+    "s:existing": {
+      "number": "2.1.3",
+      "page": "9",
+      "title": "Existing Model, Algorithm, and Limitations",
+      "anchor": "subsection*.20"
+    },
+    "s:model": {
+      "number": "2.2.1",
+      "page": "9",
+      "title": "Model",
+      "anchor": "subsection*.22"
+    },
+    "s:not": {
+      "number": "2.1",
+      "page": "5",
+      "title": "Notation and Preliminaries",
+      "anchor": "section*.12"
+    },
+    "s:numres": {
+      "number": "2.3",
+      "page": "28",
+      "title": "Numerical Results",
+      "anchor": "section*.95"
+    },
+    "s:opt": {
+      "number": "2.2",
+      "page": "9",
+      "title": "Proposed Model and Algorithm",
+      "anchor": "section*.21"
+    },
+    "sec:benchmark": {
+      "number": "A.2.8",
+      "page": "181",
+      "title": "Benchmark Comparison with State-of-the-Art Methods",
+      "anchor": "subsection*.529"
+    },
+    "sec:block_solver": {
+      "number": "4.5.2",
+      "page": "120",
+      "title": "Fixed-Disparity Normal Equations",
+      "anchor": "subsection*.357"
+    },
+    "sec:ch2_sar_bridge": {
+      "number": "2.4",
+      "page": "49",
+      "title": "Outlook: Coupling Views Through a Shared Scene",
+      "anchor": "section*.144"
+    },
+    "sec:ch4_temporal_operator": {
+      "number": "4.4.1",
+      "page": "112",
+      "title": "Temporal Differential Operator",
+      "anchor": "section*.328"
+    },
+    "sec:cmax": {
+      "number": "3.5",
+      "page": "85",
+      "title": "Contrast Maximization: A Continuous-Warp Formulation",
+      "anchor": "section*.255"
+    },
+    "sec:conclusion": {
+      "number": "3.9",
+      "page": "105",
+      "title": "Synthesis and Limits",
+      "anchor": "section*.305"
+    },
+    "sec:conditioning": {
+      "number": "4.6.1",
+      "page": "139",
+      "title": "Spectral Conditioning of the Block System",
+      "anchor": "section*.415"
+    },
+    "sec:contribution_matrix": {
+      "number": "5.3",
+      "page": "156",
+      "title": "Summary of Theoretical Contributions",
+      "anchor": "section*.469"
+    },
+    "sec:evaluation_protocol": {
+      "number": "A.2.7",
+      "page": "178",
+      "title": "Experimental Evaluation Protocol",
+      "anchor": "subsection*.526"
+    },
+    "sec:experimental_validation": {
+      "number": "4.8",
+      "page": "150",
+      "title": "Experimental Validation",
+      "anchor": "section*.449"
+    },
+    "sec:experiments": {
+      "number": "3.8",
+      "page": "101",
+      "title": "Experimental Evidence and Model Limitations",
+      "anchor": "section*.299"
+    },
+    "sec:framework": {
+      "number": "3.3",
+      "page": "55",
+      "title": "Mathematical Framework and Function Spaces",
+      "anchor": "section*.160"
+    },
+    "sec:frequency_response": {
+      "number": "4.6.1",
+      "page": "144",
+      "title": "Temporal Frequency Response and Bandwidth",
+      "anchor": "section*.433"
+    },
+    "sec:identifiability": {
+      "number": "4.6.1",
+      "page": "143",
+      "title": "Identifiability of Disparity Estimation and the Aperture Problem",
+      "anchor": "section*.431"
+    },
+    "sec:jif_extensions": {
+      "number": "4.9",
+      "page": "151",
+      "title": "Extensions: The Joint Intensity Fusion (Synthetic Aperture) Formulation",
+      "anchor": "section*.450"
+    },
+    "sec:jif_negative_result": {
+      "number": "4.9.3",
+      "page": "153",
+      "title": "JIF Benchmark Result",
+      "anchor": "subsection*.458"
+    },
+    "sec:lr_consistency": {
+      "number": "4.7.2",
+      "page": "150",
+      "title": "Left--Right Consistency Check",
+      "anchor": "subsection*.447"
+    },
+    "sec:mc_accumulation": {
+      "number": "4.3.2",
+      "page": "108",
+      "title": "Motion-Compensated Event Accumulation",
+      "anchor": "subsection*.313"
+    },
+    "sec:normalization": {
+      "number": "4.3.3",
+      "page": "109",
+      "title": "Multiscale Downsampling and Normalization",
+      "anchor": "subsection*.315"
+    },
+    "sec:numerical": {
+      "number": "3.7",
+      "page": "96",
+      "title": "Numerical Solution",
+      "anchor": "section*.282"
+    },
+    "sec:pipeline_variants": {
+      "number": "4.3.3",
+      "page": "110",
+      "title": "Multiscale Downsampling and Normalization",
+      "anchor": "equation*.316"
+    },
+    "sec:post_processing": {
+      "number": "A.2.5",
+      "page": "178",
+      "title": "A Posteriori Refinement",
+      "anchor": "section*.523"
+    },
+    "sec:related_work": {
+      "number": "3.2",
+      "page": "53",
+      "title": "Related Work and Theoretical Positioning",
+      "anchor": "section*.156"
+    },
+    "sec:sgm_and_masking": {
+      "number": "4.7",
+      "page": "147",
+      "title": "Cost Aggregation and Rejection Rules",
+      "anchor": "section*.443"
+    },
+    "sec:solution": {
+      "number": "4.5",
+      "page": "115",
+      "title": "Solution via Discrete Disparity Search",
+      "anchor": "section*.337"
+    },
+    "sec:success_wls": {
+      "number": "A.2.8",
+      "page": "183",
+      "title": "The Heteroscedastic WLS Configuration",
+      "anchor": "section*.538"
+    },
+    "sec:thm_foundations": {
+      "number": "4.6.1",
+      "page": "125",
+      "title": "Theoretical Foundations",
+      "anchor": "subsection*.375"
+    },
+    "sec:unified_analysis": {
+      "number": "3.6",
+      "page": "93",
+      "title": "Unified Well-Posedness and Stability",
+      "anchor": "section*.271"
+    },
+    "sec:vox_cont_exclusion": {
+      "number": "3.4.3",
+      "page": "85",
+      "title": "Continuity-Equation Extension",
+      "anchor": "section*.253"
+    },
+    "sec:voxel_framework": {
+      "number": "3.4",
+      "page": "69",
+      "title": "Voxel-Based Spatiotemporal Constraints",
+      "anchor": "section*.214"
+    },
+    "subsec:anisotropic_regularization": {
+      "number": "3.4.3",
+      "page": "81",
+      "title": "Image-Adaptive Anisotropic Regularization",
+      "anchor": "subsection*.243"
+    },
+    "subsec:bumpsel": {
+      "number": "2.2.1",
+      "page": "9",
+      "title": "Bump Function Selection and Properties",
+      "anchor": "section*.23"
+    },
+    "subsec:cmax_energy": {
+      "number": "3.5.1",
+      "page": "86",
+      "title": "Continuous-Time Energy Functional",
+      "anchor": "subsection*.256"
+    },
+    "subsec:cmax_galerkin": {
+      "number": "3.5.2",
+      "page": "88",
+      "title": "Ritz-Galerkin B-Spline Discretization",
+      "anchor": "subsection*.261"
+    },
+    "subsec:cmax_update": {
+      "number": "3.5.3",
+      "page": "92",
+      "title": "Regularization Scaling and Gradient-Based Update",
+      "anchor": "subsection*.268"
+    },
+    "subsec:event_model": {
+      "number": "3.3.1",
+      "page": "55",
+      "title": "Event Generation Model",
+      "anchor": "subsection*.163"
+    },
+    "subsec:exp_protocol": {
+      "number": "2.3.1",
+      "page": "29",
+      "title": "Experimental Protocol",
+      "anchor": "subsection*.96"
+    },
+    "subsec:mvsec_outdoor": {
+      "number": "2.3.2",
+      "page": "33",
+      "title": "Dataset Evaluation",
+      "anchor": "section*.113"
+    },
+    "subsec:notation_table": {
+      "number": "2.1.1",
+      "page": "5",
+      "title": "Key Notation and Temporal Variables",
+      "anchor": "subsection*.13"
+    },
+    "subsec:optform": {
+      "number": "2.2.1",
+      "page": "16",
+      "title": "Optimization Formulation and Regularization",
+      "anchor": "section*.46"
+    },
+    "subsec:param_sensitivity": {
+      "number": "2.3.2",
+      "page": "33",
+      "title": "Parameter Sensitivity Analysis",
+      "anchor": "subsection*.112"
+    },
+    "subsec:theory": {
+      "number": "2.2.2",
+      "page": "21",
+      "title": "Foundations",
+      "anchor": "subsection*.60"
+    },
+    "subsec:time_surface": {
+      "number": "3.3.3",
+      "page": "57",
+      "title": "Time Surface Constraint",
+      "anchor": "subsection*.168"
+    },
+    "subsec:unified_framework": {
+      "number": "3.3.2",
+      "page": "56",
+      "title": "Unified Variational Framework",
+      "anchor": "subsection*.166"
+    },
+    "subsec:validation": {
+      "number": "2.3.3",
+      "page": "44",
+      "title": "Qualitative Demonstrations",
+      "anchor": "subsection*.132"
+    },
+    "subsec:validation_office": {
+      "number": "2.3.3",
+      "page": "44",
+      "title": "Office Scene Reconstruction",
+      "anchor": "section*.133"
+    },
+    "subsec:variational": {
+      "number": "3.3.4",
+      "page": "67",
+      "title": "Time-Surface Energy and Euler-Lagrange Equations",
+      "anchor": "subsection*.197"
+    },
+    "subsec:vibration_diag": {
+      "number": "2.3.4",
+      "page": "47",
+      "title": "Vibration Diagnostics via Spectral Analysis",
+      "anchor": "subsection*.139"
+    },
+    "subsec:vox_projection": {
+      "number": "3.4.1",
+      "page": "70",
+      "title": "Spatio-Temporal Linear Regression (2D Projection)",
+      "anchor": "subsection*.218"
+    },
+    "subsec:vox_struct": {
+      "number": "3.4.2",
+      "page": "76",
+      "title": "The Kinematic Plane (3D Structure Tensor)",
+      "anchor": "subsection*.230"
+    },
+    "subsec:voxel_failure_analysis": {
+      "number": "3.8.1",
+      "page": "102",
+      "title": "Non-Gaussian Pooled Residuals",
+      "anchor": "subsection*.303"
+    },
+    "subsubsec:bilevel_comparison": {
+      "number": "2.3.2",
+      "page": "40",
+      "title": "Bilevel Optimization Comparison",
+      "anchor": "section*.127"
+    },
+    "subsubsec:bump_selection": {
+      "number": "2.3.2",
+      "page": "34",
+      "title": "Bump Function Selection",
+      "anchor": "section*.114"
+    },
+    "subsubsec:datacube": {
+      "number": "2.3.1",
+      "page": "30",
+      "title": "Computational Implementation",
+      "anchor": "section*.102"
+    },
+    "subsubsec:datasets": {
+      "number": "2.3.1",
+      "page": "29",
+      "title": "Datasets and Acquisition Details",
+      "anchor": "section*.97"
+    },
+    "subsubsec:eventmodel": {
+      "number": "2.2.1",
+      "page": "13",
+      "title": "Event Model",
+      "anchor": "section*.38"
+    },
+    "subsubsec:lambda_comparison": {
+      "number": "2.3.2",
+      "page": "39",
+      "title": "Comparative Analysis of Lambda Methods",
+      "anchor": "section*.122"
+    },
+    "subsubsec:lambda_selection": {
+      "number": "2.3.2",
+      "page": "35",
+      "title": "Regularization Strategy Selection",
+      "anchor": "section*.119"
+    },
+    "subsubsec:lambdacal": {
+      "number": "2.3.2",
+      "page": "38",
+      "title": "Adaptive Methods",
+      "anchor": "section*.121"
+    },
+    "subsubsec:lambdamean": {
+      "number": "2.3.2",
+      "page": "35",
+      "title": "Physical Meaning of Regularization Parameter",
+      "anchor": "section*.120"
+    },
+    "subsubsec:metrics": {
+      "number": "2.3.1",
+      "page": "31",
+      "title": "Evaluation Metrics",
+      "anchor": "section*.107"
+    },
+    "subsubsec:ode": {
+      "number": "2.2.2",
+      "page": "21",
+      "title": "Continuous-Time ODE Connection",
+      "anchor": "section*.61"
+    },
+    "subsubsec:physical": {
+      "number": "2.2.2",
+      "page": "24",
+      "title": "Physical Connection to Luminosity",
+      "anchor": "section*.75"
+    },
+    "subsubsec:physical_assumptions": {
+      "number": "2.2.2",
+      "page": "23",
+      "title": "Standing Assumptions for the Physical Connection",
+      "anchor": "section*.70"
+    },
+    "tab:bilevel_comp_indoor": {
+      "number": "2.8",
+      "page": "43",
+      "title": "Method Performance on MVSEC Indoor Flying Sequences",
+      "anchor": "table.caption.128"
+    },
+    "tab:bilevel_comp_outdoor": {
+      "number": "2.9",
+      "page": "44",
+      "title": "Method Performance on MVSEC Outdoor Day Driving Sequences",
+      "anchor": "table.caption.129"
+    },
+    "tab:bump_avg_indoor": {
+      "number": "2.4",
+      "page": "35",
+      "title": "Bump-Function Performance on MVSEC Indoor Flying Sequences",
+      "anchor": "table.caption.115"
+    },
+    "tab:bump_avg_outdoor": {
+      "number": "2.5",
+      "page": "35",
+      "title": "Bump-Function Performance on MVSEC Outdoor Day Sequences",
+      "anchor": "table.caption.116"
+    },
+    "tab:ch4_parameters": {
+      "number": "A.1",
+      "page": "167",
+      "title": "Numerical Parameters for Stereo-Depth Experiments",
+      "anchor": "table.A.1"
+    },
+    "tab:comparison_extended": {
+      "number": "3.1",
+      "page": "86",
+      "title": "Classical and Event-Based Horn--Schunck Formulations",
+      "anchor": "table.caption.254"
+    },
+    "tab:contribution_matrix": {
+      "number": "5.1",
+      "page": "157",
+      "title": "Theorems, Assumptions, and Contributions by Chapter",
+      "anchor": "table.5.1"
+    },
+    "tab:lambda_indoor_avg": {
+      "number": "2.6",
+      "page": "40",
+      "title": "Regularization-Method Performance on MVSEC Indoor Flying Sequences",
+      "anchor": "table.caption.123"
+    },
+    "tab:lambda_outdoor_avg": {
+      "number": "2.7",
+      "page": "40",
+      "title": "Regularization-Method Performance on MVSEC Outdoor Day Sequences",
+      "anchor": "table.caption.124"
+    },
+    "tab:metrics": {
+      "number": "A.4",
+      "page": "187",
+      "title": "Depth-Estimation Evaluation Metrics",
+      "anchor": "table.caption.528"
+    },
+    "tab:metrics_summary": {
+      "number": "2.3",
+      "page": "32",
+      "title": "Evaluation Metrics for the Proposed Method",
+      "anchor": "table.caption.108"
+    },
+    "tab:notation": {
+      "number": "2.1",
+      "page": "6",
+      "title": "Temporal Notation and Key Quantities",
+      "anchor": "table.caption.14"
+    },
+    "tab:pipeline_variants": {
+      "number": "A.2",
+      "page": "170",
+      "title": "Stereo-Depth Preprocessing and Regularization Choices",
+      "anchor": "table.caption.500"
+    },
+    "tab:sota_logic": {
+      "number": "A.3",
+      "page": "186",
+      "title": "Comparison of Local Event-Based Stereo Algorithms",
+      "anchor": "table.caption.525"
+    },
+    "tab:stereo_notation": {
+      "number": "4.1",
+      "page": "107",
+      "title": "Stereo Notation and Key Quantities",
+      "anchor": "table.caption.309"
+    },
+    "tab:support_widths": {
+      "number": "2.2",
+      "page": "12",
+      "title": "Support Intervals for Kernel Functions",
+      "anchor": "table.caption.36"
+    },
+    "tab:unified_benchmark": {
+      "number": "A.5",
+      "page": "188",
+      "title": "MVSEC Indoor Flying: Quantitative Stereo-Depth Comparison",
+      "anchor": "table.caption.532"
+    },
+    "thm:conditioning": {
+      "number": "4.6.16",
+      "page": "139",
+      "title": "Condition Number Bounds",
+      "anchor": "theorem.419"
+    },
+    "thm:convergence": {
+      "number": "3.7.1",
+      "page": "97",
+      "title": "Convergence of Iterations",
+      "anchor": "theorem.288"
+    },
+    "thm:convexity": {
+      "number": "4.6.11",
+      "page": "135",
+      "title": "Strict Convexity for Fixed Disparity",
+      "anchor": "theorem.406"
+    },
+    "thm:euler_lagrange": {
+      "number": "3.3.9",
+      "page": "67",
+      "title": "Euler-Lagrange Equations",
+      "anchor": "theorem.200"
+    },
+    "thm:euler_lagrange_aniso": {
+      "number": "3.4.7",
+      "page": "83",
+      "title": "Anisotropic Euler-Lagrange Equations",
+      "anchor": "theorem.248"
+    },
+    "thm:euler_lagrange_tensor": {
+      "number": "3.4.3",
+      "page": "77",
+      "title": "Euler-Lagrange Equations for the 3D structure tensor",
+      "anchor": "theorem.234"
+    },
+    "thm:euler_lagrange_vox_projection": {
+      "number": "3.4.2",
+      "page": "75",
+      "title": "Euler-Lagrange Equations for voxel projection",
+      "anchor": "theorem.227"
+    },
+    "thm:frequency_response": {
+      "number": "4.6.21",
+      "page": "144",
+      "title": "Frequency Response Characterization",
+      "anchor": "theorem.434"
+    },
+    "thm:unified_wellposedness": {
+      "number": "3.6.1",
+      "page": "93",
+      "title": "Quadratic variational well-posedness and stability",
+      "anchor": "theorem.272"
+    },
+    "thm:uniqueness": {
+      "number": "2.2.5",
+      "page": "17",
+      "title": "Uniqueness and Stability",
+      "anchor": "theorem.50"
+    },
+    "thm:weighted_spd": {
+      "number": "4.6.3",
+      "page": "129",
+      "title": "Weighted Block Matrix SPD",
+      "anchor": "theorem.388"
+    }
+  }
+}

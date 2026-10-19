@@ -17,7 +17,8 @@
 \vspace{3mm}
 \large What determines the answer when the observations leave part of the unknown free?
 \takeaway{A mathematically unique estimate can still depend on assumptions the sensor cannot verify.}
-\src{Chs. 1 and 5; Ch. 2, event-only comparison.}
+% source detail: Chs. 1 and 5; Ch. 2, event-only comparison.
+\src{\dref{Chapter}{ch:monocular_reconstruction}, event-only reconstruction examples.}
 \talknote{Motivation; 45 seconds.}{These are a reference image and an event-only reconstruction from the dissertation's outdoor comparison. The reconstruction is a displayed event-derived state, not a recovery of calibrated absolute brightness. Use the image pair to introduce the inverse problem, rather than claim pixel-perfect reconstruction.}{Say: the sensor gives very precise temporal changes, but discards a baseline. The dissertation asks which quantities can be recovered, which are selected by a penalty, and what guarantees survive spatial or binocular coupling.}
 \end{frame}
 
@@ -33,7 +34,8 @@
 \vspace{3mm}
 \small Reconstruction is the main focus, followed by the flow theorem and a brief stereo summary.
 \takeaway{The common question: what do the observations determine, and what does the model supply?}
-\src{Chs. 1 and 5; Ch. 5, tab:contribution\_matrix.}
+% source detail: Chs. 1 and 5; Ch. 5, tab:contribution\_matrix.
+\src{\dref{Table}{tab:contribution_matrix}.}
 \talknote{Upfront route; about 45 seconds.}{First introduce what the sensor reports and how we represent those observations. Spend most of the talk on reconstructing an image over time from changes. Then develop the main optical-flow theorem, give a brief stereo-depth summary, and finish with the contributions and next questions.}{The same question links these stages: what do the observations determine, and what does the model supply? The footer tracks our position along this route. Start with the sensor itself: each pixel reports its own changes.}
 \end{frame}
 
@@ -64,7 +66,8 @@
 \end{columns}
 \takeaway{The contribution is the event-derived models and their precise guarantees: what the data determine and what regularization supplies.}
 % source: Antil, Blauvelt, and Sayre, Dynamic reconstruction from neuromorphic data, 2026; doi:10.3934/fods.2026017.
-\src{Chs. 2--3 related work; linked papers. Temporal publication: Antil, Blauvelt, and Sayre (2026).}
+% source detail: Chs. 2--3 related work; linked papers. Temporal publication: Antil, Blauvelt, and Sayre (2026).
+\src{\dref{Chapter}{ch:monocular_reconstruction} and \dref{Section}{sec:related_work}; linked papers. Temporal publication: Antil, Blauvelt, and Sayre (2026).}
 \talknote{Positioning; about 90 seconds.}{For image reconstruction, Rebecq and colleagues use a recurrent neural network trained on simulated events. Zhang, Yezzi, and Gallego use optical flow to formulate a linear image inverse problem, with classical or learned image regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates event-threshold parameters. Our published temporal work reconstructs each pixel independently from event increments. I develop the temporal kernel representation and activity-based penalties, then analyze the fixed quadratic solve: what the observations determine, how regularization selects a baseline, and how perturbations affect the solution.}{For flow, the starting points are Horn and Schunck's data-plus-smoothness formulation and Benosman and colleagues' event-timestamp geometry. I formulate the time-surface, voxel-projection, and structure-tensor models in a common quadratic family and identify conditions that give existence, uniqueness, and stability. Classical variational flow already has well-posedness theory, including Weickert and Schn\"orr's framework; this dissertation supplies the event-derived coefficient constructions and their explicit identifiability and perturbation hypotheses. Begin the models by explaining what the sensor actually reports.}
 \end{frame}
 
@@ -97,7 +100,8 @@
 \item Under steady illumination, motion makes events trace boundaries; illumination changes can also trigger events.
 \end{itemize}
 \takeaway{The sensor trades absolute brightness for precise timing of changes; each estimator supplies what the changes leave free.}
-\src{Ch. 1; Ch. 2, Neuromorphic Cameras overview. Diagram is schematic.}
+% source detail: Ch. 1; Ch. 2, Neuromorphic Cameras overview. Diagram is schematic.
+\src{\dref{Chapter}{ch:monocular_reconstruction}, neuromorphic camera overview; Gallego et al.\ (2022). Diagram is schematic.}
 \talknote{Accessibility primer; about two minutes. Assume no event-camera background.}{Point to the left panel: a conventional camera samples every pixel at the same frame times, whether or not anything changes, and averages over its exposure. Point to the right panel: the same moving bright bar produces a brightening event when its leading edge reaches a pixel and a darkening event when its trailing edge leaves. This is why event displays often look like moving outlines: a boundary passing across a pixel changes its brightness, while a uniform region undergoing the same translation produces little activity. The sensor responds to temporal brightness change; illumination changes can also trigger events. The survey figures quoted on the slide are the standard sensor-class numbers from Gallego et al.\ (TPAMI 2022), not measurements made in this dissertation.}{Give the committee the one idea the whole talk uses: events record when the log-brightness at a pixel changed by a fixed amount, so the data determine changes and leave the starting brightness free. Then turn to the next slide for the exact threshold rule. If asked about hardware: the dissertation's MVSEC, office, and cup data come from DAVIS346 sensors, and the orbital data from the Falcon Neuro instrument on the ISS.}
 \end{frame}
 
@@ -122,7 +126,8 @@ For the ideal threshold model,
 The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 \end{columns}
 \takeaway{Events record changes. Adding a constant to a pixel's log-intensity leaves its events unchanged.}
-\src{Ch. 2, eq:polarity; Ch. 3, eq:event\_integral. Diagram is schematic.}
+% source detail: Ch. 2, eq:polarity; Ch. 3, eq:event\_integral. Diagram is schematic.
+\src{\dref{Eq.}{eq:polarity}; \dref{Eq.}{eq:event_integral}. Diagram is schematic.}
 \talknote{Sensor primer; 90 seconds.}{Follow the solid curve. A positive event is emitted after an upward change of one threshold from the most recent reset; a negative event follows a downward change. Different pixels have independent reset times, so the observation times are asynchronous. Neuromorphic here refers to the change-triggered sensing architecture; these estimators do not require a neural network.}{The equality is an ideal noiseless threshold model. Real threshold uncertainty, missed events, refractory effects, and overshoot create discrepancies. The diagram is conceptual, with arbitrary axes and no claim about measured latency. A stationary bright pixel can produce no events: zero activity is not zero intensity.}
 \end{frame}
 
@@ -141,7 +146,8 @@ The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 \vspace{1mm}
 {\footnotesize Data: $e_k=(x_k,y_k,s_k,p_k)$, pixel location, time, and sign. MVSEC [Zhu et al.\ 2018] supplies a stereo pair of $346\times260$ event cameras on a quadcopter and a car, with reference frames and lidar-derived depth.}
 \takeaway{Each target leaves a different quantity free: a brightness baseline, motion along an edge, and which pixels correspond.}
-\src{Ch. 2, f:office and subsubsec:datasets; Ch. 3, fig:ch3\_quiver\_v2e (ground-truth panel); App., fig:all\_method\_comparison\_indoor3 (ground-truth depth panel).}
+% source detail: Ch. 2, f:office and subsubsec:datasets; Ch. 3, fig:ch3\_quiver\_v2e (ground-truth panel); App., fig:all\_method\_comparison\_indoor3 (ground-truth depth panel).
+\src{\dref{Figure}{f:office}; \dref{Figure}{fig:ch3_quiver_v2e} (ground-truth flow); \dref{Figure}{fig:all_method_comparison_indoor3} (ground-truth depth).}
 \talknote{Accessibility primer; 90 seconds. Show the outputs before any notation.}{Left: an image reconstructed from events alone with the Chapter 2 method (office sequence, about 2.5 million events, sigmoid weights). Middle: the ground-truth arrows of the known-motion simulation used in Chapter 3; flow means apparent velocity in the image plane, in pixels per unit time. Right: lidar-derived ground-truth depth for MVSEC indoor flying 3, which Chapter 4 estimates from two event cameras. The middle and right panels are targets, not our estimates; say so explicitly.}{Use the three panels to make the outlined route concrete: what is free in each problem and what the model adds to make the estimate unique. The talk covers Chapter 2 in depth, the main Chapter 3 theorem with its proof, and a brief Chapter 4 summary.}
 \end{frame}
 
@@ -160,7 +166,8 @@ The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 \item Stereo accumulation yields paired temporal event-feature observations.
 \end{itemize}
 \takeaway{The representation supplies usable coefficients and introduces modeling choices.}
-\src{Ch. 1; Ch. 2, eq:exy--eq:Exy; Ch. 3, sec:framework; Ch. 4, sec:normalization.}
+% source detail: Ch. 1; Ch. 2, eq:exy--eq:Exy; Ch. 3, sec:framework; Ch. 4, sec:normalization.
+\src{\dref{Eq.}{eq:exy}--\dref{Eq.}{eq:Exy}; \dref{Section}{sec:framework}; \dref{Section}{sec:normalization}.}
 \talknote{Representations; 60 seconds.}{A finite signed atomic measure has no ordinary density that can simply be differentiated and squared in an integral energy. Convolution, interpolation, and binning produce the quantities the models use. Raw events do have distributional derivatives; the issue is that the proposed squared pointwise residuals cannot be formed directly from them.}{Distinguish physical intensity I, log-intensity L, event activity, and latent state f. In Chapter 2, f approximates threshold-scaled log-intensity changes; in Chapter 4, preprocessing makes f an uncalibrated event-feature profile. This distinction prevents a physical interpretation from being silently transferred between chapters.}
 \end{frame}
 
@@ -181,7 +188,8 @@ The reconstruction times $t_i$ are chosen by the algorithm.
 Events determine increments, leaving a constant free.
 \end{columns}
 \takeaway{Kernel width controls temporal averaging; a baseline requires an additional choice.}
-\src{Ch. 2, eq:exy, eq:Exy, eq:tempdiffA, lem:nullspace.}
+% source detail: Ch. 2, eq:exy, eq:Exy, eq:tempdiffA, lem:nullspace.
+\src{\dref{Eq.}{eq:Exy}, \dref{Eq.}{eq:tempdiffA}, and \dref{Lemma}{lem:nullspace}.}
 \talknote{Temporal observation model; 75 seconds.}{Suppress the pixel index to keep the notation readable. Integrating a unit-mass kernel across a bin assigns all or part of each event to that bin. Delta binning has no spread; Gaussian, rectangular, and spline kernels distribute influence over time. The entries of A are unscaled increments, not derivatives divided by a time step.}{If Af=0, every consecutive pair of components is equal, hence f is constant. Conversely A1=0. Under ideal threshold calibration the observed increments approximate changes in L/c\_th, with kernel-boundary, overshoot, and between-event endpoint errors. No absolute frame is used to set the baseline.}
 \end{frame}
 
@@ -207,7 +215,8 @@ Each event splits its sign $p_k$ across the bins it overlaps:
 when every support lies inside $[t_0,t_N]$.
 \end{columns}
 \takeaway{Kernel width trades suppression of timing noise against blurring of rapid changes. The operator $\A$ is the same for every kernel.}
-\src{Ch. 2, subsec:bumpsel, prop:l1\_bump\_properties, prop:dist\_bump\_properties, tab:support\_widths.}
+% source detail: Ch. 2, subsec:bumpsel, prop:l1\_bump\_properties, prop:dist\_bump\_properties, tab:support\_widths.
+\src{\dref{Proposition}{prop:l1_bump_properties}, \dref{Proposition}{prop:dist_bump_properties}; \dref{Table}{tab:support_widths}.}
 \talknote{Kernel choice; 75 seconds.}{The four kernels are the ones evaluated in Chapter 2: delta (binning), truncated and renormalized Gaussian, B-spline, and rectangular. Unit mass means each event contributes exactly its sign in total; translation invariance means the bin integrals are a convolution; compact support means each event touches finitely many bins. The sum identity is exact: summing the bin integrals telescopes to the integral over the whole window, which is one when the event's full support lies in the window.}{The plotted widths are matched for display only; the evaluated parameters differ by kernel (Ch.\ 2 bump sweep). If asked which kernel is best: the indoor and outdoor rankings differ (discussion page on kernel performance), and the uniqueness theorem holds for every kernel because it depends only on $\A$ and positive weights. Transition: the kernels also give a continuous-time interpretation of the model.}
 \end{frame}
 
@@ -221,7 +230,8 @@ when every support lies inside $[t_0,t_N]$.
 \item The events fix every jump of $g$; the initial value $f_0$ stays free.
 \end{itemize}
 \takeaway{The free initial value is the continuous form of $\ker\A=\operatorname{span}\{\mathbf1\}$. The regularizer supplies it.}
-\src{Ch. 2, subsubsec:ode, eq:difference\_quotient, eq:ivp, eq:ivp\_integrated.}
+% source detail: Ch. 2, subsubsec:ode, eq:difference\_quotient, eq:ivp, eq:ivp\_integrated.
+\src{\dref{Eq.}{eq:ivp} and \dref{Eq.}{eq:ivp_integrated}; continuous-time formulation (\drefpage{subsubsec:ode}).}
 \talknote{Continuous-time connection; 90 seconds.}{Mollify each event at scale h; the integrated signal is a smooth staircase that converges in L1 to a pure jump function as h goes to zero. Its distributional derivative is the signed event measure, so the cumulative signal solves a measure-valued initial-value problem. Integrating over a reconstruction bin recovers exactly the observed net polarity, which is what the rows of A f approximately match.}{The cumulative signal g is the unregularized event integral: it is neither the physical log-intensity, which needs an absolute reference, nor the Tikhonov minimizer. A jump function with a nonzero jump is in BV but not in H1, which is why the method works with integrated bins rather than pointwise derivatives of raw events. The measure-valued limit is also on the discussion page on the jump primitive. Transition: since the data fix only increments, a penalty must choose the level, which is the next theorem.}
 \end{frame}
 
@@ -240,7 +250,8 @@ The unique minimizer solves the normal equations:
 % source: Direct consequence of Ch. 2 thm:uniqueness normal equations and A1=0; supplementary identity.
 The selected baseline satisfies $\mathbf1^\top\Lam^2\mathbf f^*=0$.
 \takeaway{The penalty chooses an unobserved baseline and also changes observable increments.}
-\src{Ch. 2, eq:in, thm:uniqueness; monocular reconstruction implementation, per-pixel linear solves.}
+% source detail: Ch. 2, eq:in, thm:uniqueness; monocular reconstruction implementation, per-pixel linear solves.
+\src{\dref{Eq.}{eq:in}, \dref{Theorem}{thm:uniqueness}; monocular reconstruction implementation, per-pixel linear solves.}
 \talknote{Model, computation, and theorem; about 90 seconds.}{The objective balances fidelity to observed changes against weighted magnitude. For one pixel, differentiate the quadratic to obtain $\K_{\rm time}\mathbf f=\A^\top\mathbf y$. Form that pixel's matrix and right-hand side, solve the linear system numerically, and retain the resulting temporal profile. The implementation parallelizes these independent pixel solves and assembles the profiles into reconstructed frames. Its MATLAB routines use matrix left division inside a parallel pixel loop. Strictly positive fixed weights make $\K_{\rm time}$ positive definite and select one global minimizer.}{Premultiply the normal equations by the constant vector and use A times one equals zero to obtain the weighted zero-mean identity. The magnitude penalty selects the baseline while also changing fitted increments. Under a fixed Gaussian observation model with unit covariance and latent prior precision Lambda transpose Lambda, the same minimizer is the MAP estimate. That interpretation uses fixed positive weights; data-derived weights give a plug-in fixed-weight model. With scalar regularization tending to zero, the solution tends to the minimum-norm exact fit, which sets the constant null mode to zero.}
 \end{frame}
 
@@ -253,7 +264,8 @@ At the same fixed weights,
 % source: Ch. 2 thm:uniqueness and prop:stability; analytic mixed-norm bound ||A||_2 <= 2.
 \[\norm{\A}_2\le2,\qquad \kappa_2(\K_{\rm time})\le\frac{4+\lambda_{\max}^2}{\lambda_{\min}^2}.\]
 \takeaway{Coercivity gives a stable estimate; weakening the penalty weakens these full-space bounds.}
-\src{Ch. 2, thm:uniqueness, prop:stability.}
+% source detail: Ch. 2, thm:uniqueness, prop:stability.
+\src{\dref{Theorem}{thm:uniqueness}, \dref{Proposition}{prop:stability}.}
 % source: direct sharper operator bound from Ch. 2 normal equations and Lambda^2 >= lambda_min^2 I.
 \talknote{Proof; 90 seconds.}{Walk through the quadratic form. Both terms are nonnegative, and the strictly positive diagonal penalty supplies a lower bound in every direction. Finite-dimensional coercivity gives existence; the positive-definite Hessian gives uniqueness. Subtracting the two normal equations gives the exact perturbation identity.}{The displayed full-space bound uses $\norm{\K^{-1}}_2\le\lambda_{\min}^{-2}$. A sharper operator bound is $\norm{\K^{-1}\A^\top}_2\le1/(2\lambda_{\min})$: from $\A^\top\A\preceq\K-\lambda_{\min}^2I$, the squared singular-value bound is at most $\max_{t\ge\lambda_{\min}^2}(1/t-\lambda_{\min}^2/t^2)=1/(4\lambda_{\min}^2)$. The displayed estimate is a worst-case bound; the reported condition numbers describe the evaluated configurations.}
 \end{frame}
@@ -276,7 +288,8 @@ The baseline is removed.\par\medskip
 Low temporal modes are attenuated most.\par\medskip
 A unique estimate does not restore the missing physical baseline.
 \end{columns}
-\src{Ch. 4, lem:A\_spectrum, thm:frequency\_response. Curves: continuous extension.}
+% source detail: Ch. 4, lem:A\_spectrum, thm:frequency\_response. Curves: continuous extension.
+\src{\dref{Lemma}{lem:A_spectrum}, \dref{Theorem}{thm:frequency_response}. Curves: continuous extension.}
 \talknote{Spectral interpretation; 75 seconds.}{The first-difference Gramian is the Neumann-chain Laplacian. Its constant eigenvector has eigenvalue zero. Expanding a noiseless latent signal in the eigenbasis turns reconstruction into multiplication by g/(g+lambda\textasciicircum{}2). These are latent-signal gains; the gain from noise in the difference observations is a different expression in the backup.}{The spectral decomposition is proved in Chapter 4 and reused here for stereo. The plotted smooth curves interpolate the finite-chain modal gains. Only omega\_k=pi k/n are exact finite-grid modes. This magnitude penalty attenuates low temporal frequencies most, whereas the temporal kernels may average rapid changes.}
 \end{frame}
 
@@ -293,7 +306,8 @@ Reported outdoor CN & 29.60 & 81.50 & 100.74\\\bottomrule
 \par\smallskip
 \small Chosen empirically to balance image fidelity and conditioning.
 \takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
-\src{Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.}
+% source detail: Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.
+\src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}.}
 \talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; this direct identity does not establish a full adaptive stability theorem.}
 \end{frame}
 
@@ -316,7 +330,8 @@ Gaussian & 8.84 & 20.22\\\bottomrule
 \end{tabular}
 \end{columns}
 \takeaway{Kernel and adaptive-weight choices affect both the reconstruction and the solved system.}
-\src{Ch. 2, tab:bump\_avg\_indoor; monocular reconstruction evaluation gallery, indoor flying 4, frame 061.}
+% source detail: Ch. 2, tab:bump\_avg\_indoor; monocular reconstruction evaluation gallery, indoor flying 4, frame 061.
+\src{\dref{Table}{tab:bump_avg_indoor}; monocular reconstruction evaluation gallery, indoor flying 4, frame 061.}
 % source: Ch. 2 tab:bump_avg_indoor; monocular-reconstruction-manuscript/figures/reconstruction_evaluation, matched indoor flying 4 frame061 pair.
 \talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 4 reference and event-only reconstruction with sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give similar PSNR and much lower CN than Delta in this indoor comparison.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
 \end{frame}
@@ -341,7 +356,8 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \par\smallskip
 {\small PSNR: reference-image similarity (dB). CN: condition number.}
 \takeaway{Frame information and a different optimization problem change the comparison.}
-\src{Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor.}
+% source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor.
+\src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3).}
 \talknote{Relationship and comparison; 90 seconds.}{In Antil--Sayre, the outer variable is event threshold parameter $z$, not a learned regularization weight. Their problems are $u(z)=\arg\min_u\frac12\|Au-b(z)\|^2+\frac{\lambda_2}{2}\|u\|^2$ and $\min_z\frac12\|u(z)+g(z)-d\|^2+\frac{\lambda_1}{2}\|z\|^2$, with $d$ log frames, $g$ an event-dependent exposure term, and $b=A[d-g(z)]$. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{The table reproduces the dissertation's indoor and outdoor averages: PSNR/CN are 15.37/39755 versus 10.85/25.51 indoors, and 8.41/39755 versus 8.71/27.10 outdoors, for bilevel versus event-only. The methods receive different inputs, including absolute intensity frames for the comparator, so this is descriptive rather than controlled evidence of superiority. The paper analyzes existence and conditional local uniqueness for its bilevel problem; our theorem establishes strict convexity and uniqueness for each fixed positive $\Lam$. These guarantees and the lambda coefficients have different roles.}
 \end{frame}
 
@@ -365,7 +381,8 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 {\footnotesize\textbf{ISS} (Falcon Neuro); $\approx2$M events}
 \end{columns}
 \takeaway{One per-pixel fixed-weight solve, with sigmoid weights and no intensity frames, recovers structure across very different time scales.}
-\src{Ch. 2, subsec:validation, f:office, f:cup, f:iss; datasets in subsubsec:datasets.}
+% source detail: Ch. 2, subsec:validation, f:office, f:cup, f:iss; datasets in subsubsec:datasets.
+\src{\dref{Figure}{f:office}, \dref{Figure}{f:cup}, and \dref{Figure}{f:iss}; \dref{Section}{subsec:validation}.}
 \talknote{Qualitative real-data results; 90 seconds.}{Office: a handheld DAVIS346 in an office; the desk objects and the person are recognizable. Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur. ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse. Bottom row of the second and third columns is a false-color display of the same reconstruction.}{These are qualitative demonstrations; the quantitative MVSEC comparison is on the preceding pages. Grayscale and false color are display choices, so do not describe them as calibrated brightness. If asked why the results look like edge-enhanced images: low temporal modes are attenuated most (spectral slide), and the baseline is selected by the penalty, so the reconstruction emphasizes changes. Transition: the next slide lifts these per-pixel constraints to a scene that moves relative to the camera.}
 \end{frame}
 
@@ -380,7 +397,8 @@ With an unsquared coefficient $\lambda>0$,
 \[\left(B_{\rm SAR}^\top B_{\rm SAR}+\lambda I\right)\widehat\theta
 =B_{\rm SAR}^\top b.\]
 \takeaway{Motion links per-frame changes to a shared scene while retaining motion-invariant scene modes.}
-\src{Ch. 2, prop:ch2\_sar\_solvability.}
+% source detail: Ch. 2, prop:ch2\_sar\_solvability.
+\src{\dref{Proposition}{prop:ch2_sar_solvability}.}
 \talknote{Shared-scene temporal model; 75 seconds.}{Here $\theta$ contains static scene values only. The projections $P_k$ encode fixed, known motion and map that scene to each frame; $A$ differences the profiles. The nullspace contains parameters whose projected profiles agree across frames. Constants are included because each projection is row-normalized; other invariant scene modes may also occur. This resembles flow's aperture ambiguity in that observations leave directions uncontrolled, but proves no motion ambiguity for SAR.}{Here lambda is the unsquared ridge coefficient in the normal equations. For this fixed-motion linear model, the stability estimate is $\norm{\delta\theta}\le\norm{B_{\rm SAR}}\norm{\delta b}/\lambda$. The theorem does not say every SAR nullspace is strictly larger than constants; that depends on P.}
 \end{frame}
 
@@ -409,7 +427,8 @@ With an unsquared coefficient $\lambda>0$,
 \href{https://cdn.sinauer.com/wolfe4e/ch/08/act0802/app6-show.gif}{\scriptsize\textcolor{teal}{Movie 6 source (GIF)}}
 \end{columns}
 \takeaway{An edge reveals perpendicular (normal) speed; motion along it (tangent) stays free. More observed directions can constrain the full velocity.}
-\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Perceptual illustration: Wolfe et al., \emph{Sensation and Perception}, 4th ed., Sinauer \textcopyright\ 2015. \href{https://cdn.sinauer.com/wolfe4e/wa08.02.html\#Aperture}{\textcolor{teal}{Activity 8.2, Movies 5--6}}.\par Dissertation: Ch. 3, prop:time\_surface and following aperture remark.\par}
+% source detail: Ch. 3, prop:time_surface and following aperture remark.
+\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Perceptual illustration: Wolfe et al., \emph{Sensation and Perception}, 4th ed., Sinauer \textcopyright\ 2015. \href{https://cdn.sinauer.com/wolfe4e/wa08.02.html\#Aperture}{\textcolor{teal}{Activity 8.2, Movies 5--6}}.\par Dissertation: \dref{Proposition}{prop:time_surface} and the following aperture discussion.\par}
 \talknote{Define the aperture problem visually; about 90 seconds.}{Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free. These publisher animations illustrate motion perception. They are conceptual demonstrations, rather than measured event-camera data.}{The two animations are embedded on this slide. Play the masked panel first using its forward-play control, then play the revealed panel; each loops at the original rate. First-frame posters preserve the visual comparison in static viewers and print. Use a PDF viewer with animation support and JavaScript enabled, as documented with the assets. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next derive the crossing-time constraint that expresses this ambiguity mathematically.}
 \end{frame}
 
@@ -423,7 +442,8 @@ If the edge translates with constant $\dot{\mathbf x}=\vct$, then
 The edge crosses each location once, has nonzero normal speed, and its recorded timestamp equals a differentiable crossing-time map.
 \end{block}
 \takeaway{Interpolation, stale timestamps, and repeated crossings make this an approximate data constraint.}
-\src{Ch. 3, prop:time\_surface; def:time\_surface.}
+% source detail: Ch. 3, prop:time\_surface; def:time\_surface.
+\src{\dref{Proposition}{prop:time_surface}; \dref{Definition}{def:time_surface}.}
 \talknote{Geometric derivation; 60 seconds.}{This chain-rule argument is accessible without any sensor-specific machinery. Follow a material point on the translating edge and differentiate the identity saying it stays on the zero level set.}{The coefficient bounds used later apply to fitted or mollified maps. The timestamp-regression result assumes a differentiable crossing-time map with Lipschitz Hessian, but raw last-timestamp maps do not automatically satisfy those assumptions. A timestamp may belong to an old edge or multiple crossings; the variational theorem bounds usable coefficient perturbations under uniform identifiability.}
 \end{frame}
 
@@ -434,7 +454,8 @@ If $V_t+\vct\cdot\nabla V=0$ with constant velocity over the window,
 \[a_s+\vct\cdot\nabla a=0,\qquad a_s=V(\mathbf x,s+T)-V(\mathbf x,s).\]
 The voxel-projection residual is $\nabla a\cdot\vct+a_s$.
 \takeaway{Activity is a count-derived field. Treating it as transported is an additional modeling assumption.}
-\src{Ch. 3, subsec:vox\_projection; derivative-operator qualifications.}
+% source detail: Ch. 3, subsec:vox\_projection; derivative-operator qualifications.
+\src{\dref{Section}{subsec:vox_projection}; derivative-operator qualifications.}
 \talknote{Voxel model; 75 seconds.}{A voxel grid adds a time axis to the image plane and stores represented event contributions in time bins. The activity field is not an intensity image: a bright stationary scene can have zero activity. For an exactly transported density with constant velocity, integrate the PDE over the sliding window; this gives the displayed transport identity exactly, even for a large displacement.}{Finite temporal projection changes the profile by averaging its translates. The evaluated spatial bin mean and temporal OLS slope need not be derivative-consistent partners, and asymmetric smoothing can add mismatch. The well-posedness theorem only needs fixed bounded coefficient fields; an accurate physical-velocity interpretation also needs the transport approximation.}
 \end{frame}
 
@@ -450,7 +471,8 @@ Use the local residual energy
 \item Pooling nonparallel spatial gradients can make $\widetilde{\mathbf J}$ full rank.
 \end{itemize}
 \takeaway{Pooling can identify both components locally; the global theorem needs only integrated identifiability.}
-\src{Ch. 3, subsec:vox\_struct, prop:vox\_tensor\_wellposed.}
+% source detail: Ch. 3, subsec:vox\_struct, prop:vox\_tensor\_wellposed.
+\src{\dref{Section}{subsec:vox_struct}, \dref{Proposition}{prop:vox_tensor_wellposed}.}
 \talknote{Structure tensor; 75 seconds.}{Expand the quadratic: v\textasciicircum{}T Jtilde v + 2 j\_t\textasciicircum{}T v + J\_tt. The last term is independent of velocity, so the spatial block is the data curvature and the temporal cross terms give the forcing. The temporal component of v\_3 is fixed to one; this is an ordinary least-squares transport model, not a total-least-squares eigenvector model.}{Nonnegative pooling preserves positive semidefiniteness, since z\textasciicircum{}T J z is an integral of nonnegative squared directional derivatives. A locally planar event surface is a model assumption, and smoothing scale limits temporal detail. The theorem will not require every pixel's spatial block to be positive definite.}
 \end{frame}
 
@@ -465,7 +487,8 @@ Voxel projection & $\nabla a\nabla a^\top$ & $-a_s\nabla a$\\
 Structure tensor & $\widetilde{\mathbf J}$ & $-\mathbf j_t$\\\bottomrule
 \end{tabular}
 \takeaway{The representations change the coefficients; the analysis can be proved once.}
-\src{Ch. 3, thm:unified\_wellposedness and its three corollaries.}
+% source detail: Ch. 3, thm:unified\_wellposedness and its three corollaries.
+\src{\dref{Theorem}{thm:unified_wellposedness} and its three corollaries.}
 \talknote{Unification; 60 seconds.}{The energies agree with the representation-specific residual energies up to an overall positive factor and a constant independent of flow. The common space is H\textasciicircum{}1(Omega; R\textasciicircum{}2), and the Dirichlet term couples neighboring velocities.}{The notation B here is A\_data in the dissertation, and alpha is alpha\_smooth. The change avoids using A for two different operators on consecutive chapters. The common analysis is about fixed coefficients. A good mathematical estimator can still encode a poor representation of physical motion.}
 \end{frame}
 
@@ -480,7 +503,8 @@ Then $E_{\B,b}$ has a unique minimizer in $H^1(\Omega;\R^2)$.
 \vspace{2mm}
 The integrated matrix must identify \textbf{every constant velocity direction}.
 \takeaway{$\B$ may vanish on open regions; integrated directional information and smoothness still give a unique estimate.}
-\src{Ch. 3, thm:unified\_wellposedness, eq:integrated\_identifiability.}
+% source detail: Ch. 3, thm:unified\_wellposedness, eq:integrated\_identifiability.
+\src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:integrated_identifiability}.}
 \talknote{Central theorem; 90 seconds.}{Classical quadratic optical flow already has well-posedness theory, including Weickert and Schn\"orr. The contribution here is one analysis for three event-derived coefficient constructions, with explicit identifiability and perturbation hypotheses. Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise.}
 \end{frame}
 
@@ -496,7 +520,8 @@ Therefore the bilinear form satisfies
 \ge c_0\norm{\vct}_{H^1}^2,\qquad
 c_0=c_0(\Omega,\alpha,\beta_B,m).\]
 \takeaway{Poincar\'e controls fluctuations, data control the mean, and Lax--Milgram supplies the unique weak solution.}
-\src{Ch. 3, proof of thm:unified\_wellposedness.}
+% source detail: Ch. 3, proof of thm:unified\_wellposedness.
+\src{proof of \dref{Theorem}{thm:unified_wellposedness}.}
 \talknote{Main proof; 2 minutes.}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part. Poincar\'e controls the latter. Use $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$, square with the factor-two inequality, and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$. Positive definiteness of the integrated matrix controls the mean.}{An admissible lower bound, not an optimal constant, is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$. Insert it into $\norm{\vct}_{H^1}^2=|\Omega||\bar{\vct}|^2+\norm{\mathbf w}_{L^2}^2+\norm{\nabla\vct}_{L^2}^2$. Lax--Milgram gives the unique minimizer. For fixed positive $\beta_B,\alpha$, this lower bound deteriorates linearly as $m$ decreases.}
 \end{frame}
 
@@ -512,7 +537,8 @@ Hence
 \[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
 +c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
 \takeaway{The estimator is Lipschitz in its coefficients while identifiability remains uniformly positive.}
-\src{Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.}
+% source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
+\src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
 \talknote{Stability proof; 75 seconds.}{The same coercivity constant works on both coefficient pairs because the quantitative bounds are shared. Subtract their weak equations and test with the solution difference. Cauchy--Schwarz controls the right side, and $\norm{\vct_2^*}_{H^1}\le R_b/c_0$ follows from its own weak equation. Divide by $\norm{\mathbf z}_{H^1}$ if it is nonzero.}{The conclusion is stability of the chosen estimator, not an error bound to ground-truth velocity. The estimate may become poor as $m\to0$. If a density-dependent diffusion tensor is recomputed, the regularizer also changes; its $L^\infty$ perturbation must enter the bound.}
 \end{frame}
 
@@ -534,7 +560,8 @@ $w_{ij}=w_{ji}\ge0$ and degree $d_i=\sum_jw_{ij}>0$.
 \end{itemize}
 % source: Ch. 3 thm:convergence and cor:convergence_psd_blocks, extended to q_i>0 by absorbing q_i into B_i.
 If $\sum_iq_i\B_i\succ0$, the discrete energy has a unique minimizer, and these sweeps converge to it from every initial field.
-\src{Ch. 3, cor:vox\_projection\_wellposed; positive-$q_i$ extension of thm:convergence and cor:convergence\_psd\_blocks.}
+% source detail: Ch. 3, cor:vox\_projection\_wellposed; positive-$q_i$ extension of thm:convergence and cor:convergence\_psd\_blocks.
+\src{\dref{Theorem}{thm:convergence} and \dref{Corollary}{cor:convergence_psd_blocks}; extension to positive node factors $q_i$.}
 \talknote{Numerical construction and theorem; about 90 seconds.}{Each node stores a two-component velocity. With coefficients fixed, the normal equation at node i has the local data matrix $q_i\B_i$ plus alpha squared times the weighted degree. Move the neighboring velocities to the right, and use their values from the previous sweep. This gives the displayed two-by-two solve. The $q_i b_i$ term carries the local observations, and the weighted neighbor sum carries the previous surrounding field. Compute every new velocity from the same old field, then replace the whole field and repeat.}{The theorem assumes a connected graph, symmetric nonnegative edge weights, positive degrees and node factors, PSD data blocks, and a positive-definite sampled Gram matrix. For this graph operator, zero graph energy forces a constant field, and the sampled data remove that constant null direction. Write $H=D-R$, where $D$ contains the local two-by-two blocks and $R$ contains the neighbor couplings. Both $D-R$ and $D+R$ are positive definite: possible alternating constants of the signless graph form are removed by the same sampled data condition. Hence the spectrum of the similar symmetric Jacobi matrix lies in $(-1,1)$. This proves convergence of the simultaneous schedule from every initial field. Match a representation's stencil and update schedule to these hypotheses before applying the result.}
 \end{frame}
 
@@ -546,7 +573,8 @@ If $\sum_iq_i\B_i\succ0$, the discrete energy has a unique minimizer, and these 
 \rotatebox{90}{Checker}\! & \includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/cmax.png}\\
 \end{tabular}
 \takeaway{Stripes emphasize a normal-flow constraint; checker texture supplies directions in both axes.}
-\src{Ch. 3, fig:ch3\_quiver\_v2e; v2e simulation, same window and arrow scale.}
+% source detail: Ch. 3, fig:ch3\_quiver\_v2e; v2e simulation, same window and arrow scale.
+\src{\dref{Figure}{fig:ch3_quiver_v2e}; v2e simulation, same window and arrow scale.}
 \talknote{Visual evidence; 60 seconds.}{The object translates diagonally. Red arrows show the ground truth and green arrows the estimates, at the common scale retained from the dissertation's panels. Vertical stripe interiors provide mainly horizontal gradients. The checkerboard provides gradient information in both spatial directions. Object boundaries can supply additional information even in the stripe scene.}{These are selected illustrative windows, not a cross-dataset method ranking. The full figure also includes time surface and other variants; its reported TS AEE equals the zero-field baseline at the reported precision. The output does not diagnose which hypothesis or extraction step fails, so do not assign a cause.}
 \end{frame}
 
@@ -569,7 +597,8 @@ Rectification makes the correspondence search horizontal:
 Each candidate $d$ pairs a left observation with $\mathbf y_R(x-d,y)$.
 \end{columns}
 \takeaway{The correspondence is unknown; solving the latent profiles at a fixed candidate is only the inner problem.}
-\src{Ch. 4, sec:solution, eq:depth\_conversion. Geometry is schematic.}
+% source detail: Ch. 4, sec:solution, eq:depth\_conversion. Geometry is schematic.
+\src{\dref{Section}{sec:solution}, \dref{Eq.}{eq:depth_conversion}. Geometry is schematic.}
 \talknote{Stereo introduction; 75 seconds.}{Explain rectification as a calibrated coordinate change that places corresponding rays on the same image row. Disparity is the horizontal pixel shift; similar triangles give depth as focal length times baseline divided by disparity. Farther objects have smaller disparity, so small disparity errors can create large depth errors.}{The event-feature observations are accumulated and normalized before matching, rather than synchronous brightness images. We assume a candidate disparity is approximately valid over the observation window and both views remain visible. Occlusion, parallax, changing depth, and differing sensor responses can break profile equality.}
 \end{frame}
 
@@ -588,7 +617,8 @@ At each candidate disparity $d$, solve two coupled temporal profiles:
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark and following paragraph: WLS best on Fl2 (58.35) and log RMSE x100 (44.54), second-best elsewhere; 2.66M vs Piatkowska 1.20M points.
 MVSEC indoor flying: soft-coupled WLS is best on Flying 2 (58.35\,cm) and log RMSE $\times100$ ($44.54$), second elsewhere, with 2.66\,M scored points versus 1.20\,M for the strongest prior method.
 \takeaway{Coupling keeps every inner solve well posed; the right correspondence also needs a cost margin.}
-\src{Ch. 4, thm:weighted\_spd, prop:attenuation\_bias, prop:correct\_selection, prop:irls\_contraction; App., tab:unified\_benchmark.}
+% source detail: Ch. 4, thm:weighted\_spd, prop:attenuation\_bias, prop:correct\_selection, prop:irls\_contraction; App., tab:unified\_benchmark.
+\src{\dref{Theorem}{thm:weighted_spd}, \dref{Proposition}{prop:attenuation_bias}, \dref{Proposition}{prop:correct_selection}, \dref{Proposition}{prop:irls_contraction}; \dref{Table}{tab:unified_benchmark}.}
 \talknote{Chapter 4 summary; 2 minutes. Keep to the four results and one benchmark sentence.}{This chapter compares candidate correspondences by reconstructing and softly coupling a temporal event-feature profile from each view. The analysis separates the unique inner reconstruction from the outer correspondence decision, then gives conditions for selection and stability under a positive winning margin. Item 1 is the Chapter 2 coercivity argument with one more nonnegative term. Item 2 is the conceptual point: after profiling out the latent profiles, the candidate cost contains a right-view monocular term that changes with the candidate, so in the two-sample example an attenuated wrong match beats the exact match. Item 3 gives a sufficient condition under which the correct candidate wins, and its stability under perturbations smaller than half the margin. Item 4 is the reweighted iteration.}{Benchmark: each method is scored on its own valid pixels; the Piatkowska adaptation has the lowest error on Flying 1, 3, and 4. Interpret accuracy alongside scored coverage. The separation results concern unweighted candidate-local costs before aggregation; the contraction theorem applies when its displayed sufficient condition holds.}
 \end{frame}
 
@@ -603,7 +633,8 @@ Contrast max. & Global minimizer exists with coefficient ridge & Nonconvex optim
 Stereo & Frozen SPD solves; fixed-point existence; conditional contraction; ideal selection margins & Full IRLS stopping rules; weighted, aggregated correspondence\\\bottomrule
 \end{tabular}
 \takeaway{Regularization makes an estimator determinate under stated hypotheses. Physical identifiability remains a separate requirement.}
-\src{Ch. 5, tab:contribution\_matrix.}
+% source detail: Ch. 5, tab:contribution\_matrix.
+\src{\dref{Table}{tab:contribution_matrix}.}
 \talknote{Contributions; 75 seconds.}{Recap the mathematical content rather than the implementation chronology. The temporal null mode is selected by a penalty. Spatial smoothness and integrated directional data make the flow energy coercive. Stereo requires both a well-posed latent solve and a sufficiently separated candidate comparison. Contrast maximization uses finite-dimensional compactness because it falls outside the quadratic theory.}{Position the originality accurately: the functional-analytic tools are classical; the dissertation organizes event-derived models under explicit hypotheses and derives the coupling, conditioning, bias, and selection consequences. The table is a useful reference when the committee asks exactly which theorem applies to the full procedure.}
 \end{frame}
 
@@ -618,7 +649,8 @@ Move from ideal unweighted costs to weighted and aggregated costs.
 \item \textbf{Test modeling choices under matched conditions.}\par
 Use common pixel populations, controlled fusion, and event-active residual diagnostics.
 \end{enumerate}
-\src{Ch. 5, Future Directions; Ch. 3 residual diagnostic; Ch. 4 selection and IRLS scope.}
+% source detail: Ch. 5, Future Directions; Ch. 3 residual diagnostic; Ch. 4 selection and IRLS scope.
+\src{\dref{Chapter}{ch:discussion_conclusion}, Future Directions; \dref{Section}{subsec:voxel_failure_analysis}; \dref{Corollary}{cor:selection_robust}.}
 \talknote{Research directions; 60 seconds.}{Tie each direction to an existing mathematical quantity: coefficient perturbation norms for flow, Lipschitz constants for weights, a winning margin for correspondence, and identifiable experimental controls for model comparison. Characterize residuals on event-active pixels before choosing a heavy-tail penalty; pooled zeros alone can inflate kurtosis.}{A promising extension is a fixed uniformly elliptic diffusion tensor selected by a higher-level procedure, retaining a common ellipticity floor during each inner flow solve. Optimal transport between event measures is a broader option that would require explicit polarity handling, a ground cost, and a mass convention. Keep those larger changes for discussion if time is short.}
 \end{frame}
 
@@ -641,7 +673,8 @@ Extend winning-margin results from ideal unweighted costs to the weighted, aggre
 \end{block}
 \end{columns}
 \takeaway{Each direction starts from a quantity the dissertation controls: a solution map, a perturbation bound, a null space, or a margin.}
-\src{Ch. 2, thm:uniqueness, prop:ch2\_sar\_solvability; Ch. 3, eq:abstract\_stability; Ch. 4, cor:selection\_robust; Ch. 5, Future Directions. External: Antil--Sayre (2023); Antil, Di, Khatri, Inverse Problems 36 (2020) 064001; Willert--Klinner, Exp.\ Fluids (2022).}
+% source detail: Ch. 2, thm:uniqueness, prop:ch2\_sar\_solvability; Ch. 3, eq:abstract\_stability; Ch. 4, cor:selection\_robust; Ch. 5, Future Directions. External: Antil--Sayre (2023); Antil, Di, Khatri, Inverse Problems 36 (2020) 064001; Willert--Klinner, Exp.\ Fluids (2022).
+\src{\dref{Chapter}{ch:discussion_conclusion}, Future Directions; \dref{Proposition}{prop:ch2_sar_solvability}; \dref{Eq.}{eq:abstract_stability}. External papers cited above.}
 \talknote{Future research; 2 minutes. End the talk here before the closing slide.}{Learned regularization: the fixed-weight theorem gives a unique minimizer $\mathbf f^*(\Lam)=(\A^\top\A+\Lam^2)^{-1}\A^\top\mathbf y$, a rational and hence smooth function of $\Lam$ on the positive orthant, which is what a bilevel analysis needs from its lower level. For scalar weights, a nonlocal penalty $\tfrac\mu2\,\mathbf f^\top(\A^\top\A)^s\mathbf f$ shares the cosine eigenbasis of $\A^\top\A$, so the modal gains become $g_k/(g_k+\mu g_k^s+\lambda^2)$ and the spectral analysis carries over; the magnitude term is still needed for the constant mode. Fluids: event cameras are already used for particle-based velocimetry; there the motion field is controlled, which would test the representation-accuracy question that the flow theorem leaves to the model.}{Shared scene: the ESAR null space contains constants and any other motion-invariant scene modes; computing it for given trajectories is a concrete linear-algebra question. Stereo: the open step is a margin result for the weighted and aggregated costs. Mention that the new GMU Neuromorphic Imaging and Digital Twins Lab (AFOSR DURIP) makes controlled acquisitions possible for the first two directions. Then go to the closing slide and stop for questions.}
 \end{frame}
 

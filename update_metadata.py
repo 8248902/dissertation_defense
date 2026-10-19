@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild current source navigation and hashes; preserve dated historical records.
 
-Compiled thesis numbers are included only with --thesis-build PATH. Manifest
+Compiled thesis numbers come from the verified reference snapshot. Manifest
 paths are relative to this defense directory and work with sha256sum --check.
 """
 from __future__ import annotations
@@ -10,7 +10,10 @@ import csv
 import hashlib
 import os
 import re
+import sys
 from pathlib import Path
+sys.dont_write_bytecode = True
+from reference_support import load_snapshot, validate_references, refresh, resolved_footer, used_references
 
 ROOT = Path(__file__).resolve().parent
 FRAME = re.compile(r"\\begin\{frame\}(?:\[[^\]]*\])?")
@@ -83,7 +86,7 @@ def figure_paths(root: Path = ROOT) -> set[Path]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--thesis-root', type=Path, default=ROOT.parent / 'dissertation_thesis')
-    parser.add_argument('--thesis-build', type=Path, help='Explicit build directory containing current thesis .aux files')
+    parser.add_argument('--thesis-build', type=Path, help='Explicitly refresh the bundled references from a fresh thesis build first')
     parser.add_argument('--output-dir', type=Path, default=ROOT)
     args = parser.parse_args()
     thesis = args.thesis_root.resolve()
@@ -93,12 +96,11 @@ def main() -> None:
         for number, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
             for label in re.findall(r'\\label\{([^}]+)\}', line):
                 locations.setdefault(label, []).append(f'{os.path.relpath(path, ROOT)}:{number}')
-    labels = {}
     if args.thesis_build:
-        if not args.thesis_build.is_dir(): raise ValueError('--thesis-build must be an existing directory')
-        for path in sorted(args.thesis_build.rglob('*.aux')):
-            for match in re.finditer(r'\\newlabel\{([^}]+)\}\{\{([^{}]*)\}\{([^{}]*)\}', path.read_text(encoding='utf-8')):
-                labels[match[1]] = (match[2], match[3])
+        refresh(args.thesis_build, thesis)
+    snapshot = load_snapshot(thesis=thesis)
+    validate_references(snapshot)
+    labels = snapshot['labels']
     rows = []
     frames = read_frames()
     for frame in frames:
@@ -107,18 +109,20 @@ def main() -> None:
             custom = re.search(r'Dissertation:\s*(.*?)(?:\\par|$)', frame['block'])
             if custom:
                 footer = custom.group(1).strip()
-        footer = footer.replace(r'\_', '_')
-        selected = list(dict.fromkeys(re.findall(r'\b[a-z]+:[A-Za-z0-9_]+', footer)))
-        references = [f'{label} = {labels[label][0]}, dissertation p. {labels[label][1]}' for label in selected if label in labels]
+        raw_footer = footer
+        selected = list(dict.fromkeys([key for _, _, key in used_references(raw_footer)] + re.findall(r'\b[a-z]+:[A-Za-z0-9_]+', raw_footer.replace(r'\_', '_'))))
+        footer = resolved_footer(raw_footer, snapshot)
+        references = [f"{label} = {labels[label]['number']}, dissertation p. {labels[label]['page']}" for label in selected if label in labels]
         provenance = re.findall(r'^\s*% source:\s*(.*)$', frame['block'], re.MULTILINE)
         rows.append([frame['page'], frame['role'], frame['section'], frame['title'],
                      f"{frame['filename']}:{frame['line']}", footer,
                      '; '.join(dict.fromkeys(loc for label in selected for loc in locations.get(label, []))),
-                     '; '.join(references), ' | '.join(provenance)])
+                     '; '.join(references), ' | '.join(provenance), raw_footer, '; '.join(selected)])
     figures = figure_paths()
     inputs = set(sources) | figures
     for name in ['defense.tex', 'notes.tex', 'core.tex', 'backup.tex', 'defense-script.md',
-                 'build_script.py', 'update_metadata.py', 'Makefile', 'aperture-demo.html']:
+                 'build_script.py', 'update_metadata.py', 'Makefile', 'aperture-demo.html',
+                 'reference_support.py', 'thesis-references.json']:
         path = ROOT / name
         if path.is_file(): inputs.add(path)
     inputs.update(path for path in thesis.glob('*.bib'))
@@ -128,12 +132,14 @@ def main() -> None:
         writer = csv.writer(stream, lineterminator='\n')
         writer.writerow(['pdf_slide', 'role', 'section', 'slide_title', 'editable_source',
                          'dissertation_source_footer', 'source_label_locations',
-                         'compiled_dissertation_references', 'immediate_numerical_provenance'])
+                         'compiled_dissertation_references', 'immediate_numerical_provenance',
+                         'raw_dissertation_source_footer', 'dissertation_reference_keys'])
         writer.writerows(rows)
     entries = sorted((os.path.relpath(path, ROOT), hashlib.sha256(path.read_bytes()).hexdigest()) for path in inputs)
     (args.output_dir / 'source-snapshot.sha256').write_text(''.join(f'{digest}  {name}\n' for name, digest in entries), encoding='utf-8')
     print(f'Updated {len(rows)} source-map rows and {len(entries)} hashes, including {len(figures)} figures.')
-    if not args.thesis_build: print('Compiled thesis references left blank; supply --thesis-build to include current labels.')
+    print(f"Dissertation reference snapshot: {snapshot['generated_at_utc']}.")
 
 if __name__ == '__main__':
-    main()
+    try: main()
+    except (ValueError, FileNotFoundError) as error: raise SystemExit(str(error))

@@ -1,9 +1,14 @@
-% Compile from defense/: latexmk -pdf defense.tex
-% Speaker edition: latexmk -pdf -jobname=defense-notes notes.tex
+% Compile from this directory: make slides
+% Speaker edition: make notes
 \documentclass[aspectratio=169,11pt]{beamer}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,bm,booktabs,mathtools,array}
 \usepackage{tikz,pgfplots}
+% The build tool writes this auxiliary file from the verified reference snapshot.
+\usepackage{xr}
+\externaldocument[thesis-]{thesis-labels}
+\newcommand{\dref}[2]{#1~\ref*{thesis-#2}}
+\newcommand{\drefpage}[1]{p.~\pageref*{thesis-#1}}
 \ifdefined\DefenseNotes\else\usepackage{animate}\fi
 \usetikzlibrary{arrows.meta,positioning,calc}
 \pgfplotsset{compat=1.18}

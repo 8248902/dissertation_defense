@@ -18,6 +18,7 @@ import tempfile
 from pathlib import Path
 sys.dont_write_bytecode = True
 from update_metadata import ROOT, read_frames, figure_paths
+from reference_support import load_snapshot, validate_references, write_external_aux
 
 def normal_title(value: str) -> str:
     value = value.replace('$H^1$', 'H¹').replace(r'\_', '_')
@@ -170,6 +171,8 @@ def main() -> None:
     parser.add_argument('--output-dir', type=Path, default=ROOT)
     parser.add_argument('--build-dir', type=Path, help='Retain scratch files in an external directory (normally /tmp)')
     args = parser.parse_args()
+    references = load_snapshot()
+    used_labels = validate_references(references)
     intro, sections = parse_script()
     figures = figure_paths()
     print(f'Validated {sum(s["role"]=="core" for s in sections)} main and {sum(s["role"]=="discussion" for s in sections)} backup script sections.')
@@ -190,6 +193,7 @@ def main() -> None:
             pdf = compile_tex(work, 'defense-script.tex', 'defense-script')
             check_script_pages(work, sections)
         else:
+            write_external_aux(work, references, used_labels)
             for name in ['defense.tex','notes.tex','core.tex','backup.tex']:
                 shutil.copy2(ROOT / name, work / name)
             for source in figures:
@@ -218,7 +222,8 @@ def main() -> None:
                                      if re.search(r'Warning|Overfull|Underfull|^!', line)],
             }
         input_names = ['core.tex', 'backup.tex', 'defense.tex', 'notes.tex',
-                       'defense-script.md', 'build_script.py', 'update_metadata.py', 'Makefile']
+                       'defense-script.md', 'build_script.py', 'update_metadata.py', 'Makefile',
+                       'reference_support.py', 'thesis-references.json']
         hashes = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in input_names}
         hashes.update({pdf.name: hashlib.sha256((args.output_dir / pdf.name).read_bytes()).hexdigest()
                        for pdf in outputs})
@@ -230,7 +235,9 @@ def main() -> None:
             'referenced_figure_count': len(figures),
             'checks': {'script_titles_and_numbers_match_deck': True,
                        'backup_deck_pages_match': True,
-                       'one_script_page_per_deck_frame': True},
+                       'one_script_page_per_deck_frame': True,
+                       'dissertation_reference_snapshot_valid': True,
+                       'all_used_dissertation_labels_resolved': True},
             'pdfs': pdf_reports,
             'sha256': hashes,
         }

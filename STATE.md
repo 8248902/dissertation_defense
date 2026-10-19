@@ -19,6 +19,12 @@ The new relevant-work slide distinguishes learned event-only reconstruction, flo
 
 Slides 12 and 28 now connect the optimization problems to their computation. Slide 12 follows the objective through normal equations, independent numerical pixel solves, and parallel assembly of temporal profiles into frames. The solver organization was checked against `monocular_reconstruction/src/core/lat_image_af_with_lambda.m` and `lat_image_af.m`; the presentation makes no specialized-factorization claim. Slide 28 shows the simultaneous block-Jacobi update, explains its local two-component solve and use of the previous neighbor field, and retains all graph and sampled-information hypotheses. Spectral proof details remain in speaker notes and backup. The corresponding full script sections match. Slide titles and counts are unchanged.
 
+## Readable dissertation references — October 18
+
+Main and backup footers now use actual `\ref*` / `\pageref*` values imported through `xr`, rendered via `\dref` and `\drefpage`. They show named, numbered results (for example, Theorem 2.2.5 and Theorem 3.6.1); unnumbered topics use their names and page numbers. The old `sec:irls_scope` key was replaced by the existing specific results and sections relevant to those slides. Internal keys remain in source and metadata for maintenance.
+
+The reference snapshot comes from the complete current 208-page dissertation build in `/tmp/udts_recheck.NFS9fQ/build`, which passed 35 formatting rules with zero warnings/failures. A stray prose paste inside the `pan2019bringing` BibTeX entry was removed to restore compilation; the author's other thesis edits were preserved. The snapshot records 297 labels and 147 thesis input hashes. Missing labels and stale source hashes stop the defense build with refresh instructions. README documents the reference-update workflow.
+
 ## User decisions to preserve
 
 Treat existing numerical and analytical results as established. Keep precise hypotheses, empirical scope, and conditional convergence assumptions; keep internal audit history and pending-verification language out of the audience deck and spoken script. Refer listeners to the dissertation for supporting detail when appropriate. Backup answers are self-contained responses for questions, rather than planned main-talk transitions.
@@ -27,9 +33,9 @@ The advisor permits a selective defense, with confidence in the material taking 
 
 ## Build and verification
 
-Run `make check`, then `make all` after content changes. The latter rebuilds all three PDFs, writes a dated `validation.json`, and refreshes `source-map.csv` and `source-snapshot.sha256`. Scratch files remain under `/tmp`. The script uses Markdown as its only prose source and checks all titles, deck pages, and one-page-per-frame sections. The source map uses current source lines; compiled dissertation label numbers are populated only when an explicit current thesis build is supplied to `update_metadata.py --thesis-build`.
+Run `make check`, then `make all` after content changes. The latter rebuilds all three PDFs, writes a dated `validation.json`, and refreshes `source-map.csv` and `source-snapshot.sha256`. Scratch files remain under `/tmp`. The script uses Markdown as its only prose source and checks all titles, deck pages, and one-page-per-frame sections. The source map uses current source lines and readable references from `thesis-references.json`. Normal builds validate that snapshot against the sibling thesis. After thesis edits, run the formatting build, `make refs THESIS_BUILD=/path/to/fresh/build`, and `make all`; see README. A standalone defense uses its bundled snapshot.
 
-October 18 final build: audience 88 pages, notes 88 pages, script 91 pages; no build/layout/reference warnings. All 88 script sections match the deck. Metadata covers 88 frames and all 42 referenced figure assets, including 14 animation frames. Primary-source attribution and new slide layouts were reviewed. `validation.json` records build checks; historical committee mathematical reviews are kept separately.
+October 18 final build: audience 88 pages, notes 88 pages, script 91 pages; no build/layout/reference warnings. All 88 script sections match the deck. Metadata covers 88 frames and all 42 referenced figure assets, including 14 animation frames. The current source manifest contains 67 hashes. Primary-source attribution and new slide layouts were reviewed. `validation.json` records build checks; historical committee mathematical reviews are kept separately.
 
 The defense-scoped numerical-source and figure-reference CI checks pass. The umbrella check still reports four source-comment issues in `dissertation_proof_reference_2026-10-10` and figure paths in historical proposal/snapshot documents and `optical-flow-manuscript`; these pre-existing portfolio issues are outside the active defense.
 

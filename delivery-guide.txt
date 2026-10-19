@@ -45,6 +45,8 @@ EDIT AND BUILD
   aligned with the deck. build_script.py checks this alignment.
   Run make check, then make all from this directory. All TeX intermediates are
   built in /tmp. Root PDFs, source-map.csv, and source-snapshot.sha256 refresh.
-  update_metadata.py accepts --thesis-build for an explicit current thesis aux
-  directory; without it, compiled theorem/page numbers remain blank.
+  Footers use the bundled thesis-references.json label snapshot. After thesis
+  edits, run ../dissertation_format_rules/recheck.sh, then make refs with
+  THESIS_BUILD=/path/to/that/fresh/build, then make all. Missing or stale
+  references stop the build. See README for the full reference workflow.
   See README.md for validation commands and the fresh-session entry point.
