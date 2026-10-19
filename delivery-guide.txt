@@ -22,7 +22,7 @@ DELIVERY
   Slide 28: explain the two-component Jacobi solve using the old neighbor field.
   Slide 31: brief stereo contribution summary.
   Slide 35: close, then take questions.
-  Backup pages 36–88: select by question; page numbers match the script/index.
+  Backup pages 36–89: select by question; page numbers match the script/index.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original

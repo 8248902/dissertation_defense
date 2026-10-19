@@ -4,14 +4,14 @@ Updated October 19, 2026. **Canonical location: `../dissertation_defense`, branc
 
 ## Current deliverables
 
-- `defense.pdf`: 88 pages, consisting of 35 main slides and 53 backups.
-- `defense-notes.pdf`: matching 88-page speaker edition.
-- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 91-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `defense.pdf`: 89 pages, consisting of 35 main slides and 54 backups.
+- `defense-notes.pdf`: matching 89-page speaker edition.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 92-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
 - `strategy.md`: selected route, time priorities, and backup navigation.
 - `delivery-guide.txt`: practical delivery and build instructions.
 - `related-work.md`: precise comparisons, primary references, and contribution boundaries.
 
-The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–29, stereo on 30–31, and conclusions on 32–35. Literature backup is deck page 62; the formal aperture explanation is page 88. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
+The main talk opens with the outline on slide 3 and concise relevant-work positioning on slide 4. Event-camera behavior follows on slides 5–8, temporal reconstruction on 9–19, optical flow on 20–29, stereo on 30–31, and conclusions on 32–35. Literature backup is deck page 62; the formal aperture explanation is page 89. Contrast maximization backups are pages 73–75: what it models and its known-motion evidence, then its objective and existence proof. The matched indoor reconstruction example is now slide 16. Slide 20 embeds the credited Sinauer aperture sequences; `aperture-demo.html` is the offline browser alternative. Breadcrumbs identify the current topic, and the author appears on the title slide.
 
 The new relevant-work slide distinguishes learned event-only reconstruction, flow-based image reconstruction, and frame-assisted bilevel reconstruction. It credits classical optical-flow regularization and well-posedness theory. The contribution is the particular event-derived models and their common analysis, with explicit author contribution for the published temporal work. Speaker notes, script, and expanded literature backup agree on these distinctions.
 

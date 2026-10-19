@@ -31,8 +31,8 @@ The intended claims concern the specified models and analyses. They distinguish 
 
 ## Questions and deeper explanations
 
-Pages 36–88 contain the backup slides. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides have private cues. Follow the question rather than presenting the backup as another planned section.
+Pages 36–89 contain the backup slides. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides have private cues. Follow the question rather than presenting the backup as another planned section.
 
-Useful anchors: temporal uniqueness page 37; natural boundary condition page 41; Jacobi convergence page 42; stereo cost geometry page 48; reciprocal IRLS proof page 50; evaluation populations page 53; mathematical contribution page 61; literature page 62; full stereo arc pages 75–87; formal aperture model page 88.
+Useful anchors: temporal uniqueness page 37; natural boundary condition page 41; Jacobi convergence page 42; stereo cost geometry page 48; reciprocal IRLS proof page 50; evaluation populations page 53; mathematical contribution page 61; literature page 62; contrast maximization (what it models, evidence) page 73; full stereo arc pages 76–88; formal aperture model page 89.
 
 Keep the hypotheses with the corresponding claim: fixed positive penalties for the temporal solve; integrated directional information for unrestricted quadratic flow; a finite candidate set and margin for selection stability; the sufficient contraction condition for IRLS convergence. The reported empirical results are established results, and the spoken material contains no audit or pending-verification commentary.

@@ -619,7 +619,7 @@ With any $\Gamma\succ0$, the temporal system matrix is $\A^\top\Gamma^{-1}\A+\La
 \hypertarget{flowdetails}{}
 \begin{itemize}
 \item Time-surface gradient estimation: bias, variance, and design.
-\item Contrast maximization: a nonconvex objective and its existence proof.
+\item Contrast maximization: what it models, known-motion evidence, objective, and existence proof.
 \end{itemize}
 \vspace{2mm}
 Regression quantifies coefficient uncertainty; contrast maximization changes the objective being optimized.
@@ -640,6 +640,38 @@ With a Lipschitz Hessian of constant $L_H$ on a neighborhood containing the samp
 % source detail: Ch. 3, prop:ts\_regression\_bound.
 \src{\dref{Proposition}{prop:ts_regression_bound}.}
 \talknote{Gradient-estimation result; 75 seconds; shorten to the takeaway in a compressed talk.}{The design matrix Q depends on sample positions, not the observed slope. Central symmetry decouples the intercept and cancels the quadratic Taylor term in the slope. A Lipschitz Hessian leaves a cubic remainder bounded by L\_H |z|\textasciicircum{}3/6. Multiplication by z and Q\textasciicircum{}{-1} yields the bias bound. Independent equal-variance errors give the covariance, and the MSE decomposition combines both contributions for the same discrete estimator.}{A full-rank disk of timestamps around a moving straight edge can estimate its gradient well while the tangential velocity remains unidentified. The assumed timestamp-noise model is not derived from event-count statistics. The asymptotic radius heuristic is in the backup, with its finite-design qualifications.}
+\end{frame}
+
+\begin{frame}{Contrast maximization finds the motion that sharpens the events}
+\footnotesize
+\vspace*{-2mm}
+\begin{columns}[T]
+\column{.42\textwidth}
+\textbf{What it models}
+\begin{itemize}
+\item A moving edge leaves a smeared trail of events over the time window.
+\item Slide each event back along a candidate flow to one reference time. The correct flow stacks the trail into a sharp edge; image variance measures the sharpness.
+\item It uses individual events in continuous time, with no time surface, bins, or fitted gradients. Binned models blur when an edge moves during a bin.
+\end{itemize}
+\column{.55\textwidth}
+\textbf{Known-motion evidence}\par
+{\scriptsize AEE (px) at window 22; a zero flow field scores 3.00.}\par\smallskip
+% source: ../dissertation_thesis/shared_bodies/ch3_eb_hs_of_body.tex fig:ch3_quiver_synth and fig:ch3_quiver_v2e (figures/ch3_quivers_consistent/manifest.tsv, aee_at_frame, 2 d.p.).
+\setlength{\tabcolsep}{3pt}\begin{tabular}{@{}lcc@{}}
+Scene & \shortstack{Best other\\(struct.\ tensor)} & CMAX\\\hline
+% source: fig:ch3_quiver_synth AEE row: vox_struct 2.15, cmax 0.49.
+Idealized stripes & 2.15 & \textbf{0.49}\\
+% source: fig:ch3_quiver_v2e AEE rows: v2e_stripes vox_struct 1.92, cmax 1.19; v2e_checker vox_struct 0.98, cmax 0.32.
+Simulated stripes (v2e) & 1.92 & \textbf{1.19}\\
+Simulated checkerboard (v2e) & 0.98 & \textbf{0.32}\\
+\end{tabular}\par\smallskip
+On the stripes, CMAX recovers the diagonal motion: warping the events over the whole window brings in evidence from the object's boundary.
+\end{columns}
+\takeaway{CMAX has the lowest error in every known-motion scene.}
+% source detail: Ch. 3, sec:cmax introduction (binning blur), fig:ch3_quiver_synth, fig:ch3_quiver_v2e.
+\src{\dref{Section}{sec:cmax}; \dref{Figure}{fig:ch3_quiver_synth} and \dref{Figure}{fig:ch3_quiver_v2e}.}
+% source: AEE gaps 2.15-0.49=1.66, 1.92-1.19=0.73, 0.98-0.32=0.66 from fig:ch3_quiver_synth/fig:ch3_quiver_v2e; normal-flow reference 3/sqrt(2)=2.12 px from Ch. 3 known-motion discussion.
+\talknote{What CMAX models and why it is promising; 60 seconds.}{Describe the warp in scene terms: the right motion turns a smeared trail into a sharp edge. The quadratic models first compress events into a time surface or bins and fit coefficients; CMAX keeps each event's own time. In all three known-motion scenes its AEE is the lowest, by 0.66 to 1.66 px over the structure tensor. On the stripes it recovers the diagonal, where interior pixels alone determine only the across-stripe component (normal-flow reference error 2.12 px).}{Scope: one representative window (chosen by the median-deviation rule) on simulated scenes with known motion. On the idealized stripes CMAX also assigns flow to the surrounding background. The dissertation reports no aggregate real-data AEE for any flow method. Its guarantee is existence of a global minimizer; the quasi-Newton solver is local. The next two backups give the objective and the existence proof.}
 \end{frame}
 
 \begin{frame}{Contrast maximization changes the optimization problem}

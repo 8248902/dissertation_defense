@@ -1188,9 +1188,27 @@ The bias comes from fitting a plane to a curved time surface. Central symmetry c
 
 The design matrix depends on sample positions. A well-conditioned fit can accurately estimate the time-surface gradient even around a moving straight edge. That still leaves tangential velocity free, because one reliable normal-direction constraint is only one component of motion. Regression rank and velocity identifiability therefore answer different questions. The stated uncertainty formula also assumes the timestamp-error model explicitly; it does not follow automatically from a model for event counts.
 
-## Backup 38 — Contrast maximization changes the optimization problem
+## Backup 38 — Contrast maximization finds the motion that sharpens the events
 
 Deck page: 73.
+
+**Likely question:** What does contrast maximization model, and why is it worth pursuing?
+
+*[Describe the warp on the left, then point to the CMAX column of the table.]*
+
+### Answer
+
+An edge moving across the sensor produces events all along its path during the time window, so a plain accumulation of those events looks like a smeared trail. Contrast maximization slides each event back along a candidate flow to one reference time. When the candidate matches the true motion, the trail stacks into a sharp edge. Image variance measures that sharpness, so the method searches for the flow that makes the warped event image sharpest.
+
+The method works directly on individual events and their own timestamps. The quadratic models first summarize events as a time surface or in temporal bins, and an edge that moves during a bin blurs that summary. On the known-motion scenes in Chapter Three, contrast maximization has the lowest endpoint error in all three: 0.49 pixels against 2.15 for the structure tensor on idealized stripes, 1.19 against 1.92 on simulated stripes, and 0.32 against 0.98 on the simulated checkerboard. A zero flow field scores 3.00. On the stripes it recovers the diagonal motion, because warping events over the whole window brings in evidence from the object's boundary.
+
+### If asked for more
+
+These numbers come from one representative window, chosen by the rule that minimizes deviation from each method's median error, on simulated scenes with known motion. On the idealized stripes, contrast maximization also assigns flow to the background around the object. The dissertation reports no aggregate real-data endpoint error for any of the flow methods. The guarantee for contrast maximization is that a global minimizer exists; the solver is a local quasi-Newton method. The next two backups give the objective and the existence proof.
+
+## Backup 39 — Contrast maximization changes the optimization problem
+
+Deck page: 74.
 
 **Likely question:** How does contrast maximization differ from your quadratic optical-flow model?
 
@@ -1206,9 +1224,9 @@ The motion variable q is displacement measured over the normalized time window. 
 
 Concentration alone can also reward an incorrect warp that collapses events, which is why the regularization and model restrictions matter. Continuous splines provide valid point evaluations; a general two-dimensional H one field is an equivalence class and needs more regularity for prescribed-point evaluation. A diffusion penalty controls spatial variation but leaves constant fields free. The coefficient ridge supplies the missing control needed for the coercivity proof of this complete objective.
 
-## Backup 39 — A global minimizer exists, even though the solver is local
+## Backup 40 — A global minimizer exists, even though the solver is local
 
-Deck page: 74.
+Deck page: 75.
 
 **Likely question:** What guarantees that contrast maximization has a global minimizer?
 
@@ -1224,15 +1242,15 @@ The negative variance term therefore has a finite lower bound. Meanwhile, the po
 
 The continuity statement includes pixel-boundary crossings because the bilinear tent weights join continuously. Differentiability is piecewise, which matters for numerical optimization but is stronger than what the existence proof needs. Coercivity relies on a strictly positive ridge for the fixed discretization. A refinement theorem would need uniform control of that lower bound. The proof establishes existence; global uniqueness or global convergence of a local solver would require additional structure.
 
-## Backup 40 — Stereo depth: full Chapter 4 arc
+## Backup 41 — Stereo depth: full Chapter 4 arc
 
-Deck page: 75.
+Deck page: 76.
 
 *[Navigation only. Silent navigation cue: choose the matching model, selection, IRLS, or benchmark page.]*
 
-## Backup 41 — At each candidate, couple two temporal profiles
+## Backup 42 — At each candidate, couple two temporal profiles
 
-Deck page: 76.
+Deck page: 77.
 
 **Likely question:** What are the unknowns in the stereo reconstruction model?
 
@@ -1248,9 +1266,9 @@ There are also two magnitude penalties and a soft coupling term. The magnitude p
 
 Setting both weight matrices to identity gives the unweighted model used for the explicit selection analysis. Finite coupling allows the profiles to differ while charging for that difference. The data terms therefore retain information from each view. Absolute calibrated log-intensity would require a calibrated observation model linking the processed features to physical units; the candidate-local optimization and its positive-definiteness proof concern the stated feature model.
 
-## Backup 42 — Frozen weights give a unique, stable inner solve
+## Backup 43 — Frozen weights give a unique, stable inner solve
 
-Deck page: 77.
+Deck page: 78.
 
 **Likely question:** Why is the stereo solve unique when the weights are frozen?
 
@@ -1266,9 +1284,9 @@ The result is the sum of two weighted difference energies, two magnitude-penalty
 
 The inverse matrix norm is at most the reciprocal of the smallest regularizer entry squared. To turn that into an observation-to-solution bound, one also includes the norm of the weighted observation map on the right-hand side. This theorem concerns each inner solve. Candidate selection adds a discrete comparison, and changing the weights changes the quadratic itself. Those stages have their own separation and fixed-point analyses.
 
-## Backup 43 — Sum and difference modes expose the coupling
+## Backup 44 — Sum and difference modes expose the coupling
 
-Deck page: 78.
+Deck page: 79.
 
 **Likely question:** What does increasing the stereo coupling strength actually do?
 
@@ -1284,9 +1302,9 @@ The same decomposition gives an exact conditioning formula in the unweighted cas
 
 The orthogonal transform preserves Euclidean eigenvalue and condition-number calculations. Its simple block diagonalization requires equal temporal blocks; unequal adaptive weights generally mix the mean and difference coordinates. A mean-zero restriction removes the shared constant mode for appropriately structured perturbations and can yield a sharper bound. Full-space conditioning still matters for numerical errors that can enter arbitrary directions, so it is useful to keep those two settings explicit.
 
-## Backup 44 — Profile out the latent variables to see what disparity compares
+## Backup 45 — Profile out the latent variables to see what disparity compares
 
-Deck page: 79.
+Deck page: 80.
 
 **Likely question:** What quantity is actually compared when you choose a disparity?
 
@@ -1302,9 +1320,9 @@ The left monocular term is common to all candidates. The right monocular term ch
 
 The derivation completes the square in the stacked latent variables, then uses the sum-and-difference transform to separate the terms. The inverse difference equals twice gamma times the product of the two positive inverse matrices, so it is positive semidefinite. An exact winner of these unaggregated profiled costs minimizes the corresponding joint objective over the candidate set and latent variables. Establishing physical correspondence additionally requires assumptions that connect that objective to the true match.
 
-## Backup 45 — A perfect correspondence need not have the lowest cost
+## Backup 46 — A perfect correspondence need not have the lowest cost
 
-Deck page: 80.
+Deck page: 81.
 
 **Likely question:** Can the stereo objective favor a wrong correspondence even when the true profiles match exactly?
 
@@ -1320,9 +1338,9 @@ At the perfect observation match, b equals one and the minimized cost is one thi
 
 For an observation scaled by b, the monocular contribution is the product of one plus b squared and the left monocular cost. The discrepancy contribution is the square of one minus b, multiplied by the discrepancy coefficient. Differentiating at b equal to one gives twice the positive monocular cost, so a small decrease in b lowers the score. The example concerns the unweighted local cost before aggregation; the evaluated weighted pipeline has additional steps.
 
-## Backup 46 — Correct disparity needs a separation condition
+## Backup 47 — Correct disparity needs a separation condition
 
-Deck page: 81.
+Deck page: 82.
 
 **Likely question:** What assumptions ensure that the correct disparity wins?
 
@@ -1338,9 +1356,9 @@ For every competitor, assume the right observation differs from the left and its
 
 The condition is sufficient and can be stronger than necessary. A competitor with a smaller monocular cost can still lose if its discrepancy is large enough to overcome that advantage. The more general metric-separation criterion captures that case. Both versions concern ideal matched profiles and candidate-local unweighted costs. Applying the conclusion after masking, adaptive weighting, or spatial aggregation requires examining the corresponding scoring procedure and its assumptions.
 
-## Backup 47 — A winning margin turns cost stability into selection stability
+## Backup 48 — A winning margin turns cost stability into selection stability
 
-Deck page: 82.
+Deck page: 83.
 
 **Likely question:** How much can candidate costs change before the selected disparity changes?
 
@@ -1356,9 +1374,9 @@ Whenever eta is strictly smaller than half of delta, every perturbed gap remains
 
 The cost bound must include the original winner as well as every competitor. At the half-margin threshold, the elementary bound allows a tie, so the strict inequality matters. An observation-based estimate can supply eta when the score parameters are fixed and the observation perturbations are controlled. Spatial aggregation can distinguish candidates through neighboring evidence, so the identical-profile example is scoped to the local scoring procedure rather than every contextual stereo algorithm.
 
-## Backup 48 — Heteroscedastic weights: statistical motivation and scope
+## Backup 49 — Heteroscedastic weights: statistical motivation and scope
 
-Deck page: 83.
+Deck page: 84.
 
 **Likely question:** Why do you use reciprocal activity weights in stereo?
 
@@ -1374,9 +1392,9 @@ The implemented rule uses reciprocal predicted activity plus a positive noise fl
 
 The absolute difference of the two polarity rates is at most their sum, with equality exactly when at least one rate is zero. Thus a variance determined solely by net rate introduces an additional approximation. In the iteration, weights are evaluated at the preceding profile and then held fixed during the quadratic solve. That separation preserves the positive-definiteness argument for each solve and makes the statistical approximation explicit.
 
-## Backup 49 — IRLS: fixed-point existence and conditional convergence
+## Backup 50 — IRLS: fixed-point existence and conditional convergence
 
-Deck page: 84.
+Deck page: 85.
 
 **Likely question:** Does the iteratively reweighted stereo solver converge?
 
@@ -1392,9 +1410,9 @@ The weight map is continuous, and the frozen system remains positive definite, s
 
 For a fixed damping parameter strictly greater than zero and at most one, the update becomes a convex combination of the old state and the undamped update. Its fixed points are preserved, and the displayed Lipschitz bound becomes one minus omega plus omega times q. When q is below one this remains a contraction. When q is at least one, this bound supplies no contraction certificate. A fixed point expresses consistency with frozen weights; interpreting it as a likelihood optimum requires a separate objective analysis.
 
-## Backup 50 — Stereo benchmark: read accuracy alongside scored coverage
+## Backup 51 — Stereo benchmark: read accuracy alongside scored coverage
 
-Deck page: 85.
+Deck page: 86.
 
 **Likely question:** How competitive is the stereo method, and how should I interpret the coverage numbers?
 
@@ -1410,9 +1428,9 @@ The Piatkowska adaptation has smaller mean depth error on three sequences; weigh
 
 The reporting band runs from 0.5 to 8 meters. Point counts are summed across sequences, while the displayed log RMSE is one hundred times the base metric and is averaged equally over sequence-level values. A method can produce finite estimates outside the band that contribute to neither the reported error nor the scored count. These are complete implementations, including their normalization, regularization, guidance, and activity masking, and the external methods are local adaptations.
 
-## Backup 51 — A weighting comparison supports the selected rule
+## Backup 52 — A weighting comparison supports the selected rule
 
-Deck page: 86.
+Deck page: 87.
 
 **Likely question:** What empirical evidence supports the reciprocal weighting rule?
 
@@ -1428,9 +1446,9 @@ That result supports the selected rule for these evaluated configurations and th
 
 The numerical differences are differences of the reported mean errors; they are not per-pixel paired improvements. A shared-population comparison would rescore both outputs on the same valid pixels. Using these sequences to choose the rule also makes the distinction between selection data and held-out validation important. Empirical improvement motivates the implementation choice, while a maximum-likelihood interpretation would additionally require a justified probabilistic model for the processed observations.
 
-## Backup 52 — Hard fusion changes both the constraint and the regularization
+## Backup 53 — Hard fusion changes both the constraint and the regularization
 
-Deck page: 87.
+Deck page: 88.
 
 **Likely question:** Why does hard fusion perform differently from soft coupling?
 
@@ -1446,9 +1464,9 @@ The reported mean depth errors, averaged over the four sequences, are 102.10 cen
 
 The penalty accounting is the key algebraic point. Substituting one shared profile into the soft energy adds its two half-weighted magnitude penalties into one full squared penalty. The implemented hard-fusion objective uses half that amount. The mean equation of the soft model already combines both views, so averaging alone supplies no demonstrated explanation for the performance difference. Isolating hard equality would require matching the other settings and the evaluation population.
 
-## Backup 53 — Motion-induced events and the aperture problem
+## Backup 54 — Motion-induced events and the aperture problem
 
-Deck page: 88.
+Deck page: 89.
 
 **Likely question:** Can you derive the aperture problem directly from the event-generating image model?
 
