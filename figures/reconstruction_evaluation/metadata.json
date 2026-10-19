@@ -1,0 +1,40 @@
+{
+  "dataset": "MVSEC indoor_flying3",
+  "camera": "left DAVIS",
+  "geometry_px": [
+    346,
+    260
+  ],
+  "run_id": "indoor_flying3_bump_08",
+  "reconstruction_source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying3_bump_08/reconstruction.h5",
+  "reference_source": "/scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying3.npz",
+  "reference_source_original_sha256": "ac489b23ba4efd2b8b0e78f2b8e852917c6dd3d20b6d00cc4948a33d71af74cd",
+  "event_prefix_sha256": "b95a27f1e791335c5d9ef82d494109bdba2baffded8fd23dc188438b1ae84b04",
+  "estimator": "event-only B-spline order 1, width 10 ms, sigmoid regularization",
+  "estimator_rerun": false,
+  "solved_frame_index_zero_based": 70,
+  "solved_frame_index_one_based": 71,
+  "solved_frame_count": 100,
+  "solved_time_epoch_s": 1504645505.4105911,
+  "solved_run_time_range_epoch_s": [
+    1504645504.5246804,
+    1504645505.7776113
+  ],
+  "reference_index_zero_based_in_saved_subset": 27,
+  "reference_time_epoch_s": 1504645505.4093914,
+  "reference_minus_solved_s": -0.0011997222900390625,
+  "reference_selection": "nearest actual saved camera frame by epoch timestamp",
+  "display": {
+    "rule": "histogram-mode background; per-run global 1st/99th percentile scale; affine map (f-background)*scale+0.4; clip [0,1]; round to uint8",
+    "background": 0.001041995242068272,
+    "scale": 3.1020639394610323,
+    "reconstruction_clipped_fraction_at_selected_frame": 0.022476656291685194,
+    "reference": "saved native 8-bit camera frame; no contrast remapping"
+  },
+  "outputs_sha256": {
+    "reference.png": "fa6204e7b16faeb417c5cf70c7f95ae312ad24d30bd920066b6bea94f412ba16",
+    "event_only_bspline.png": "c2469a0710217315baf3283deedf6e2bb8796c92071b4446a0f46dedb65c364d",
+    "preview.png": "a4a193f0565fb02943b1d96b373dd257a38b2fbfdc8e8a4b5abae8eb0d2e7035"
+  },
+  "source_revision_note": "The saved 2026-10-18 replacement run has an audited manifest and input hash; exact runtime checkout revision was not embedded in reconstruction.h5."
+}

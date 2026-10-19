@@ -340,10 +340,10 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \begin{frame}{Temporal evidence: structure without an absolute baseline}
 \begin{columns}[c]
 \column{.55\textwidth}
-\small MVSEC indoor flying 4\par\medskip
-% source: monocular-reconstruction-manuscript/figures/reconstruction_evaluation, matched indoor flying 4 frame061 reference and sigmoid-weight reconstruction.
-\panel{.48}{figures/reconstruction_evaluation/ground_truth_frame061.png}{Reference}
-\hfill\panel{.48}{figures/reconstruction_evaluation/mvsec_indoor_flying4_subset_sigmoid_frame061.png}{Event-only reconstruction}
+\small MVSEC indoor flying 3\par\medskip
+% source: 	 /scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying3_bump_08/reconstruction.h5. /scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying3.npz event-only B-spline order 1, width 10 ms, sigmoid regularization ; nearest actual saved camera frame by epoch timestamp
+\panel{.48}{figures/reconstruction_evaluation/reference.png}{Reference}
+\hfill\panel{.48}{figures/reconstruction_evaluation/event_only_bspline.png}{Event-only reconstruction}
 \column{.42\textwidth}
 \small MVSEC indoor aggregate results\par\medskip
 \begin{tabular}{lrr}\toprule Kernel & PSNR & CN\\\midrule
