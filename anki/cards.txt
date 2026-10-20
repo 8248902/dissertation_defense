@@ -75,17 +75,23 @@ A: They act at different stages. A wider kernel spreads event contributions befo
 Keep: preprocessing blur; reconstruction shrinkage; distinct stages
 More: Stronger scalar magnitude regularization increases attenuation of every nonconstant latent mode, with low modes attenuated most.
 
-@ T07 | temporal | core | 11,39 | subsubsec:ode
+@ T07 | temporal | core | 39 | subsubsec:ode
 Q: Why is the cumulative event signal naturally BV rather than H-one?
 A: Accumulating finitely many signed events gives a staircase with finite total variation. A nonzero jump contributes an atom to its distributional derivative. H-one would require a square-integrable derivative, so a genuine jump belongs naturally in bounded variation instead.
 Keep: staircase; atomic derivative; finite variation
 More: At positive smoothing width, the kernels used here give a square-integrable driver and an H-one primitive.
 
-@ T08 | temporal | followup | 11,39 | subsubsec:ode
+@ T08 | temporal | followup | 39 | subsubsec:ode
 Q: What does a distributional derivative mean in the event-integral picture?
 A: We test the cumulative signal against smooth functions and transfer the derivative onto the test function by integration by parts. A jump then contributes its signed size at the event time, which is exactly an event atom. This describes abrupt changes without pretending they have ordinary derivatives.
 Keep: smooth tests; integration by parts; jumps become atoms
 More: For finite interior events, narrowing normalized kernels gives primitives converging in L-one. Endpoint and bin-boundary conventions must be consistent.
+
+@ T24 | temporal | core | 11,65 | subsubsec:physical,eq:vconnectq
+Q: When does an accumulated event count approximate a change in brightness?
+A: Under the ideal threshold rule each event marks a log-brightness change of one threshold. So the signed count between two times approximates the change in log brightness divided by the threshold. The exact Chapter 2 identity names three discrepancies: kernel mass crossing a bin boundary, overshoot at each event, and sub-threshold change since the pixel's last event. When those are small, A f approximately y models brightness changes; the absolute level still comes from the model.
+Keep: one threshold per event; three error terms; changes, not levels
+More: A missed or spurious event makes one overshoot term as large as the threshold. The regularized solution adds its data residual as a fourth discrepancy, and larger weights enlarge it.
 
 @ T09 | temporal | core | 13 | prop:stability
 Q: What is the mechanism behind temporal data stability?
@@ -333,7 +339,7 @@ A: This proof uses more than positive definiteness of the system. The graph stru
 Keep: both signs; symmetric scaling; spectral radius below one
 More: Squared edge differences control constant fields; squared edge sums control alternating fields. Integrated sampled data remove the surviving zero modes. General SPD systems do not automatically give Jacobi convergence.
 
-@ V27 | flow | followup | 29,33 | thm:convergence
+@ V27 | flow | followup | 29 | thm:convergence
 Q: Does convergence of your discrete iteration prove convergence to the continuum flow?
 A: It proves convergence to the minimizer of the specified finite graph problem. A continuum limit additionally needs compatible discretization, scaling, approximation, and uniform estimates as the grid changes. It also needs sampled directional information; a continuum full-rank condition alone does not certify a particular coarse sample.
 Keep: iteration limit; discretization limit; sampled hypotheses
@@ -525,11 +531,11 @@ A: Positive-definite quadratic algebra gives the temporal and frozen stereo solv
 Keep: quadratic solves; coercive weak flow; compactness and fixed-point tools
 More: The different conclusions matter: a global minimizer existing, a fixed point existing, and an iteration reaching it are separate statements.
 
-@ X03 | synthesis | followup | 34,35 | eq:abstract_stability,cor:selection_robust
+@ X03 | synthesis | followup | 35 | subsubsec:physical,thm:uniqueness,prop:ch2_sar_solvability
 Q: Which next research questions follow directly from your results?
-A: For flow, quantify how raw-event errors become coefficient errors. For adaptive reconstruction, control the full weight-update map and its sensitivity. For stereo, extend the candidate-margin analysis to the weighted aggregated score. Controlled common-pixel comparisons would help connect those mathematical refinements to physical accuracy.
-Keep: representation error; full adaptive map; implemented stereo margins
-More: Learned temporal regularization can start from the smooth fixed-positive-weight solution map. Shared-scene sensing can start from trajectory-dependent invariant modes.
+A: First, measure the represented observation error on a real sensor: the kernel-boundary, overshoot, and sub-threshold terms, plus timestamp and binning error. The stability bounds then translate that error into estimate error. Second, learned temporal regularization: for positive weights the fixed-weight solution is a smooth function of the weights, so it is a well-defined lower level. Third, for shared-scene sensing, compute the motion-invariant modes of the scene operator for a given trajectory.
+Keep: observation error; smooth solution map; trajectory null space
+More: Present learned regularization as a possible extension. The GMU neuromorphic lab supports controlled acquisitions for the sensor-error direction.
 
 @ X04 | synthesis | core | 36 | lem:nullspace,thm:unified_wellposedness,prop:correct_selection
 Q: What single idea connects the three parts of the defense?

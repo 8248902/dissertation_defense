@@ -1,15 +1,15 @@
 {
-  "built_at_utc": "2026-10-20T04:42:41.276581+00:00",
+  "built_at_utc": "2026-10-20T07:05:41.373087+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
-  "notes": 90,
-  "cards": 90,
+  "notes": 91,
+  "cards": 91,
   "priorities": {
-    "core": 48,
+    "core": 49,
     "followup": 42
   },
   "topics": {
     "foundations": 6,
-    "temporal": 23,
+    "temporal": 24,
     "flow": 36,
     "stereo": 20,
     "synthesis": 5
@@ -24,14 +24,14 @@
   ],
   "verification_scope": "Package structure and rendered fields; no desktop Anki GUI import was performed.",
   "source_sha256": {
-    "anki/cards.txt": "b866b2946ba8490230a4836a29e174db2fb547676bb83c8a78e2ba67839a1d25",
+    "anki/cards.txt": "48392dfb315c9add6341ae169f8b737d214e46282ec1eeb43122055457ca911c",
     "anki/build_deck.py": "1f1e7271e37f11777700da1bcce711fe0d3b8a08eee873c407650603d6abad14",
-    "anki/README.txt": "c4cc59506bfca413498ff6dd5d7838df53d5974750854d274b65aef717cd4987",
-    "anki/slide_titles.json": "e9784ad6bbaafcbf5dfda666807713b0bf828da948207c6e9ca4516dd5925dc6",
-    "core.tex": "95d2150c8676986b9d6efc68f083863c3849c39efe740f0e9ee19f3d607ac139",
-    "backup.tex": "cd6e3bea3c565afa6e2d69469fa3767059230f93e88cc70a9c10c17b4a552801",
-    "defense-script.md": "60780d64c4e0f0c9f397a1508d6438f4ad4bbc0bf74fdf1d0167bb76d81b6033",
-    "source-map.csv": "9d97e99bf8704d16933d0d6996e1a6753fad28e8a5987ce17bd1713a4a306270",
+    "anki/README.txt": "66388df1e2e49b03acb437b3d009443dff95c532309cc42e1b173e62e6056f10",
+    "anki/slide_titles.json": "10fc1f0fda916a4ab346be676cc689730a703d5b6ef703c383b00e4397eacf47",
+    "core.tex": "67116b965311c7fde6fd9756166f8f52d72716dcce600d1231695b98061e0a9a",
+    "backup.tex": "7c1881ccc9c727797076ee6c5b2fe5b77544ecffa663602f7072e2d17ebbbc88",
+    "defense-script.md": "881606c6ba1616ab566111e0da34632fafb45828e50f0430f3a1a2a8752f2efe",
+    "source-map.csv": "0c5cd3aa420a564ca67a163d39d1e26728c2ac57db3792eba37c97ed402a1a72",
     "thesis-references.json": "fbcad88b66f615e7c03bc718b16ee48dbb2ccd03e11042f2899f1b11c80d95f2",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "5f64b0f673e0114535967030468c03b8cc6dfcc0818a53072381e41c82785af2",
@@ -39,9 +39,9 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "5f0b40ea02ea0fb44386dbf6813a2ee1501ae15fd7a7ceac18bc838e5739c860"
   },
   "output_sha256": {
-    "defense-oral.apkg": "527d497a433c58688cde178bd21022cd489178ae8ceaa22234c4df8177881049",
-    "defense-core.apkg": "346aea2fa30a7d9f9e971a010663bea759572fc3e107dd45426cc6ccb91ebaab",
-    "defense-oral.tsv": "27cd77d4fd3f0e33ecb1f24649edee473bcc7f824afaca4b383b8c9ec1ee342f",
-    "preview.html": "e023566442d6934ae704c2388f381061d8fc7e525a2beda1ef5ff3be89e09856"
+    "defense-oral.apkg": "9c215e38023f48bd737988246d34a199ef7a99d48dd8e1ea265c4555575441af",
+    "defense-core.apkg": "20664d47e3c8af06e93b131fcbf4ce36c3c44571a280e7c6bc738bca66f90cd9",
+    "defense-oral.tsv": "adf435906069a4e28169abe8b27b45627f4f46e27317a17029ace29c82a231c4",
+    "preview.html": "29156e1cea71028af8a547b2e811693aec5a22c0b25b500aacf3717d714f69e9"
   }
 }

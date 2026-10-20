@@ -1,6 +1,23 @@
 # Defense presentation — current state
 
-**Schedule: pre-defense October 22, 2026; defense November 23, 2026.**
+**Schedule: pre-defense October 22, 2026; defense November 23, 2026.** Draft deck goes to the committee October 20.
+
+## Start here — handoff, October 20 (pre-defense revisions)
+
+**Deck:** 33 main slides + 68 backups. defense.pdf 101 pages; script 104; presenter 202. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
+
+Applied `../misc_ideas_feedback/pre-defense_review_recommendations_2026-10-20.md` (user-approved; choices: slide 23 keeps the derivation with a labeled assumption; future work keeps sensor modeling, learned regularization, ESAR):
+- Slide 11 is now "From threshold crossings to an approximate observation": ideal-threshold approximation plus the Ch. 2 arbitrary-endpoint identity, with the B / overshoot / sub-threshold terms as underbraces. The distributional IVP is Backup 03 only.
+- Slide 16: one line and one script sentence saying PSNR also scores the model-selected baseline. Script now says indoor flying three.
+- Slide 2 script: the reconstruction uses a longer stretch than the 50 ms display.
+- Slide 19: dissertation Fig. 2.10 (copied to figures/sar_synthetic/), caption names the smoothed-TV penalty, one operator equation; nullspace/ridge algebra moved to the talknote.
+- Slide 23: transport equation in a "Modeling assumption" block.
+- Slide 27: three displayed results (Poincaré, m, coercivity); stability bound moved to notes/script (Backup 10, p. 43).
+- Slide 28 takeaway: checker reduces the aperture ambiguity; accuracy depends on representation and regularization.
+- Slide 30: "Mathematical result" (fixed d, frozen weights) vs "Benchmark" (full WLS method) labels.
+- Slide 31: "What the data constrain and what the models prove", a three-row table (CMax row and scoped results now backup-only; the p. 98 adaptive-weight link kept).
+- Slides 32–33 merged into "Research opportunities" (three blocks, CFD and stereo-margin/adaptive-gap items removed; the fractional nonlocal penalty was dropped from the notes).
+- All backup page references shifted by −1. Anki: slide_titles keys 11/33 retitled, key 34 removed, T07/T08 point to Backup 03, X03 rewritten, new core card T24 (slide 11). Main talk ≈5,750 spoken words (≈45 min at 126 wpm).
 
 ## Start here — handoff, October 19 late evening
 

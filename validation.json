@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-10-20T04:42:24+00:00",
+  "generated_at_utc": "2026-10-20T07:21:58+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
-  "main_frames": 34,
+  "main_frames": 33,
   "backup_frames": 68,
-  "referenced_figure_count": 44,
+  "referenced_figure_count": 45,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
     "backup_deck_pages_match": true,
@@ -13,31 +13,31 @@
   },
   "pdfs": {
     "defense.pdf": {
-      "pages": 102,
+      "pages": 101,
       "compile_warnings": []
     },
     "defense-notes.pdf": {
-      "pages": 102,
+      "pages": 101,
       "compile_warnings": []
     },
     "defense-script.pdf": {
-      "pages": 105,
+      "pages": 104,
       "compile_warnings": []
     }
   },
   "sha256": {
-    "core.tex": "95d2150c8676986b9d6efc68f083863c3849c39efe740f0e9ee19f3d607ac139",
-    "backup.tex": "cd6e3bea3c565afa6e2d69469fa3767059230f93e88cc70a9c10c17b4a552801",
-    "defense.tex": "86fcd107d3a40e0b9bbbd196d235a7908633c66b7095737d945e8aaf6654baba",
+    "core.tex": "67116b965311c7fde6fd9756166f8f52d72716dcce600d1231695b98061e0a9a",
+    "backup.tex": "7c1881ccc9c727797076ee6c5b2fe5b77544ecffa663602f7072e2d17ebbbc88",
+    "defense.tex": "e321373c93e0e259c6f05e9bc51365d7eea7919c2e136e99d51692fdc47ded22",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
-    "defense-script.md": "60780d64c4e0f0c9f397a1508d6438f4ad4bbc0bf74fdf1d0167bb76d81b6033",
+    "defense-script.md": "881606c6ba1616ab566111e0da34632fafb45828e50f0430f3a1a2a8752f2efe",
     "build_script.py": "7a926e79274724ce61a7b630ea12650ccb3715c4a5a5f4402a56649c71c49613",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
     "Makefile": "825cf64faf344b132940dd0e352e3f5aff387ce8127b853d42c1fc29d7a88531",
     "reference_support.py": "d5fb4b72b1675a612f7bdf9b04d964508b555d8a441ea59d79ded4954a6253e1",
     "thesis-references.json": "fbcad88b66f615e7c03bc718b16ee48dbb2ccd03e11042f2899f1b11c80d95f2",
-    "defense.pdf": "7fcee8b72ca10ed4faf8bd6722b069d7e94c63d698406839ff87e36fb74cfa63",
-    "defense-notes.pdf": "f41abb057cc3758100c2be156e1baee2be92b35f9b7a4a6102434c7eff431a2e",
-    "defense-script.pdf": "82e7c53816ae43521a49f598593c0c2ae74855b1e249680d74bee5da69ed924e"
+    "defense.pdf": "f64d966d5d420ba9a0e1654aa7d59bf0a88c8c56acada1f26d58b8a4d5820d67",
+    "defense-notes.pdf": "74ab6e8322cd05be6bf3b6dcfb8b7702cf5d46f6e7d730ae0a649231cfd6806d",
+    "defense-script.pdf": "1d43648a3f86a60099212224c8e6a1964790088004ed900c845b59ca7f4b602a"
   }
 }

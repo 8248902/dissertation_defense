@@ -1,40 +1,35 @@
 {
-  "dataset": "MVSEC indoor_flying3",
+  "dataset": "MVSEC indoor_flying2",
   "camera": "left DAVIS",
   "geometry_px": [
     346,
     260
   ],
-  "run_id": "indoor_flying3_bump_08",
-  "reconstruction_source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying3_bump_08/reconstruction.h5",
-  "reference_source": "/scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying3.npz",
-  "reference_source_original_sha256": "ac489b23ba4efd2b8b0e78f2b8e852917c6dd3d20b6d00cc4948a33d71af74cd",
-  "event_prefix_sha256": "b95a27f1e791335c5d9ef82d494109bdba2baffded8fd23dc188438b1ae84b04",
-  "estimator": "event-only B-spline order 1, width 10 ms, sigmoid regularization",
+  "run_id": "indoor_flying2_bump_05",
+  "source_reconstruction_h5": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_bump_05/reconstruction.h5",
+  "source_reference_npz": "/scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying2.npz",
+  "reference_source_original_sha256": "67cc16ff626c9802275aff826efb1420a6f40c4ddb8e2bd913a0398e4f34ea0c",
+  "event_prefix_sha256": "decdabe12216b8c40bb49fac8a724223cebea735ce3cb895c58c7e6a7d905058",
+  "method": "event-only; Gaussian temporal kernel sigma 50 ms; sigmoid regularization",
   "estimator_rerun": false,
-  "solved_frame_index_zero_based": 70,
-  "solved_frame_index_one_based": 71,
-  "solved_frame_count": 100,
-  "solved_time_epoch_s": 1504645505.4105911,
-  "solved_run_time_range_epoch_s": [
-    1504645504.5246804,
-    1504645505.7776113
-  ],
-  "reference_index_zero_based_in_saved_subset": 27,
-  "reference_time_epoch_s": 1504645505.4093914,
-  "reference_minus_solved_s": -0.0011997222900390625,
-  "reference_selection": "nearest actual saved camera frame by epoch timestamp",
+  "solved_frame_index_zero_based": 80,
+  "solved_time_epoch_s": 1504645318.5516384,
+  "reference_index_zero_based_in_saved_subset": 98,
+  "reference_time_epoch_s": 1504645318.5542152,
+  "reference_minus_solved_ms": 2.5768280029296875,
+  "reference_selection": "nearest saved actual left-camera frame by epoch timestamp",
   "display": {
-    "rule": "histogram-mode background; per-run global 1st/99th percentile scale; affine map (f-background)*scale+0.4; clip [0,1]; round to uint8",
-    "background": 0.001041995242068272,
-    "scale": 3.1020639394610323,
-    "reconstruction_clipped_fraction_at_selected_frame": 0.022476656291685194,
-    "reference": "saved native 8-bit camera frame; no contrast remapping"
+    "rule": "histogram-mode background; one 1st/99th-percentile scale over all 100 solved frames; clip((f-background)*scale+0.4,0,1); round to uint8",
+    "background": -0.0023770053264621227,
+    "scale": 10.97689528444069,
+    "clipped_fraction_at_selected_frame": 0.010415740329035127,
+    "spatial_processing": "none; no sharpening, denoising, interpolation, or geometry change",
+    "reference": "saved native 8-bit camera frame, unchanged"
   },
-  "outputs_sha256": {
-    "reference.png": "fa6204e7b16faeb417c5cf70c7f95ae312ad24d30bd920066b6bea94f412ba16",
-    "event_only_bspline.png": "c2469a0710217315baf3283deedf6e2bb8796c92071b4446a0f46dedb65c364d",
-    "preview.png": "a4a193f0565fb02943b1d96b373dd257a38b2fbfdc8e8a4b5abae8eb0d2e7035"
+  "sha256": {
+    "reference.png": "0b56eaf3245d4fa9d4b45128789e4bf28180764282fdb6ff68d73fdda6d8ba98",
+    "event_only_reconstruction.png": "609427f484db28278d9d82409cf2359ec3c087bc4a8b0146c9794750b0496e8b",
+    "preview.png": "8dc218e31c08980d5195d9ae9cd88f5ec4d91249a34af7d5dec36f9572135296"
   },
-  "source_revision_note": "The saved 2026-10-18 replacement run has an audited manifest and input hash; exact runtime checkout revision was not embedded in reconstruction.h5."
+  "source_revision_note": "The saved 2026-10-18 release run has input hashes and a manifest; exact runtime checkout revision was not embedded in reconstruction.h5."
 }

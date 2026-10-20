@@ -206,8 +206,8 @@ For $\mathbf z=\vct_1^*-\vct_2^*$,
 \vspace{-2mm}
 \[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
 +c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
-% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 77).
-{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (stripes, slide 28). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 77).\par}
+% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 76).
+{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (stripes, slide 28). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 76).\par}
 \takeaway{The estimate is Lipschitz in its coefficients under uniform identifiability.}
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
@@ -470,10 +470,10 @@ For event activity $a_i=|dc_i|$, Chapter 2 uses these positive rules:
 \[\lambda_i=10^{-3}+10e^{-\min(a_i,10)}\qquad\text{(exponential decay)}\]
 % source: Ch. 4 sec:solution, empirical pre-normalization-energy weight rule.
 Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\mathbf b}/(\norm{\mathbf b}+2)\}$.
-\takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~99).}
+\takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~98).}
 % source detail: Ch. 2, subsubsec:lambdacal; Ch. 4, sec:solution (regularization terms); Ch. 2, thm:uniqueness.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Section}{sec:solution} (regularization terms); \dref{Theorem}{thm:uniqueness}.}
-\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices; no shared optimality theorem explains their opposite directions.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 99. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
+\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices; no shared optimality theorem explains their opposite directions.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 98. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
 \end{frame}
 
 \begin{frame}{A real MVSEC flow example is qualitative}
