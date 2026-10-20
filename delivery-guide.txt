@@ -3,7 +3,7 @@ Daniel Blauvelt | updated October 19, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
-  defense.pdf          Audience presentation: 36 main slides + 59 backup slides.
+  defense.pdf          Audience presentation: 34 main slides + 65 backup slides.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
   defense-script.md    Editable, authoritative script prose.
@@ -19,12 +19,13 @@ DELIVERY
   Slide 20: embedded aperture animations; play the left panel, then the right.
   Slide 21: edge diagram, then velocity-space lines; two orientations cross at one velocity.
   Slide 26: main flow theorem; explain the integrated directional condition.
-  Slide 27: separate mean and fluctuation in the proof.
-  Slide 29: explain the two-component Jacobi solve using the old neighbor field.
-  Slide 32: brief stereo contribution summary.
-  Slide 36: close, then take questions.
-  New backups: metrics 42; real-time 43; flow protocol 77; alignment 81; depth sensitivity 89.
-  Backup pages 37–95: select by question; page numbers match the script/index.
+  Slide 27: proof idea: mean and fluctuation, then the stability bound.
+  Slide 28: known-motion stripes and checkerboard.
+  Slide 30: stereo model, unique inner solve, and the MVSEC benchmark table.
+  Slide 34: close, then take questions.
+  Full flow proof 43; stability 44; discrete flow / Jacobi 45–46; Chapter 4 results 82.
+  Other backups: metrics 40; real-time 41; flow protocol 78; alignment 83; depth sensitivity 91.
+  Backup pages 35–99: select by question; page numbers match the script/index.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original
@@ -38,7 +39,7 @@ SCRIPT
   Ordinary paragraphs are spoken. Headings, likely questions, and bracketed
   italic instructions organize rehearsal and remain silent.
   Each substantive backup has an answer and an 'If asked for more' explanation.
-  The main talk is about 6,000 words; 48–55 minutes before pauses at 110–125 wpm.
+  The main talk is about 5,870 words; 47–53 minutes before pauses at 110–125 wpm.
   Time the actual rehearsal. Backup answers are outside the main-talk estimate.
 
 EDIT AND BUILD

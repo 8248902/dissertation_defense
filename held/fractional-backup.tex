@@ -1,0 +1,24 @@
+% HELD: not part of defense.pdf. The build reads only core.tex and backup.tex.
+% To add it: append the frame below to the end of backup.tex, append
+% fractional-script.md to defense-script.md (renumber Backup NN and Deck page
+% if other backups were added first), and add the discussion-guide link on the
+% "Anisotropy and ellipticity" line:
+%   \item Anisotropy and ellipticity; \ifdefined\DefenseNotes fractional $H^s$\else\hyperlink{fractional}{fractional $H^s$}\fi
+% T3: Ch. 3 thm:unified_wellposedness and thm:convergence with the gradient seminorm replaced by the Gagliardo seminorm.
+\begin{frame}[label=fractional]{Fractional regularization keeps the proof and allows jumps}
+\small
+Replace $\alpha^2\norm{\nabla\vct}_{L^2}^2$ by $\alpha^2[\vct]_s^2$, $0<s<1$, on $H^s(\Omega;\R^2)$:
+\[[\vct]_s^2=\int_\Omega\!\int_\Omega\frac{|\vct(\mathbf x)-\vct(\mathbf x')|^2}{|\mathbf x-\mathbf x'|^{2+2s}}\,d\mathbf x\,d\mathbf x'.\]
+\vspace{-3mm}
+\begin{itemize}\setlength{\itemsep}{0pt}
+% source: |x-x'|<=D on Omega x Omega and the identity int int |w(x)-w(x')|^2 = 2|Omega| ||w||^2 for mean-zero w.
+\item \textbf{Same null space, explicit Poincar\'e:} if $\int_\Omega\mathbf w=0$ and $D=\operatorname{diam}\Omega$, then $\norm{\mathbf w}_{L^2}^2\le\frac{D^{2+2s}}{2|\Omega|}[\mathbf w]_s^2$.
+\item \textbf{Same proof:} the lemma with $m=\lambda_{\min}(\int_\Omega\B)>0$ gives $H^s$ coercivity, Lax--Milgram, and stability in $H^s$.
+\item \textbf{Motion boundaries:} on the image rectangle the $H^1$ minimizer lies in $H^2\subset C(\bar\Omega)$; piecewise-constant motion lies in $H^s$ exactly when $s<\tfrac12$.
+\item \textbf{Discrete:} all-pairs weights $w_{ij}\propto|\mathbf x_i-\mathbf x_j|^{-2-2s}$ give a connected graph: block-Jacobi converges, with dense sweeps.
+\end{itemize}
+\takeaway{The proof needs a quadratic seminorm that vanishes only on constants and has a Poincar\'e inequality; fractional seminorms supply both and, for $s<\frac12$, allow jumps.}
+% source detail: Ch. 3, thm:unified_wellposedness (H^1 case), thm:convergence. External: Antil and Bartels, CMAM 17 (2017) 661-678, doi:10.1515/cmam-2017-0039; Warma, Potential Anal. 42 (2015) 499-547.
+\src{\dref{Theorem}{thm:unified_wellposedness} ($H^1$ case); extension beyond the dissertation (Antil--Bartels 2017; Warma 2015).}
+\talknote{Question: why $H^1$, and what changes with a fractional-order regularizer? About 2 minutes.}{Poincar\'e: $|\mathbf x-\mathbf x'|\le D$ gives $[\mathbf w]_s^2\ge D^{-2-2s}\iint|\mathbf w(\mathbf x)-\mathbf w(\mathbf x')|^2=D^{-2-2s}\,2|\Omega|\norm{\mathbf w}^2$ for mean-zero $\mathbf w$; no boundary regularity is used. The coercivity constant has the $H^1$ form with $C_P^2$ replaced by $D^{2+2s}/(2|\Omega|)$. Regularity: $\Delta\vct^*=(\B\vct^*-b)/\alpha^2\in L^2$ with the natural Neumann condition, and Neumann $H^2$ regularity on a convex polygon (Grisvard) gives $\vct^*\in H^2$, continuous in two dimensions.}{Jumps: for $\vct=\vct_1\chi_E+\vct_2\chi_{\Omega\setminus E}$ with $E$ of finite perimeter, $[\vct]_s^2=2|\vct_1-\vct_2|^2\int_E\int_{\Omega\setminus E}|\mathbf x-\mathbf x'|^{-2-2s}$, finite for $s<\frac12$ and infinite for $s\ge\frac12$ on a connected domain. The penalty is quadratic in the jump size, while TV is linear in it, so jumps are admissible but still shrunk. Euler--Lagrange operator: the regional fractional Laplacian; Warma (2015) treats its Neumann-type boundary conditions. A spectral variant $\sum_k\mu_k^s|\hat v_k|^2$ also vanishes only on constants; Antil--Bartels use spectral fractional operators in imaging.}
+\end{frame}

@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-10-19T21:54:25+00:00",
+  "generated_at_utc": "2026-10-20T04:24:36+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
-  "main_frames": 36,
-  "backup_frames": 59,
-  "referenced_figure_count": 46,
+  "main_frames": 34,
+  "backup_frames": 65,
+  "referenced_figure_count": 44,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
     "backup_deck_pages_match": true,
@@ -13,31 +13,31 @@
   },
   "pdfs": {
     "defense.pdf": {
-      "pages": 95,
+      "pages": 99,
       "compile_warnings": []
     },
     "defense-notes.pdf": {
-      "pages": 95,
+      "pages": 99,
       "compile_warnings": []
     },
     "defense-script.pdf": {
-      "pages": 98,
+      "pages": 102,
       "compile_warnings": []
     }
   },
   "sha256": {
-    "core.tex": "4adb56f1ccc3dc79ec47e8f2cdd34a69ad6ad32a7ae15ca5978dc9a9840c3485",
-    "backup.tex": "abc51c9083df4e739f2eaf4e373c51e6a5f432e938854e8a7d99a249dd5c7b05",
-    "defense.tex": "d75352355d70e9ac7d96dc884c25b0ec65c94eb4dc6e0c521eff3a9e6bee50dd",
+    "core.tex": "db56ce876ac3b716f044544531c7d49746007fad014aa38546db9beb9116768b",
+    "backup.tex": "f954d0d0e7e74b5e5fe35ee89bd51552b44c851f47b2aff9b1b425c8df16b12c",
+    "defense.tex": "8e47fc0063296d40ee80c6d948b1b6a192a8d3ca10440440bdd2c23c4987d9ba",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
-    "defense-script.md": "01cb4e2961bd6464a712746a6286e78495dc8278e2fd6c2d477625f77cba2f9b",
+    "defense-script.md": "aebd36321a342a9e98f38cb4c6ab43070fae2785e73a99fbfd698e6d70b8c9b8",
     "build_script.py": "7a926e79274724ce61a7b630ea12650ccb3715c4a5a5f4402a56649c71c49613",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
     "Makefile": "825cf64faf344b132940dd0e352e3f5aff387ce8127b853d42c1fc29d7a88531",
     "reference_support.py": "e4e605db8196c1dbcd1925fb9801ac12535f2cc301c0199e5fa966881fd7701f",
-    "thesis-references.json": "82effdfcf87b59b98515320ce5b3ae348bdaade001ee62287139d72f3de6ef95",
-    "defense.pdf": "4a3c6f1f2aba7801c01b016945b24cbfc367d745023cc3f2e83b203b61d831ed",
-    "defense-notes.pdf": "c140f81641859798ab9806ca02b5c9a8b04003f07c461c647ae94a64ef8e5230",
-    "defense-script.pdf": "f2f5bd7f12bc5e87d79dca3e6dd56a86aee6727d9b142936c7a0547d5df6c73a"
+    "thesis-references.json": "fee151dbcfcb87ee5f15d78ad6c3aba466258a9ab7938059fed32d451ce07f8e",
+    "defense.pdf": "835a6411e782b26dbb3a5bb0fcc5598296968dbf5dad6af7b46c6dabfa7fb2f6",
+    "defense-notes.pdf": "d0d38c329e52b148fece68053fa39a2cccded31af362261ec355af5d37162409",
+    "defense-script.pdf": "53c4f0d838f5d0b32beb1d79cadf0f4bcb66e6e4650674e7111b838262bfb3fa"
   }
 }

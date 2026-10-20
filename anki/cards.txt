@@ -363,7 +363,7 @@ A: Quadratic smoothing gives a bilinear weak equation and a common coercivity an
 Keep: quadratic proof structure; smoothed boundaries; TV needs its own theorem
 More: The natural jump-permitting space is BV. Simply replacing the gradient-square term by TV in an abstract energy with arbitrary linear forcing need not preserve a lower energy bound.
 
-@ V32 | flow | core | 30,74,75 | sec:cmax
+@ V32 | flow | core | 74,75 | sec:cmax
 Q: Explain contrast maximization in scene terms.
 A: Events from a moving edge form a trail over the time window. A candidate motion warps them to one reference time; good alignment stacks the trail into a sharper edge. The method rewards that concentration and regularizes the motion field. Because the warp changes with motion, its objective is generally nonconvex.
 Keep: warp to reference time; sharpen accumulation; nonconvex search

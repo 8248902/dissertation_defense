@@ -334,7 +334,7 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
 % source detail: Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}.}
-\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; this direct identity does not establish a full adaptive stability theorem. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
+\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected as an empirical fidelity/conditioning compromise, not as an optimized or certified best lambda. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 99. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
 \end{frame}
 
 \begin{frame}{Temporal evidence: structure without an absolute baseline}
@@ -509,7 +509,7 @@ With an unsquared coefficient $\lambda>0$,
 \takeaway{As with the temporal baseline, the data leave one quantity free; smoothness carries information from other edge orientations to supply it.}
 % source detail: Ch. 3, prop:time_surface and aperture remark (normal-speed constraint); thm:unified_wellposedness (integrated identifiability). Velocity-space intersection of constraints: Adelson and Movshon (1982).
 \vspace{-1mm}{\fontsize{6.5}{8}\selectfont\color{muted}Intersection of constraints [Adelson \& Movshon 1982]. Dissertation: \dref{Proposition}{prop:time_surface}; requirement in \dref{Theorem}{thm:unified_wellposedness}.\par}
-\talknote{Flow model in scene terms; about 90 seconds.}{Left: the dark edge, its normal motion in teal, its tangent in amber; the dashed line is the edge's later position. Right, in velocity space: every velocity on the amber line moves edge 1 across itself at the same speed, so all of them fit its events. That line runs parallel to the edge, along the free tangent direction. A second edge with a different orientation allows a different line, and the two cross at one velocity. Smoothness lets pixels share that information, so the two edges can be in different places.}{Mathematically, the time-surface coefficient at an edge is the rank-one matrix of the crossing-time gradient, proportional to n n-transpose. Two non-parallel normals give a positive-definite sum: that is the integrated-identifiability condition of the main theorem for the constant mode. Smoothness controls the fluctuation; the integrated data control the mean. Slide 30 shows the consequence on simulated data: the stripes supply one orientation in their interior, the checkerboard supplies two. The velocity-space picture is the classical intersection-of-constraints construction of Adelson and Movshon.}
+\talknote{Flow model in scene terms; about 90 seconds.}{Left: the dark edge, its normal motion in teal, its tangent in amber; the dashed line is the edge's later position. Right, in velocity space: every velocity on the amber line moves edge 1 across itself at the same speed, so all of them fit its events. That line runs parallel to the edge, along the free tangent direction. A second edge with a different orientation allows a different line, and the two cross at one velocity. Smoothness lets pixels share that information, so the two edges can be in different places.}{Mathematically, the time-surface coefficient at an edge is the rank-one matrix of the crossing-time gradient, proportional to n n-transpose. Two non-parallel normals give a positive-definite sum: that is the integrated-identifiability condition of the main theorem for the constant mode. Smoothness controls the fluctuation; the integrated data control the mean. Slide 28 shows the consequence on simulated data: the stripes supply one orientation in their interior, the checkerboard supplies two. The velocity-space picture is the classical intersection-of-constraints construction of Adelson and Movshon.}
 \end{frame}
 
 \begin{frame}{Derive the time-surface constraint by following the edge}
@@ -592,71 +592,32 @@ The integrated matrix must identify \textbf{every constant velocity direction}.\
 \talknote{Central theorem; 90 seconds.}{Classical quadratic optical flow already has well-posedness theory, including Weickert and Schn\"orr. The contribution here is one analysis for three event-derived coefficient constructions, with explicit identifiability and perturbation hypotheses. Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise. Scene terms: edges in at least two orientations somewhere in the image.}
 \end{frame}
 
-\begin{frame}{Proof: control the mean and the fluctuation separately}
+\begin{frame}{Proof idea: smoothness fixes variation, edges fix the drift}
 Decompose $\vct=\underbrace{\bar{\vct}}_{\text{common drift (pan)}}+\underbrace{\mathbf w}_{\text{variation across the image}}$, with $\int_\Omega\mathbf w=0$.
-\[\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}.\]
-Let $\beta_B=\norm{\B}_{L^\infty}$ and $m=\lambda_{\min}(\int_\Omega\B)>0$ (how well the edges cover every direction).
-% source: Ch. 3 proof of thm:unified_wellposedness, eq:mean_control.
-\[m|\bar{\vct}|^2\le2\int_\Omega\vct^\top\B\vct+2\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2.\]
-Therefore the bilinear form satisfies
-% source: Ch. 3 proof of thm:unified_wellposedness; admissible lower bound, not optimal.
-\[\mathcal B(\vct,\vct)=\int\vct^\top\B\vct+\alpha^2\int|\nabla\vct|^2
-\ge c_0\norm{\vct}_{H^1}^2,\qquad
-c_0=c_0(\Omega,\alpha,\beta_B,m).\]
-\takeaway{Poincar\'e controls fluctuations, data control the mean, and Lax--Milgram supplies the unique weak solution.}
-% source detail: Ch. 3, proof of thm:unified\_wellposedness.
-\src{proof of \dref{Theorem}{thm:unified_wellposedness}.}
-\talknote{Main proof; 2 minutes.}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part. Poincar\'e controls the latter. Use $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$, square with the factor-two inequality, and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$. Positive definiteness of the integrated matrix controls the mean.}{An admissible lower bound, not an optimal constant, is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$. Insert it into $\norm{\vct}_{H^1}^2=|\Omega||\bar{\vct}|^2+\norm{\mathbf w}_{L^2}^2+\norm{\nabla\vct}_{L^2}^2$. Lax--Milgram gives the unique minimizer. For fixed positive $\beta_B,\alpha$, this lower bound deteriorates linearly as $m$ decreases. Scene terms: mean = common drift (camera pan), fluctuation = variation across the image; smoothness charges nothing for a pan, so the edges must fix it.}
-\end{frame}
-
-\begin{frame}{Stability follows by subtracting weak equations}
-Suppose two coefficient pairs share bounds
-\[\norm{\B_i}_{L^\infty}\le \beta_B,\qquad\lambda_{\min}\!\left(\int\B_i\right)\ge m>0,
-\qquad\norm{b_i}_{L^2}\le R_b.\]
-Here $c_0=c_0(\Omega,\alpha,\beta_B,m)$ is independent of $b_i$.
-For $\mathbf z=\vct_1^*-\vct_2^*$,
-\[\mathcal B_1(\mathbf z,\mathbf z)
-=\int(b_1-b_2)\cdot\mathbf z+\int\mathbf z^\top(\B_2-\B_1)\vct_2^*.\]
-Hence
-\[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
-+c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
-{\footnotesize In scene terms: coefficient changes come from timestamp jitter, binning, and noise events; the constants grow as $m$ shrinks (stripes, slide 30).\par}
-\takeaway{The estimator is Lipschitz in its coefficients while identifiability remains uniformly positive.}
-% source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
-\src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
-\talknote{Stability proof; 75 seconds.}{The same coercivity constant works on both coefficient pairs because the quantitative bounds are shared. Subtract their weak equations and test with the solution difference. Cauchy--Schwarz controls the right side, and $\norm{\vct_2^*}_{H^1}\le R_b/c_0$ follows from its own weak equation. Divide by $\norm{\mathbf z}_{H^1}$ if it is nonzero.}{The conclusion is stability of the chosen estimator, not an error bound to ground-truth velocity. The estimate may become poor as $m\to0$. If a density-dependent diffusion tensor is recomputed, the regularizer also changes; its $L^\infty$ perturbation must enter the bound. Scene terms: coefficient changes come from timestamp jitter, binning, and noise events; small $m$ is the stripe case on slide 29.}
-\end{frame}
-
-\begin{frame}{Discrete flow: connectivity and sampled directions matter}
 \small
-Fix $\alpha>0$, $q_i>0$, and $\B_i=\B_i^\top\succeq0$ on a connected graph with
-$w_{ij}=w_{ji}\ge0$ and degree $d_i=\sum_jw_{ij}>0$.
-\begin{block}{One simultaneous block-Jacobi sweep}
-% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks; normal-equation block update with positive q_i absorbed into B_i and b_i.
-\[
-\underbrace{(q_i\B_i+\alpha^2d_i\mathbf I_2)}_{\text{local }2\times2\text{ matrix}}
-\vct_i^{(k+1)}
-=q_i b_i+\alpha^2\sum_jw_{ij}\vct_j^{(k)}.
-\]
-\end{block}
-\begin{itemize}
-\item At each node, solve for two velocity components using local data and the previous neighbor velocities.
-\item Update every node from the same old field; then repeat the sweep.
-\item Scene terms: each pixel blends its edge measurement with neighbors' motion.
+\begin{itemize}\setlength{\itemsep}{1pt}
+\item \textbf{Smoothness controls the fluctuation.} Poincar\'e: $\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}$.
+\item \textbf{Edges fix the drift.} $m=\lambda_{\min}\bigl(\int_\Omega\B\bigr)>0$ (edge coverage of all directions) controls $|\bar{\vct}|$.
+% source: Ch. 3 proof of thm:unified_wellposedness; admissible lower bound, not optimal.
+\item \textbf{Together:} $\mathcal B(\vct,\vct)\ge c_0\norm{\vct}_{H^1}^2$ with $c_0=c_0(\Omega,\alpha,\beta_B,m)$, $\beta_B=\norm{\B}_{L^\infty}$; Lax--Milgram gives the unique minimizer.
+\item \textbf{Stability:} if $\norm{\B_i}_{L^\infty}\le\beta_B$, $\lambda_{\min}(\int\B_i)\ge m$, $\norm{b_i}_{L^2}\le R_b$, the same $c_0$ gives
+% source: Ch. 3, thm:unified_wellposedness, eq:abstract_stability.
+\[\norm{\vct_1^*-\vct_2^*}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}+c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
 \end{itemize}
-% source: Ch. 3 thm:convergence and cor:convergence_psd_blocks, extended to q_i>0 by absorbing q_i into B_i.
-If $\sum_iq_i\B_i\succ0$, the discrete energy has a unique minimizer, and these sweeps converge to it from every initial field.
-% source detail: Ch. 3, cor:vox\_projection\_wellposed; positive-$q_i$ extension of thm:convergence and cor:convergence\_psd\_blocks.
-\src{\dref{Theorem}{thm:convergence} and \dref{Corollary}{cor:convergence_psd_blocks}; extension to positive node factors $q_i$.}
-\talknote{Numerical construction and theorem; about 90 seconds.}{Each node stores a two-component velocity. With coefficients fixed, the normal equation at node i has the local data matrix $q_i\B_i$ plus alpha squared times the weighted degree. Move the neighboring velocities to the right, and use their values from the previous sweep. This gives the displayed two-by-two solve. The $q_i b_i$ term carries the local observations, and the weighted neighbor sum carries the previous surrounding field. Compute every new velocity from the same old field, then replace the whole field and repeat.}{The theorem assumes a connected graph, symmetric nonnegative edge weights, positive degrees and node factors, PSD data blocks, and a positive-definite sampled Gram matrix. For this graph operator, zero graph energy forces a constant field, and the sampled data remove that constant null direction. Write $H=D-R$, where $D$ contains the local two-by-two blocks and $R$ contains the neighbor couplings. Both $D-R$ and $D+R$ are positive definite: possible alternating constants of the signless graph form are removed by the same sampled data condition. Hence the spectrum of the similar symmetric Jacobi matrix lies in $(-1,1)$. This proves convergence of the simultaneous schedule from every initial field. Match a representation's stencil and update schedule to these hypotheses before applying the result. Scene terms: information spreads one neighbor per sweep.}
+\vspace{-1mm}
+{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (stripes, next slide).\par}
+\takeaway{Smoothness controls how motion varies, edges in different orientations fix the common drift, and the estimate is Lipschitz in its coefficients.}
+% source detail: Ch. 3, proof of thm:unified\_wellposedness; eq:abstract\_stability.
+\src{proof of \dref{Theorem}{thm:unified_wellposedness}; \dref{Eq.}{eq:abstract_stability}.}
+\talknote{Proof mechanism and stability; about 2 minutes. The full derivations are the next two backups after the boundary-condition backup.}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part; Poincar\'e controls the latter. Positive definiteness of the integrated matrix controls the mean: square $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$ and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$. Stability: shared bounds give one coercivity constant; subtract the weak equations and test with the difference.}{An admissible lower bound, not an optimal constant, is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$; it deteriorates linearly as $m$ decreases. The stability bound concerns the represented coefficients; linking it to raw sensor errors or to the true motion needs a model of the representation error. Scene terms: mean = camera pan; smoothness charges nothing for a pan, so the edges must fix it.}
 \end{frame}
 
 \begin{frame}{Known-motion examples make the aperture problem visible}
 \centering\small
-\begin{tabular}{lcccc}
- & Ground truth & Voxel & Structure tensor & Contrast maximization\\
-\rotatebox{90}{Stripes}\! & \includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/gt.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_struct.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/cmax.png}\\
-\rotatebox{90}{Checker}\! & \includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png}&\includegraphics[width=2.5cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/cmax.png}\\
+\begin{tabular}{lccc}
+ & Ground truth & Voxel & Structure tensor\\
+\rotatebox{90}{Stripes}\! & \includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/gt.png}&\includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox.png}&\includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_struct.png}\\
+\rotatebox{90}{Checker}\! & \includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png}&\includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox.png}&\includegraphics[width=2.9cm]{figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png}\\
 \end{tabular}
 \takeaway{Stripes emphasize a normal-flow constraint; checker texture supplies directions in both axes.}
 % source detail: Ch. 3, fig:ch3\_quiver\_v2e; v2e simulation, same window and arrow scale.
@@ -689,24 +650,33 @@ Each candidate $d$ pairs a left observation with $\mathbf y_R(x-d,y)$.
 \talknote{Stereo introduction; 75 seconds.}{Explain rectification as a calibrated coordinate change that places corresponding rays on the same image row. Disparity is the horizontal pixel shift; similar triangles give depth as focal length times baseline divided by disparity. Farther objects have smaller disparity, so small disparity errors can create large depth errors.}{The event-feature observations are accumulated and normalized before matching, rather than synchronous brightness images. We assume a candidate disparity is approximately valid over the observation window and both views remain visible. Occlusion, parallax, changing depth, and differing sensor responses can break profile equality. Scene-terms summary (spoken): true match sees the same changes; soft coupling; weights trust quiet intervals; best-scoring candidate gives depth.}
 \end{frame}
 
-\begin{frame}{Stereo depth in one slide: what Chapter 4 adds}
+\begin{frame}{Stereo on MVSEC: competitive accuracy, more scored points}
 \footnotesize
-At each candidate disparity $d$, solve two coupled temporal profiles:
+\abovedisplayskip=2pt\belowdisplayskip=2pt
+At each candidate disparity $d$, solve two softly coupled temporal profiles:
 \[\min_{\fL,\fR}\ \sum_{c=L,R}\Bigl(\tfrac12\norm{\W_c^{1/2}(\A\mathbf f_c-\mathbf y_c)}^2+\tfrac12\norm{\Lam\mathbf f_c}^2\Bigr)+\tfrac\gamma2\norm{\fL-\fR}^2.\]
-\vspace{-3mm}
-\begin{enumerate}\setlength{\itemsep}{0pt}
-\item \textbf{Inner solve.} The Hessian is $\succeq\lambda_{\min}^2\mathbf I$: the temporal proof plus a nonnegative coupling term.
-% source: Ch. 4 lem:matching_cost_closed_form, prop:attenuation_bias; exact example C(1)=1/3, C(1/2)=9/40.
-\item \textbf{Profiled cost.} $C(d)=m(\yL)+m(\yR(d))+D_d$: the monocular term moves with $d$. In an exact two-sample example the perfect match costs $\tfrac13$, an attenuated one $\tfrac9{40}$: a weaker right-view copy can outscore the true match.
-\item \textbf{Selection.} A separation condition makes the correct candidate the unique winner; a margin $\Delta$ tolerates cost perturbations below $\Delta/2$ (e.g., noise events, threshold mismatch between sensors).
-\item \textbf{Reweighting.} The IRLS map has a fixed point (Brouwer) and contracts under a sufficient condition.
-\end{enumerate}
-% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark and following paragraph: WLS best on Fl2 (58.35) and log RMSE x100 (44.54), second-best elsewhere; 2.66M vs Piatkowska 1.20M points.
-MVSEC indoor flying: soft-coupled WLS is best on Flying 2 (58.35\,cm) and log RMSE $\times100$ ($44.54$), second elsewhere, with 2.66\,M scored points versus 1.20\,M for the strongest prior method.
-\takeaway{Coupling keeps every inner solve well posed; the right correspondence also needs a cost margin.}
-% source detail: Ch. 4, thm:weighted\_spd, prop:attenuation\_bias, prop:correct\_selection, prop:irls\_contraction; App., tab:unified\_benchmark.
-\src{\dref{Theorem}{thm:weighted_spd}, \dref{Proposition}{prop:attenuation_bias}, \dref{Proposition}{prop:correct_selection}, \dref{Proposition}{prop:irls_contraction}; \dref{Table}{tab:unified_benchmark}.}
-\talknote{Chapter 4 summary; 2 minutes. Keep to the four results and one benchmark sentence.}{This chapter compares candidate correspondences by reconstructing and softly coupling a temporal event-feature profile from each view. The analysis separates the unique inner reconstruction from the outer correspondence decision, then gives conditions for selection and stability under a positive winning margin. Item 1 is the Chapter 2 coercivity argument with one more nonnegative term. Item 2 is the conceptual point: after profiling out the latent profiles, the candidate cost contains a right-view monocular term that changes with the candidate, so in the two-sample example an attenuated wrong match beats the exact match. Item 3 gives a sufficient condition under which the correct candidate wins, and its stability under perturbations smaller than half the margin. Item 4 is the reweighted iteration.}{Benchmark: each method is scored on its own valid pixels; the Piatkowska adaptation has the lowest error on Flying 1, 3, and 4. Interpret accuracy alongside scored coverage. The separation results concern unweighted candidate-local costs before aggregation; the contraction theorem applies when its displayed sufficient condition holds. Scene terms: a weaker right-view copy can outscore the true match; margin errors include noise events and sensor threshold mismatch.}
+The Hessian is $\succeq\lambda_{\min}^2\mathbf I$, so every inner solve is unique; the lowest-cost candidate gives the disparity.
+\begin{center}\vspace{-0.5mm}\scriptsize\begin{tabular}{lrrrrrr}
+\toprule & \multicolumn{4}{c}{Mean depth error (cm) $\downarrow$}&log RMSE&Scored\\
+Method & Fl1&Fl2&Fl3&Fl4&$\times100\;\downarrow$&points (M)\\\midrule
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, wls row (mean error, log RMSE x100, #Pts).
+\textbf{Soft-coupled WLS (ours)}&73.83&\textbf{58.35}&70.33&59.24&\textbf{44.54}&2.66\\\midrule
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Piatkowska row.
+Piatkowska adaptation&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1.20\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Xie row.
+Xie adaptation&93.43&78.60&93.66&66.57&59.36&1.39\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Kogler row.
+Kogler et al.&123.39&99.50&125.27&78.23&80.94&0.66\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Rogister row.
+Rogister et al.&142.17&128.20&153.32&114.80&90.32&1.01\\\bottomrule
+\end{tabular}\end{center}\vspace*{-1mm}
+% source: appendix_bodies/ch4_protocol.tex tab:metrics, per-method population P_m,s; depth band [0.5,8] m.
+{\scriptsize MVSEC indoor flying 1--4, raw outputs. Each method is scored on its own estimates with ground truth in $[0.5,8]$\,m.\par}
+% source: tab:unified_benchmark; gaps to Piatkowska 5.87, 1.45, 4.61 cm on Fl1, Fl3, Fl4; 2.66M / 1.20M = 2.2.
+\takeaway{WLS: best on Flying 2 and log RMSE, within 6\,cm elsewhere, over twice the points.}
+% source detail: Ch. 4, thm:weighted\_spd; App., tab:unified\_benchmark, tab:metrics; Xie and Piatkowska rows are local adaptations (ch4_protocol.tex:264, :326).
+\src{\dref{Theorem}{thm:weighted_spd}; \dref{Table}{tab:unified_benchmark}, \dref{Table}{tab:metrics}. Xie and Piatkowska rows are local adaptations.}
+\talknote{Stereo model and MVSEC results; about 2 minutes.}{One energy line, one theorem sentence, then the table. Item: the inner solve is the Chapter 2 coercivity argument with one more nonnegative term. Table: mean absolute depth error in centimeters per sequence; log RMSE is one hundred times the base metric, averaged over sequences; scored points are summed. WLS leads on Flying 2 and log RMSE; the Piatkowska adaptation leads on Flying 1, 3, and 4 by 5.9, 1.5, and 4.6 cm; WLS leads the Xie, Kogler, and Rogister rows on every column shown.}{Each method is scored on its own valid pixels, so read accuracy together with scored coverage; this table does not compare accuracy on a common pixel set. In the full dissertation table the Piatkowska adaptation also leads on the median and several other error metrics. Correspondence questions (does the right candidate win? does IRLS converge?) go to the Chapter 4 backups: counterexample, separation condition, winning margin, and IRLS fixed point.}
 \end{frame}
 
 \section{Contributions and next questions}
@@ -714,7 +684,7 @@ MVSEC indoor flying: soft-coupled WLS is best on Flying 2 (58.35\,cm) and log RM
 \footnotesize\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{5.1cm}>{\raggedright\arraybackslash}p{4.8cm}}\toprule
 Problem & Established mathematical result & Additional physical / algorithmic question\\\midrule
-Temporal & Unique fixed-weight minimizer and perturbation bounds & Absolute baseline; adaptive-weight stability\\
+Temporal & Unique fixed-weight minimizer and perturbation bounds & Absolute baseline; adaptive-weight stability (\ifdefined\DefenseNotes local bound, p.~99\else\hyperlink{adaptivelipschitz}{local bound, p.~99}\fi)\\
 Quadratic flow & $H^1$ well-posedness; coefficient stability; scoped graph convergence & Representation accuracy and motion boundaries\\
 Contrast max. & Global minimizer exists with coefficient ridge & Nonconvex optimizer convergence and selection\\
 Stereo & Frozen SPD solves; fixed-point existence; conditional contraction; ideal selection margins & Full IRLS stopping rules; weighted, aggregated correspondence\\\bottomrule

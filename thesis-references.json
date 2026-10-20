@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-10-19T02:06:25+00:00",
+  "generated_at_utc": "2026-10-20T01:01:12+00:00",
   "thesis_main": "GMU-Diss_template",
-  "thesis_pdf_sha256": "4d37f55f49bd4dd02c9be08a30db7824ab4e0cd3e785d8a7cd42de8ab9cc66d5",
+  "thesis_pdf_sha256": "9fd1ba17edcfc5c81f32ec1e6713495953f2b3291bb8d275ea1ff21d3396f4d0",
   "source_sha256": {
-    "GMU-Diss_template.tex": "afba0bdcf878a9ae1429a10d4bfb4009f36544b9183ff6c153885250d64d6b55",
+    "GMU-Diss_template.tex": "b64ab01e2c683ae787d4791a843129116e35d0215f006bb4a04cf443f3db1871",
     "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
     "appendix_bodies/ch3_protocol.tex": "071b3ec3a260d4d4b6fa56dbed66ca271c090c76cf6bd69ab3497ffabecbe180",
-    "appendix_bodies/ch4_protocol.tex": "0db0e060e730fa0b54e8cb8aa5e3f681ae5588a0bd6c14fb3359fa0e42d236c9",
+    "appendix_bodies/ch4_protocol.tex": "2e588f971105bc69fb99cc7f0408b60c6ad631c3d419e3265267979ef06cdb66",
     "chapterFive.tex": "07febc113efa11afa713b04c26dc033d5753a8132b3d32fb9b1cf4435fc8df33",
-    "chapterFour.tex": "61833340a30a540f872f2f5d037925f658c1082cd37b4ae621254a2b8dd7fb4c",
+    "chapterFour.tex": "002dcc1345ead5e527b9dbf12bbb742d2b043c0289e44a32952f54978ffcabe8",
     "chapterOne.tex": "cf7147746755b6ee3c7a76f0aba0356bbdb5d6aaede68eb9b97df0b94ea9816f",
-    "chapterThree.tex": "86151bef2b50a4df848477d4b037de4983383a5fd7e596e602526bedf9100460",
+    "chapterThree.tex": "ed0ecc3050de0ce21eede3ddff076b5a3a30219cb4a82b28a637e6922c601e10",
     "chapterTwo.tex": "f7731d10eff79cef6d323598a09ec55dd777fbaeb61ba70156875231254797d7",
     "figures/ISS/109_09751_reflected.png": "089c3e7d650bf617bd44abb1c284a46170246f59545ec295ad2fb7ddde5d50f4",
     "figures/ISS/109_09751g_reflected.png": "5086784de5872903a4569b621b53de9c3986093a253e1124eaa779a6577eb37f",
@@ -146,20 +146,20 @@
     "figures/office/office_ex_6-eps-converted-to.pdf": "d535ecbe064069c22a770e2d4e1f564665fa5869ef5e3df9d133d5fe4e913fce",
     "figures/office/office_ex_6.eps": "a96497fd13e3aadeb1696dd67f2752969e870e115e487a3f24aad94e56a79aea",
     "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
-    "gmuETD.bib": "10792ca7952ec4e94c00b9ad5df1ac3e8fa29a7107e7899f5ac32496062a3dab",
+    "gmuETD.bib": "f8ca91ccf4139cf6c4c62ca59723c94e519121386f6206ff4f0b7cf368d5b45d",
     "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
-    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "ba36f23a77acd5e6a71df377967755e11ce1d4be58ecd2613a5b1ada39b2f42d",
-    "shared_bodies/ch3_eb_hs_of_body.tex": "f6a1b4f0690ab3de50d6e7897e8a99069745b7578488ae53cc0103718132eaec",
-    "shared_bodies/ch4_stereo_depth_body.tex": "aed15f1fc87abdff5e29e41b6912ecefe900e0308d5ec6c5ce534c195d0f02da"
+    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "5f64b0f673e0114535967030468c03b8cc6dfcc0818a53072381e41c82785af2",
+    "shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
+    "shared_bodies/ch4_stereo_depth_body.tex": "5f0b40ea02ea0fb44386dbf6813a2ee1501ae15fd7a7ceac18bc838e5739c860"
   },
   "auxiliary_sha256": {
-    "GMU-Diss_template.aux": "f820e1ecfed3fbd91410878d3e56946d84bb3a721b568e5fdc40da411c4b29d1",
+    "GMU-Diss_template.aux": "b524aa5b1e7bbd9614f16637487d9b15336e2fc932bc9d0b933e45b94104eb6f",
     "chapterOne.aux": "974dd06f478f99e9622b9b0c78fec62d88c4d0c483b194f5eb9c05f9c45ed8e5",
-    "chapterTwo.aux": "4403db73ca73bd189f07a76c2ce83bbe3e108d9d821f77b91edb86725be3a933",
-    "chapterThree.aux": "b577220cd8e20bc6e837b4444853897c195d1d9eecfec347d601d32010f02dac",
-    "chapterFour.aux": "c88ac18c45dac90ac06d239722c157437bd057f08457e001658c65552a82c50e",
+    "chapterTwo.aux": "274b0881b4feb72cde50581a052de25b03e3cd09468fe27016fe858988b441b2",
+    "chapterThree.aux": "1dd0f0b73582169b349ee2e03d609e6dc94579b7da4815a9955c109eb4369cd2",
+    "chapterFour.aux": "52be39129c3eb52550aa68b6fc83a54235140b31fe51f02b7c8a1fad7f00380b",
     "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
-    "appendixA.aux": "8e1e0095c3dbe0a100b4febe335088b664a16be92cac1e02efa86127b69b9c4b"
+    "appendixA.aux": "243d753cb766e2c3e33fbc3144b51f1fdb86a97fc2dea28e911030f00134e7ed"
   },
   "labels": {
     "app:ch3_accumulation": {
@@ -392,7 +392,7 @@
     },
     "cor:structure_wellposedness": {
       "number": "3.6.4",
-      "page": "95",
+      "page": "96",
       "title": "Structure-Tensor model",
       "anchor": "corollary.281"
     },
@@ -621,13 +621,13 @@
     "eq:euler_lagrange_u": {
       "number": "3.15",
       "page": "67",
-      "title": "Euler-Lagrange Equations",
+      "title": "Euler--Lagrange Equations",
       "anchor": "equation*.201"
     },
     "eq:euler_lagrange_v": {
       "number": "3.16",
       "page": "67",
-      "title": "Euler-Lagrange Equations",
+      "title": "Euler--Lagrange Equations",
       "anchor": "equation*.202"
     },
     "eq:event_integral": {
@@ -656,7 +656,7 @@
     },
     "eq:fxy": {
       "number": "2.5",
-      "page": "13",
+      "page": "14",
       "title": "Event Model",
       "anchor": "equation*.42"
     },
@@ -1100,7 +1100,7 @@
     },
     "fig:all_method_comparison_indoor3": {
       "number": "A.1",
-      "page": "181",
+      "page": "180",
       "title": "MVSEC Indoor Flying 3: Stereo-Depth Method Comparison",
       "anchor": "figure.caption.531"
     },
@@ -1167,7 +1167,7 @@
     "lem:ne_elliptic": {
       "number": "3.4.6",
       "page": "82",
-      "title": "Uniform ellipticity of the Nagel-Enkelmann tensor",
+      "title": "Uniform ellipticity of the Nagel--Enkelmann tensor",
       "anchor": "lemma.247"
     },
     "lem:nullspace": {
@@ -1394,7 +1394,7 @@
     },
     "sec:benchmark": {
       "number": "A.2.8",
-      "page": "181",
+      "page": "180",
       "title": "Benchmark Comparison with State-of-the-Art Methods",
       "anchor": "subsection*.529"
     },
@@ -1508,7 +1508,7 @@
     },
     "sec:numerical": {
       "number": "3.7",
-      "page": "96",
+      "page": "97",
       "title": "Numerical Solution",
       "anchor": "section*.282"
     },
@@ -1544,7 +1544,7 @@
     },
     "sec:success_wls": {
       "number": "A.2.8",
-      "page": "183",
+      "page": "182",
       "title": "The Heteroscedastic WLS Configuration",
       "anchor": "section*.538"
     },
@@ -1580,7 +1580,7 @@
     },
     "subsec:bumpsel": {
       "number": "2.2.1",
-      "page": "9",
+      "page": "10",
       "title": "Bump Function Selection and Properties",
       "anchor": "section*.23"
     },
@@ -1593,7 +1593,7 @@
     "subsec:cmax_galerkin": {
       "number": "3.5.2",
       "page": "88",
-      "title": "Ritz-Galerkin B-Spline Discretization",
+      "title": "Ritz--Galerkin B-Spline Discretization",
       "anchor": "subsection*.261"
     },
     "subsec:cmax_update": {
@@ -1671,7 +1671,7 @@
     "subsec:variational": {
       "number": "3.3.4",
       "page": "67",
-      "title": "Time-Surface Energy and Euler-Lagrange Equations",
+      "title": "Time-Surface Energy and Euler--Lagrange Equations",
       "anchor": "subsection*.197"
     },
     "subsec:vibration_diag": {
@@ -1832,7 +1832,7 @@
     },
     "tab:metrics": {
       "number": "A.4",
-      "page": "187",
+      "page": "186",
       "title": "Depth-Estimation Evaluation Metrics",
       "anchor": "table.caption.528"
     },
@@ -1856,7 +1856,7 @@
     },
     "tab:sota_logic": {
       "number": "A.3",
-      "page": "186",
+      "page": "185",
       "title": "Comparison of Local Event-Based Stereo Algorithms",
       "anchor": "table.caption.525"
     },
@@ -1874,7 +1874,7 @@
     },
     "tab:unified_benchmark": {
       "number": "A.5",
-      "page": "188",
+      "page": "187",
       "title": "MVSEC Indoor Flying: Quantitative Stereo-Depth Comparison",
       "anchor": "table.caption.532"
     },
@@ -1899,25 +1899,25 @@
     "thm:euler_lagrange": {
       "number": "3.3.9",
       "page": "67",
-      "title": "Euler-Lagrange Equations",
+      "title": "Euler--Lagrange Equations",
       "anchor": "theorem.200"
     },
     "thm:euler_lagrange_aniso": {
       "number": "3.4.7",
       "page": "83",
-      "title": "Anisotropic Euler-Lagrange Equations",
+      "title": "Anisotropic Euler--Lagrange Equations",
       "anchor": "theorem.248"
     },
     "thm:euler_lagrange_tensor": {
       "number": "3.4.3",
       "page": "77",
-      "title": "Euler-Lagrange Equations for the 3D structure tensor",
+      "title": "Euler--Lagrange Equations for the 3D structure tensor",
       "anchor": "theorem.234"
     },
     "thm:euler_lagrange_vox_projection": {
       "number": "3.4.2",
       "page": "75",
-      "title": "Euler-Lagrange Equations for voxel projection",
+      "title": "Euler--Lagrange Equations for voxel projection",
       "anchor": "theorem.227"
     },
     "thm:frequency_response": {

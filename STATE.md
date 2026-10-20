@@ -2,6 +2,37 @@
 
 **Schedule: pre-defense October 22, 2026; defense November 23, 2026.**
 
+## Start here — handoff, October 19 late evening
+
+**Deck:** 34 main slides + 65 backups. defense.pdf 99 pages, notes 99, script 102 (cover, two indexes, one page per frame), presenter 198. Last full build clean (zero overfull boxes): `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3` (default python lacks pypdf). Anki rebuilt with `/home/q/g/r/.venv/bin/python anki/build_deck.py`. The thesis reference snapshot was refreshed from a fresh format build (`/tmp/udts_recheck.oHd9Vm`, 35 pass / 0 warn / 0 fail) because the thesis had changed since the last snapshot.
+
+**Git:** user's last commit is `fe7a2fd`. Everything since is uncommitted: the backup spoken-delivery rewrite, four accuracy fixes, the Backup 56 (now 60) table, and the restructure below. The user commits and pushes; do not commit unless asked.
+
+**Restructure, October 19 late (user-approved; details in LOG/2026-10-19.md):**
+- Goal: steer the defense toward results that are easy to defend. Rehearsal of the 36-slide version took 51 min.
+- Slides 27 (mean/fluctuation proof) and 28 (stability) merged into new slide 27, "Proof idea: smoothness fixes variation, edges fix the drift": decomposition, Poincaré, m, coercivity + Lax–Milgram, and the stability bound. The originals are Backups 09–10 (pages 43–44).
+- Slide 29 (discrete flow / block-Jacobi) moved to Backup 11 (page 45), next to the Jacobi proof (Backup 12, page 46).
+- Old slide 32 (four Chapter 4 results) moved to Backup 48 (page 82), after the stereo arc divider. New slide 30, "Stereo on MVSEC: competitive accuracy, more scored points": the coupled energy, unique inner solve, and the MVSEC table (WLS + Piatkowska, Xie, Kogler, Rogister; ablation rows stay in Backup 60).
+- Decided against putting preliminary MVSEC *flow* numbers in the main talk: they are absent from Chapter 3 (AEE ≈2–2.5 px, angular error 40–65° in optical-flow-manuscript/ev_hs_of.tex) and would invite benchmark probes.
+- Main talk now ≈5,870 spoken words; at the rehearsal pace (~126 wpm) about 46 min.
+
+**Theory backups, October 20 (user-approved):** Backup 64 (page 98, complementarity lemma) and Backup 65 (page 99, adaptive-weight local Lipschitz bound) are integrated, with discussion-guide links. The fractional H^s backup is held in `held/` (frame + script) and is excluded from every build until the user is ready; it is not in the copy sent to the committee. Slide 31's "adaptive-weight stability" cell and Backup 25's takeaway named Chapter 2 adaptive stability as open. Both now point to page 99 (user-approved October 20).
+
+**Open items:**
+1. Rehearse the new slides 27 and 30 and re-time the talk.
+2. Done: the contrast-maximization column is off slide 28; Backup 45 has the "why the quadratic family" answer.
+3. Offered, not taken: "one orientation / two orientations" tags on slide 28's rows, linking to slide 21's velocity diagram.
+4. Slide 31's table still lists "scoped graph convergence" and the stereo selection results; both are now backup-only in the talk, which is consistent with a recap of what the dissertation proves.
+5. The "finite-design bound" wording on the slide of the regression-radius backup (now Backup 15, page 49) stays (user decision); only the script was reworded.
+
+**Conventions the user has set:**
+- Mathematical correctness and clarity come first. Verify formulas against backup.tex/core.tex and the dissertation before rewording.
+- Propose wording before editing prose; the user approves or adjusts. Use positive consequence framing, and avoid "pipeline".
+- In the script, "(Replaces: …)" notes are unspoken presenter references. Keep them.
+- Script headings must match deck frames exactly (`## Slide N — Title`, `## Backup N — Title`, `Deck page: N.`), and each frame's script must fit one page. `make check` enforces both.
+- Every numerical claim in .tex needs a `% source:` comment within two lines. `../check-ci.sh` failures under `misc_ideas_feedback/…/before/` and `optical-flow-manuscript` are pre-existing archive issues.
+- SAR = synthetic aperture radar (idea transferred to events, slide 19).
+
 Updated October 19, 2026. **Canonical location: `../dissertation_defense`, branch `main`.** The Opus route is now the actual defense. Continue all deck, notes, script, and strategy work here.
 
 ## Current deliverables
@@ -12,7 +43,7 @@ The five reviewed backups are now integrated with their scripts and notes: metri
 - `defense.pdf`: 95 pages, consisting of 36 main slides and 59 backups.
 - `defense-notes.pdf`: matching 95-page speaker edition.
 - `defense-presenter.pdf`: 190 pages, pairing the 95 audience slides with their 95 full-script pages.
-- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 98-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,000 spoken words (roughly 6,100 after the slide 2 and 7 updates), approximately 48–55 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
+- `defense-script.md` and `defense-script.pdf`: the editable rehearsal script and its 98-page rendering (cover, two indexes, one page per deck frame). Main talk is about 6,450 spoken words after the October 19 spoken-delivery rewrite, approximately 52–59 minutes at 110–125 words per minute, plus pauses and questions. Backups are outside this timing.
 - `strategy.md`: selected route, time priorities, and backup navigation.
 - `delivery-guide.txt`: practical delivery and build instructions.
 - `related-work.md`: precise comparisons, primary references, and contribution boundaries.
@@ -33,7 +64,7 @@ The reference snapshot comes from the complete current 208-page dissertation bui
 
 ## Scene-terms framing — October 19
 
-Each approach now has a plain-language summary of what it models, folded into existing slides (no new frames): temporal on slide 9, flow on slide 20's script and slide 24's table (new "Edge measurement from" column), stereo on slide 30. Proof and result slides 12, 13, 14, 15, 21, 25, 26, 27, 28, and 31 carry short "In scene terms" glosses (e.g., mean = common drift/camera pan, m = how well edges cover every direction, |∇T| = edge slowness, one noise event gives ‖δy‖ ≤ 1). Speaker notes carry matching cues. In the script, each gloss that replaced a sentence keeps the original as "(Replaces: …)" for the presenter's reference; that text is not spoken. Main talk rose from 5,490 to 6,019 spoken words (counting excludes stage directions and Replaces text), over the 45–50 minute target; the trims already named in strategy.md (slides 28, 19, 22) are the user's call.
+Each approach now has a plain-language summary of what it models, folded into existing slides (no new frames): temporal on slide 9, flow on slide 20's script and slide 24's table (new "Edge measurement from" column), stereo on slide 30. Proof and result slides 12, 13, 14, 15, 21, 25, 26, 27, 28, and 31 carry short "In scene terms" glosses (e.g., mean = common drift/camera pan, m = how well edges cover every direction, |∇T| = edge slowness, one noise event gives ‖δy‖ ≤ 1). Speaker notes carry matching cues. In the script, each gloss that replaced a sentence keeps the original as "(Replaces: …)" for the presenter's reference; that text is not spoken. Main talk rose from 5,490 to 6,019 spoken words (counting excludes stage directions and Replaces text), over the 45–50 minute target; the trims already named in strategy.md (then slides 28, 19, 22; now 29, 19, 23 after the slide 21 split) are the user's call.
 
 ## Three estimated outputs — October 19
 
