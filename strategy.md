@@ -31,10 +31,10 @@ The intended claims concern the specified models and analyses. They distinguish 
 
 ## Questions and deeper explanations
 
-Pages 35–99 contain the backup slides. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides have private cues. Follow the question rather than presenting the backup as another planned section.
+Pages 35–99 contain the backup slides; pages 100–102 are the reference list, numbered as in the dissertation. Their independent script responses begin with a likely question, give a complete spoken answer, and then develop a deeper follow-up. The three navigation slides and three reference pages have private cues. Follow the question rather than presenting the backup as another planned section.
 
 Moved from the main talk on October 19: full flow proof page 43; stability derivation page 44; discrete flow page 45 (next to Jacobi convergence, page 46); Chapter 4 results summary page 82. Other recent backups: metric computations page 40; real-time reconstruction page 41; controlled-flow protocol page 78; stereo alignment page 83; disparity-to-depth sensitivity page 91.
 
-Useful anchors: temporal uniqueness page 36; natural boundary condition page 42; Jacobi convergence page 46; stereo cost geometry page 52; reciprocal IRLS proof page 54; evaluation populations page 57; mathematical contribution page 65; literature page 66; contrast maximization (what it models, evidence) page 77; full stereo arc pages 81–96; formal aperture model page 97; complementarity lemma page 98; adaptive-weight stability page 99.
+Useful anchors: temporal uniqueness page 36; natural boundary condition page 42; Jacobi convergence page 46; stereo cost geometry page 52; reciprocal IRLS proof page 54; evaluation populations page 57; mathematical contribution page 65; literature page 66; contrast maximization (what it models, evidence) page 77; full stereo arc pages 81–96; formal aperture model page 97; complementarity lemma page 98; adaptive-weight stability page 99; references pages 100–102.
 
 Keep the hypotheses with the corresponding claim: fixed positive penalties for the temporal solve; integrated directional information for unrestricted quadratic flow; a finite candidate set and margin for selection stability; the sufficient contraction condition for IRLS convergence. The reported empirical results are established results, and the spoken material contains no audit or pending-verification commentary.

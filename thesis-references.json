@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "generated_at_utc": "2026-10-20T01:01:12+00:00",
+  "schema_version": 2,
+  "generated_at_utc": "2026-10-20T04:34:33+00:00",
   "thesis_main": "GMU-Diss_template",
   "thesis_pdf_sha256": "9fd1ba17edcfc5c81f32ec1e6713495953f2b3291bb8d275ea1ff21d3396f4d0",
   "source_sha256": {
@@ -159,7 +159,8 @@
     "chapterThree.aux": "1dd0f0b73582169b349ee2e03d609e6dc94579b7da4815a9955c109eb4369cd2",
     "chapterFour.aux": "52be39129c3eb52550aa68b6fc83a54235140b31fe51f02b7c8a1fad7f00380b",
     "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
-    "appendixA.aux": "243d753cb766e2c3e33fbc3144b51f1fdb86a97fc2dea28e911030f00134e7ed"
+    "appendixA.aux": "243d753cb766e2c3e33fbc3144b51f1fdb86a97fc2dea28e911030f00134e7ed",
+    "GMU-Diss_template.bbl": "b30dc232747b55b0591870af7d2504840fbc2d74b1b3235be6351a878178bff6"
   },
   "labels": {
     "app:ch3_accumulation": {
@@ -1943,6 +1944,440 @@
       "page": "129",
       "title": "Weighted Block Matrix SPD",
       "anchor": "theorem.388"
+    }
+  },
+  "citations": {
+    "gallego2022event": {
+      "number": "1",
+      "entry": "Guillermo Gallego, Tobi Delbrück, Garrick Orchard, Chiara Bartolozzi, Brian Taba, Andrea Censi, Stefan Leutenegger, Andrew~J. Davison, Jörg Conradt, Kostas Daniilidis, and Davide Scaramuzza. \\newblock Event-based vision: A survey. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 44(1):154--180, 2022."
+    },
+    "HAntil_DSayre_2023a": {
+      "number": "2",
+      "entry": "Harbir Antil and David Sayre. \\newblock Bilevel inverse problems in neuromorphic imaging. \\newblock {\\em Inverse Problems}, 39(9):094003, August 2023."
+    },
+    "gallego2018unifying": {
+      "number": "3",
+      "entry": "Guillermo Gallego, Henri Rebecq, and Davide Scaramuzza. \\newblock A unifying contrast maximization framework for event cameras, with applications to motion, depth, and optical flow estimation. \\newblock In {\\em Proceedings of the IEEE conference on computer vision and pattern recognition}, pages 3867--3876, 2018."
+    },
+    "huang2023progressive": {
+      "number": "4",
+      "entry": "Xueyan Huang, Yueyi Zhang, and Zhiwei Xiong. \\newblock Progressive spatio-temporal alignment for efficient event-based motion estimation. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 1537--1546, 2023."
+    },
+    "pan2019bringing": {
+      "number": "5",
+      "entry": "Liyuan Pan, Cedric Scheerlinck, Xin Yu, Richard Hartley, Miaomiao Liu, and Yuchao Dai. \\newblock Bringing a blurry frame alive at high frame-rate with an event camera. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 6820--6829, 2019."
+    },
+    "zhang2021formulating": {
+      "number": "6",
+      "entry": "Zelin Zhang, Anthony~J. Yezzi, and Guillermo Gallego. \\newblock Formulating event-based image reconstruction as a linear inverse problem with deep regularization using optical flow. \\newblock {\\em IEEE Transactions on Pattern Analysis \\& Machine Intelligence}, 45(07):8372--8389, 2023."
+    },
+    "paredes2021back": {
+      "number": "7",
+      "entry": "Federico Paredes-Vallés and Guido C. H.~E. de~Croon. \\newblock Back to event basics: Self-supervised learning of image reconstruction for event cameras via photometric constancy. \\newblock In {\\em 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 3445--3454, 2021."
+    },
+    "scheerlinck2020fast": {
+      "number": "8",
+      "entry": "Cedric Scheerlinck, Henri Rebecq, Daniel Gehrig, Nick Barnes, Robert~E. Mahony, and Davide Scaramuzza. \\newblock Fast image reconstruction with an event camera. \\newblock In {\\em 2020 IEEE Winter Conference on Applications of Computer Vision (WACV)}, pages 156--163, 2020."
+    },
+    "wang2019event": {
+      "number": "9",
+      "entry": "Lin Wang, I.S.~Mohammad Mostafavi, Yo-Sung Ho, and Kuk-Jin Yoon. \\newblock Event-based high dynamic range image and very high frame rate video generation using conditional generative adversarial networks. \\newblock In {\\em 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 10073--10082, 2019."
+    },
+    "yang2023learning": {
+      "number": "10",
+      "entry": "Yixin Yang, Jin Han, Jinxiu Liang, Imari Sato, and Boxin Shi. \\newblock Learning event guided high dynamic range video reconstruction. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 13924--13934, 2023."
+    },
+    "zou2021learning": {
+      "number": "11",
+      "entry": "Yunhao Zou, Yinqiang Zheng, Tsuyoshi Takatani, and Ying Fu. \\newblock Learning to reconstruct high speed and high dynamic range videos from events. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 2024--2033, 2021."
+    },
+    "rebecq2019events": {
+      "number": "12",
+      "entry": "Henri Rebecq, Ren{\\'e} Ranftl, Vladlen Koltun, and Davide Scaramuzza. \\newblock Events-to-video: Bringing modern computer vision to event cameras. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 3857--3866, 2019."
+    },
+    "yu2020event": {
+      "number": "13",
+      "entry": "Binyi Su, Lei Yu, and Wen Yang. \\newblock Event-based high frame-rate video reconstruction with a novel cycle-event network. \\newblock In {\\em 2020 IEEE International Conference on Image Processing (ICIP)}, pages 86--90. IEEE, 2020."
+    },
+    "cadena2021spade": {
+      "number": "14",
+      "entry": "Pablo Rodrigo~Gantier Cadena, Yeqiang Qian, Chunxiang Wang, and Ming Yang. \\newblock {SPADE-E2VID}: Spatially-adaptive denormalization for event-based video reconstruction. \\newblock {\\em IEEE Transactions on Image Processing}, 30:2488--2500, 2021."
+    },
+    "liang2023event": {
+      "number": "15",
+      "entry": "Quanmin Liang, Xiawu Zheng, Kai Huang, Yan Zhang, Jie Chen, and Yonghong Tian. \\newblock Event-diffusion: Event-based image reconstruction and restoration with diffusion models. \\newblock In {\\em Proceedings of the 31st ACM International Conference on Multimedia}, pages 3837--3846, 2023."
+    },
+    "horn1981determining": {
+      "number": "16",
+      "entry": "Berthold~KP Horn and Brian~G Schunck. \\newblock Determining optical flow. \\newblock {\\em Artificial Intelligence}, 17(1-3):185--203, 1981."
+    },
+    "antil2026dynamicrecon": {
+      "number": "17",
+      "entry": "Harbir Antil, Daniel Blauvelt, and David Sayre. \\newblock Dynamic reconstruction from neuromorphic data. \\newblock {\\em Foundations of Data Science}, 2026. \\newblock Early access. \\url{https://doi.org/10.3934/fods.2026017}."
+    },
+    "liu2020globally": {
+      "number": "18",
+      "entry": "Daqi Liu, Alvaro Parra, and Tat-Jun Chin. \\newblock Globally optimal contrast maximisation for event-based motion estimation. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 6349--6358, 2020."
+    },
+    "stoffregen2019event": {
+      "number": "19",
+      "entry": "Timo Stoffregen and Lindsay Kleeman. \\newblock Event cameras, contrast maximization and reward functions: An analysis. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 12300--12308, 2019."
+    },
+    "lichtsteiner2008128": {
+      "number": "20",
+      "entry": "Patrick Lichtsteiner, Christoph Posch, and Tobi Delbruck. \\newblock A 128$\\times$ 128 120 db 15 $\\mu$s latency asynchronous temporal contrast vision sensor. \\newblock {\\em IEEE Journal of Solid-State Circuits}, 43(2):566--576, 2008."
+    },
+    "dirac1930principles": {
+      "number": "21",
+      "entry": "Paul~AM Dirac. \\newblock {\\em The Principles of Quantum Mechanics}. \\newblock Clarendon Press, 1930."
+    },
+    "deboor1978practical": {
+      "number": "22",
+      "entry": "Carl de~Boor. \\newblock {\\em A Practical Guide to Splines}. \\newblock Springer-Verlag, 1978."
+    },
+    "schwartz1950theorie": {
+      "number": "23",
+      "entry": "Laurent Schwartz. \\newblock {\\em Théorie des distributions}. \\newblock Number v. 1-2 in Actualités {Scientifiques} et industrielles. {Publ}. {Inst}. {Math}. {Univ}. {Strasbourg}. Hermann, 1950."
+    },
+    "rudin1976principles": {
+      "number": "24",
+      "entry": "Walter Rudin. \\newblock {\\em Principles of Mathematical Analysis}. \\newblock McGraw-Hill, 1976."
+    },
+    "folland1999real": {
+      "number": "25",
+      "entry": "Gerald~B Folland. \\newblock {\\em Real Analysis: Modern Techniques and Their Applications}. \\newblock John Wiley \\& Sons, 2nd edition, 1999."
+    },
+    "evans2010partial": {
+      "number": "26",
+      "entry": "Lawrence~C. Evans. \\newblock {\\em Partial differential equations}. \\newblock American Mathematical Society, 2010."
+    },
+    "tikhonov1977solutions": {
+      "number": "27",
+      "entry": "Andrey~Nikolayevich Tikhonov and Vasiliy~Yakovlevich Arsenin. \\newblock {\\em Solutions of Ill-Posed Problems}. \\newblock V.H. Winston, 1977."
+    },
+    "boyd2004convex": {
+      "number": "28",
+      "entry": "Stephen Boyd and Lieven Vandenberghe. \\newblock {\\em Convex Optimization}. \\newblock Cambridge University Press, 2004."
+    },
+    "strang2006linear": {
+      "number": "29",
+      "entry": "Gilbert Strang. \\newblock {\\em Linear Algebra and Its Applications}. \\newblock Thomson, Brooks/Cole, 2006."
+    },
+    "horn2012matrix": {
+      "number": "30",
+      "entry": "Roger~A. Horn and Charles~R. Johnson. \\newblock {\\em Matrix Analysis}. \\newblock Cambridge University Press, Cambridge, UK, 2nd edition, 2012."
+    },
+    "Hansen1998rankdeficient": {
+      "number": "31",
+      "entry": "Per~Christian Hansen. \\newblock {\\em Rank-Deficient and Discrete Ill-Posed Problems}. \\newblock Society for Industrial and Applied Mathematics, 1998."
+    },
+    "golub2013matrix": {
+      "number": "32",
+      "entry": "Gene~H. Golub and Charles~F. Van~Loan. \\newblock {\\em Matrix Computations}. \\newblock Johns Hopkins University Press, Baltimore, MD, 4th edition, 2013."
+    },
+    "friedrichs1944identity": {
+      "number": "33",
+      "entry": "Kurt~O Friedrichs. \\newblock The identity of weak and strong extensions of differential operators. \\newblock {\\em Transactions of the American Mathematical Society}, 55(1):132--151, 1944."
+    },
+    "ambrosio2000functions": {
+      "number": "34",
+      "entry": "Luigi Ambrosio, Nicola Fusco, and Diego Pallara. \\newblock {\\em Functions of Bounded Variation and Free Discontinuity Problems}. \\newblock Clarendon Press, 2000."
+    },
+    "MVSEC2018": {
+      "number": "35",
+      "entry": "Alex~Zihao Zhu, Dinesh Thakur, Tolga \\\"{O}zaslan, Bernd Pfrommer, Vijay Kumar, and Kostas Daniilidis. \\newblock The multivehicle stereo event camera dataset: An event camera dataset for {3D} perception. \\newblock {\\em IEEE Robotics and Automation Letters}, 3(3):2032--2039, 2018."
+    },
+    "gallego2017accurate": {
+      "number": "36",
+      "entry": "Guillermo Gallego and Davide Scaramuzza. \\newblock Accurate angular velocity estimation with an event camera. \\newblock {\\em IEEE Robotics and Automation Letters}, 2(2):632--639, 2017."
+    },
+    "rebecq2021highspeed": {
+      "number": "37",
+      "entry": "Henri Rebecq, René Ranftl, Vladlen Koltun, and Davide Scaramuzza. \\newblock High speed and high dynamic range video with an event camera. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 43(6):1964--1980, 2021."
+    },
+    "mcharg2022falcon": {
+      "number": "38",
+      "entry": "Matthew~G. {McHarg}, Richard~L. Balthazor, Brian~J. {McReynolds}, David~H. Howe, Colin~J. Maloney, Daniel O'Keefe, Rayomand Bam, Gabriel Wilson, Paras Karki, Alexandre Marcireau, and Gregory Cohen. \\newblock Falcon neuro: an event-based sensor on the international space station. \\newblock {\\em Optical Engineering}, 61(8):085105, 2022."
+    },
+    "zhu2019unsupervised": {
+      "number": "39",
+      "entry": "Alex~Zihao Zhu, Liangzhe Yuan, Kenneth Chaney, and Kostas Daniilidis. \\newblock Unsupervised event-based learning of optical flow, depth, and egomotion. \\newblock In {\\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 989--997, 2019."
+    },
+    "wang2004ssim": {
+      "number": "40",
+      "entry": "Zhou Wang, Alan~C. Bovik, Hamid~R. Sheikh, and Eero~P. Simoncelli. \\newblock Image quality assessment: From error visibility to structural similarity. \\newblock {\\em IEEE Transactions on Image Processing}, 13(4):600--612, 2004."
+    },
+    "rudin1992nonlinear": {
+      "number": "41",
+      "entry": "Leonid~I. Rudin, Stanley Osher, and Emad Fatemi. \\newblock Nonlinear total variation based noise removal algorithms. \\newblock {\\em Physica D: Nonlinear Phenomena}, 60(1--4):259--268, 1992."
+    },
+    "gonzalez2008": {
+      "number": "42",
+      "entry": "Rafael~C. Gonzalez and Richard~E. Woods. \\newblock {\\em Digital Image Processing}. \\newblock Prentice Hall, Upper Saddle River, NJ, 3rd edition, 2008."
+    },
+    "pearson1895notes": {
+      "number": "43",
+      "entry": "Karl Pearson. \\newblock Note on regression and inheritance in the case of two parents. \\newblock {\\em Proceedings of the Royal Society of London}, 58:240--242, 1895."
+    },
+    "saad2003iterative": {
+      "number": "44",
+      "entry": "Yousef Saad. \\newblock {\\em Iterative Methods for Sparse Linear Systems}. \\newblock SIAM, 2003."
+    },
+    "antil2026esareventbasedsyntheticaperture": {
+      "number": "45",
+      "entry": "Harbir Antil, Daniel Blauvelt, and David Sayre. \\newblock {ESAR}: Event-based synthetic aperture reconstruction. \\newblock arXiv:2607.15073 [eess.IV], 2026."
+    },
+    "hu2021v2e": {
+      "number": "46",
+      "entry": "Yuhuang Hu, Shih-Chii Liu, and Tobi Delbruck. \\newblock v2e: From video frames to realistic {DVS} events. \\newblock In {\\em IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 1312--1321, 2021."
+    },
+    "lucas1981iterative": {
+      "number": "47",
+      "entry": "Bruce~D. Lucas and Takeo Kanade. \\newblock An iterative image registration technique with an application to stereo vision. \\newblock In {\\em Proceedings of the 7th International Joint Conference on Artificial Intelligence - Volume 2}, IJCAI'81, pages 674--679, San Francisco, CA, USA, 1981. Morgan Kaufmann Publishers Inc."
+    },
+    "barron1994performance": {
+      "number": "48",
+      "entry": "John~L Barron, David~J Fleet, and Steven~S Beauchemin. \\newblock Performance of optical flow techniques. \\newblock {\\em International Journal of Computer Vision}, 12(1):43--77, 1994."
+    },
+    "benosman2012asynchronous": {
+      "number": "49",
+      "entry": "Ryad Benosman, Sio-Hoi Ieng, Charles Clercq, Chiara Bartolozzi, and Mandyam Srinivasan. \\newblock Asynchronous frameless event-based optical flow. \\newblock {\\em Neural Networks}, 27:32--37, 2012."
+    },
+    "benosman2014event": {
+      "number": "50",
+      "entry": "Ryad Benosman, Charles Clercq, Xavier Lagorce, Sio-Hoi Ieng, and Chiara Bartolozzi. \\newblock Event-based visual flow. \\newblock {\\em IEEE Transactions on Neural Networks and Learning Systems}, 25(2):407--417, 2014."
+    },
+    "barranco2014contour": {
+      "number": "51",
+      "entry": "Francisco Barranco, Cornelia Fermu{\\\"\\i}ller, and Yiannis Aloimonos. \\newblock Contour motion estimation for asynchronous event-driven cameras. \\newblock {\\em Proceedings of the IEEE}, 102(10):1537--1556, 2014."
+    },
+    "Rueckauer2016": {
+      "number": "52",
+      "entry": "Bodo Rueckauer and Tobi Delbruck. \\newblock Evaluation of event-based algorithms for optical flow with ground-truth from inertial measurement sensor. \\newblock {\\em Frontiers in Neuroscience}, 10:176, 2016."
+    },
+    "ieng2017event": {
+      "number": "53",
+      "entry": "Sio-Hoi Ieng, Jo{\\~a}o Carneiro, and Ryad~B. Benosman. \\newblock Event-based {3D} motion flow estimation using {4D} spatio temporal subspaces properties. \\newblock {\\em Frontiers in Neuroscience}, 10:596, 2017."
+    },
+    "bardow2016simultaneous": {
+      "number": "54",
+      "entry": "Patrick Bardow, Andrew~J Davison, and Stefan Leutenegger. \\newblock Simultaneous optical flow and intensity estimation from an event camera. \\newblock In {\\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition}, pages 884--892, 2016."
+    },
+    "shiba2022secrets": {
+      "number": "55",
+      "entry": "Shintaro Shiba, Yoshimitsu Aoki, and Guillermo Gallego. \\newblock Secrets of event-based optical flow. \\newblock In {\\em European Conference on Computer Vision (ECCV)}, pages 628--645, 2022."
+    },
+    "shiba2024pami": {
+      "number": "56",
+      "entry": "Shintaro Shiba, Yannick Klose, Yoshimitsu Aoki, and Guillermo Gallego. \\newblock Secrets of event-based optical flow, depth and ego-motion estimation by contrast maximization. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 46(12):7742--7759, 2024."
+    },
+    "weickert2001theoretical": {
+      "number": "57",
+      "entry": "Joachim Weickert and Christoph Schnörr. \\newblock A {Theoretical} {Framework} for {Convex} {Regularizers} in {PDE}-{Based} {Computation} of {Image} {Motion}. \\newblock {\\em International Journal of Computer Vision}, 45(3):245--264, 2001."
+    },
+    "bruhn2005lucas": {
+      "number": "58",
+      "entry": "A.~Bruhn, J.~Weickert, and C.~Schn{\\\"o}rr. \\newblock {Lucas/Kanade} meets {Horn/Schunck}: Combining local and global optic flow methods. \\newblock {\\em International Journal of Computer Vision}, 61:211--231, 2005."
+    },
+    "aubert2006mathematical": {
+      "number": "59",
+      "entry": "Gilles Aubert and Pierre Kornprobst. \\newblock {\\em Mathematical problems in image processing: partial differential equations and the calculus of variations}, volume 147. \\newblock Springer Science \\& Business Media, 2006."
+    },
+    "osher1988fronts": {
+      "number": "60",
+      "entry": "Stanley Osher and James~A Sethian. \\newblock Fronts propagating with curvature-dependent speed: algorithms based on {Hamilton--Jacobi} formulations. \\newblock {\\em Journal of computational physics}, 79(1):12--49, 1988."
+    },
+    "lagorce2017hots": {
+      "number": "61",
+      "entry": "Xavier Lagorce, Garrick Orchard, Fabio Gallupi, Bo~E. Shi, and Ryad Benosman. \\newblock {HOTS}: A hierarchy of event-based time-surfaces for pattern recognition. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 39(7):1346--1359, 2017."
+    },
+    "ern2021finite": {
+      "number": "62",
+      "entry": "Alexandre Ern and Jean-Luc Guermond. \\newblock {\\em Finite Elements {I}: Approximation and Interpolation}, volume~72 of {\\em Texts in Applied Mathematics}. \\newblock Springer, 2021."
+    },
+    "fleet2006optical": {
+      "number": "63",
+      "entry": "D.~Fleet and Y.~Weiss. \\newblock Optical {Flow} {Estimation}. \\newblock In Nikos Paragios, Yunmei Chen, and Olivier Faugeras, editors, {\\em Handbook of {Mathematical} {Models} in {Computer} {Vision}}, pages 237--257. Springer US, Boston, MA, 2006."
+    },
+    "lindeberg1994scale": {
+      "number": "64",
+      "entry": "Tony Lindeberg. \\newblock Scale-space theory: A basic tool for analysing structures at different scales. \\newblock {\\em Journal of applied statistics}, 21(1-2):225--270, 1994."
+    },
+    "bigun1987optimalod": {
+      "number": "65",
+      "entry": "Josef Bigun and G{\\\"o}sta~H. Granlund. \\newblock Optimal orientation detection of linear symmetry. \\newblock In {\\em Proceedings of the First International Conference on Computer Vision (ICCV)}, pages 433--438, London, UK, June 8--11 1987. IEEE Computer Society."
+    },
+    "marr1981directional": {
+      "number": "66",
+      "entry": "David Marr and Shimon Ullman. \\newblock Directional selectivity and its use in early visual processing. \\newblock {\\em Proceedings of the Royal Society of London. Series B. Biological Sciences}, 211(1183):151--180, 1981."
+    },
+    "nagel1986investigation": {
+      "number": "67",
+      "entry": "Hans-Hellmut Nagel and Wilfried Enkelmann. \\newblock An investigation of smoothness constraints for the estimation of displacement vector fields from image sequences. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, PAMI-8(5):565--593, 1986."
+    },
+    "corpetti2002fluid": {
+      "number": "68",
+      "entry": "Thomas Corpetti, {\\'E}tienne M{\\'e}min, and Patrick P{\\'e}rez. \\newblock Estimating fluid optical flow. \\newblock In {\\em Proceedings of the 15th International Conference on Pattern Recognition}, volume~3, pages 1033--1036. IEEE, 2000."
+    },
+    "unser1999splines": {
+      "number": "69",
+      "entry": "Michael Unser. \\newblock Splines: A perfect fit for signal and image processing. \\newblock {\\em IEEE Signal processing magazine}, 16(6):22--38, 1999."
+    },
+    "ciarlet2002finite": {
+      "number": "70",
+      "entry": "Philippe~G Ciarlet. \\newblock {\\em The Finite Element Method for Elliptic Problems}. \\newblock SIAM, 2002."
+    },
+    "zhu1997algorithm": {
+      "number": "71",
+      "entry": "Ciyou Zhu, Richard~H. Byrd, Peihuang Lu, and Jorge Nocedal. \\newblock Algorithm 778: {L-BFGS-B}: Fortran subroutines for large-scale bound-constrained optimization. \\newblock {\\em ACM Transactions on Mathematical Software}, 23(4):550--560, 1997."
+    },
+    "lax1954parabolic": {
+      "number": "72",
+      "entry": "Peter~D Lax and Arthur~N Milgram. \\newblock Parabolic equations. \\newblock In {\\em Contributions to the Theory of Partial Differential Equations}, volume~33 of {\\em Annals of Mathematics Studies}, pages 167--190. Princeton University Press, 1954."
+    },
+    "varga2000matrix": {
+      "number": "73",
+      "entry": "R.~S. Varga. \\newblock {\\em Matrix Iterative Analysis}, volume~27 of {\\em Springer Series in Computational Mathematics}. \\newblock Springer, 2nd edition, 2000."
+    },
+    "zhu2018evflownet": {
+      "number": "74",
+      "entry": "Alex~Zihao Zhu, Liangzhe Yuan, Kenneth Chaney, and Kostas Daniilidis. \\newblock {EV-FlowNet}: Self-supervised optical flow estimation for event-based cameras. \\newblock In {\\em Robotics: Science and Systems}, 2018."
+    },
+    "EMVS_2018": {
+      "number": "75",
+      "entry": "Henri Rebecq, Guillermo Gallego, Elias Mueggler, and Davide Scaramuzza. \\newblock {EMVS}: Event-based multi-view stereo---{3D} reconstruction with an event camera in real-time. \\newblock {\\em International Journal of Computer Vision}, 126(12):1394--1414, 2018."
+    },
+    "MCEMVS_2022": {
+      "number": "76",
+      "entry": "Suman Ghosh and Guillermo Gallego. \\newblock Multi-event-camera depth estimation and outlier rejection by refocused events fusion. \\newblock {\\em Advanced Intelligent Systems}, 4(12):2200221, 2022."
+    },
+    "TSES_2018": {
+      "number": "77",
+      "entry": "Alex~Zihao Zhu, Yibo Chen, and Kostas Daniilidis. \\newblock Realtime time synchronized event-based stereo. \\newblock In {\\em European Conference on Computer Vision (ECCV)}, pages 438--452, 2018."
+    },
+    "piatkowska2017": {
+      "number": "78",
+      "entry": "Ewa Piatkowska, Jurgen Kogler, Nabil Belbachir, and Margrit Gelautz. \\newblock { Improved Cooperative Stereo Matching for Dynamic Vision Sensors with Ground Truth Evaluation }. \\newblock In {\\em 2017 IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 370--377. IEEE Computer Society, 2017."
+    },
+    "bradski2000opencv": {
+      "number": "79",
+      "entry": "Gary Bradski. \\newblock The {OpenCV} library. \\newblock {\\em Dr. Dobb's Journal of Software Tools}, 2000."
+    },
+    "HartleyZisserman2003": {
+      "number": "80",
+      "entry": "Richard Hartley and Andrew Zisserman. \\newblock {\\em Multiple View Geometry in Computer Vision}. \\newblock Cambridge University Press, 2nd edition, 2003."
+    },
+    "strang1999discrete": {
+      "number": "81",
+      "entry": "Gilbert Strang. \\newblock The discrete cosine transform. \\newblock {\\em SIAM review}, 41(1):135--147, 1999."
+    },
+    "Anscombe1948": {
+      "number": "82",
+      "entry": "F.~J. Anscombe. \\newblock The transformation of {Poisson}, binomial and negative-binomial data. \\newblock {\\em Biometrika}, 35(3/4):246--254, 1948."
+    },
+    "aitken1936iv": {
+      "number": "83",
+      "entry": "Alexander~C Aitken. \\newblock Iv.—on least squares and linear combination of observations. \\newblock {\\em Proceedings of the Royal Society of Edinburgh}, 55:42--48, 1936."
+    },
+    "Green1984": {
+      "number": "84",
+      "entry": "Peter~J. Green. \\newblock Iteratively reweighted least squares for maximum likelihood estimation, and some robust and resistant alternatives. \\newblock {\\em Journal of the Royal Statistical Society: Series B}, 46(2):149--192, 1984."
+    },
+    "mann1953mean": {
+      "number": "85",
+      "entry": "W~Robert Mann. \\newblock Mean value methods in iteration. \\newblock {\\em Proceedings of the American Mathematical Society}, 4(3):506--510, 1953."
+    },
+    "Daubechies2010": {
+      "number": "86",
+      "entry": "Ingrid Daubechies, Ronald DeVore, Massimo Fornasier, and C.~Sinan G\\\"unt\\\"urk. \\newblock Iteratively reweighted least squares minimization for sparse recovery. \\newblock {\\em Communications on Pure and Applied Mathematics}, 63(1):1--38, 2010."
+    },
+    "Skellam1946": {
+      "number": "87",
+      "entry": "J.~G. Skellam. \\newblock The frequency distribution of the difference between two {Poisson} variates belonging to different populations. \\newblock {\\em Journal of the Royal Statistical Society: Series A}, 109(3):296, 1946."
+    },
+    "feller1968introduction": {
+      "number": "88",
+      "entry": "William Feller. \\newblock {\\em An introduction to probability theory and its applications}, volume~1. \\newblock John Wiley \\& Sons, 1968."
+    },
+    "Berry1941": {
+      "number": "89",
+      "entry": "A.~C. Berry. \\newblock The accuracy of the {Gaussian} approximation to the sum of independent variates. \\newblock {\\em Transactions of the American Mathematical Society}, 49(1):122--136, 1941."
+    },
+    "Esseen1942": {
+      "number": "90",
+      "entry": "C.G. Esseen. \\newblock On the liapunoff limit of error in the theory of probability. \\newblock {\\em Arkiv för matematik, astronomi och fysik}, 28A(9):1--19, 1942."
+    },
+    "Korolev2012": {
+      "number": "91",
+      "entry": "V.~Korolev and I.~Shevtsova. \\newblock An improvement of the {Berry--Esseen} inequality with applications to {Poisson} and mixed {Poisson} random sums. \\newblock {\\em Scandinavian Actuarial Journal}, 2012(2):81--105, 2012."
+    },
+    "brouwer1911beweis": {
+      "number": "92",
+      "entry": "Luitzen Egbertus~Jan Brouwer. \\newblock {{\\\"U}ber Abbildung von Mannigfaltigkeiten}. \\newblock {\\em Mathematische Annalen}, 71(1):97--115, 1911."
+    },
+    "ortega1970iterative": {
+      "number": "93",
+      "entry": "J.~M. Ortega and W.~C. Rheinboldt. \\newblock {\\em Iterative Solution of Nonlinear Equations in Several Variables}. \\newblock Academic Press, New York, 1970."
+    },
+    "higham2002accuracy": {
+      "number": "94",
+      "entry": "Nicholas~J Higham. \\newblock {\\em Accuracy and Stability of Numerical Algorithms}. \\newblock SIAM, 2002."
+    },
+    "Hirschmueller2008": {
+      "number": "95",
+      "entry": "Heiko Hirschm\\\"{u}ller. \\newblock Stereo processing by semiglobal matching and mutual information. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30(2):328--341, 2008."
+    },
+    "boykov2001fast": {
+      "number": "96",
+      "entry": "Yuri Boykov, Olga Veksler, and Ramin Zabih. \\newblock Fast approximate energy minimization via graph cuts. \\newblock {\\em IEEE transactions on pattern analysis and machine intelligence}, 23(11):1222--1239, 2001."
+    },
+    "fua1993parallel": {
+      "number": "97",
+      "entry": "Pascal Fua. \\newblock A parallel stereo algorithm that produces dense depth maps and preserves image features. \\newblock {\\em Machine Vision and Applications}, 6:35--49, 1993."
+    },
+    "vaish2006synthetic": {
+      "number": "98",
+      "entry": "Vaibhav Vaish, Gaurav Garg, Eino-Ville Talvala, Emilio Antunez, Bennett Wilburn, Mark Horowitz, and Marc Levoy. \\newblock Synthetic aperture focusing using a shear-warp factorization of the viewing transform. \\newblock In {\\em 2006 Conference on Computer Vision and Pattern Recognition Workshop (CVPRW'06)}, pages 129--129. IEEE, 2006."
+    },
+    "Brenier1991": {
+      "number": "99",
+      "entry": "Yann Brenier. \\newblock Polar factorization and monotone rearrangement of vector-valued functions. \\newblock {\\em Communications on Pure and Applied Mathematics}, 44(4):375--417, 1991."
+    },
+    "BenamouBrenier2000": {
+      "number": "100",
+      "entry": "Jean-David Benamou and Yann Brenier. \\newblock A computational fluid mechanics solution to the {M}onge--{K}antorovich mass transfer problem. \\newblock {\\em Numerische Mathematik}, 84(3):375--393, 2000."
+    },
+    "Cuturi2013": {
+      "number": "101",
+      "entry": "Marco Cuturi. \\newblock Sinkhorn distances: Lightspeed computation of optimal transport. \\newblock In {\\em Advances in Neural Information Processing Systems (NeurIPS)}, volume~26, pages 2292--2300, 2013."
+    },
+    "tukey1977exploratory": {
+      "number": "102",
+      "entry": "John~W Tukey. \\newblock {\\em Exploratory Data Analysis}. \\newblock Addison-Wesley, 1977."
+    },
+    "Rogister2012": {
+      "number": "103",
+      "entry": "Paul Rogister, Ryad Benosman, Sio-Hoi Ieng, Patrick Lichtsteiner, and Tobi Delbruck. \\newblock Asynchronous event-based binocular stereo matching. \\newblock {\\em IEEE Transactions on Neural Networks and Learning Systems}, 23(2):347--353, 2012."
+    },
+    "kogler2011": {
+      "number": "104",
+      "entry": "J{\\\"u}rgen Kogler, Christoph Sulzbachner, Martin Humenberger, and Florian Eibensteiner. \\newblock Address-event based stereo vision with bio-inspired silicon retina imagers. \\newblock In Asim Bhatti, editor, {\\em Advances in Theory and Applications of Stereo Vision}, pages 165--188. InTech, 2011."
+    },
+    "Xie2018": {
+      "number": "105",
+      "entry": "Zhen Xie, Jianhua Zhang, and Pengfei Wang. \\newblock Event-based stereo matching using semiglobal matching. \\newblock {\\em International Journal of Advanced Robotic Systems}, 15(1):1729881417752759, 2018."
+    },
+    "eigen2014depth": {
+      "number": "106",
+      "entry": "David Eigen, Christian Puhrsch, and Rob Fergus. \\newblock Depth map prediction from a single image using a multi-scale deep network. \\newblock In {\\em Proceedings of the 28th International Conference on Neural Information Processing Systems - Volume 2}, NIPS'14, pages 2366--2374. MIT Press, 2014."
+    },
+    "Huber1981": {
+      "number": "107",
+      "entry": "Peter~J. Huber. \\newblock {\\em Robust Statistics}. \\newblock John Wiley \\& Sons, 1981."
+    },
+    "vantrees2001detection": {
+      "number": "108",
+      "entry": "Harry~L Van~Trees. \\newblock {\\em Detection, Estimation, and Modulation Theory, Part I}. \\newblock John Wiley \\& Sons, 2001."
     }
   }
 }

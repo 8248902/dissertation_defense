@@ -1,7 +1,7 @@
 % Discussion slides are outside the timed core. Their source labels name the dissertation.
 \begin{frame}{Discussion guide}
 \footnotesize
-{\scriptsize\textbf{Further detail:} \ifdefined\DefenseNotes time-surface regression and contrast maximization; the full stereo arc (Chapter 4)\else\hyperlink{flowdetails}{time-surface regression and contrast maximization}; \hyperlink{stereoarc}{the full stereo arc (Chapter 4)}\fi.}\par\vspace{-1mm}
+{\scriptsize\textbf{Further detail:} \ifdefined\DefenseNotes time-surface regression and contrast maximization; the full stereo arc (Chapter 4); references\else\hyperlink{flowdetails}{time-surface regression and contrast maximization}; \hyperlink{stereoarc}{the full stereo arc (Chapter 4)}; \hyperlink{references}{references}\fi.}\par\vspace{-1mm}
 \begin{columns}[T]
 \column{.48\textwidth}
 \textbf{Observation and temporal inversion}
@@ -133,7 +133,7 @@ CN & Sensitivity of a specified matrix & A numerical conditioning diagnostic\\\b
 A constant sequence has $\mathrm{TC}=1$ and $\mathrm{ERC}=0$ under the stated conventions.
 \end{block}
 {\let\small\footnotesize\takeaway{Consider reference fidelity, event consistency, and conditioning together. Smoothness alone rewards a static output.}}
-\src{Evaluation metrics (\drefpage{subsubsec:metrics}); \dref{Table}{tab:metrics_summary}.}
+\src{Evaluation metrics (\drefpage{subsubsec:metrics}); \dref{Table}{tab:metrics_summary}; SSIM~\cite{wang2004ssim}.}
 \talknote{Question: how is each metric computed, and what does it establish? About 2 minutes if all definitions are requested.}{PSNR converts the peak-squared to mean-squared pixel-error ratio to decibels. SSIM combines local means, variances and covariance to compare luminance, contrast and structure. EPI correlates mean-image gradient magnitudes with the normalized event-count map. ERC correlates absolute frame changes with absolute bump-integrated event data. TC exponentiates the negative RMS frame change divided by the reconstruction range. TG averages absolute frame changes. TV averages the sum of absolute horizontal and vertical gradients. SC averages each frame's fraction of Fourier power in the central low-frequency disk. CN divides the largest singular value of the evaluated matrix by its smallest.}{Use the script for aggregation and degenerate-case details. A constant sequence has maximal TC and zero ERC under the conventions, separating smoothness from event consistency. CN describes the specified diagnostic matrix. Answer only the definitions requested; the existing slide remains an interpretation guide.}
 \end{frame}
 
@@ -190,7 +190,7 @@ Therefore the bilinear form satisfies
 c_0=c_0(\Omega,\alpha,\beta_B,m).\]
 \takeaway{Poincar\'e controls fluctuations, data control the mean, and Lax--Milgram supplies the unique weak solution.}
 % source detail: Ch. 3, proof of thm:unified\_wellposedness.
-\src{proof of \dref{Theorem}{thm:unified_wellposedness}.}
+\src{proof of \dref{Theorem}{thm:unified_wellposedness}; Lax--Milgram~\cite{lax1954parabolic}.}
 \talknote{Question: how exactly does the proof control the mean? About 2 minutes.}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part. Poincar\'e controls the latter. Use $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$, square with the factor-two inequality, and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$. Positive definiteness of the integrated matrix controls the mean.}{An admissible lower bound, not an optimal constant, is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$. Insert it into $\norm{\vct}_{H^1}^2=|\Omega||\bar{\vct}|^2+\norm{\mathbf w}_{L^2}^2+\norm{\nabla\vct}_{L^2}^2$. Lax--Milgram gives the unique minimizer. For fixed positive $\beta_B,\alpha$, this lower bound deteriorates linearly as $m$ decreases. Scene terms: mean = common drift (camera pan), fluctuation = variation across the image; smoothness charges nothing for a pan, so the edges must fix it.}
 \end{frame}
 
@@ -254,7 +254,7 @@ Connectedness and $\sum_i\widehat\B_i\succ0$ eliminate both constant and alterna
 \end{frame}
 
 \begin{frame}{Anisotropy needs a uniform ellipticity floor}
-For the normalized Nagel--Enkelmann tensor, write $g=\nabla\rho_{\rm evt}$ and $\gamma_{\rm NE}>0$:
+For the normalized Nagel--Enkelmann tensor~\cite{nagel1986investigation}, write $g=\nabla\rho_{\rm evt}$ and $\gamma_{\rm NE}>0$:
 % source: Ch. 3 eq:ne_tensor; this is the normalized variant used in the dissertation.
 \[\mathbf D=\frac{g^\perp(g^\perp)^\top+\gamma_{\rm NE}^2\mathbf I}{|g|^2+\gamma_{\rm NE}^2}.
 \]
@@ -413,7 +413,7 @@ At every candidate disparity:
 \item Recompute \textbf{unclipped scoring weights}; apply acceptance and stopping rules.
 \item Return the last accepted iterate and its score.
 \end{enumerate}
-The score omits the log-variance term. Masking, averaging, margin normalization, and SGM then change candidate comparisons.
+The score omits the log-variance term. Masking, averaging, margin normalization, and SGM~\cite{Hirschmueller2008} then change candidate comparisons.
 \takeaway{Brouwer and the contraction theorem describe fixed maps; early stopping and aggregation require their own analysis.}
 % source detail: Ch. 4, sec:solution, sec:irls\_scope; Appendix, app:protocol\_ch4.
 \src{\dref{Section}{sec:solution}, \dref{Section}{sec:thm_foundations}; \dref{Section}{app:protocol_ch4}.}
@@ -505,7 +505,7 @@ The flow energy uses a quadratic gradient penalty:
 +\tfrac{\alpha^2}{2}\norm{\nabla\vct}_{L^2}^2,\qquad \vct\in H^1(\Omega;\R^2).\]
 \begin{itemize}
 \item Lax--Milgram gives existence, uniqueness, and coefficient stability under the stated hypotheses.
-\item TV can preserve jumps, but needs a separate $BV$ existence argument and its own uniqueness and stability assumptions.
+\item TV~\cite{rudin1992nonlinear} can preserve jumps, but needs a separate $BV$ existence argument and its own uniqueness and stability assumptions.
 \item Normalized NE diffusion gives directional quadratic smoothing with a uniform ellipticity floor.
 \end{itemize}
 \takeaway{The integrated full-rank condition supports the quadratic $H^1$ proof; it does not establish a TV theorem.}
@@ -580,33 +580,38 @@ Theorems describe specific layers; empirical evaluation describes the complete e
 \textbf{Image reconstruction}
 \begin{itemize}
 % source: Rebecq et al., CVPR 2019, Events-to-Video, primary paper.
-\item \href{https://openaccess.thecvf.com/content_CVPR_2019/papers/Rebecq_Events-To-Video_Bringing_Modern_Computer_Vision_to_Event_Cameras_CVPR_2019_paper.pdf}{\textcolor{teal}{Rebecq et al.\ (2019)}}\\\emph{Events-to-Video}.
+% link: https://openaccess.thecvf.com/content_CVPR_2019/papers/Rebecq_Events-To-Video_Bringing_Modern_Computer_Vision_to_Event_Cameras_CVPR_2019_paper.pdf
+\item \textcolor{teal}{Rebecq et al.}~\cite{rebecq2019events}\\\emph{Events-to-Video}.
 % source: Zhang, Yezzi, and Gallego, TPAMI 2023; doi:10.1109/TPAMI.2022.3230727.
-\item \href{https://arxiv.org/abs/2112.06242}{\textcolor{teal}{Zhang, Yezzi \& Gallego (2023)}}\\\emph{Image reconstruction as a linear inverse problem using optical flow}.
+% link: https://arxiv.org/abs/2112.06242
+\item \textcolor{teal}{Zhang, Yezzi \& Gallego}~\cite{zhang2021formulating}\\\emph{Image reconstruction as a linear inverse problem using optical flow}.
 % source: Antil and Sayre, Inverse Problems 2023; doi:10.1088/1361-6420/ace7c7.
-\item \href{https://arxiv.org/pdf/2302.02052}{\textcolor{teal}{Antil--Sayre (2023)}}\\\emph{Bilevel inverse problems in neuromorphic imaging}.
+% link: https://arxiv.org/pdf/2302.02052
+\item \textcolor{teal}{Antil--Sayre}~\cite{HAntil_DSayre_2023a}\\\emph{Bilevel inverse problems in neuromorphic imaging}.
 \end{itemize}
 \textbf{Sensor overview}
 % source: Gallego et al., TPAMI 2022; doi:10.1109/TPAMI.2020.3008413.
-\par\smallskip\href{https://doi.org/10.1109/TPAMI.2020.3008413}{\textcolor{teal}{Gallego et al.\ (2022)}}: \emph{Event-Based Vision: A Survey}.
+\par\smallskip\textcolor{teal}{Gallego et al.}~\cite{gallego2022event}: \emph{Event-Based Vision: A Survey}.
 \column{.49\textwidth}\footnotesize
 \textbf{Flow models and analysis}
 \begin{itemize}
 % source: Horn and Schunck, Artificial Intelligence 1981, primary author-hosted paper.
-\item \href{https://people.csail.mit.edu/bkph/papers/Optical_Flow_OPT.pdf}{\textcolor{teal}{Horn--Schunck (1981)}}\\\emph{Determining Optical Flow}.
+% link: https://people.csail.mit.edu/bkph/papers/Optical_Flow_OPT.pdf
+\item \textcolor{teal}{Horn--Schunck}~\cite{horn1981determining}\\\emph{Determining Optical Flow}.
 % source: Benosman et al., TNNLS 2014; doi:10.1109/TNNLS.2013.2273537.
-\item \href{https://doi.org/10.1109/TNNLS.2013.2273537}{\textcolor{teal}{Benosman et al.\ (2014)}}\\\emph{Event-Based Visual Flow}.
+\item \textcolor{teal}{Benosman et al.}~\cite{benosman2014event}\\\emph{Event-Based Visual Flow}.
 % source: Weickert and Schnorr, IJCV 2001; doi:10.1023/A:1013614317973.
-\item \href{https://link.springer.com/article/10.1023/A:1013614317973}{\textcolor{teal}{Weickert--Schn\"orr (2001)}}\\\emph{Convex regularizers for image motion}.
+\item \textcolor{teal}{Weickert--Schn\"orr}~\cite{weickert2001theoretical}\\\emph{Convex regularizers for image motion}.
 % source: Gallego, Rebecq, and Scaramuzza, CVPR 2018; dissertation bibliography gallego2018unifying.
-\item \href{https://arxiv.org/abs/1804.01306}{\textcolor{teal}{Gallego, Rebecq \& Scaramuzza (2018)}}\\\emph{A Unifying Contrast Maximization Framework}.
+% link: https://arxiv.org/abs/1804.01306
+\item \textcolor{teal}{Gallego, Rebecq \& Scaramuzza}~\cite{gallego2018unifying}\\\emph{A Unifying Contrast Maximization Framework}.
 \end{itemize}
 \textbf{Evaluation data}
 % source: Zhu et al., RA-L 2018; doi:10.1109/LRA.2018.2800793.
-\par\smallskip\href{https://doi.org/10.1109/LRA.2018.2800793}{\textcolor{teal}{Zhu et al.\ (2018)}}: \emph{The Multivehicle Stereo Event Camera Dataset}.
+\par\smallskip\textcolor{teal}{Zhu et al.}~\cite{MVSEC2018}: \emph{The Multivehicle Stereo Event Camera Dataset}.
 \end{columns}
 % source detail: Ch. 2 and Ch. 3 related work; Appendix evaluation protocol. Links identify primary sources; the companion reference notes give full titles and comparison scope.
-\src{\dref{Chapter}{ch:monocular_reconstruction}; \dref{Section}{sec:related_work}; \dref{Section}{app:protocol_ch4}. Links identify primary sources; companion reference notes give full titles and scope.}
+\src{\dref{Chapter}{ch:monocular_reconstruction}; \dref{Section}{sec:related_work}; \dref{Section}{app:protocol_ch4}. Numbers match the dissertation bibliography; full entries on the closing reference pages.}
 \talknote{Attribution.}{The reconstruction references distinguish learned event-only video reconstruction, flow-based image inversion, and frame-assisted bilevel threshold estimation. The flow references identify the classical variational structure, timestamp geometry, existing well-posedness theory, and nonconvex contrast maximization.}{The dissertation's contribution is the stated event-derived models, shared coefficient analysis, and derived conditioning, bias, and selection consequences. The presentation's empirical values and theorem statements come from the dissertation. The source map ties each slide to its relevant labels, figures, and tables.}
 \end{frame}
 
@@ -778,7 +783,7 @@ On the stripes, CMAX recovers the diagonal motion: warping the events over the w
 \end{columns}
 \takeaway{CMAX has the lowest error in every known-motion scene.}
 % source detail: Ch. 3, sec:cmax introduction (binning blur), fig:ch3_quiver_synth, fig:ch3_quiver_v2e.
-\src{\dref{Section}{sec:cmax}; \dref{Figure}{fig:ch3_quiver_synth} and \dref{Figure}{fig:ch3_quiver_v2e}.}
+\src{\dref{Section}{sec:cmax}; \dref{Figure}{fig:ch3_quiver_synth} and \dref{Figure}{fig:ch3_quiver_v2e}; contrast maximization~\cite{gallego2018unifying,shiba2022secrets}; v2e~\cite{hu2021v2e}.}
 % source: AEE gaps 2.15-0.49=1.66, 1.92-1.19=0.73, 0.98-0.32=0.66 from fig:ch3_quiver_synth/fig:ch3_quiver_v2e; normal-flow reference 3/sqrt(2)=2.12 px from Ch. 3 known-motion discussion.
 \talknote{What CMAX models and why it is promising; 60 seconds.}{Describe the warp in scene terms: the right motion turns a smeared trail into a sharp edge. The quadratic models first compress events into a time surface or bins and fit coefficients; CMAX keeps each event's own time. In all three known-motion scenes its AEE is the lowest, by 0.66 to 1.66 px over the structure tensor. On the stripes it recovers the diagonal, where interior pixels alone determine only the across-stripe component (normal-flow reference error 2.12 px).}{Scope: one representative window (chosen by the median-deviation rule) on simulated scenes with known motion. On the idealized stripes CMAX also assigns flow to the surrounding background. The dissertation reports no aggregate real-data AEE for any flow method. Its guarantee is existence of a global minimizer; the quasi-Newton solver is local. The next two backups give the objective and the existence proof.}
 \end{frame}
@@ -788,9 +793,9 @@ On the stripes, CMAX recovers the diagonal motion: warping the events over the w
 \begin{tabular}{p{.20\textwidth}p{.71\textwidth}}
 \toprule Aspect & Reported protocol\\\midrule
 % source: Ch. 3 known-motion comparison, line 1058.
-Stimulus & A $60\times40$ px object translates diagonally at $3$ px per window; direct idealized events and v2e-simulated events.\\
+Stimulus & A $60\times40$ px object translates diagonally at $3$ px per window; direct idealized events and v2e-simulated events~\cite{hu2021v2e}.\\
 % source: Ch. 3 known-motion comparison, line 1058; the 100-iteration cap belongs to these figures, not the separate MVSEC run.
-Settings & Quadratic variants: $\alpha_{\rm smooth}=20$, no pyramid. Contrast maximization: $100$ L-BFGS iterations.\\
+Settings & Quadratic variants: $\alpha_{\rm smooth}=20$, no pyramid. Contrast maximization: $100$ L-BFGS~\cite{zhu1997algorithm} iterations.\\
 % source: Ch. 3 known-motion window-selection rule, line 1060.
 Selection & Window $22$ minimizes summed deviation from each variant's median AEE over windows $1$--$31$.\\
 Display / error & Common arrow scale; AEE is mean Euclidean displacement error, in pixels per evaluation window.\\\bottomrule
@@ -811,11 +816,11 @@ Represent $\mathbf q$ by continuous B-splines with coefficients $\mathbf c$.
 \qquad \K_{\rm reg}\succeq\tau_{\rm ridge}\mathbf I,\quad\tau_{\rm ridge}>0.\]
 \begin{itemize}
 \item A good warp concentrates aligned events.
-\item A flexible incorrect warp can also concentrate events by collapsing them.
+\item A flexible incorrect warp can also concentrate events by collapsing them~\cite{shiba2022secrets}.
 \end{itemize}
 \takeaway{The full objective is generally nonconvex. The quadratic flow theorem does not apply.}
 % source detail: Ch. 3, sec:cmax, prop:cmax\_wellposed, prop:cmax\_existence.
-\src{\dref{Section}{sec:cmax}, \dref{Proposition}{prop:cmax_wellposed}, \dref{Proposition}{prop:cmax_existence}.}
+\src{\dref{Section}{sec:cmax}, \dref{Proposition}{prop:cmax_wellposed}, \dref{Proposition}{prop:cmax_existence}; contrast maximization~\cite{gallego2018unifying}.}
 \talknote{Nonconvex extension; 60 seconds.}{In this model the unknown changes the represented data during optimization. q is displacement in pixels per normalized window, avoiding a confusion between velocity and normalized time. A continuous spline basis supplies well-defined event-location evaluations. General H1 equivalence classes in two dimensions cannot be evaluated at prescribed points without more regularity.}{The regularizer has a diffusion floor and a coefficient ridge with different roles. A positive diffusion floor penalizes all nonconstant spline variations but still leaves global translations free. The coefficient ridge controls those constant-flow directions and supplies coercivity of the full finite-dimensional objective.}
 \end{frame}
 
@@ -867,7 +872,7 @@ At each candidate disparity $d$, solve two coupled temporal profiles:
 MVSEC indoor flying: soft-coupled WLS is best on Flying 2 (58.35\,cm) and log RMSE $\times100$ ($44.54$), second elsewhere, with 2.66\,M scored points versus 1.20\,M for the strongest prior method.
 \takeaway{Coupling keeps every inner solve well posed; the right correspondence also needs a cost margin.}
 % source detail: Ch. 4, thm:weighted\_spd, prop:attenuation\_bias, prop:correct\_selection, prop:irls\_contraction; App., tab:unified\_benchmark.
-\src{\dref{Theorem}{thm:weighted_spd}, \dref{Proposition}{prop:attenuation_bias}, \dref{Proposition}{prop:correct_selection}, \dref{Proposition}{prop:irls_contraction}; \dref{Table}{tab:unified_benchmark}.}
+\src{\dref{Theorem}{thm:weighted_spd}, \dref{Proposition}{prop:attenuation_bias}, \dref{Proposition}{prop:correct_selection}, \dref{Proposition}{prop:irls_contraction}; \dref{Table}{tab:unified_benchmark}; MVSEC~\cite{MVSEC2018}, Piatkowska~\cite{piatkowska2017}, Brouwer~\cite{brouwer1911beweis}.}
 \talknote{Question: what are the Chapter 4 results? About 2 minutes; the four results and one benchmark sentence.}{This chapter compares candidate correspondences by reconstructing and softly coupling a temporal event-feature profile from each view. The analysis separates the unique inner reconstruction from the outer correspondence decision, then gives conditions for selection and stability under a positive winning margin. Item 1 is the Chapter 2 coercivity argument with one more nonnegative term. Item 2 is the conceptual point: after profiling out the latent profiles, the candidate cost contains a right-view monocular term that changes with the candidate, so in the two-sample example an attenuated wrong match beats the exact match. Item 3 gives a sufficient condition under which the correct candidate wins, and its stability under perturbations smaller than half the margin. Item 4 is the reweighted iteration.}{Benchmark: each method is scored on its own valid pixels; the Piatkowska adaptation has the lowest error on Flying 1, 3, and 4. Interpret accuracy alongside scored coverage. The separation results concern unweighted candidate-local costs before aggregation; the contraction theorem applies when its displayed sufficient condition holds. Scene terms: a weaker right-view copy can outscore the true match; margin errors include noise events and sensor threshold mismatch.}
 \end{frame}
 
@@ -1048,14 +1053,14 @@ Nearer point&$20$ px&$21$ px\\\bottomrule
 \par\vspace{2mm}Depth is underestimated by $20\%$ and $4.76\%$, respectively.
 \end{columns}
 {\let\small\footnotesize\takeaway{Read depth errors with the disparity precision, depth range, calibration, and scored population.}}
-\src{\dref{Eq.}{eq:depth_conversion} and \dref{Eq.}{eq:depth_disparity_sensitivity}; example percentages are illustrative arithmetic.}
+\src{\dref{Eq.}{eq:depth_conversion} and \dref{Eq.}{eq:depth_disparity_sensitivity}; stereo geometry~\cite{HartleyZisserman2003}; example percentages are illustrative arithmetic.}
 \talknote{Question: how does a pixel of matching error translate into centimeters? About 60 seconds.}{The conversion is reciprocal in disparity. The exact difference formula applies for positive disparities. For a small disparity perturbation, absolute depth sensitivity is Z squared divided by focal length times baseline. Farther points therefore turn the same disparity error into a larger depth error. The displayed arithmetic holds focal length and baseline fixed and is an illustration, not a benchmark result.}{The approximation requires the disparity error to be small relative to the reference disparity; use the exact formula for the examples. Calibration uncertainty adds another source of error: to first order, delta Z/Z is delta f/f plus delta B/B minus delta d/d. A winner margin protects a label under score perturbations; subpixel interpolation and reciprocal conversion are later stages. Existing coverage backups explain method-specific evaluation populations.}
 \end{frame}
 
 \begin{frame}{Heteroscedastic weights: statistical motivation and scope}
 As a working raw-count model,
 \[N_+\sim\operatorname{Poisson}(\theta_+),\qquad N_-\sim\operatorname{Poisson}(\theta_-),\]
-independently. For $b=N_+-N_-$,
+independently. For $b=N_+-N_-$ (Skellam~\cite{Skellam1946}),
 \[\mathbb Eb=\theta_+-\theta_-,\qquad\operatorname{Var}(b)=\theta_++\theta_-.\]
 \[|\theta_+-\theta_-|\le\theta_++\theta_-,\quad\text{with equality iff at least one rate is zero.}\]
 The evaluated reciprocal proxy is
@@ -1071,7 +1076,7 @@ The evaluated reciprocal proxy is
 Fix $d$, $\Lam$, and $\gamma$; stack $\mathbf y=(\yL,\yR)$. Let $\Phi(\mathbf g)$ minimize the quadratic with weights frozen at $\mathbf g$.
 For the \emph{unclipped reciprocal map}, set $\ell=\lambda_{\min}^2>0$:
 \[\norm{\Phi(\mathbf g)}^2\le\frac{\norm{\mathbf y}^2}{\ell\,\varepsilon_{\rm noise}}.\]
-A sufficiently large closed ball is invariant; continuity and Brouwer give a fixed point.
+A sufficiently large closed ball is invariant; continuity and Brouwer~\cite{brouwer1911beweis} give a fixed point.
 \begin{block}{Sufficient convergence condition}
 \[q=\frac{\norm{\A}_2\norm{\mathbf y}}{\sqrt\ell\,\varepsilon_{\rm noise}^{3/2}}<1
 \quad\Rightarrow\quad\text{unique fixed point and geometric convergence}.\]
@@ -1079,7 +1084,7 @@ For fixed damping $\omega\in(0,1]$, the bound is $q_\omega=1-\omega+\omega q$.
 \end{block}
 \takeaway{A fixed point exists; convergence follows under the displayed sufficient condition.}
 % source detail: Ch. 4, lem:fixed\_point\_existence, prop:irls\_contraction, sec:irls\_scope.
-\src{\dref{Lemma}{lem:fixed_point_existence}, \dref{Proposition}{prop:irls_contraction}, \dref{Section}{sec:thm_foundations}.}
+\src{\dref{Lemma}{lem:fixed_point_existence}, \dref{Proposition}{prop:irls_contraction}, \dref{Section}{sec:thm_foundations}; IRLS~\cite{Green1984}.}
 \talknote{IRLS analysis; 90 seconds.}{Compare the frozen minimizer's objective value with the value at zero. The regularizer bounds the squared norm from below, while reciprocal weights are uniformly bounded above by 1/epsilon. Thus every closed ball with radius $R\ge\norm{\mathbf y}/\sqrt{\ell\varepsilon_{\rm noise}}$ is invariant. The weights are continuous and frozen matrices remain SPD, so $\Phi$ is continuous. Brouwer proves a fixed point.}{A sharper difference-of-normal-equations argument gives the Lipschitz constant q. If q<1, Banach supplies uniqueness and convergence. The convergence conclusion applies under this sufficient condition; the evaluated stopping and acceptance rules are additional steps. Damping preserves fixed points, but the stated upper bound does not prove damping helps when q>=1. A fixed point need not minimize the state-dependent score or a Gaussian likelihood.}
 \end{frame}
 
@@ -1091,21 +1096,21 @@ Method & Fl1&Fl2&Fl3&Fl4&$\times100\;\downarrow$&points (M)\\\midrule
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, control row.
 Unweighted control&140.23&115.40&142.35&113.00&96.18&1.43\\
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, sgm row.
-Unweighted SGM&83.45&72.90&85.33&71.62&50.55&2.39\\
+Unweighted SGM~\cite{Hirschmueller2008}&83.45&72.90&85.33&71.62&50.55&2.39\\
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, wls row.
 \textbf{Soft-coupled WLS}&73.83&\textbf{58.35}&70.33&59.24&\textbf{44.54}&2.66\\
 \midrule
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Piatkowska row.
-Piatkowska adaptation&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1.20\\
+Piatkowska adaptation~\cite{piatkowska2017}&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1.20\\
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Xie row.
-Xie adaptation&93.43&78.60&93.66&66.57&59.36&1.39\\
+Xie adaptation~\cite{Xie2018}&93.43&78.60&93.66&66.57&59.36&1.39\\
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Kogler row.
-Kogler et al.&123.39&99.50&125.27&78.23&80.94&0.66\\
+Kogler et al.~\cite{kogler2011}&123.39&99.50&125.27&78.23&80.94&0.66\\
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Rogister row.
-Rogister et al.&142.17&128.20&153.32&114.80&90.32&1.01\\\bottomrule
+Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bottomrule
 \end{tabular}\end{center}\vspace*{-2mm}
 % source: appendix_bodies/ch4_protocol.tex tab:metrics, per-method population P_m,s.
-\scriptsize MVSEC indoor flying, raw outputs. Each method is scored on its own estimates and ground truth in $[0.5,8]$ m; points summed and log RMSE averaged over sequences.
+\scriptsize MVSEC~\cite{MVSEC2018} indoor flying, raw outputs. Each method is scored on its own estimates and ground truth in $[0.5,8]$ m; points summed and log RMSE averaged over sequences.
 \takeaway{WLS is competitive with a larger scored population. This table does not compare accuracy on a common pixel set.}
 % source detail: Appendix, tab:unified\_benchmark, tab:metrics; Xie and Piatkowska rows are local adaptations (ch4_protocol.tex:264, :326).
 \src{\dref{Table}{tab:unified_benchmark}, \dref{Table}{tab:metrics}; Xie and Piatkowska rows are local adaptations.}
@@ -1215,4 +1220,29 @@ Exponential decay & $10^{-3}+10e^{-10}$ & $10.001$ & $10$\\\bottomrule
 % source detail: Ch. 2, thm:uniqueness, subsubsec:lambdacal. Short argument beyond the chapter; checked numerically for all three rules.
 \src{\dref{Theorem}{thm:uniqueness}; adaptive rules (\drefpage{subsubsec:lambdacal}). The Lipschitz bound is a short argument beyond the chapter.}
 \talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor improves to $10^{-3}+10/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 32.}
+\end{frame}
+
+% Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.
+\begin{frame}[label=references]{References (1 of 3)}
+\fontsize{6}{7.2}\selectfont
+\begin{multicols}{2}
+\thesisreferences{1}
+\end{multicols}
+\talknote{Reference list; navigation only.}{Numbers match the dissertation bibliography. Each bracketed number in the deck links here.}{Return to the slide under discussion with the PDF viewer's back command.}
+\end{frame}
+
+\begin{frame}{References (2 of 3)}
+\fontsize{6}{7.2}\selectfont
+\begin{multicols}{2}
+\thesisreferences{2}
+\end{multicols}
+\talknote{Reference list; navigation only.}{Numbers match the dissertation bibliography. Each bracketed number in the deck links here.}{Return to the slide under discussion with the PDF viewer's back command.}
+\end{frame}
+
+\begin{frame}{References (3 of 3)}
+\fontsize{6}{7.2}\selectfont
+\begin{multicols}{2}
+\thesisreferences{3}
+\end{multicols}
+\talknote{Reference list; navigation only.}{Numbers match the dissertation bibliography. Each bracketed number in the deck links here.}{Return to the slide under discussion with the PDF viewer's back command.}
 \end{frame}

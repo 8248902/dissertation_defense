@@ -71,6 +71,26 @@ def read_aux(build: Path) -> tuple[dict, dict]:
     if not labels: raise ValueError('The thesis build contains no extracted labels')
     return labels, hashes
 
+def read_citations(build: Path) -> tuple[dict, dict]:
+    """Thesis citation numbers (\\bibcite in the main aux) and their .bbl entries."""
+    aux, bbl = build / (MAIN + '.aux'), build / (MAIN + '.bbl')
+    if not bbl.is_file(): raise FileNotFoundError(f'Missing thesis bibliography: {bbl}')
+    numbers = {}
+    for key, number in re.findall(r'^\\bibcite\{([^{}]+)\}\{([^{}]+)\}', aux.read_text(encoding='utf-8'), re.MULTILINE):
+        if key in numbers and numbers[key] != number: raise ValueError(f'Conflicting thesis citation number: {key}')
+        numbers[key] = number
+    text = bbl.read_text(encoding='utf-8')
+    body = text.split(r'\end{thebibliography}')[0]
+    entries = {}
+    for chunk in re.split(r'^\\bibitem(?=[\[{])', body, flags=re.MULTILINE)[1:]:
+        if chunk.startswith('['): raise ValueError('Thesis .bbl uses optional bibitem labels; numbering cannot be matched')
+        key, pos = argument(chunk, 0)
+        entries[key] = ' '.join(chunk[pos:].split())
+    if not numbers or set(numbers) != set(entries):
+        raise ValueError('Thesis aux citation numbers and .bbl entries disagree; rerun the thesis build')
+    citations = {key: dict(number=numbers[key], entry=entries[key]) for key in entries}
+    return citations, {bbl.name: digest(bbl)}
+
 def source_inputs(thesis: Path, copied: Path, build: Path) -> dict[str, str]:
     """Hash source text/style/bibliography and local recorder inputs (figures)."""
     if not thesis.is_dir() or not copied.is_dir():
@@ -114,23 +134,29 @@ def refresh(build: Path, thesis: Path = THESIS, snapshot: Path = SNAPSHOT, copie
     if re.search(r'^!|There were undefined references|Label\(s\) may have changed', text, re.MULTILINE):
         raise ValueError('Thesis build has errors or unresolved references; complete a clean build before refreshing')
     labels, auxiliary = read_aux(build)
+    citations, bibliography = read_citations(build)
+    auxiliary.update(bibliography)
     sources = source_inputs(thesis, copied, build)
-    result = dict(schema_version=1, generated_at_utc=datetime.now(timezone.utc).isoformat(timespec='seconds'),
+    result = dict(schema_version=2, generated_at_utc=datetime.now(timezone.utc).isoformat(timespec='seconds'),
                   thesis_main=MAIN, thesis_pdf_sha256=digest(build / (MAIN + '.pdf')),
-                  source_sha256=sources, auxiliary_sha256=auxiliary, labels=dict(sorted(labels.items())))
+                  source_sha256=sources, auxiliary_sha256=auxiliary, labels=dict(sorted(labels.items())),
+                  citations=dict(sorted(citations.items(), key=lambda item: int(item[1]['number']))))
     snapshot.write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-    print(f'Refreshed {snapshot.name}: {len(labels)} labels, {len(sources)} thesis input hashes.')
+    print(f'Refreshed {snapshot.name}: {len(labels)} labels, {len(citations)} citations, {len(sources)} thesis input hashes.')
     return result
 
 def load_snapshot(snapshot: Path = SNAPSHOT, thesis: Path = THESIS) -> dict:
     if not snapshot.is_file(): raise ValueError(f'Missing {snapshot.name}. {REFRESH}')
     try: data = json.loads(snapshot.read_text(encoding='utf-8'))
     except (ValueError, OSError) as error: raise ValueError(f'Malformed reference snapshot: {error}') from error
-    if not isinstance(data, dict) or data.get('schema_version') != 1 or not isinstance(data.get('labels'), dict) or not data['labels'] or not isinstance(data.get('source_sha256'),dict) or not data['source_sha256']:
-        raise ValueError(f'Malformed {snapshot.name}: expected labels and source hashes. {REFRESH}')
+    if not isinstance(data, dict) or data.get('schema_version') != 2 or not isinstance(data.get('labels'), dict) or not data['labels'] or not isinstance(data.get('source_sha256'),dict) or not data['source_sha256'] or not isinstance(data.get('citations'), dict) or not data['citations']:
+        raise ValueError(f'Malformed {snapshot.name}: expected labels, citations, and source hashes. {REFRESH}')
     for key, value in data['labels'].items():
         if not isinstance(value,dict) or not all(isinstance(value.get(field),str) for field in ['number','page']):
             raise ValueError(f'Malformed reference label {key!r} in {snapshot.name}')
+    for key, value in data['citations'].items():
+        if not isinstance(value,dict) or not all(isinstance(value.get(field),str) and value[field] for field in ['number','entry']):
+            raise ValueError(f'Malformed citation {key!r} in {snapshot.name}')
     for name, expected in data['source_sha256'].items():
         if not isinstance(expected,str) or not re.fullmatch('[0-9a-f]{64}', expected) or Path(name).is_absolute() or '..' in Path(name).parts:
             raise ValueError(f'Malformed source hash entry in {snapshot.name}: {name!r}')
@@ -161,12 +187,64 @@ def validate_references(snapshot: dict, root: Path = ROOT) -> set[str]:
             used.add(key)
     return used
 
+CITE = re.compile(r'\\cite(?:\[[^\]]*\])?\{([^{}]*)\}')
+
+def cite_keys(argument_text: str) -> list[str]:
+    return [key.strip() for key in argument_text.split(',') if key.strip()]
+
+def validate_citations(snapshot: dict, root: Path = ROOT) -> list[str]:
+    """Every \\cite key must be cited in the thesis; return keys in thesis order."""
+    used = set()
+    for filename in ['core.tex', 'backup.tex']:
+        for match in CITE.finditer(without_comments((root / filename).read_text(encoding='utf-8'))):
+            for key in cite_keys(match[1]):
+                if key not in snapshot['citations']:
+                    raise ValueError(f'Citation {key!r} in {filename} is not in the dissertation bibliography. {REFRESH}')
+                used.add(key)
+    return sorted(used, key=lambda key: int(snapshot['citations'][key]['number']))
+
+def reference_frames(root: Path = ROOT) -> int:
+    return len(re.findall(r'\\thesisreferences\{\d+\}', without_comments((root / 'backup.tex').read_text(encoding='utf-8'))))
+
+def split_references(keys: list[str], snapshot: dict, parts: int) -> list[list[str]]:
+    """Contiguous chunks in thesis order, balanced by entry length."""
+    if parts < 1: raise ValueError('backup.tex has no \\thesisreferences{n} frame for the cited works')
+    sizes = [len(snapshot['citations'][key]['entry']) + 60 for key in keys]  # 60 ~ label and line ends
+    total, done, chunks = sum(sizes), 0, [[]]
+    for key, size in zip(keys, sizes):
+        if chunks[-1] and len(chunks) < parts and done + size / 2 > total * len(chunks) / parts:
+            chunks.append([])
+        chunks[-1].append(key)
+        done += size
+    return chunks + [[] for _ in range(parts - len(chunks))]
+
+def write_citations(directory: Path, snapshot: dict, root: Path = ROOT) -> list[str]:
+    keys = validate_citations(snapshot, root)
+    chunks = split_references(keys, snapshot, reference_frames(root))
+    lines = ['% Generated from thesis-references.json; numbers are the dissertation bibliography numbers.', r'\makeatletter']
+    for index, chunk in enumerate(chunks, 1):
+        lines.append(r'\expandafter\long\expandafter\def\csname thesisreferences@' + str(index) + r'\endcsname{%')
+        lines.append(r'\begin{thebibliography}{100}')
+        for key in chunk:
+            value = snapshot['citations'][key]
+            lines.append(r'\bibitem[' + value['number'] + ']{' + key + '} ' + value['entry'].replace('#', '##'))
+        lines.append(r'\end{thebibliography}}')
+    # The notes edition never typesets frame bodies, so \bibitem cannot register
+    # numbers there; define them directly (the slides take them from \bibitem).
+    lines.append(r'\ifdefined\DefenseNotes')
+    lines += [r'\global\@namedef{b@' + key + '}{' + snapshot['citations'][key]['number'] + '}' for key in keys]
+    lines.append(r'\fi')
+    lines += [r'\renewcommand{\thesisreferences}[1]{\@nameuse{thesisreferences@#1}}', r'\makeatother']
+    (directory / 'thesis-citations.tex').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    return keys
+
 def write_external_aux(directory: Path, snapshot: dict, used: set[str]) -> None:
     lines = ['\\relax']
     for key in sorted(used):
         value = snapshot['labels'][key]
         lines.append(r'\newlabel{' + key + '}{{' + value['number'] + '}{' + value['page'] + '}{}{}{}}')
     (directory / 'thesis-labels.aux').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    write_citations(directory, snapshot)
 
 def resolved_footer(text: str, snapshot: dict) -> str:
     result, cursor = [], 0
@@ -179,7 +257,8 @@ def resolved_footer(text: str, snapshot: dict) -> str:
         else: result.append('p. ' + snapshot['labels'][first]['page'])
         cursor = end
     result.append(text[cursor:])
-    return ''.join(result).replace(r'\_', '_').replace('~',' ')
+    resolved = CITE.sub(lambda match: '[' + ', '.join(snapshot['citations'][key]['number'] for key in cite_keys(match[1])) + ']', ''.join(result))
+    return resolved.replace(r'\_', '_').replace('~',' ')
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -190,7 +269,8 @@ def main() -> None:
     if args.thesis_build: refresh(args.thesis_build,args.thesis_root,copied=args.build_source)
     data = load_snapshot(thesis=args.thesis_root)
     used = validate_references(data)
-    print(f'Validated {len(used)} dissertation labels used by the defense.')
+    cited = validate_citations(data)
+    print(f'Validated {len(used)} dissertation labels and {len(cited)} dissertation citations used by the defense.')
 
 if __name__ == '__main__':
     try: main()

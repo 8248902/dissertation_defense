@@ -4,7 +4,7 @@ This is the single active defense, on `main`.
 
 The [spoken-recall Anki deck](anki/README.txt) has a 48-card core package and a 90-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
 
-- [Audience deck](defense.pdf): 34 main slides and 65 backups.
+- [Audience deck](defense.pdf): 34 main slides and 68 backups (65 discussion slides and 3 reference pages).
 - [Speaker edition](defense-notes.pdf): slide-level notes.
 - [Rehearsal script](defense-script.pdf): full main-talk scripts and self-contained backup answers; editable source is [defense-script.md](defense-script.md).
 - [Synchronized presenter edition](defense-presenter.pdf): slides and full script paired for Pympress; rebuild with `make presenter`.
@@ -25,13 +25,15 @@ Dated committee review evidence is under `history/committee-review-2026-10-03/`.
 
 Footers use actual LaTeX cross-references imported from a complete dissertation build. Write `\dref{Theorem}{thm:uniqueness}` for a numbered result and `\drefpage{subsubsec:ode}` for a page reference. Unnumbered topics use their name and page, since their labels inherit an enclosing section counter. `thesis-references.json` bundles the compiled labels and hashes of the thesis inputs; keep it with the defense source. The build creates the auxiliary file for `xr` under `/tmp` and renders `\ref*` / `\pageref*`.
 
+Citations use the dissertation's own numbers. Write `\cite{piatkowska2017}` with any key the dissertation cites; it prints the dissertation number, for example [78], and links to the reference pages at the end of the deck (pages 100–102). The snapshot also stores each cited work's number and `.bbl` entry, so the build writes those pages from it. A key the dissertation does not cite stops the build. The three `\thesisreferences{n}` frames at the end of `backup.tex` hold the list; the build splits the cited works across however many such frames exist, so add a frame (and its script section) if a page overflows. Sources outside the dissertation bibliography (Adelson–Movshon, Wolfe et al., Antil–Di–Khatri, Willert–Klinner) stay as typed text.
+
 After changing dissertation sources:
 
 1. Run `../dissertation_format_rules/recheck.sh` and use the completed build directory it reports.
 2. Run `make refs THESIS_BUILD=/tmp/udts_recheck.XXXXXX/build`, substituting that directory.
 3. Run `make all`.
 
-Normal builds check the snapshot against the sibling thesis and report stale or missing labels before compiling. A standalone copy of the defense can use the bundled snapshot. `source-map.csv` contains both readable numbered footers and the underlying keys/source locations. The snapshot was refreshed from the October 18, 208-page dissertation build; its formatting check passed all 35 rules.
+Normal builds check the snapshot against the sibling thesis and report stale or missing labels before compiling. A standalone copy of the defense can use the bundled snapshot. `source-map.csv` contains both readable numbered footers and the underlying keys/source locations. The snapshot was refreshed from the October 19 dissertation build in `/tmp/udts_recheck.GDYNkk` (207 pages; its formatting check passed all 35 rules); `make refs` needs that build's `.aux` and `.bbl`.
 
 ## Presenting on Zoom with a private synchronized script
 

@@ -3,7 +3,7 @@ Daniel Blauvelt | updated October 19, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
-  defense.pdf          Audience presentation: 34 main slides + 65 backup slides.
+  defense.pdf          Audience presentation: 34 main slides + 68 backup slides.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
   defense-script.md    Editable, authoritative script prose.
@@ -26,6 +26,7 @@ DELIVERY
   Full flow proof 43; stability 44; discrete flow / Jacobi 45–46; Chapter 4 results 82.
   Other backups: metrics 40; real-time 41; flow protocol 78; alignment 83; depth sensitivity 91.
   Backup pages 35–99: select by question; page numbers match the script/index.
+  Pages 100–102: references, numbered as in the dissertation; every [n] links here.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original
@@ -48,7 +49,7 @@ EDIT AND BUILD
   aligned with the deck. build_script.py checks this alignment.
   Run make check, then make all from this directory. All TeX intermediates are
   built in /tmp. Root PDFs, source-map.csv, and source-snapshot.sha256 refresh.
-  Footers use the bundled thesis-references.json label snapshot. After thesis
+  Footers and [n] citations use the bundled thesis-references.json snapshot. After thesis
   edits, run ../dissertation_format_rules/recheck.sh, then make refs with
   THESIS_BUILD=/path/to/that/fresh/build, then make all. Missing or stale
   references stop the build. See README for the full reference workflow.

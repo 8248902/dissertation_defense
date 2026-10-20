@@ -4,9 +4,11 @@
 
 ## Start here — handoff, October 19 late evening
 
-**Deck:** 34 main slides + 65 backups. defense.pdf 99 pages, notes 99, script 102 (cover, two indexes, one page per frame), presenter 198. Last full build clean (zero overfull boxes): `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3` (default python lacks pypdf). Anki rebuilt with `/home/q/g/r/.venv/bin/python anki/build_deck.py`. The thesis reference snapshot was refreshed from a fresh format build (`/tmp/udts_recheck.oHd9Vm`, 35 pass / 0 warn / 0 fail) because the thesis had changed since the last snapshot.
+**Deck:** 34 main slides + 68 backups (65 discussion + 3 reference pages). defense.pdf 102 pages, notes 102, script 105 (cover, two indexes, one page per frame), presenter 204. Last full build clean (zero overfull boxes): `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3` (default python lacks pypdf). Anki rebuilt with `/home/q/g/r/.venv/bin/python anki/build_deck.py`. The thesis reference snapshot (schema 2: labels plus citation numbers and `.bbl` entries) comes from `/tmp/udts_recheck.GDYNkk` (35 pass / 0 warn / 0 fail); `make refs` needs a build with its `.aux` and `.bbl`.
 
-**Git:** user's last commit is `fe7a2fd`. Everything since is uncommitted: the backup spoken-delivery rewrite, four accuracy fixes, the Backup 56 (now 60) table, and the restructure below. The user commits and pushes; do not commit unless asked.
+**Git:** last commit is `a3a0981`. Uncommitted: the October 20 citation work below. The user commits and pushes; do not commit unless asked.
+
+**Citations, October 20 (user-approved approach):** slides cite with `\cite{key}` and print the dissertation's own bibliography numbers, linked to reference pages 100–102 (Backups 66–68), which are generated from the thesis `.bbl`. 38 works cited. Uncited named methods, datasets and theorems now carry citations (mostly in `\src` footers where inline tags caused wraps). External hrefs on slide 4 and the literature page became `\cite`; the URLs stay as `% link:` comments. Adelson–Movshon, Wolfe, Antil–Di–Khatri and Willert–Klinner are not in the thesis bibliography and remain typed text. Slide 16 footer/notes corrected from indoor flying 4 to indoor flying 3 (matches its images and metadata.json). The held fractional backup now goes before the reference frames.
 
 **Restructure, October 19 late (user-approved; details in LOG/2026-10-19.md):**
 - Goal: steer the defense toward results that are easy to defend. Rehearsal of the 36-slide version took 51 min.

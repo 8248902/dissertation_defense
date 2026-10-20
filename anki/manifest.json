@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-10-20T04:24:52.407779+00:00",
+  "built_at_utc": "2026-10-20T04:42:41.276581+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 90,
   "cards": 90,
@@ -28,19 +28,19 @@
     "anki/build_deck.py": "1f1e7271e37f11777700da1bcce711fe0d3b8a08eee873c407650603d6abad14",
     "anki/README.txt": "c4cc59506bfca413498ff6dd5d7838df53d5974750854d274b65aef717cd4987",
     "anki/slide_titles.json": "e9784ad6bbaafcbf5dfda666807713b0bf828da948207c6e9ca4516dd5925dc6",
-    "core.tex": "db56ce876ac3b716f044544531c7d49746007fad014aa38546db9beb9116768b",
-    "backup.tex": "f954d0d0e7e74b5e5fe35ee89bd51552b44c851f47b2aff9b1b425c8df16b12c",
-    "defense-script.md": "aebd36321a342a9e98f38cb4c6ab43070fae2785e73a99fbfd698e6d70b8c9b8",
-    "source-map.csv": "feacc5af1d27c51c1ca043d16c1e1ed59d926d4cfaad8ad49c6c2516d00edba7",
-    "thesis-references.json": "fee151dbcfcb87ee5f15d78ad6c3aba466258a9ab7938059fed32d451ce07f8e",
+    "core.tex": "95d2150c8676986b9d6efc68f083863c3849c39efe740f0e9ee19f3d607ac139",
+    "backup.tex": "cd6e3bea3c565afa6e2d69469fa3767059230f93e88cc70a9c10c17b4a552801",
+    "defense-script.md": "60780d64c4e0f0c9f397a1508d6438f4ad4bbc0bf74fdf1d0167bb76d81b6033",
+    "source-map.csv": "9d97e99bf8704d16933d0d6996e1a6753fad28e8a5987ce17bd1713a4a306270",
+    "thesis-references.json": "fbcad88b66f615e7c03bc718b16ee48dbb2ccd03e11042f2899f1b11c80d95f2",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "5f64b0f673e0114535967030468c03b8cc6dfcc0818a53072381e41c82785af2",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "5f0b40ea02ea0fb44386dbf6813a2ee1501ae15fd7a7ceac18bc838e5739c860"
   },
   "output_sha256": {
-    "defense-oral.apkg": "a79c1b21f20e8f335fe8f5bd4fbb218b7c0dc1e1e3daeb0bc3120657fa34b6fe",
-    "defense-core.apkg": "8a2471345eda885da3fb8c1d115c9291bc575b0e08cd0dd6c7c23f74e23294e1",
+    "defense-oral.apkg": "527d497a433c58688cde178bd21022cd489178ae8ceaa22234c4df8177881049",
+    "defense-core.apkg": "346aea2fa30a7d9f9e971a010663bea759572fc3e107dd45426cc6ccb91ebaab",
     "defense-oral.tsv": "27cd77d4fd3f0e33ecb1f24649edee473bcc7f824afaca4b383b8c9ec1ee342f",
     "preview.html": "e023566442d6934ae704c2388f381061d8fc7e525a2beda1ef5ff3be89e09856"
   }

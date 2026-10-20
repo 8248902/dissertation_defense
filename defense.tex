@@ -4,11 +4,15 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,bm,booktabs,mathtools,array}
 \usepackage{tikz,pgfplots}
+\usepackage{multicol}
 % The build tool writes this auxiliary file from the verified reference snapshot.
 \usepackage{xr}
 \externaldocument[thesis-]{thesis-labels}
 \newcommand{\dref}[2]{#1~\ref*{thesis-#2}}
 \newcommand{\drefpage}[1]{p.~\pageref*{thesis-#1}}
+% \cite numbers are the dissertation's own; the build writes the reference list.
+\newcommand{\thesisreferences}[1]{\textit{Build with make to generate the reference list.}}
+\InputIfFileExists{thesis-citations.tex}{}{}
 \ifdefined\DefenseNotes\else
   \ifdefined\DefensePresenter\usepackage{multimedia}\else\usepackage{animate}\fi
 \fi
@@ -32,6 +36,9 @@
 \setbeamerfont{frametitle}{size=\Large,series=\bfseries}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{blocks}[rounded][shadow=false]
+% Reference entries run inline, as in the dissertation bibliography.
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\makeatletter\def\beamer@newblock{\hskip .11em plus .33em minus .07em\relax}\makeatother
 \setbeamersize{text margin left=8mm,text margin right=8mm}
 \setbeamertemplate{frametitle}{\vspace{2mm}\insertframetitle\par\vspace{1mm}\textcolor{teal}{\rule{\textwidth}{0.6pt}}}
 \newif\ifbackup
@@ -69,7 +76,7 @@
 \author{Daniel Blauvelt}
 \institute{Department of Mathematics\quad\textbullet\quad George Mason University\\Dissertation Director: Harbir Antil}
 \date{Dissertation Defense\quad\textbullet\quad Fall 2026}
-\hypersetup{pdftitle={Daniel Blauvelt — Dissertation Defense},pdfauthor={Daniel Blauvelt},colorlinks=true,linkcolor=teal}
+\hypersetup{pdftitle={Daniel Blauvelt — Dissertation Defense},pdfauthor={Daniel Blauvelt},colorlinks=true,linkcolor=teal,citecolor=teal}
 \begin{document}
 \input{core.tex}
 \appendix

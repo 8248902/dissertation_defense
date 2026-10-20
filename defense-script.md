@@ -2,7 +2,7 @@
 
 Daniel Blauvelt • Canonical defense • Updated October 19, 2026
 
-This rehearsal script covers all 34 main slides and all 65 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
+This rehearsal script covers all 34 main slides and all 68 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
 The main talk contains approximately 5,870 spoken words: about 47–53 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
@@ -1708,3 +1708,21 @@ The second term grows with the size of the data, so the bound is Lipschitz on bo
 The constants are pessimistic, because the floor of ten to the minus three enters cubed. The rules decrease with activity, so for data bounded by R the sigmoid floor improves to ten to the minus three plus ten over one plus e to the R. Pixels are independent, so the bound holds pixel by pixel.
 
 Chapter 4 is different. Its observation weights are recomputed from the current profiles, so its estimator is a fixed point and needs the contraction condition in the stereo backups. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 32.
+
+## Backup 66 — References (1 of 3)
+
+Deck page: 100.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 67 — References (2 of 3)
+
+Deck page: 101.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 68 — References (3 of 3)
+
+Deck page: 102.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
