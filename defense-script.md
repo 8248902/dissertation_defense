@@ -48,7 +48,7 @@ Before the sensor, let me place this work among the approaches it builds on.
 
 *[Compare the prior approaches with the dissertation contribution in each column.]*
 
-For image reconstruction, Rebecq and colleagues train a recurrent neural network on simulated events. Zhang, Yezzi, and Gallego use optical flow to pose reconstruction as a linear inverse problem, with classical or learned regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates the event thresholds.
+For image reconstruction, Rebecq and colleagues train a recurrent neural network on simulated events. Zhang, Yezzi, and Gallego use optical flow to pose reconstruction as a linear inverse problem, with classical or learned regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates a parameter of the event-based blur kernel.
 
 Our published temporal work reconstructs each pixel on its own from event increments. I develop the temporal kernel representation and the activity-based penalties, and then analyze the resulting quadratic solve: what the observations determine, how regularization picks the baseline, and how perturbations move the solution. That analysis shows where the reconstructed temporal structure comes from.
 
@@ -245,7 +245,7 @@ Here's how the temporal method compares with the Antil--Sayre bilevel approach.
 
 In this chapter, the events set activity-based regularization weights, and then we do one fixed convex solve over time.
 
-The bilevel approach uses events together with intensity frames. Its outer optimization adjusts the event-threshold parameters. That's the key difference: their outer variables are thresholds, while my empirical rule chooses the magnitude weights of the temporal profile.
+The bilevel approach uses events together with intensity frames. Its outer optimization adjusts z, a parameter of the event-based blur kernel that links each blurry frame to the sharp latent image, with one value per pixel and frame. That's the key difference: their outer variable shapes how events explain the frames, while my empirical rule chooses the magnitude weights of the temporal profile.
 
 The table compares complete methods that use different inputs and different optimization structures. Indoors, the bilevel approach has higher PSNR; outdoors, the event-only approach is slightly higher. The event-only approach has lower condition numbers in both. So the two formulations trade off reconstruction and conditioning differently.
 
@@ -259,7 +259,7 @@ The main point for this talk is the event-only construction and the explicit rol
 
 These examples apply the same per-pixel reconstruction, with sigmoid weights and events as input, in three very different settings.
 
-On the left is a handheld office sequence. As the camera moves, objects and scene boundaries become recognizable.
+On the left is one frame from a handheld office sequence. The desk, the chair, and the person are all recognizable.
 
 In the middle, a bullet strikes a cup. The scene changes very fast, and the reconstruction shows structure from the impact and the breakup.
 
@@ -467,7 +467,9 @@ That completes the three estimation problems. I'll finish by bringing their guar
 
 *[Read across each row: what the events constrain, then what the model proves.]*
 
-For temporal reconstruction, the events constrain brightness increments. With the positive weights fixed, the regularized history is unique and stable, and the penalty selects the baseline. When the weights are recomputed from the data, a short argument beyond the dissertation gives a local Lipschitz bound. It's in the backups.
+For temporal reconstruction, the events constrain brightness increments. For each fixed positive weight matrix, the regularized history is unique, with perturbation bounds, and the penalty selects the baseline.
+
+*[If asked about recomputed weights: Backup 65, page 98, gives a local Lipschitz bound beyond the dissertation.]*
 
 For flow, the events give directional constraints on the motion. Smoothness and integrated directional information together give a unique H one minimizer.
 

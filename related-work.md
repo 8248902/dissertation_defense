@@ -26,7 +26,7 @@ Dissertation bibliography key: `zhang2021formulating`.
 
 [Bilevel inverse problems in neuromorphic imaging](https://arxiv.org/pdf/2302.02052).
 
-Combines conventional frames with events in a bilevel reconstruction; the outer variable contains event-threshold parameters and the lower problem is a regularized temporal least-squares solve.
+Combines conventional frames with events in a bilevel reconstruction; the outer variable z parameterizes the event-based blur kernel, one component per pixel and frame and the lower problem is a regularized temporal least-squares solve.
 
 Their paper already proves existence and develops second-order sufficient conditions. Our fixed positive diagonal theorem analyzes a different event-only quadratic model. Do not describe their outer variable as a learned regularization weight. Do not call their per-pixel temporal model spatially coupled merely because it uses frames.
 

@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: all slides notes script metadata check refs presenter
+.PHONY: all slides notes script committee metadata check refs presenter
 
 all:
 	$(PYTHON) build_script.py --target all
@@ -14,6 +14,10 @@ notes:
 
 script:
 	$(PYTHON) build_script.py --target script
+
+# Committee handout: main slides, the backups in committee-backups.txt, references.
+committee:
+	$(PYTHON) build_script.py --target committee
 
 metadata:
 	$(PYTHON) update_metadata.py

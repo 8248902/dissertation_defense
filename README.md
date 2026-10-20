@@ -4,14 +4,15 @@ This is the single active defense, on `main`.
 
 The [spoken-recall Anki deck](anki/README.txt) has a 49-card core package and a 91-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
 
-- [Audience deck](defense.pdf): 33 main slides and 68 backups (65 discussion slides and 3 reference pages).
+- [Committee handout](defense-committee.pdf): the copy to send the committee. It has the 33 main slides, the backups listed in [committee-backups.txt](committee-backups.txt) (currently 7), and reference pages for the works those slides cite. Rebuild with `make committee`.
+- [Audience deck](defense.pdf): the full presenting deck, with 33 main slides and 68 backups (65 discussion slides and 3 reference pages).
 - [Speaker edition](defense-notes.pdf): slide-level notes.
 - [Rehearsal script](defense-script.pdf): full main-talk scripts and self-contained backup answers; editable source is [defense-script.md](defense-script.md).
 - [Synchronized presenter edition](defense-presenter.pdf): slides and full script paired for Pympress; rebuild with `make presenter`.
 - [Strategy](strategy.md), [delivery guide](delivery-guide.txt), and [related-work rationale and citations](related-work.md).
 - [Current state and next-session instructions](STATE.md).
 
-Run `make check` to check script/deck alignment and figure availability. Run `make all` to rebuild all three PDFs and refresh build validation, the source map, and source hashes. Builds use disposable directories under `/tmp`; only final deliverables are published here. Requirements: Python 3 and a TeX installation with Beamer, animate, and the packages used by the sources.
+Run `make check` to check script/deck alignment and figure availability. Run `make all` to rebuild all four PDFs (audience, notes, script, committee) and refresh build validation, the source map, and source hashes. Builds use disposable directories under `/tmp`; only final deliverables are published here. Requirements: Python 3 and a TeX installation with Beamer, animate, and the packages used by the sources.
 
 Edit slide content and embedded speaker notes in `core.tex` and `backup.tex`; edit the full spoken script in `defense-script.md`. Keep their titles and numbering synchronized. `defense.tex` controls the presentation and theme. The script builder checks every section against the live deck.
 
@@ -51,7 +52,7 @@ Use an extended desktop. Keep Pympress's presenter window on your private monito
 
 Slide 20 in this edition uses linked, looping MP4s. Click each animation panel to play it. Keep `figures/aperture/app5-hide.mp4` and `app6-show.mp4` at their relative paths beside the PDF's directory when copying the presentation. Both videos can also be opened directly in a media player. The normal audience PDF continues to use its original animation build.
 
-Rebuild with `make presenter` whenever slides or script change. This target compiles both from current sources and checks their pairing before publishing. Its PDF contains all slides followed by all script pages; open it with Pympress's `--notes=after` option so the script appears only in the private presenter view. The presenter PDF includes private script text, so send `defense.pdf` when distributing audience slides.
+Rebuild with `make presenter` whenever slides or script change. This target compiles both from current sources and checks their pairing before publishing. Its PDF contains all slides followed by all script pages; open it with Pympress's `--notes=after` option so the script appears only in the private presenter view. The presenter PDF includes private script text, so send `defense-committee.pdf` to the committee; it carries no script or notes.
 
 Before the defense, rehearse a Zoom screen share and check its audience view, script readability, next/previous navigation, and both videos. Build and file checks can verify the pairings and media paths; playback and screen capture depend on the presentation computer. Pympress setup and media support: https://pympress.github.io/README.html. Zoom window sharing: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060596.
 

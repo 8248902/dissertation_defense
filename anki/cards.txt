@@ -179,7 +179,7 @@ More: Qualitative office, high-speed, and orbital examples demonstrate recogniza
 
 @ T23 | temporal | core | 4,17 | tab:bilevel_comp_indoor,tab:bilevel_comp_outdoor
 Q: How does your temporal method relate to the Antil–Sayre bilevel approach?
-A: Our method uses events to set activity-based magnitude penalties and then solves a fixed convex temporal problem. Antil and Sayre use events with intensity frames and an outer optimization of event-threshold parameters. The comparison therefore concerns complete approaches with different information and optimization variables, as well as different guarantees.
+A: Our method uses events to set activity-based magnitude penalties and then solves a fixed convex temporal problem. Antil and Sayre use events with intensity frames and an outer optimization of a blur-kernel parameter z for each pixel and frame. The comparison therefore concerns complete approaches with different information and optimization variables, as well as different guarantees.
 Keep: event-only weights; frame-assisted threshold optimization; different guarantees
 More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions.
 

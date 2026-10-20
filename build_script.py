@@ -18,7 +18,7 @@ import tempfile
 from pathlib import Path
 sys.dont_write_bytecode = True
 from update_metadata import ROOT, read_frames, figure_paths
-from reference_support import load_snapshot, validate_references, write_external_aux
+from reference_support import CITE, cite_keys, load_snapshot, validate_references, without_comments, write_external_aux
 
 def normal_title(value: str) -> str:
     value = value.replace('$H^1$', 'H¹').replace(r'\_', '_')
@@ -164,9 +164,42 @@ def check_script_pages(work: Path, sections: list[dict]) -> None:
         raise ValueError('Script contains unexpected blank or overflowing slide pages')
     print(f'Validated one script page per deck frame ({len(sections)} frames); {pages[0]-1} front/index pages.')
 
+COMMITTEE_LIST = ROOT / 'committee-backups.txt'
+REFS_PER_PAGE = 13  # the full deck fits 38 works on 3 pages
+
+def committee_backup(snapshot: dict) -> str:
+    """backup.tex reduced to the listed frames, then right-sized reference pages."""
+    wanted = [line.strip() for line in COMMITTEE_LIST.read_text(encoding='utf-8').splitlines()
+              if line.strip() and not line.startswith('#')]
+    frames = [frame for frame in read_frames() if frame['role'] == 'discussion']
+    by_title = {normal_title(frame['title']): frame for frame in frames}
+    missing = [title for title in wanted if normal_title(title) not in by_title]
+    if missing: raise ValueError(f'committee-backups.txt names unknown backups: {missing}')
+    keep = {normal_title(title) for title in wanted}
+    blocks = [frame['block'] + '\\end{frame}\n' for frame in frames if normal_title(frame['title']) in keep]
+    selected = '\n'.join(blocks)
+    cited = set()
+    for text in [(ROOT / 'core.tex').read_text(encoding='utf-8'), selected]:
+        for match in CITE.finditer(without_comments(text)):
+            cited.update(cite_keys(match[1]))
+    parts = max(1, -(-len(cited) // REFS_PER_PAGE))
+    references = [frame for frame in frames if '\\thesisreferences{' in frame['block']]
+    if len(references) < parts: raise ValueError('Not enough reference frames in backup.tex for the committee copy')
+    for index, frame in enumerate(references[:parts], 1):
+        block = re.sub(r'\{References \(\d+ of \d+\)\}', '{References (' + str(index) + ' of ' + str(parts) + ')}', frame['block'], count=1)
+        blocks.append(block + '\\end{frame}\n')
+    return '% Generated committee selection; edit committee-backups.txt, not this file.\n' + '\n'.join(blocks)
+
+def check_links(work: Path) -> None:
+    """Every \\hyperlink in the built source must have a target that was kept."""
+    text = ''.join(without_comments((work / name).read_text(encoding='utf-8')) for name in ['core.tex', 'backup.tex'])
+    targets = set(re.findall(r'label=(\w+)', text)) | set(re.findall(r'\\hypertarget\{(\w+)\}', text))
+    dead = sorted(set(re.findall(r'\\hyperlink\{(\w+)\}', text)) - targets)
+    if dead: raise ValueError(f'Committee copy links to slides it leaves out: {dead}')
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--target', choices=['all','slides','notes','script'], default='script')
+    parser.add_argument('--target', choices=['all','slides','notes','script','committee'], default='script')
     parser.add_argument('--check-only', action='store_true', help='Validate all Markdown headings, numbers, and figures without building')
     parser.add_argument('--output-dir', type=Path, default=ROOT)
     parser.add_argument('--build-dir', type=Path, help='Retain scratch files in an external directory (normally /tmp)')
@@ -184,7 +217,7 @@ def main() -> None:
     scratch.mkdir(parents=True, exist_ok=True)
     print(f'Scratch build directory: {scratch}')
     outputs = []
-    targets = ['slides','notes','script'] if args.target == 'all' else [args.target]
+    targets = ['slides','notes','script','committee'] if args.target == 'all' else [args.target]
     for target in targets:
         work = scratch / target
         work.mkdir(exist_ok=True)
@@ -193,14 +226,19 @@ def main() -> None:
             pdf = compile_tex(work, 'defense-script.tex', 'defense-script')
             check_script_pages(work, sections)
         else:
-            write_external_aux(work, references, used_labels)
             for name in ['defense.tex','notes.tex','core.tex','backup.tex']:
                 shutil.copy2(ROOT / name, work / name)
+            if target == 'committee':
+                (work / 'backup.tex').write_text(committee_backup(references), encoding='utf-8')
+                (work / 'defense-committee.tex').write_text('% Committee handout: main slides and selected backups.\n\\input{defense.tex}\n', encoding='utf-8')
+                check_links(work)
+            write_external_aux(work, references, used_labels, work)
             for source in figures:
                 destination = work / source.relative_to(ROOT)
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-            job, tex = ('defense','defense.tex') if target == 'slides' else ('defense-notes','notes.tex')
+            job, tex = {'slides': ('defense','defense.tex'), 'notes': ('defense-notes','notes.tex'),
+                        'committee': ('defense-committee','defense-committee.tex')}[target]
             pdf = compile_tex(work, tex, job)
         outputs.append(pdf)
     # Publish only after every requested target has succeeded.
@@ -221,7 +259,7 @@ def main() -> None:
                 'compile_warnings': [line for line in log.splitlines()
                                      if re.search(r'Warning|Overfull|Underfull|^!', line)],
             }
-        input_names = ['core.tex', 'backup.tex', 'defense.tex', 'notes.tex',
+        input_names = ['core.tex', 'backup.tex', 'defense.tex', 'notes.tex', 'committee-backups.txt',
                        'defense-script.md', 'build_script.py', 'update_metadata.py', 'Makefile',
                        'reference_support.py', 'thesis-references.json']
         hashes = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in input_names}

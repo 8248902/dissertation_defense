@@ -61,7 +61,7 @@
 % source: Zhang, Yezzi, and Gallego, TPAMI 2023, abstract and Fig. 1; doi:10.1109/TPAMI.2022.3230727.
 \textcolor{teal}{Zhang, Yezzi \& Gallego}~\cite{zhang2021formulating}: optical flow supplies a linear image inverse problem; classical or learned priors.\par\smallskip
 % source: Antil and Sayre, 2023, Sec. 3.1, Eqs. (3.1)--(3.3); https://arxiv.org/pdf/2302.02052.
-\textcolor{teal}{Antil--Sayre}~\cite{HAntil_DSayre_2023a}: events and frames, with bilevel threshold estimation.\par\medskip
+\textcolor{teal}{Antil--Sayre}~\cite{HAntil_DSayre_2023a}: events and frames; bilevel estimation of an event-based blur-kernel parameter.\par\medskip
 \textbf{This work:} per-pixel temporal inversion from event increments; kernel representations, activity-based penalties, and fixed-weight guarantees.
 \end{block}
 \column{.43\textwidth}
@@ -81,7 +81,7 @@
 % source: Antil, Blauvelt, and Sayre, Dynamic reconstruction from neuromorphic data, 2026; doi:10.3934/fods.2026017.
 % source detail: Chs. 2--3 related work; linked papers. Temporal publication: Antil, Blauvelt, and Sayre (2026).
 \src{\dref{Chapter}{ch:monocular_reconstruction} and \dref{Section}{sec:related_work}; temporal publication: Antil, Blauvelt, and Sayre~\cite{antil2026dynamicrecon}.}
-\talknote{Positioning; about 90 seconds.}{For image reconstruction, Rebecq and colleagues use a recurrent neural network trained on simulated events. Zhang, Yezzi, and Gallego use optical flow to formulate a linear image inverse problem, with classical or learned image regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates event-threshold parameters. Our published temporal work reconstructs each pixel independently from event increments. I develop the temporal kernel representation and activity-based penalties, then analyze the fixed quadratic solve: what the observations determine, how regularization selects a baseline, and how perturbations affect the solution.}{For flow, the starting points are Horn and Schunck's data-plus-smoothness formulation and Benosman and colleagues' event-timestamp geometry. I formulate the time-surface, voxel-projection, and structure-tensor models in a common quadratic family and identify conditions that give existence, uniqueness, and stability. Classical variational flow already has well-posedness theory, including Weickert and Schn\"orr's framework; this dissertation supplies the event-derived coefficient constructions and their explicit identifiability and perturbation hypotheses. Begin the models by explaining what the sensor actually reports.}
+\talknote{Positioning; about 90 seconds.}{For image reconstruction, Rebecq and colleagues use a recurrent neural network trained on simulated events. Zhang, Yezzi, and Gallego use optical flow to formulate a linear image inverse problem, with classical or learned image regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates a parameter of the event-based blur kernel. Our published temporal work reconstructs each pixel independently from event increments. I develop the temporal kernel representation and activity-based penalties, then analyze the fixed quadratic solve: what the observations determine, how regularization selects a baseline, and how perturbations affect the solution.}{For flow, the starting points are Horn and Schunck's data-plus-smoothness formulation and Benosman and colleagues' event-timestamp geometry. I formulate the time-surface, voxel-projection, and structure-tensor models in a common quadratic family and identify conditions that give existence, uniqueness, and stability. Classical variational flow already has well-posedness theory, including Weickert and Schn\"orr's framework; this dissertation supplies the event-derived coefficient constructions and their explicit identifiability and perturbation hypotheses. Begin the models by explaining what the sensor actually reports.}
 \end{frame}
 
 \begin{frame}{Why an event camera? Each pixel reports its own changes}
@@ -373,7 +373,7 @@ Gaussian & 8.84 & 20.22\\\bottomrule
 \end{columns}
 \takeaway{Kernel and adaptive-weight choices affect both the reconstruction and the solved system.}
 % source detail: Ch. 2, tab:bump\_avg\_indoor; images from figures/reconstruction\_evaluation/metadata.json (indoor\_flying3, solved frame 71 of 100).
-\src{\dref{Table}{tab:bump_avg_indoor}; images: MVSEC indoor flying 3, Ch.~2 saved release.}
+\src{\dref{Table}{tab:bump_avg_indoor}; images: MVSEC indoor flying 2, Ch.~2 saved release.}
 % source: Ch. 2 tab:bump_avg_indoor; figures/reconstruction_evaluation/metadata.json, indoor_flying3_bump_08, nearest saved camera frame.
 \talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 3 reference and event-only reconstruction with sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give similar PSNR and much lower CN than Delta in this indoor comparison. PSNR measures agreement with a reference frame, which includes the absolute brightness level; the events constrain changes, so reference fidelity and fidelity to the measured changes answer different questions.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
 \end{frame}
@@ -385,7 +385,7 @@ Gaussian & 8.84 & 20.22\\\bottomrule
 Events only $\longrightarrow$ activity-based $\Lam(dc)$ $\longrightarrow$ fixed convex temporal solve.
 \column{.48\textwidth}
 \textbf{Antil--Sayre~\cite{HAntil_DSayre_2023a}}\par
-Events and intensity frames $\longrightarrow$ outer optimization over threshold parameters $z$.
+Events and intensity frames $\longrightarrow$ outer optimization over $z$, a per-pixel, per-frame parameter of the event-based blur kernel.
 \end{columns}
 \medskip
 % source: https://arxiv.org/pdf/2302.02052, Sec. 3, Eqs. (3.1)--(3.3); Ch. 2 tab:bilevel_comp_indoor and tab:bilevel_comp_outdoor.
@@ -400,15 +400,14 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \takeaway{Frame information and a different optimization problem change the comparison.}
 % source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor.
 \src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3).}
-\talknote{Relationship and comparison; 90 seconds.}{In Antil--Sayre, the outer variable is event threshold parameter $z$, not a learned regularization weight. Their problems are $u(z)=\arg\min_u\frac12\|Au-b(z)\|^2+\frac{\lambda_2}{2}\|u\|^2$ and $\min_z\frac12\|u(z)+g(z)-d\|^2+\frac{\lambda_1}{2}\|z\|^2$, with $d$ log frames, $g$ an event-dependent exposure term, and $b=A[d-g(z)]$. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{The table reproduces the dissertation's indoor and outdoor averages: PSNR/CN are 15.37/39755 versus 10.85/25.51 indoors, and 8.41/39755 versus 8.71/27.10 outdoors, for bilevel versus event-only. The methods receive different inputs, including absolute intensity frames for the comparator, so this is descriptive rather than controlled evidence of superiority. The paper analyzes existence and conditional local uniqueness for its bilevel problem; our theorem establishes strict convexity and uniqueness for each fixed positive $\Lam$. These guarantees and the lambda coefficients have different roles.}
+\talknote{Relationship and comparison; 90 seconds.}{In Antil--Sayre, the outer variable $z_{xy}\in\R^{n_t}$ has one component per frame and parameterizes the event-based blur kernel $g(z)$, which links each blurry frame to the latent image. In the earlier EDI/mEDI models a scalar $z$ plays the contrast-threshold role. It is not a regularization weight. Their problems are $u(z)=\arg\min_u\frac12\|Au-b(z)\|^2+\frac{\lambda_2}{2}\|u\|^2$ and $\min_z\frac12\|u(z)+g(z)-d\|^2+\frac{\lambda_1}{2}\|z\|^2$, with $d$ log frames, $g$ an event-dependent exposure term, and $b=A[d-g(z)]$. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{The table reproduces the dissertation's indoor and outdoor averages: PSNR/CN are 15.37/39755 versus 10.85/25.51 indoors, and 8.41/39755 versus 8.71/27.10 outdoors, for bilevel versus event-only. The methods receive different inputs, including absolute intensity frames for the comparator, so this is descriptive rather than controlled evidence of superiority. The paper analyzes existence and conditional local uniqueness for its bilevel problem; our theorem establishes strict convexity and uniqueness for each fixed positive $\Lam$. These guarantees and the lambda coefficients have different roles.}
 \end{frame}
 
 \begin{frame}{Real event data: indoor, high-speed, and orbital scenes}
 \centering
 \begin{columns}[T]
 \column{.32\textwidth}\centering
-\includegraphics[width=\linewidth,height=1.75cm,keepaspectratio]{figures/office/office_ex_1.pdf}\par\vspace{.6mm}
-\includegraphics[width=\linewidth,height=1.75cm,keepaspectratio]{figures/office/office_ex_11.pdf}\par
+\vspace{1mm}\includegraphics[width=\linewidth,height=3.4cm,keepaspectratio]{figures/office/office_ex_11.pdf}\par\vspace{.6mm}
 % source: Ch. 2 subsubsec:datasets and subsec:validation_office; approx. 2.5M events.
 {\footnotesize\textbf{Office}, handheld; $\approx2.5$M events}
 \column{.32\textwidth}\centering
@@ -422,10 +421,11 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 % source: Ch. 2 subsubsec:datasets and f:iss; approx. 2 million events.
 {\footnotesize\textbf{ISS} (Falcon Neuro); $\approx2$M events}
 \end{columns}
+{\scriptsize\color{muted}Cup and ISS: grayscale (top) and false color (bottom) of the same reconstructed frame.\par}
 \takeaway{One per-pixel fixed-weight solve, with sigmoid weights and no intensity frames, recovers structure across very different time scales.}
 % source detail: Ch. 2, subsec:validation, f:office, f:cup, f:iss; datasets in subsubsec:datasets.
 \src{\dref{Figure}{f:office}, \dref{Figure}{f:cup}, and \dref{Figure}{f:iss}; \dref{Section}{subsec:validation}. Data: office~\cite{gallego2017accurate}, cup~\cite{rebecq2021highspeed}, Falcon Neuro~\cite{mcharg2022falcon}.}
-\talknote{Qualitative real-data results; 90 seconds.}{Office: a handheld DAVIS346 in an office; the desk objects and the person are recognizable. Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur. ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse. Bottom row of the second and third columns is a false-color display of the same reconstruction.}{These are qualitative demonstrations; the quantitative MVSEC comparison is on the preceding pages. Grayscale and false color are display choices, so do not describe them as calibrated brightness. If asked why the results look like edge-enhanced images: low temporal modes are attenuated most (spectral slide), and the baseline is selected by the penalty, so the reconstruction emphasizes changes. Transition: the next slide lifts these per-pixel constraints to a scene that moves relative to the camera.}
+\talknote{Qualitative real-data results; 90 seconds.}{Office: a handheld DAVIS346 in an office; the desk objects and the person are recognizable. Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur. ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse. The office scene is shown once, in grayscale; for the cup and ISS the bottom image is a false-color display of the same reconstructed frame.}{These are qualitative demonstrations; the quantitative MVSEC comparison is on the preceding pages. Grayscale and false color are display choices, so do not describe them as calibrated brightness. If asked why the results look like edge-enhanced images: low temporal modes are attenuated most (spectral slide), and the baseline is selected by the penalty, so the reconstruction emphasizes changes. Transition: the next slide lifts these per-pixel constraints to a scene that moves relative to the camera.}
 \end{frame}
 
 \begin{frame}{Shared motion couples temporal profiles to one scene}
@@ -712,14 +712,14 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \small\renewcommand{\arraystretch}{1.25}
 \begin{tabular}{>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{5.9cm}}\toprule
 Problem & What the observations constrain & What the mathematical model establishes\\\midrule
-Temporal reconstruction & Represented brightness increments & Unique regularized history for fixed positive weights; adaptive weights: \ifdefined\DefenseNotes local bound, p.~98\else\hyperlink{adaptivelipschitz}{local bound, p.~98}\fi\\
+Temporal reconstruction & Represented brightness increments & Unique regularized history for each fixed positive weight matrix, with perturbation bounds\\
 Optical flow & Event-derived directional motion constraints & Unique $H^1$ minimizer under integrated identifiability\\
 Stereo depth & Paired temporal event-feature observations & Unique frozen-weight inner solve; the disparity comes from a separate comparison of candidates\\\bottomrule
 \end{tabular}
 \takeaway{Under the stated hypotheses, regularization makes each estimator determinate. Physical accuracy also depends on how well the representation describes the scene.}
 % source detail: Ch. 2 thm:uniqueness; Ch. 3 thm:unified\_wellposedness; Ch. 4 thm:weighted\_spd; Ch. 5, tab:contribution\_matrix.
 \src{\dref{Theorem}{thm:uniqueness}, \dref{Theorem}{thm:unified_wellposedness}, \dref{Theorem}{thm:weighted_spd}; \dref{Table}{tab:contribution_matrix}.}
-\talknote{Contributions; about 60 seconds.}{Read across each row: what the events constrain, then what the model proves. The temporal null mode is selected by a penalty. Spatial smoothness and integrated directional data make the flow energy coercive. Stereo has a well-posed latent solve at each candidate; selecting the candidate is a separate decision.}{Position the originality accurately: the functional-analytic tools are classical; the dissertation organizes event-derived models under explicit hypotheses and derives the coupling, conditioning, bias, and selection consequences. If asked about results beyond the table: contrast-maximization existence, graph convergence of the discrete flow, selection margins, and IRLS fixed-point and contraction results are in the backups and in Ch.\ 5, Table on the contribution matrix.}
+\talknote{Contributions; about 60 seconds.}{Read across each row: what the events constrain, then what the model proves. If asked about recomputed weights: Backup 65 (page 98) gives a local Lipschitz bound beyond the dissertation. The temporal null mode is selected by a penalty. Spatial smoothness and integrated directional data make the flow energy coercive. Stereo has a well-posed latent solve at each candidate; selecting the candidate is a separate decision.}{Position the originality accurately: the functional-analytic tools are classical; the dissertation organizes event-derived models under explicit hypotheses and derives the coupling, conditioning, bias, and selection consequences. If asked about results beyond the table: contrast-maximization existence, graph convergence of the discrete flow, selection margins, and IRLS fixed-point and contraction results are in the backups and in Ch.\ 5, Table on the contribution matrix.}
 \end{frame}
 
 \begin{frame}{Research opportunities}

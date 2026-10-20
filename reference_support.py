@@ -238,13 +238,13 @@ def write_citations(directory: Path, snapshot: dict, root: Path = ROOT) -> list[
     (directory / 'thesis-citations.tex').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     return keys
 
-def write_external_aux(directory: Path, snapshot: dict, used: set[str]) -> None:
+def write_external_aux(directory: Path, snapshot: dict, used: set[str], root: Path = ROOT) -> None:
     lines = ['\\relax']
     for key in sorted(used):
         value = snapshot['labels'][key]
         lines.append(r'\newlabel{' + key + '}{{' + value['number'] + '}{' + value['page'] + '}{}{}{}}')
     (directory / 'thesis-labels.aux').write_text('\n'.join(lines) + '\n', encoding='utf-8')
-    write_citations(directory, snapshot)
+    write_citations(directory, snapshot, root)
 
 def resolved_footer(text: str, snapshot: dict) -> str:
     result, cursor = [], 0

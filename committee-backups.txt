@@ -1,0 +1,11 @@
+# Backups included in defense-committee.pdf, by exact frame title, one per line.
+# The committee copy keeps every main slide and these backups in deck order,
+# then reference pages listing only the works cited on the included slides.
+# The full deck (defense.pdf) and the presenter edition keep all backups.
+Must every temporal penalty entry be positive?
+Kernel performance depends on the scene and adaptive weights
+What the reconstruction scores measure
+Stable estimates can still have regularization bias
+The physical event stream loses more than one baseline
+Frozen weights give a unique, stable inner solve
+Motion-induced events and the aperture problem

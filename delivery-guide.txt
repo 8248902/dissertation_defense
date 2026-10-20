@@ -3,6 +3,8 @@ Daniel Blauvelt | updated October 20, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
+  defense-committee.pdf  Send this to the committee: main slides + backups in
+                       committee-backups.txt + their references (make committee).
   defense.pdf          Audience presentation: 33 main slides + 68 backup slides.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
