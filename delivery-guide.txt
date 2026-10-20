@@ -5,7 +5,7 @@ CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 33 main slides + 68 backup slides.
+  defense.pdf          Audience presentation: 33 main slides + 73 backups (70 discussion, 3 references).
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
   defense-script.md    Editable, authoritative script prose.
@@ -22,17 +22,29 @@ DELIVERY
   Slide 19: ESAR shared scene; figure first, one operator equation, about a minute.
   Slide 20: embedded aperture animations; play the left panel, then the right.
   Slide 21: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 26: main flow theorem; explain the integrated directional condition.
   Slide 23: point to the modeling-assumption box (transport of activity).
+  Slide 26: main flow theorem; explain the integrated directional condition.
   Slide 27: proof idea: mean and fluctuation, three columns; stability is Backup 10.
   Slide 28: known-motion stripes and checkerboard.
   Slide 30: stereo model; mathematical result vs. benchmark labels; MVSEC table.
   Slides 31-32: three-row synthesis; three research directions.
   Slide 33: close, then take questions.
   Full flow proof 42; stability 43; discrete flow / Jacobi 44–45; Chapter 4 results 81.
-  Other backups: metrics 39; real-time 40; flow protocol 77; alignment 82; depth sensitivity 90.
-  Backup pages 34–98: select by question; page numbers match the script/index.
-  Pages 99–101: references, numbered as in the dissertation; every [n] links here.
+  Other backups: metrics 39; real-time 40; flow protocol 77; alignment 82; depth sensitivity 90;
+  weak-regularization limits 102; event-free flow regions 103.
+  Backup pages 34–103: select by question; page numbers match the script/index.
+  Pages 104–106: references, numbered as in the dissertation; every [n] links here.
+
+QUESTION HANDLING
+  Answer the question asked in one or two sentences, then offer the backup.
+  Place the answer at one of three layers: the observation model (what the
+  events or coefficients supply), the theorem (what holds for the stated
+  estimator under its hypotheses), or the benchmark (what the full method
+  returns on its scored population).
+  When a step is challenged: ask for the equation or proposition, name the
+  hypotheses it uses, then give the argument. If the step needs checking,
+  state the intended argument and its hypotheses and offer to follow up.
+  Rehearsal answers with follow-ups: ../misc_ideas_feedback/defense_probing_q&a.md.
 
 ANIMATIONS
   Slide 20 contains both original publisher GIF sequences at their original

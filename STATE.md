@@ -2,9 +2,30 @@
 
 **Schedule: pre-defense October 22, 2026; defense November 23, 2026.** Draft deck goes to the committee October 20.
 
+## Start here — handoff, October 20 (probing Q&A pass)
+
+**Deck:** 33 main slides + 73 backups. defense.pdf 106 pages. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild (103 cards: 51 core, 52 follow-up) are clean, with zero overfull boxes. Uncommitted.
+
+Reviewed `../misc_ideas_feedback/defense_probing_q&a.md` (37 questions) against the deck. All but two already had a backup; those two are new:
+- Backup 69 (p. 102) "Weak regularization: a limit in time, the aperture line in space": the λ-independent baseline rule, the λ→0 minimum-weighted-norm limit (Ch. 2 states it), noise gain ≤ min{1/(2λ), 1/√g₁} with 1/√g₁ ≈ N_t/π (checked numerically, N_t = 10, 50, 200); flow coercivity constant ≤ α² when an event-free open set exists, and at α = 0 the time-surface minimizers are the aperture line. Flow statements are a short argument beyond the chapter.
+- Backup 70 (p. 103) "Where there are no events, smoothness fills in harmonically": Laplace equation where B = b = 0, least-gradient fill-in, weak maximum principle sup_U|v| ≤ sup_Γ|v|. Short argument beyond the chapter.
+- References moved to pp. 104–106 (Backups 71–73). Discussion guide links both under Flow analysis ("Anisotropy; λ,α→0; event-free regions").
+- Script "if asked" cues: slide 13 (→ Backups 69, 65), slide 19 (figure uses smoothed TV; Prop. 2.4.1 covers the ridge), slide 26 (event-free regions, checking m on data, disconnected domains), Backup 35 (disconnected domain), Backup 64 (extending to fractional/TV regularizers), Backup 67 (bilevel well-posedness: compact weight box gives existence). Backup 67's "that outer problem is well defined" now says the outer problem has a well-defined, smooth lower level (script and note).
+- Anki: T25 (Backup 65), T26, V37–V40, X09 (Backup 64), X10, X11. T25 and V39 (Jacobi theorem versus the solvers run) are core.
+- Delivery guide: counts and pages refreshed, slide 23/26 order fixed, new QUESTION HANDLING section from the Q&A's Part VI.
+
+## Start here — handoff, October 20 (FEM/spline coverage for Löhner)
+
+**Deck:** 33 main slides + 71 backups. defense.pdf 104 pages. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild (94 cards) are clean, with zero overfull boxes. Uncommitted.
+
+- Backup 68 (p. 101) "The spline regularizer is uniformly coercive under refinement": partition of unity plus Jensen gives ‖u_h‖² ≤ h²‖c‖², so the 2ε/M ridge is a uniform L² penalty (Mh²/|Ω| = 1.20 at h = 8 px) and the regularizer is uniformly H¹-coercive; κ = O(h⁻²). This is a short argument beyond the chapter, checked numerically (largest 1D Gram eigenvalue / h = 0.981, 0.994, 1.000 for h = 8, 4, 2). The Backup 46 talk note and script now point to it. Guide link: "splines" under Flow analysis.
+- References moved to pp. 102–104 (Backups 69–71).
+- Script "If asked" answers: Backup 11 (pixel stencils are P1/Q1 FE stencils with nodal quadrature), Backup 12 (Jacobi rate 1 − O(N⁻²); why Jacobi; CG, SOR, multigrid), Backup 39 (event-based particle velocimetry), Backup 46 (uniform versus adaptive knots).
+- Dissertation Ch. 1 line 52: "quadratic B-spline" corrected to "cubic B-spline" to match Prop. 3.5.1 and the code (order 3). Recheck 35/0/0.
+
 ## Start here — handoff, October 20 (parameter-choice and learned-estimator backups)
 
-**Deck:** 33 main slides + 70 backups. defense.pdf 103 pages; script 106; presenter 206; committee 43 (unchanged content). `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
+**Deck (superseded above):** 33 main slides + 70 backups. defense.pdf 103 pages; script 106; presenter 206; committee 43 (unchanged content). `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
 
 - Backup 66 (p. 99) "How the parameters were chosen": grid sweeps in all three chapters, Antil–Sayre scalar weight versus adaptive diagonal Λ, theorems hold for every positive value, classical rules (discrepancy principle with Skellam noise level, L-curve, GCV; typed external citations) and bilevel learning as next steps.
 - Backup 67 (p. 100) "Learned estimators face the same free directions": per-problem table of what the events leave free, the model-based choice, and the learned choice; bilevel combination; ISS/ballistics without training data. Talk note holds the spoken "why not a neural network?" answer; benchmark-accuracy concession is in "if asked for more" only (user: event vision has no agreed reconstruction standard, so do not volunteer it).

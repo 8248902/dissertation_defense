@@ -2,7 +2,7 @@
 
 Daniel Blauvelt • Canonical defense • Updated October 20, 2026
 
-This rehearsal script covers all 33 main slides and all 70 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
+This rehearsal script covers all 33 main slides and all 71 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
 The main talk contains approximately 5,870 spoken words: about 47–53 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
@@ -195,6 +195,8 @@ All of this holds for fixed weights. If the data change and we also recompute th
 
 Next, what the penalty does to the temporal information itself.
 
+*[If asked what happens as the weights go to zero: Backup 69, page 102. If asked about recomputed weights: Backup 65, page 98.]*
+
 ## Slide 14 — What the penalty does to temporal information
 
 To interpret the penalty, take a single scalar weight, so Lambda is lambda times the identity. And suppose the observations are exact differences of a latent signal.
@@ -284,6 +286,8 @@ Theta is the scene. P holds the known motion: it maps the scene into each view. 
 Here's a simulated example: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
 
 Here the motion was known. In optical flow, the motion is the unknown.
+
+*[If asked whether the figure uses the ridge model: the figure uses the smoothed total-variation penalty named in the caption; Proposition 2.4.1 gives uniqueness and the perturbation bound for the positive quadratic ridge.]*
 
 ## Slide 20 — The aperture problem: what a local view reveals
 
@@ -398,6 +402,8 @@ Individual locations may give only one direction. Regions with no texture or no 
 Connectedness matters because it makes any field with zero gradient a single constant vector over the whole domain. The integrated matrix controls that remaining freedom.
 
 The proof follows this picture directly: split the field into its mean and its fluctuation, and control each part.
+
+*[If asked what the estimate does where there are no events: it is the harmonic fill-in of the surrounding motion, Backup 70, page 103. If asked how to check the condition on data: the discrete version is the smallest eigenvalue of the two-by-two sum of sampled data blocks, Backup 11, page 44; its size is the margin m. If asked about a disconnected domain: each component carries its own constant drift and needs its own integrated condition.]*
 
 ## Slide 27 — Proof idea: smoothness fixes variation, edges fix the drift
 
@@ -723,6 +729,10 @@ The theorem assumes the graph is connected, its edge weights are symmetric and n
 
 The reason mirrors the continuous argument: the graph controls variation, and the sampled data control the remaining constant direction. The graph structure also gives the spectral condition this particular iteration needs; the next backup has that argument. The theorem applies when a representation's stencil and update schedule match these hypotheses.
 
+### If asked whether this is a finite-element scheme
+
+For the voxel solver, exactly. Its three-by-three box mean is the bilinear Q1 stiffness stencil, which weights all eight neighbors equally, and evaluating the data blocks at pixels is nodal quadrature, a lumped mass matrix. Its reflected border padding reproduces the Q1 natural Neumann rows as well, so that scheme is Q1 finite elements with lumped mass, boundary included. The structure-tensor solver's four-neighbor stencil is the P1 stencil on a uniform grid of right triangles in the interior. Its replicated border halves the inward coupling at boundary pixels, which is the cell-centered finite-volume Neumann condition instead. The continuum coefficients in Appendix A.1.3, alpha squared h squared over three and over four, are these correspondences.
+
 ## Backup 12 — Why block-Jacobi converges for this graph model
 
 Deck page: 45.
@@ -740,6 +750,10 @@ The key step is showing that both D minus R and D plus R are positive definite. 
 ### If asked for more
 
 For D minus R, a zero contribution on every edge forces neighbors to agree, so on a connected graph the field is one constant vector. For D plus R, neighbors must be opposites. A bipartite graph allows an alternating copy of one vector; an odd cycle forces that vector to zero. Either way, the positive-definite sum of data blocks rules out any surviving nonzero vector. The Jacobi matrix is similar to the scaled symmetric matrix, so the two share a spectrum. This proof covers the simultaneous update schedule.
+
+### If asked how fast it converges, or why not CG or multigrid
+
+Slowly on large textureless regions. Where the data blocks vanish, a sweep is Jacobi for the graph Laplacian; on a region N pixels wide its spectral radius is close to one minus pi squared over two N squared, so the number of sweeps grows like N squared. Jacobi was used because each sweep is an independent two-by-two solve at every pixel: matrix-free, fully parallel, and the classical Horn--Schunck iteration. The theorem makes the system symmetric positive definite, so conjugate gradients applies directly, with iterations growing like N rather than N squared; Chapter 3 also notes that Gauss--Seidel and SOR converge by Ostrowski--Reich. Multigrid is the standard fast solver for this class; Bruhn and colleagues use it for real-time variational flow. The time-surface code sweeps in place, Gauss--Seidel style, while the theorem analyzes simultaneous sweeps.
 
 ## Backup 13 — Anisotropy needs a uniform ellipticity floor
 
@@ -1153,7 +1167,7 @@ Now add any multiple of c to a velocity field. Both quadratic terms stay the sam
 
 ### If asked for more
 
-The key step uses positive semidefiniteness pointwise. With B the data matrix, the nonnegative function c transpose B c has zero integral, so it's zero almost everywhere, and the square-root factorization then gives B c equal to zero. In the flat case, any minimizer comes with a whole family of equally good constant shifts; whether a minimizer exists at all is a separate question. Boundary constraints or a magnitude penalty can control the constant direction, and they change the uniqueness criterion accordingly.
+The key step uses positive semidefiniteness pointwise. With B the data matrix, the nonnegative function c transpose B c has zero integral, so it's zero almost everywhere, and the square-root factorization then gives B c equal to zero. In the flat case, any minimizer comes with a whole family of equally good constant shifts; whether a minimizer exists at all is a separate question. Boundary constraints or a magnitude penalty can control the constant direction, and they change the uniqueness criterion accordingly. On a disconnected domain, the gradient leaves one constant per component, so each component needs its own positive-definite integrated matrix; a sum over the whole domain can hide one component's ambiguity.
 
 ## Backup 36 — Coefficient stability is one stage of event-to-flow stability
 
@@ -1226,6 +1240,10 @@ Expanding the divergence in the continuity equation gives the scalar transport t
 ### If asked for more
 
 A one-dimensional example separates the two. Let the velocity equal the position, and let the represented value be the constant one. Its time and space derivatives are zero, so scalar transport holds. But the divergence of value times velocity is one, so source-free conservation has a residual of one. A source term of one would balance it. This shows exactly where the compression term enters.
+
+### If asked whether this could measure fluid flow
+
+Event cameras are already used for particle velocimetry, for example by Willert and Klinner. Seeded particles give the flow a texture that moves with it, close to the scalar-transport model; conservation fits when the transported quantity is a density. Seeding also supplies texture in every direction, so the integrated identifiability condition is easy to meet. A known reference flow would test how well the representation describes the motion, and the new imaging lab makes those controlled acquisitions possible.
 
 ## Backup 40 — Correlation changes uncertainty without removing coercivity
 
@@ -1347,7 +1365,11 @@ So the negative variance term is bounded below. Meanwhile, the positive coeffici
 
 ### If asked for more
 
-The continuity holds even when events cross pixel boundaries, because the bilinear tent weights join continuously. Differentiability is only piecewise; that matters for the numerical optimizer, while the existence proof needs only continuity. Coercivity relies on a strictly positive ridge for the fixed discretization; a refinement theorem would need uniform control of that lower bound. The proof gives existence; global uniqueness, or global convergence of a local solver, would need additional structure.
+The continuity holds even when events cross pixel boundaries, because the bilinear tent weights join continuously. Differentiability is only piecewise; that matters for the numerical optimizer, while the existence proof needs only continuity. Coercivity relies on a strictly positive ridge for the fixed discretization. Under refinement, that control holds in function space: the ridge is a uniform L two penalty, which Backup 68 shows. The proof gives existence; global uniqueness, or global convergence of a local solver, would need additional structure.
+
+### If asked why the knots are uniform when events cluster at edges
+
+Uniform knots keep the stiffness matrix and the ridge scaling simple, and the proposition assumes them. Events are already adaptive samples, so knots refined where events are dense, for example hierarchical B-splines, are a natural extension. The existence proof needs only a nonnegative partition of unity. For the uniform bound, weight each coefficient in the ridge by its basis integral, so it stays a lumped L two mass term.
 
 ## Backup 47 — Stereo depth: full Chapter 4 arc
 
@@ -1677,6 +1699,10 @@ The proof is one line. Split u into its part in the leftover modes, n, and the r
 
 The constant explains the scene statements: for flow it falls as m shrinks, which is why the stripe scene is nearly degenerate. Two parts of the dissertation sit outside this lemma. Correspondence selection compares finitely many candidate costs, so it needs a separation margin. Contrast maximization is nonconvex, so compactness gives existence only. Total variation isn't a quadratic form, so neither this lemma nor Lax--Milgram applies to it.
 
+### If asked how the result extends to another regularizer
+
+The lemma is the recipe. First find the modes the new regularizer leaves free; then check that the data see them. A fractional seminorm on a bounded domain still leaves only the constants, so the same integrated condition fixes them, with a fractional Poincaré inequality and coercivity in H s. A nonquadratic penalty such as total variation needs its own existence argument, through compactness in BV.
+
 ## Backup 65 — Adaptive weights keep the temporal estimate locally Lipschitz
 
 Deck page: 98.
@@ -1735,7 +1761,7 @@ A trained network is also a regularized estimator. Where the events leave the an
 
 The dissertation identifies those free directions. In the temporal problem it's the constant brightness offset at each pixel. In flow it's the motion component along a straight edge. In stereo it's the disparity candidates whose temporal profiles coincide. No estimator recovers those from events alone; each one supplies them from somewhere. That's also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open.
 
-The two approaches combine naturally. The weights can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in the weights, that outer problem is well defined. And for data like the ISS and ballistics sequences, the reconstruction runs from events alone, with no reference images or training set.
+The two approaches combine naturally. The weights can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in the weights, the outer problem has a well-defined, smooth lower level. And for data like the ISS and ballistics sequences, the reconstruction runs from events alone, with no reference images or training set.
 
 ### If asked for more
 
@@ -1743,20 +1769,84 @@ If the question is benchmark accuracy: on the public flow and stereo benchmarks,
 
 A second combination is unrolling: run a fixed number of block-Jacobi or IRLS iterations and treat each one as a network layer. The convergence results then describe what each layer does.
 
-## Backup 68 — References (1 of 3)
+### If asked whether the bilevel problem is well posed
+
+The lower level is. If the weights range over a box between a positive floor and a ceiling, and the outer loss is continuous, the reduced outer objective is continuous on a compact set, so an outer minimizer exists. Uniqueness of that minimizer, generalization of the learned weights, and convergence of a particular outer algorithm each need their own analysis.
+
+## Backup 68 — The spline regularizer is uniformly coercive under refinement
 
 Deck page: 101.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** Your ridge, two epsilon over M, goes to zero as you refine the knots. Doesn't coercivity degrade?
 
-## Backup 69 — References (2 of 3)
+*[Point to step 1, then to the two terms of step 2.]*
+
+### Answer
+
+Only in coefficient space. The cubic B-splines are nonnegative and sum to one, so at every point the squared spline value is at most a weighted average of the squared coefficients, with the basis functions as weights. Integrating, and using that each basis function integrates to at most h squared, gives the L two norm of the spline at most h squared times the squared coefficient norm.
+
+So the ridge, two epsilon over M times the squared coefficients, controls two epsilon over M h squared times the squared L two norm, and M h squared tends to the area of the domain; on our frame at h equal to eight pixels the ratio is 1.20. The eigenvalue floor in the diffusion tensor controls the gradient. Together, the discrete regularizer controls the full H one norm with a constant that holds for every knot spacing.
+
+What does grow is the condition number of the coefficient matrix, like h to the minus two. That's the usual growth for an H one Galerkin matrix with a mass term.
+
+### If asked for more
+
+The largest eigenvalue of the stiffness matrix stays bounded in two dimensions: its entries are of the size of the diffusion tensor, and each basis function overlaps at most 49 others, so Gershgorin bounds it. The smallest eigenvalue is the ridge, of order h squared. Knot-spacing continuation, which the implementation supports, is the usual remedy for iteration counts. I checked the mass bound numerically with the clamped cubic basis: the largest one-dimensional Gram eigenvalue divided by h is 0.981, 0.994, and 1.000 at spacings of 8, 4, and 2 pixels. With nonuniform knots, weighting each coefficient by its basis integral makes the ridge a lumped mass term again.
+
+## Backup 69 — Weak regularization: a limit in time, the aperture line in space
 
 Deck page: 102.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** What happens to your results as the regularization goes to zero?
 
-## Backup 70 — References (3 of 3)
+*[Left column first, then the right column.]*
+
+### Answer
+
+The two problems behave differently, and the difference shows what each penalty contributes.
+
+In time, the solution has a clean limit. Testing the normal equations with the constant vector removes the data term at every scale, so the weighted zero-mean rule that picks the baseline is the same for every lambda. As lambda goes to zero, the solution converges to the exact fit of the increments with the smallest weighted norm; Chapter 2 states that limit. What the penalty buys is noise control. With a scalar penalty, the limit is the running sum of the increments, centered. Noise in the increments accumulates along the chain, with gain one over root g one, about N t over pi. The penalty caps that gain at one over two lambda.
+
+In space, the smoothing supplies identifiability. An event-free region gives a test field whose energy is only alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha equal to zero the energy is pointwise, and for the time surface its minimizers at each pixel are the whole aperture line from slide 21.
+
+### If asked for more
+
+The full-space condition number, g max plus lambda squared over lambda squared, grows only along the constant mode, which the data never excite; Backup 17 removes that mode. Convergence to the limit sets in once lambda squared is small compared with g one, roughly pi squared over N t squared. For the structure tensor at alpha zero, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane. Positive lambda and positive alpha are hypotheses of the theorems, and these limits show what each one contributes.
+
+## Backup 70 — Where there are no events, smoothness fills in harmonically
 
 Deck page: 103.
+
+**Likely question:** In regions with no events, isn't the flow simply invented?
+
+*[Point to the weak equation, then to the maximum-principle bound.]*
+
+### Answer
+
+The regularizer chooses those values, and we can say exactly how. Take a connected region U with no represented gradient, so the data matrix and the forcing vanish there. Testing the weak equation with fields supported in U leaves only the gradient term, so each velocity component is harmonic in U. Equivalently, among fields that agree with the estimate on U's boundary, it has the least gradient energy.
+
+That gives a maximum principle. Pick any direction e, and suppose the velocity component along e is at most M on Gamma, the interface with the event-active pixels. Test with the positive part of that component minus M. The weak equation says its gradient energy is zero, and it vanishes on Gamma, so it's zero throughout U. Doing this for every direction bounds the speed inside U by the largest speed on its boundary.
+
+So an event-free region gets the smoothest interpolation of the motion measured around it, with no new extremes. The theorem guarantees a unique regularized estimate; identifying the physical motion at each pixel needs data there.
+
+### If asked for more
+
+Where U reaches the image border, the natural Neumann condition holds and adds no constraint, because test fields are free on the outer boundary. All three representations have residual-square data terms, so the forcing vanishes wherever the data matrix does. On the pixel graph, the same statement says an event-free node's velocity is the weighted average of its neighbors'. A motion boundary inside an event-free region is smoothed across; that's the H one modeling choice from Backup 27.
+
+## Backup 71 — References (1 of 3)
+
+Deck page: 104.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 72 — References (2 of 3)
+
+Deck page: 105.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 73 — References (3 of 3)
+
+Deck page: 106.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*

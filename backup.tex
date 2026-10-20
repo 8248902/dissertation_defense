@@ -16,8 +16,8 @@
 \item Weak Euler equation and boundary condition
 \item Full proof, stability, and discrete sweeps
 \item Exact block-Jacobi spectral argument
-\item Anisotropy and ellipticity
-\item Regression, projection and \ifdefined\DefenseNotes evaluation\else\hyperlink{flowprotocol}{evaluation}\fi
+\item Anisotropy; \ifdefined\DefenseNotes $\lambda,\alpha\to0$; event-free regions\else\hyperlink{weakreg}{$\lambda,\alpha\to0$}; \hyperlink{harmonicfill}{event-free regions}\fi
+\item Regression, projection, \ifdefined\DefenseNotes evaluation; splines\else\hyperlink{flowprotocol}{evaluation}; \hyperlink{splinecoercive}{splines}\fi
 \item \ifdefined\DefenseNotes Straight-edge aperture model\else\hyperlink{aperturemodel}{Straight-edge aperture model}\fi
 \end{itemize}
 \column{.48\textwidth}
@@ -838,7 +838,7 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \takeaway{A global minimizer exists by finite-dimensional coercivity; the local solver has no global guarantee.}
 % source detail: Ch. 3, prop:cmax\_existence and evaluated-solver scope.
 \src{\dref{Proposition}{prop:cmax_existence} and evaluated-solver scope.}
-\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the returned solution is not certified global. The ridge bound $2\varepsilon/M$ is not uniform under refinement.}
+\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the returned solution is not certified global. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 101).}
 \end{frame}
 
 \begin{frame}{Stereo depth: full Chapter 4 arc}
@@ -1278,7 +1278,74 @@ ISS and ballistics: reconstructed from events alone, without reference images or
 {\let\small\footnotesize\takeaway{The theorems separate what the events determine from what the regularizer supplies, in either form.}}
 % source detail: Ch. 2 lem:nullspace, thm:uniqueness, subsec:validation (ISS and ballistics); Ch. 3 fig:aperture_problem, thm:unified_wellposedness; Ch. 4 prop:disparity_nonidentifiability. External: Antil, Di, Khatri, Inverse Problems 36 (2020) 064001.
 \src{\dref{Lemma}{lem:nullspace}, \dref{Theorem}{thm:uniqueness}, \dref{Theorem}{thm:unified_wellposedness}, \dref{Proposition}{prop:disparity_nonidentifiability}; qualitative demonstrations (\drefpage{subsec:validation}). External paper cited above.}
-\talknote{Question: why not train a neural network? About 60 seconds.}{A trained network is also a regularized estimator. Where the events leave the answer free, it fills the gap from training images; my methods fill it with a penalty that is written down and analyzed. The dissertation identifies those free directions: the constant brightness offset at each pixel, the flow component along an edge, and disparity candidates whose temporal profiles coincide. That is also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open. The approaches combine naturally: the weights $\Lam$ can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in $\Lam$, that outer problem is well defined.}{If asked directly about benchmark accuracy: on the public flow and stereo benchmarks, learned methods report the lowest errors. The dissertation asks what the data determine and when each estimator is stable, and its stereo comparison is against model-based event methods. A second combination: a fixed number of block-Jacobi or IRLS iterations can be unrolled into network layers, with the convergence results describing each layer.}
+\talknote{Question: why not train a neural network? About 60 seconds.}{A trained network is also a regularized estimator. Where the events leave the answer free, it fills the gap from training images; my methods fill it with a penalty that is written down and analyzed. The dissertation identifies those free directions: the constant brightness offset at each pixel, the flow component along an edge, and disparity candidates whose temporal profiles coincide. That is also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open. The approaches combine naturally: the weights $\Lam$ can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in $\Lam$, the outer problem has a well-defined, smooth lower level. On a box of weights between a positive floor and a ceiling, a continuous outer loss attains its minimum; uniqueness and generalization need more.}{If asked directly about benchmark accuracy: on the public flow and stereo benchmarks, learned methods report the lowest errors. The dissertation asks what the data determine and when each estimator is stable, and its stereo comparison is against model-based event methods. A second combination: a fixed number of block-Jacobi or IRLS iterations can be unrolled into network layers, with the convergence results describing each layer.}
+\end{frame}
+
+% Spline coercivity: Ch. 3 prop:cmax_wellposed, app:ch3_cmax_params (h = 8 px). Short argument beyond the chapter.
+\begin{frame}[t,label=splinecoercive]{The spline regularizer is uniformly coercive under refinement}
+\small
+Cubic B-splines, uniform knot spacing $h$: $\Phi_j\ge0$, $\sum_j\Phi_j\equiv1$, $\int_\Omega\Phi_j\le h^2$, and $u_h=\sum_jc_j\Phi_j$.
+\begin{block}{Step 1: coefficients control the $L^2$ norm}
+% source: Jensen with weights Phi_j: (sum c_j Phi_j)^2 <= sum c_j^2 Phi_j; integrate and use int Phi_j <= h^2.
+$u_h^2\le\sum_jc_j^2\Phi_j$ pointwise, so $\norm{u_h}_{L^2}^2\le h^2\norm{\mathbf c}^2$.
+\end{block}
+\begin{block}{Step 2: both regularizer terms, for each flow component}
+% source: Ch. 3 prop:cmax_wellposed, D >= eps_ell I and tau_ridge = 2 eps_ridge / M.
+\[\beta\,\mathbf c^\top\K_0\mathbf c+\tau_{\rm ridge}\norm{\mathbf c}^2\ \ge\ \beta\varepsilon_{\rm ell}\norm{\nabla u_h}_{L^2}^2+\frac{2\varepsilon_{\rm ridge}}{Mh^2}\norm{u_h}_{L^2}^2.\]
+\end{block}
+% source: clamped cubic basis, M h^2 = (47*8)(36*8) = 108288 versus |Omega| = 346*260 = 89960, ratio 1.20.
+$Mh^2\to|\Omega|$ (ratio $1.20$ at $h=8$\,px), so the $H^1$ coercivity constant stays bounded below as $h\to0$; $\kappa_2(\K_{\rm reg})=O(h^{-2})$, the usual stiffness-plus-mass growth.
+{\let\small\footnotesize\takeaway{The ridge eigenvalue shrinks with refinement; the function-space penalty stays uniform.}}
+% source detail: Ch. 3 prop:cmax_wellposed and remark on the floor and ridge; app:ch3_cmax_params. Gram bound checked numerically with clamped cubic B-spline Gram matrices: largest 1D eigenvalue / h = 0.981, 0.994, 1.000 for h = 8, 4, 2 px.
+\src{\dref{Proposition}{prop:cmax_wellposed}; contrast-maximization parameters (\drefpage{app:ch3_cmax_params}). The uniform bound is a short argument beyond the chapter.}
+\talknote{Question: the ridge $2\varepsilon/M$ vanishes as the knots are refined. Does coercivity degrade? About 90 seconds.}{The B-splines are nonnegative and sum to one, so the squared spline value is at most the $\Phi$-weighted average of the squared coefficients. Integrating, and using that each basis function integrates to at most $h^2$, gives $\norm{u_h}^2\le h^2\norm{\mathbf c}^2$. So the ridge controls $(2\varepsilon_{\rm ridge}/(Mh^2))\norm{u_h}^2$, and $Mh^2$ tends to the domain area. The eigenvalue floor controls $\beta\varepsilon_{\rm ell}\norm{\nabla u_h}^2$. The discrete regularizer therefore controls the $H^1$ norm with a constant that holds for every knot spacing.}{Conditioning: in two dimensions the stiffness entries are $O(\norm{\mathbf D}_\infty)$ and each basis function overlaps at most 49 others, so Gershgorin keeps $\mu_{\max}(\K_0)$ bounded; with the smallest eigenvalue $\tau_{\rm ridge}\sim h^2$, $\kappa_2=O(h^{-2})$, as for any $H^1$ Galerkin matrix with a mass term. Knot-spacing continuation, which the implementation supports, is the usual remedy for iteration counts. Numerical check with the clamped cubic basis: the largest one-dimensional Gram eigenvalue divided by $h$ is 0.981, 0.994, and 1.000 for $h=8$, 4, and 2 px. With nonuniform knots, weight each coefficient by its basis integral; the ridge is then a lumped mass term again.}
+\end{frame}
+
+% Weak regularization: Ch. 2 subsec:optform (minimum-weighted-norm limit sentence), eq:normal_equations; Ch. 4 lem:A_spectrum, prop:noise_gain; Ch. 3 thm:unified_wellposedness, prop:time_surface. The flow statements are a short argument beyond the chapter.
+\begin{frame}[t,label=weakreg]{Weak regularization: a limit in time, the aperture line in space}
+\small
+\begin{columns}[T]
+\column{.50\textwidth}
+\textbf{Temporal}, $\Lam=\lambda\mathbf D$, fixed diagonal $\mathbf D\succ0$
+\begin{itemize}
+% source: test eq:normal_equations with the constant vector; A1=0 gives 1^T Lam^2 f=0 for every lambda>0.
+\item Every $\lambda>0$: $\mathbf 1^\top\mathbf D^2\mathbf f_\lambda=0$, so the baseline rule is independent of $\lambda$.
+% source: Ch. 2 subsec:optform, minimum-weighted-norm limit sentence; A has full row rank (lem:A_spectrum).
+\item $\lambda\to0$: $\mathbf f_\lambda\to\operatorname{argmin}\{\norm{\mathbf D\mathbf u}:\A\mathbf u=\mathbf y\}$, an exact fit of the increments.
+% source: modal gain sqrt(g)/(g+lambda^2) (prop:noise_gain) is at most 1/(2 lambda) and at most 1/sqrt(g_1); g_1=4 sin^2(pi/(2 N_t)) (lem:A_spectrum). Checked numerically for N_t = 10, 50, 200.
+\item $\mathbf D=\mathbf I$: noise gain $\norm{\K_\lambda^{-1}\A^\top}\le\min\{\frac1{2\lambda},\frac1{\sqrt{g_1}}\}$, with $\frac1{\sqrt{g_1}}\approx\frac{N_t}{\pi}$.
+\end{itemize}
+\column{.46\textwidth}
+\textbf{Flow}, smoothness weight $\alpha^2$
+\begin{itemize}
+% source: thm:unified_wellposedness bilinear form; for v in H^1_0(U;R^2) extended by zero, the data term vanishes.
+\item If $\B=0$ on an open $U\subset\Omega$: for $\vct\in H^1_0(U;\R^2)$, $\mathcal B(\vct,\vct)=\alpha^2\norm{\nabla\vct}^2\le\alpha^2\norm{\vct}_{H^1}^2$, so the coercivity constant is at most $\alpha^2$.
+% source: eq:energy_functional with alpha=0 is minimized pointwise; prop:time_surface constraint.
+\item $\alpha=0$, time surface: the minimizers are all $\vct$ with $\nabla\mathcal T\cdot\vct=1$ wherever $\nabla\mathcal T\ne0$, the aperture line at each pixel.
+\end{itemize}
+\end{columns}
+{\let\small\footnotesize\takeaway{Without the temporal penalty the increments are fit exactly and noise accumulates along the chain; without spatial smoothing each pixel returns to its aperture line.}}
+% source detail: Ch. 2 subsec:optform, eq:normal_equations; Ch. 4 lem:A_spectrum, prop:noise_gain; Ch. 3 thm:unified_wellposedness, eq:energy_functional, prop:time_surface. Flow statements are a short argument beyond the chapter.
+\src{Regularized formulation (\drefpage{subsec:optform}); \dref{Lemma}{lem:A_spectrum}; \dref{Proposition}{prop:noise_gain}; \dref{Theorem}{thm:unified_wellposedness}; \dref{Proposition}{prop:time_surface}. The flow statements are a short argument beyond the chapter.}
+\talknote{Question: what happens as the regularization goes to zero? About 90 seconds.}{Temporal: testing the normal equations with the constant vector removes the data term at every scale, so the weighted zero-mean rule for the baseline holds for every $\lambda$. As $\lambda\to0$ the solution converges to the minimum-weighted-norm exact fit, which Chapter 2 states. With $\mathbf D=\mathbf I$ that limit is the centered cumulative sum of the increments: noise in the increments passes through a running sum, with gain $1/\sqrt{g_1}\approx N_t/\pi$. The penalty caps the gain at $1/(2\lambda)$. Flow: the integrated condition fixes the mean, and only $\alpha$ controls variation. Any event-free open set gives a test field with Rayleigh quotient at most $\alpha^2$. At $\alpha=0$ the energy is pointwise and its minimizers are exactly the velocity-space lines of slide 21.}{The full-space condition number $(g_{\max}+\lambda^2)/\lambda^2$ blows up only along the constant mode, which the data never excite (Backup 17 removes it). Convergence to the limit begins once $\lambda^2$ is small compared with $g_1\approx\pi^2/N_t^2$. Positive $\lambda$ and $\alpha$ are hypotheses of the theorems, and these limits show the role of each. For the structure tensor at $\alpha=0$, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane.}
+\end{frame}
+
+% Event-free regions: Ch. 3 thm:euler_lagrange (weak equation), thm:unified_wellposedness. Interior harmonicity and maximum principle are a short argument beyond the chapter.
+\begin{frame}[t,label=harmonicfill]{Where there are no events, smoothness fills in harmonically}
+\small
+Let $U\subset\Omega$ be open, connected, and Lipschitz, with $\B=0$ and $b=0$ a.e.\ in $U$, and $\Gamma=\partial U\cap\Omega\ne\emptyset$.
+\begin{block}{The weak equation inside $U$}
+% source: thm:euler_lagrange weak form with test fields in H^1_0(U); Weyl's lemma.
+For every $\boldsymbol\eta\in H^1_0(U;\R^2)$: $\int_U\nabla\vct^*:\nabla\boldsymbol\eta=0$. Each component of $\vct^*$ is harmonic, hence smooth, in $U$; on $U$ it minimizes $\int_U|\nabla\mathbf w|^2$ given its values on $\Gamma$.
+\end{block}
+\begin{block}{Maximum principle}
+% source: test the weak equation with eta=(e.v-M)^+ e on U, zero elsewhere (in H^1(Omega) since its trace on Gamma vanishes); B=b=0 on U leaves alpha^2 int_U |grad eta|^2 = 0.
+For a unit vector $\mathbf e$: if $\mathbf e\cdot\vct^*\le M$ on $\Gamma$, test with $\boldsymbol\eta=(\mathbf e\cdot\vct^*-M)^+\mathbf e$ on $U$, zero elsewhere. Then $\alpha^2\int_U|\nabla\boldsymbol\eta|^2=0$, so $\mathbf e\cdot\vct^*\le M$ in $U$. Over all $\mathbf e$: $\sup_U|\vct^*|\le\sup_\Gamma|\vct^*|$.
+\end{block}
+{\let\small\footnotesize\takeaway{An event-free region receives the least-gradient interpolation of the motion measured around it, with no speed larger than on its boundary.}}
+% source detail: Ch. 3 thm:euler_lagrange, thm:unified_wellposedness. Short argument beyond the chapter.
+\src{\dref{Theorem}{thm:euler_lagrange}; \dref{Theorem}{thm:unified_wellposedness}. Harmonicity and the maximum principle are a short argument beyond the chapter.}
+\talknote{Question: in regions with no events, isn't the flow simply invented? About 75 seconds.}{The regularizer chooses those values, and we can say exactly how. Where the data matrix and forcing vanish, the weak equation reduces to Laplace's equation, so each velocity component is harmonic there. Equivalently, the region gets the field with least gradient energy that matches the motion on its boundary. The maximum principle bounds every directional component, and so the speed, by its values on the interface with event-active pixels. The theorem guarantees a unique regularized estimate; physical identification at each pixel needs data there.}{Parts of $\partial U$ on the image border carry the natural Neumann condition and add no constraint; the test field is admissible because test fields are free on $\partial\Omega$. For all three representations $b$ lies in the range of $\B$ (residual-square data terms), so $\B=0$ forces $b=0$. The discrete analogue is the same statement for the graph Laplacian: an event-free node's velocity is the weighted average of its neighbors'. A motion boundary inside an event-free region is smoothed across; that is the $H^1$ modeling choice of Backup 27.}
 \end{frame}
 
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.

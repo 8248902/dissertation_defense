@@ -183,6 +183,18 @@ A: Our method uses events to set activity-based magnitude penalties and then sol
 Keep: event-only weights; frame-assisted threshold optimization; different guarantees
 More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions.
 
+@ T25 | temporal | core | adaptivelipschitz,15 | thm:uniqueness,subsubsec:lambdacal
+Q: Your weights are computed from the data. Is the estimator you actually run stable?
+A: Yes, it is locally Lipschitz. Each Chapter 2 rule maps activity to a weight between a positive floor and a ceiling, and is Lipschitz in the activity. Subtracting the two normal equations gives the fixed-weight data term plus the change in squared weights acting on the second solution. Bounding both inverses by the floor gives a bound that is Lipschitz on bounded sets of data.
+Keep: floor, ceiling, Lipschitz rule; two terms after subtraction; Lipschitz on bounded data
+More: The constants are pessimistic because the floor enters cubed. Chapter 4's weights depend on the current profile, so that estimator is a fixed point and uses the contraction condition instead.
+
+@ T26 | temporal | followup | weakreg,13 | subsec:optform,lem:A_spectrum,prop:noise_gain
+Q: What happens to the temporal reconstruction as the penalty goes to zero?
+A: The baseline rule is the same at every scale: testing with the constant vector gives the same weighted zero-mean condition for every lambda. The solution converges to the exact fit of the increments with the smallest weighted norm. The penalty's job is noise control: the limit is a centered running sum, so increment noise accumulates with gain about N_t over pi, while a positive lambda caps the gain at one over two lambda.
+Keep: scale-free baseline rule; minimum-weighted-norm exact fit; running-sum noise gain
+More: The condition number grows only along the constant mode, which the data never excite. Convergence to the limit begins once lambda squared is small compared with g one, about pi squared over N_t squared.
+
 @ V01 | flow | core | 20,21,90 | prop:time_surface
 Q: Explain the aperture problem to a mathematician outside vision.
 A: A straight edge reveals how quickly it moves across itself. Sliding it along itself produces the same local brightness history, so one velocity component stays free. In velocity space one edge permits a line of answers; another edge orientation can intersect that line and determine both components.
@@ -399,6 +411,30 @@ A: The known-motion simulations connect directional texture to flow error: strip
 Keep: controlled known motion; selected windows; qualitative real-data scope
 More: Object boundaries and the full warping window can add information beyond the stripe interior. The simulations illustrate the aperture mechanism without making it an impossibility claim for the whole image.
 
+@ V37 | flow | followup | harmonicfill,26 | thm:euler_lagrange,thm:unified_wellposedness
+Q: In a region with no events, isn't the flow estimate simply invented?
+A: The regularizer chooses it, and we can say exactly how. Where the data matrix and forcing vanish, the weak equation is Laplace's equation, so each velocity component is harmonic there: the least-gradient fill-in of the motion on the region's boundary. Testing with the positive part of a component minus its boundary maximum gives a maximum principle, so the speed inside stays below the largest speed on the boundary.
+Keep: Laplace equation where B vanishes; least-gradient fill-in; no new extremes
+More: Parts of the region on the image border carry the natural Neumann condition. On the pixel graph, an event-free node takes the weighted average of its neighbors. Physical identification at each pixel needs data there.
+
+@ V38 | flow | followup | weakreg,21 | thm:unified_wellposedness,prop:time_surface
+Q: What happens to the flow problem as the smoothness weight goes to zero?
+A: Smoothness is what controls spatial variation, so coercivity weakens with it: a test field supported in an event-free region has energy alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha zero the energy is pointwise, and for the time surface every velocity on the aperture line minimizes it at each pixel. The integrated condition fixes only the mean.
+Keep: coercivity at most alpha squared; pointwise energy; aperture line at each pixel
+More: For the structure tensor at alpha zero, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane. The opposite limit, alpha to infinity, gives one constant flow.
+
+@ V39 | flow | core | 29,43 | thm:convergence
+Q: Does your block-Jacobi theorem prove convergence of the flow solvers you actually ran?
+A: It proves convergence of simultaneous block-Jacobi sweeps on the specified fixed graph system: connected symmetric weights, positive semidefinite data blocks, and a positive-definite weighted sum of those blocks. A solver inherits the guarantee when its stencil, coefficients, and update schedule match those hypotheses. The time-surface code sweeps in place with event-dependent reference times, so its behavior is described by that schedule.
+Keep: fixed graph system; simultaneous sweeps; match stencil, coefficients, and schedule
+More: For a fixed SPD system, in-place Gauss–Seidel and SOR converge by Ostrowski–Reich, and conjugate gradients applies directly. Those results transfer once the coefficients stay fixed during the iteration.
+
+@ V40 | flow | followup | 26,29 | eq:integrated_identifiability,thm:convergence
+Q: How would you check the integrated directional-information condition on real data?
+A: In the discrete model it is one two-by-two matrix: the weighted sum of the sampled data blocks. Its smallest eigenvalue m is the check, and its size is the margin, because the coercivity and stability constants degrade as m shrinks. A small m relative to the largest eigenvalue flags nearly parallel edges, as in the stripe scene.
+Keep: sum of sampled two-by-two blocks; smallest eigenvalue; margin as well as sign
+More: This verifies the sampled coefficient condition. Whether the represented coefficients describe the physical motion is a separate modeling question.
+
 @ S01 | stereo | core | 31,depth | eq:depth_conversion
 Q: Why does a small disparity error matter more for distant objects?
 A: Rectified stereo gives depth as focal length times camera baseline divided by disparity. Distant points have smaller disparities, so the same small absolute disparity error produces a larger depth change. That reciprocal geometry makes far-depth accuracy especially sensitive to correspondence precision.
@@ -560,3 +596,27 @@ Q: Why not train a neural network?
 A: A trained network is also a regularized estimator: where the events leave the answer free, it fills the gap from training images, and these methods fill it with an analyzed penalty. The dissertation identifies those free directions: the per-pixel offset, the flow component along an edge, and disparities with coincident profiles. The two combine: learning the weights in a bilevel problem is well defined because each fixed-weight solve is unique and smooth in the weights.
 Keep: network is a regularizer; three free directions; bilevel learning of the weights
 More: On public flow and stereo benchmarks learned methods report the lowest errors; the dissertation asks what the data determine and when each estimator is stable. Event reconstruction has no agreed standard, because frame-image scores assume a brightness level the events leave open.
+
+@ X08 | synthesis | followup | splinecoercive | prop:cmax_wellposed,app:ch3_cmax_params
+Q: Your contrast-maximization ridge is 2 epsilon over M, which vanishes as the knots are refined. Does coercivity degrade?
+A: Only in coefficient space. The cubic B-splines are nonnegative and sum to one, so the squared spline is at most a basis-weighted average of squared coefficients; integrating gives the L2 norm at most h squared times the coefficient norm. So the ridge controls 2 epsilon over M h squared times the L2 norm, and M h squared tends to the domain area. With the eigenvalue floor on the gradient, the regularizer controls the H1 norm uniformly in h.
+Keep: partition of unity plus Jensen; basis integral at most h squared; uniform H1 coercivity, condition number like h to the minus two
+More: The coefficient condition number still grows like h to the minus two, standard for an H1 Galerkin matrix with a mass term. With nonuniform knots, weight the ridge by basis integrals to keep it a lumped mass term.
+
+@ X09 | synthesis | followup | complementarity | thm:uniqueness,thm:unified_wellposedness,thm:weighted_spd
+Q: Is there one mechanism behind your temporal, flow, and stereo uniqueness results?
+A: Yes, a complementarity lemma. One quadratic term controls every direction except a finite-dimensional set of modes; the other term must see those modes. Then the sum is coercive, with a constant that falls linearly in how well the second term sees them. In time the data miss the baseline and the penalty fixes it; in flow smoothness misses a uniform pan and the edges fix it; in stereo the data and coupling leave a common constant and the penalty fixes it.
+Keep: one term misses finite modes; the other sees them; roles swap between time and flow
+More: The condition is also necessary when the missed modes are exactly the kernel. Correspondence selection and contrast maximization sit outside the lemma: one compares finitely many costs, the other is nonconvex.
+
+@ X10 | synthesis | followup | complementarity,58 | thm:unified_wellposedness
+Q: Could your H-one flow result extend to a fractional, total-variation, or discontinuous model?
+A: The complementarity lemma gives the recipe: find the modes the new regularizer leaves free, then check that the data see them. A fractional seminorm on a bounded domain still leaves only the constants, so the same integrated condition fixes them, with a fractional Poincaré inequality and coercivity in H s. Total variation is not a quadratic form, so it needs its own existence argument through compactness in BV.
+Keep: find the free modes; the data must see them; new space, new existence argument
+More: Present this as the method of attack; each model needs its own proof of existence, uniqueness, and stability.
+
+@ X11 | synthesis | followup | learnedfit,35 | thm:uniqueness
+Q: Is the learned-regularization direction on your research slide well posed?
+A: The lower level is: for each positive weight vector the temporal solve is unique and smooth in the weights. If the weights range over a box between a positive floor and a ceiling and the outer loss is continuous, the reduced outer objective attains its minimum by compactness. Uniqueness of that minimizer, generalization of the learned weights, and convergence of an outer algorithm each need their own analysis.
+Keep: unique smooth lower level; compact weight box gives existence; uniqueness and generalization need more
+More: The local Lipschitz bound for activity-based weights is a natural starting point for the sensitivity of the reduced map.

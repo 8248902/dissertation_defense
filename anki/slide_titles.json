@@ -94,5 +94,10 @@
   "alignment": "Stereo alignment after motion compensation",
   "depth": "Depth sensitivity grows with distance",
   "paramchoice": "How the parameters were chosen",
-  "learnedfit": "Learned estimators face the same free directions"
+  "learnedfit": "Learned estimators face the same free directions",
+  "splinecoercive": "The spline regularizer is uniformly coercive under refinement",
+  "complementarity": "One complementarity lemma behind the uniqueness results",
+  "adaptivelipschitz": "Adaptive weights keep the temporal estimate locally Lipschitz",
+  "weakreg": "Weak regularization: a limit in time, the aperture line in space",
+  "harmonicfill": "Where there are no events, smoothness fills in harmonically"
 }
