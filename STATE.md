@@ -2,6 +2,10 @@
 
 **Schedule: pre-defense October 22, 2026; defense November 23, 2026.** Draft deck goes to the committee October 20.
 
+## Start here — handoff, October 20 (Anki gap pass)
+
+Anki now has 119 cards (54 core, 65 follow-up); every content slide has at least one card (uncovered: title, route, overview, dividers, references). New: V41 (FE reading of the stencils), V42 (Jacobi rate, CG, multigrid), V43 core (why analyze the quadratic family; CMax AEE numbers), V44 (known-motion protocol), V45 (stripe normal flow 2.12 px off), V46 (particle velocimetry), V47 (pooled kurtosis), V48 (correlated timestamp errors), S21 core (stereo benchmark numbers), S22 (coverage numbers), S23 (weighting comparison), S24 (observation-perturbation margin), S25 (IRLS constant derivation), S26 (Gaussian evidence), S27 (global optimality by layer), X12 core (observation model / theorem / benchmark). Numbers added to the More fields of T23, V02, S01, S18, S19, X06; X07's bilevel sentence narrowed to the lower level; anchors `proofidea` (slide 27) and `stereomvsec` (slide 30). The HPC identifiability prompt is at `../misc_ideas_feedback/hpc_integrated_identifiability_prompt_2026-10-20.md` (handed off). Fixed the Q&A file's Q26 constant: q_inv has √ℓ in the denominator (Prop. 4.6.13).
+
 ## Start here — handoff, October 20 (probing Q&A pass)
 
 **Deck:** 33 main slides + 73 backups. defense.pdf 106 pages. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild (103 cards: 51 core, 52 follow-up) are clean, with zero overfull boxes. Uncommitted.

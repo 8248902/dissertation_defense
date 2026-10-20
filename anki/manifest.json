@@ -1,18 +1,18 @@
 {
-  "built_at_utc": "2026-10-20T18:33:50.227619+00:00",
+  "built_at_utc": "2026-10-20T19:04:13.341809+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
-  "notes": 103,
-  "cards": 103,
+  "notes": 119,
+  "cards": 119,
   "priorities": {
-    "core": 51,
-    "followup": 52
+    "core": 54,
+    "followup": 65
   },
   "topics": {
     "foundations": 6,
     "temporal": 26,
-    "flow": 40,
-    "stereo": 20,
-    "synthesis": 11
+    "flow": 48,
+    "stereo": 27,
+    "synthesis": 12
   },
   "checks": [
     "stable slide-title anchors resolve to current live defense pages",
@@ -24,10 +24,10 @@
   ],
   "verification_scope": "Package structure and rendered fields; no desktop Anki GUI import was performed.",
   "source_sha256": {
-    "anki/cards.txt": "7ef44e7aa28bbc6ce27160e4330958d79e6f870f2b1d550e09db4c6d808cc9b6",
+    "anki/cards.txt": "a268302860f78b32f5e6a8726d65e6eb55073c352f49d0d749036f38872a9a3d",
     "anki/build_deck.py": "1f1e7271e37f11777700da1bcce711fe0d3b8a08eee873c407650603d6abad14",
-    "anki/README.txt": "8a347fb20c3282a3f915701ec70c386fa963e59d3971e8f6ca3d59b56c1359b7",
-    "anki/slide_titles.json": "4c425304f42af86e483e2a3366807cc452c460eabcc4e3642aaeccdad0b8c6da",
+    "anki/README.txt": "0b385eb426ace3a1172a3c988839d296855584ac02a78c65a788fbea278717e9",
+    "anki/slide_titles.json": "797b2ce4af570e45afcf074f35cfd2a9773a93e4b2f383f2a1964691d6c993f6",
     "core.tex": "99c72aa16cb6403443d79bb332e770d1a278d73ec15f33f709bdf78482f2a177",
     "backup.tex": "44cb455021c3c569d91530ae0b5c1961d02b8c02a6c98d86bcb480b0e28c7bdf",
     "defense-script.md": "1bfa50bc8c28b305ccedb9bd33afb6116b1c877b366ad23557d12bc28c3713ca",
@@ -39,9 +39,9 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "089250864114610f9de31c5413485e2e4385f2ed3e497da9df4e0761de2554b5",
-    "defense-core.apkg": "36bd3f4c736c5277b0376376b0fe4a68af1db446b5d76f8081bbd348d294796e",
-    "defense-oral.tsv": "e751991722d0eb531e5da3bb9aece83aa32df13f2a43d1b456536784ea1a1ba1",
-    "preview.html": "f681052159c1a9e07bce663dd8a968b421bc6d0f69df172ee67cd22553ff2b95"
+    "defense-oral.apkg": "460c1bae9f80032e40cb07aa0fa9cd9fca31c2cb407f2d5abc35240460dad16c",
+    "defense-core.apkg": "c98cf366b4da71e53f04f146da6aa4d8c70ebcb4b87c61925df5c3743ea59565",
+    "defense-oral.tsv": "40a943c940d77561bc62580058c14cdfc122cda841e3590cce7dad700cf0aa3e",
+    "preview.html": "23cfd80a04defc7fe294b74049b024b340ecd774ed0488005dc8134d8391dfe6"
   }
 }

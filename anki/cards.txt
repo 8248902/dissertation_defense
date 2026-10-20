@@ -181,7 +181,7 @@ More: Qualitative office, high-speed, and orbital examples demonstrate recogniza
 Q: How does your temporal method relate to the Antil–Sayre bilevel approach?
 A: Our method uses events to set activity-based magnitude penalties and then solves a fixed convex temporal problem. Antil and Sayre use events with intensity frames and an outer optimization of a blur-kernel parameter z for each pixel and frame. The comparison therefore concerns complete approaches with different information and optimization variables, as well as different guarantees.
 Keep: event-only weights; frame-assisted threshold optimization; different guarantees
-More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions.
+More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions. Reported averages, bilevel versus event-only: indoors PSNR 15.37 versus 10.85 with condition numbers 39755 versus 25.51; outdoors PSNR 8.41 versus 8.71 with 39755 versus 27.10.
 
 @ T25 | temporal | core | adaptivelipschitz,15 | thm:uniqueness,subsubsec:lambdacal
 Q: Your weights are computed from the data. Is the estimator you actually run stable?
@@ -205,7 +205,7 @@ More: The ideal example assumes steady illumination, matching sensor references,
 Q: Derive the time-surface motion constraint in a few sentences.
 A: The crossing-time map tells us when the edge reaches each location. Along a point translating with that edge, its crossing time equals the current time. Differentiating along the trajectory says that crossing-time gradient dotted with velocity equals one. The gradient measures slowness in the measured direction.
 Keep: follow crossing trajectory; chain rule; gradient is slowness
-More: This gives one scalar constraint on a two-component velocity. A large crossing-time gradient corresponds to slow normal motion.
+More: This gives one scalar constraint on a two-component velocity. A large crossing-time gradient corresponds to slow normal motion. Scale example: an edge that takes 10 ms to cross one pixel moves at 100 px/s normal to itself.
 
 @ V03 | flow | followup | 22,90 | ass:regularity,prop:time_surface
 Q: What assumptions make that time-surface derivation valid?
@@ -261,7 +261,7 @@ A: On a connected domain, zero spatial gradient means one constant vector across
 Keep: one constant per component; global sum can hide gaps; componentwise information
 More: In the graph version, connectedness concerns edges carrying positive smoothing weight.
 
-@ V12 | flow | core | 27 | thm:unified_wellposedness,eq:mean_control
+@ V12 | flow | core | proofidea,27 | thm:unified_wellposedness,eq:mean_control
 Q: Walk through the flow proof in about thirty seconds.
 A: Split the field into its spatial mean and a zero-mean fluctuation. Poincaré controls the fluctuation using the gradient penalty. Integrated data information controls the mean, after bounding the interaction with the fluctuation. Together they control the full H-one norm, so Lax–Milgram gives the unique weak solution and quadratic minimizer.
 Keep: split mean and fluctuation; control both; apply Lax–Milgram
@@ -435,11 +435,59 @@ A: In the discrete model it is one two-by-two matrix: the weighted sum of the sa
 Keep: sum of sampled two-by-two blocks; smallest eigenvalue; margin as well as sign
 More: This verifies the sampled coefficient condition. Whether the represented coefficients describe the physical motion is a separate modeling question.
 
+@ V41 | flow | followup | 29 | app:ch3_discrete_stencils,thm:convergence
+Q: Is your discrete flow scheme a finite-element method?
+A: For the voxel solver, exactly: its three-by-three box mean is the bilinear Q1 stiffness stencil, and evaluating the data blocks at pixels is nodal quadrature, a lumped mass matrix. Its reflected border padding reproduces the Q1 natural Neumann rows. The structure-tensor solver's four-neighbor stencil is the P1 stencil on right triangles in the interior, and its replicated border gives the cell-centered finite-volume Neumann condition.
+Keep: Q1 stiffness plus lumped mass; P1 interior stencil; Neumann rows from padding
+More: The continuum smoothing coefficients are alpha squared h squared over three for the voxel stencil and over four for the four-neighbor stencil (Appendix A.1.3), so the same numerical alpha smooths differently.
+
+@ V42 | flow | followup | 43 | thm:convergence
+Q: How fast does block-Jacobi converge, and why not conjugate gradients or multigrid?
+A: Slowly on large textureless regions: there a sweep is Jacobi for the graph Laplacian, with spectral radius near one minus pi squared over two N squared on a region N pixels wide, so sweeps grow like N squared. Jacobi was used because each sweep is an independent two-by-two solve per pixel: matrix-free, parallel, and the classical Horn–Schunck iteration. The theorem makes the system SPD, so conjugate gradients applies, with iterations growing like N.
+Keep: N squared sweeps in textureless regions; parallel two-by-two solves; SPD opens CG and multigrid
+More: Gauss–Seidel and SOR converge by Ostrowski–Reich for SPD systems. Multigrid is the standard fast solver for this class; Bruhn and colleagues use it for real-time variational flow.
+
+@ V43 | flow | core | 74,30 | sec:cmax,fig:ch3_quiver_v2e
+Q: Contrast maximization is more accurate on your known-motion tests. Why analyze the quadratic family at all?
+A: Because the two answer different questions. The quadratic models are where I can prove what the events determine: a unique flow, stable in its coefficients, computed by a convergent iteration, under a condition you can check in the scene, edges in two orientations. Contrast maximization is the stronger estimator here, with weaker guarantees: a global minimizer exists, and the solver is local.
+Keep: guarantees versus accuracy; checkable condition explains stripes; existence only for CMax
+More: Endpoint errors, contrast maximization versus structure tensor: 0.49 versus 2.15 px on idealized stripes, 1.19 versus 1.92 on simulated stripes, 0.32 versus 0.98 on the checkerboard; a zero flow field scores 3.00. Warping events over the whole window brings in boundary evidence that the stripe interior lacks.
+
+@ V44 | flow | followup | flowprotocol | fig:ch3_quiver_synth,fig:ch3_quiver_v2e,app:ch3_discrete_stencils
+Q: How were the known-motion flow windows chosen, and how fair is the comparison?
+A: A 60-by-40-pixel object translates diagonally by 3 px per window, with idealized and v2e events. Window 22 was chosen because it minimizes the summed deviation of every variant's error from that variant's median over windows 1 to 31. The quadratic variants use alpha 20 without a pyramid, and contrast maximization uses 100 L-BFGS iterations. The comparison illustrates directional information at these settings; a ranking needs matched calibration on a dataset.
+Keep: fixed known motion; median-representative window; same settings, different stencils
+More: The voxel and structure-tensor stencils give smoothing alpha squared h squared over three and over four, so equal alpha means different effective smoothing. Computational budgets also differ.
+
+@ V45 | flow | followup | 28,30 | eq:abstract_stability,fig:ch3_quiver_v2e
+Q: Your flow estimate is unique and stable. Is it close to the true motion?
+A: That depends on how well the represented coefficients describe the motion and on how much H-one smoothing blurs motion boundaries; the known-motion experiments measure it directly. In the stripe interior the estimate is unique but mostly horizontal: the normal-flow reference there is 2.12 px from the true diagonal motion. Stability bounds how the estimate moves with the coefficients; accuracy is measured against ground truth.
+Keep: minimizer of the chosen energy; representation and smoothing error; stripe normal flow 2.12 px off
+More: The diagonal truth is 2.12 px per component; vertical stripes reveal only the horizontal component, so the missing vertical component is the whole gap.
+
+@ V46 | flow | followup | 70 | sec:vox_cont_exclusion,thm:unified_wellposedness
+Q: Could this framework measure fluid flow?
+A: Event cameras are already used for particle velocimetry, for example by Willert and Klinner. Seeded particles give the flow a texture that moves with it, close to the scalar-transport model; a conservation law fits when the transported quantity is a density. Seeding also supplies texture in every direction, so the integrated directional condition is easy to meet. A known reference flow would test the representation, and the new imaging lab can make those acquisitions.
+Keep: event-based particle velocimetry; transport versus conservation; seeding meets the condition
+More: For compressible flow the continuity equation adds the density times the velocity divergence; that term is the difference between the two models.
+
+@ V47 | flow | followup | 55 | subsec:voxel_failure_analysis
+Q: Does a large pooled residual kurtosis justify a heavy-tailed noise model?
+A: By itself, it calls for a closer look at the residuals. Mix a point mass at zero with a zero-mean Gaussian: if a fraction pi zero of residuals is exactly zero, the excess kurtosis is three over one minus pi zero, minus three, even though the active part is Gaussian. Event-free pixels have exactly zero fitted transport residual, so sparsity alone inflates the pooled kurtosis.
+Keep: point mass plus Gaussian; excess kurtosis 3 over (1 minus pi zero) minus 3; sparsity inflates it
+More: Each moment picks up one factor of the active probability, so the ratio leaves its reciprocal. Report the zero fraction and test variance-standardized event-active residuals before choosing a robust penalty.
+
+@ V48 | flow | followup | 71 | prop:ts_regression_bound,thm:uniqueness
+Q: What changes if timestamp errors are correlated?
+A: Correlation changes the uncertainty and leaves the solve coercive. For a centered symmetric regression design Z with Q equal to Z transpose Z, the slope covariance is the sandwich inverse Q, Z transpose, Sigma, Z, inverse Q, which reduces to sigma squared inverse Q for independent errors. In the temporal solve, any positive-definite covariance Gamma gives the system A transpose Gamma inverse A plus Lambda squared, still positive definite with a positive penalty.
+Keep: sandwich covariance; reduces to sigma squared Q inverse; coercivity from the penalty
+More: A common error mean cancels from a centered slope. Smoothing maps the covariance to S Sigma S transpose, which can be singular, so an inverse-covariance weighting then needs a treatment of its null space.
+
 @ S01 | stereo | core | 31,depth | eq:depth_conversion
 Q: Why does a small disparity error matter more for distant objects?
 A: Rectified stereo gives depth as focal length times camera baseline divided by disparity. Distant points have smaller disparities, so the same small absolute disparity error produces a larger depth change. That reciprocal geometry makes far-depth accuracy especially sensitive to correspondence precision.
 Keep: inverse disparity; small disparity at distance; amplified depth error
-More: Locally, the magnitude of depth sensitivity is focal length times baseline divided by disparity squared. Positive valid disparity is needed for this conversion.
+More: Locally, the magnitude of depth sensitivity is focal length times baseline divided by disparity squared. Positive valid disparity is needed for this conversion. Adding one pixel of disparity at fixed calibration: 4 to 5 px underestimates depth by 20 percent; 20 to 21 px by about 4.76 percent.
 
 @ S02 | stereo | core | 31,32,78,79 | thm:weighted_spd,thm:convexity
 Q: Why is the stereo inner problem uniquely solvable at a fixed candidate?
@@ -541,19 +589,61 @@ More: The reporting band is 0.5 to 8 meters. Similar returned coverage can coexi
 Q: Why is the hard-fusion comparison not simply the infinite-coupling limit?
 A: Infinite soft coupling with unchanged equal blocks forces the profiles together while retaining the soft model's full effective magnitude penalty. The implemented hard-fusion system has half that penalty after normalizing its equation. The evaluated configurations also differ in other settings, so their performance gap combines several design effects.
 Keep: hard equality; effective penalty changes; complete configurations
-More: The reported hard-fusion versus soft-WLS difference motivates controlled comparisons with matched regularization, weights, budgets, and scoring pixels.
+More: The reported hard-fusion versus soft-WLS difference motivates controlled comparisons with matched regularization, weights, budgets, and scoring pixels. Averaged over the four sequences, hard fusion's reported mean depth error is 102.10 cm against 65.44 cm for soft WLS.
 
 @ S19 | stereo | followup | 31,61,alignment | sec:solution,app:protocol_ch4
 Q: Where does motion compensation fit in the stereo assumptions?
 A: Rectification organizes the correspondence search along image rows, while motion compensation aligns observations over time before their profiles are compared. The candidate should describe approximately the same visible scene point over the window. Occlusion, changing correspondence, or inconsistent warps can then create model mismatch beyond the inner quadratic solve.
 Keep: rectify spatially; compensate temporally; shared visible scene point
-More: The pipeline includes binning, normalization, candidate solves, masking, aggregation, and disparity-to-depth conversion. Each theorem attaches to its specified stage.
+More: The pipeline includes binning, normalization, candidate solves, masking, aggregation, and disparity-to-depth conversion. Each theorem attaches to its specified stage. With separate horizontal warp velocities, the warped disparity is d(s) plus (t_ref minus s) times (v_xL minus v_xR); a vertical mismatch moves the match off its row. Slices are 12.5 ms within a 0.25 s evaluation window.
 
-@ S20 | stereo | followup | 32,87,88 | tab:unified_benchmark
+@ S20 | stereo | followup | stereomvsec,32,87,88 | tab:unified_benchmark
 Q: What is the defensible takeaway from the stereo benchmark?
 A: Weighted least squares leads on indoor Flying 2 and narrowly on the aggregate log-RMSE metric, with a larger scored population than the compared local adaptation. Other methods lead on some sequence errors. This supports the evaluated configuration and its coverage tradeoff; the weighting choice was also selected on these sequences.
 Keep: particular metric and sequence; scored population; design-selection data
 More: The external rows are local adaptations. The weighting comparison supports the selected reciprocal rule on its reported populations, with held-out and common-pixel evaluations as useful extensions.
+
+@ S21 | stereo | core | stereomvsec,87 | tab:unified_benchmark,thm:weighted_spd
+Q: Give the stereo benchmark result with its numbers.
+A: On MVSEC indoor flying 1 to 4, WLS has mean depth errors of 73.83, 58.35, 70.33, and 59.24 cm, the lowest on Flying 2, and the lowest displayed log RMSE, 44.54. The Piatkowska adaptation is lower on the other three sequences by 1.5 to 6 cm, and WLS scores 2.66 million points against its 1.20 million. WLS leads the Xie, Kogler, and Rogister adaptations on every sequence.
+Keep: competitive errors; leads Flying 2 and log RMSE; more than twice the scored points
+More: Each method is scored on its own valid in-band pixels, 0.5 to 8 m. The displayed log RMSE is 100 times the base metric averaged over sequences.
+
+@ S22 | stereo | followup | 54 | tab:metrics,sec:success_wls
+Q: Does WLS score more points because it returns estimates at more pixels?
+A: Returned coverage is about the same; in-band retention makes the difference. The control returns finite estimates at 50.17 percent of eligible pixels and WLS at 49.48 percent. In-band, 51.54 percent of the control's estimates fall in the 0.5 to 8 m band, against 96.40 percent for WLS. That gives 1.43 million scored points for the control and 2.66 million for WLS.
+Keep: similar returned coverage; in-band retention differs; scored counts follow
+More: A finite depth outside the band is excluded by the evaluation convention. A common-population comparison would score both methods on the same pixels.
+
+@ S23 | stereo | followup | 88 | tab:unified_benchmark,sec:success_wls
+Q: What evidence supports the reciprocal weighting rule?
+A: A controlled swap of the weighting rule with the rest of the configuration fixed. Rate-proportional minus reciprocal mean depth error is 4.44, 8.28, 2.73, and 5.17 cm on Flying 1 to 4, so the reciprocal rule is lower on every sequence. These sequences also selected the rule, so this is empirical support for the design choice; held-out sequences and common-pixel scoring would test how far it extends.
+Keep: one-factor swap; four positive differences; selection data
+More: These are differences of reported means on each method's own population, not paired per-pixel improvements.
+
+@ S24 | stereo | followup | 50 | cor:selection_robust
+Q: How much observation noise can the stereo decision tolerate?
+A: With a positive winning margin, a computable amount. Holding the left data and parameters fixed, each candidate cost is quadratic in its right observation, with gradient 2P times the displacement from c and Hessian 2P, and the norm of P is at most one half. So a perturbation xi changes a cost by at most the distance to c times the size of xi, plus half its square. If the largest such change is below half the margin, the winner is preserved.
+Keep: quadratic cost in the right observation; norm of P at most one half; eta below half the margin
+More: The bound must include the original winner, whose ideal profile may also be perturbed. Changes to the left data or adaptive parameters add further terms to eta.
+
+@ S25 | stereo | followup | 51,86 | prop:irls_contraction,lem:fixed_point_existence
+Q: Where does the IRLS contraction constant come from?
+A: Subtract two frozen-weight solves: the difference is an inverse-system operator applied to a weight change times a residual. Three estimates bound it: the penalty bounds the operator by one over the square root of ell, the smallest eigenvalue of Lambda transpose Lambda; comparing with the zero profile bounds the weighted residual by the weighted data; reciprocal weights change by at most the prediction change times the two weights, each at most one over epsilon. Together q equals norm A times norm y over root ell times epsilon to the three halves.
+Keep: subtract frozen systems; operator, residual, weight-change bounds; epsilon to the minus three halves
+More: Pairing the weight change with the weighted residual is what produces the three-halves power. With norm A equal to root g max, q falls below one when the data norm is below lambda min times epsilon to the three halves over root g max; at q of one or more this bound is inconclusive.
+
+@ S26 | stereo | followup | 60,49 | lem:matching_cost_closed_form,prop:correct_selection
+Q: Is there a probabilistic interpretation of the stereo attenuation?
+A: Yes, under a Gaussian model with fixed common parameters. Read the magnitude and coupling penalties as a Gaussian prior on the two profiles and assume unit Gaussian observation noise. Integrating out the profiles, the right observation given the left is Gaussian with mean c, the center of the cost ellipsoid, and covariance the inverse of 2P. So the model predicts an attenuated copy of the left observation, which is the attenuation effect.
+Keep: penalties as a Gaussian prior; conditional mean c; covariance inverse of 2P
+More: The coupled-versus-independent evidence ratio is the discrepancy term plus a candidate-independent constant, because the determinants are common. That discrepancy is an alternative score; the evaluated method uses the minimized cost.
+
+@ S27 | stereo | followup | 61,53 | thm:weighted_spd,sec:solution
+Q: Are you globally minimizing the complete stereo objective?
+A: Each layer has its own guarantee. At a fixed disparity with frozen weights, the inner quadratic has a unique global minimizer. The selected label is the exact minimizer of its computed, aggregated score list. Semi-global matching aggregates costs along image paths with penalties on disparity changes; it is a specified approximate spatial optimization, so the full image-level procedure carries no global-optimality certificate.
+Keep: inner solve global and unique; exact over the score list; SGM approximate
+More: Weight updates, damping, acceptance and stopping, masking, and interpolation are further layers between the analyzed solve and the returned depth.
 
 @ X01 | synthesis | core | 4,33,62 | sec:contribution_matrix,tab:contribution_matrix
 Q: What is your mathematical contribution if the proof tools are classical?
@@ -589,11 +679,11 @@ More: Useful anchors are Rebecq and colleagues for learned reconstruction; Zhang
 Q: How did you choose the regularization parameters, and why not the discrepancy principle?
 A: Each was chosen by grid sweep: the scale of each adaptive rule and the kernel in Chapter 2, the smoothness weight in Chapter 3, and the coupling weight and latent count in Chapter 4. Antil and Sayre use one scalar magnitude weight; Chapter 2 makes it activity-adaptive and compares three rules. The theorems hold for every positive value, so the choice moves bias and accuracy while the solve stays unique and stable.
 Keep: grid sweeps in all three chapters; adaptive versus scalar weight; theorems cover every positive value
-More: The discrepancy principle needs a noise level; for raw signed counts the Skellam variance supplies one. The L-curve and generalized cross-validation need none. The sweeps used the evaluated sequences, so a held-out protocol is the next experiment.
+More: The discrepancy principle needs a noise level; for raw signed counts the Skellam variance supplies one. The L-curve and generalized cross-validation need none. The sweeps used the evaluated sequences, so a held-out protocol is the next experiment. Sigmoid gives the lowest outdoor condition number, 29.60; indoors, inverse-proportional weighting is lower, so the choice trades conditioning against image quality.
 
 @ X07 | synthesis | followup | learnedfit,4 | lem:nullspace,thm:unified_wellposedness,prop:disparity_nonidentifiability
 Q: Why not train a neural network?
-A: A trained network is also a regularized estimator: where the events leave the answer free, it fills the gap from training images, and these methods fill it with an analyzed penalty. The dissertation identifies those free directions: the per-pixel offset, the flow component along an edge, and disparities with coincident profiles. The two combine: learning the weights in a bilevel problem is well defined because each fixed-weight solve is unique and smooth in the weights.
+A: A trained network is also a regularized estimator: where the events leave the answer free, it fills the gap from training images, and these methods fill it with an analyzed penalty. The dissertation identifies those free directions: the per-pixel offset, the flow component along an edge, and disparities with coincident profiles. The two combine: learning the weights in a bilevel problem has a well-defined, smooth lower level, because each fixed-weight solve is unique and smooth in the weights.
 Keep: network is a regularizer; three free directions; bilevel learning of the weights
 More: On public flow and stereo benchmarks learned methods report the lowest errors; the dissertation asks what the data determine and when each estimator is stable. Event reconstruction has no agreed standard, because frame-image scores assume a brightness level the events leave open.
 
@@ -620,3 +710,9 @@ Q: Is the learned-regularization direction on your research slide well posed?
 A: The lower level is: for each positive weight vector the temporal solve is unique and smooth in the weights. If the weights range over a box between a positive floor and a ceiling and the outer loss is continuous, the reduced outer objective attains its minimum by compactness. Uniqueness of that minimizer, generalization of the learned weights, and convergence of an outer algorithm each need their own analysis.
 Keep: unique smooth lower level; compact weight box gives existence; uniqueness and generalization need more
 More: The local Lipschitz bound for activity-based weights is a natural starting point for the sensitivity of the reduced map.
+
+@ X12 | synthesis | core | 33,61 | thm:uniqueness,thm:unified_wellposedness,tab:unified_benchmark
+Q: Which single distinction answers most of the hard questions about your results?
+A: Keep three layers apart. The observation model produces the data or coefficients from events. A theorem guarantees a property of a specified estimator under stated hypotheses. The benchmark evaluates what the full implementation returns on its scored population. Most hard questions ask which layer a claim belongs to; naming the layer, then answering inside it, keeps the answer precise.
+Keep: observation model; theorem under hypotheses; benchmark of the full method
+More: If a committee member challenges a step, ask for the equation or proposition, name the hypotheses it uses, then give the argument. If it needs checking, state the intended argument and offer to follow up.

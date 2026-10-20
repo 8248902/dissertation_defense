@@ -99,5 +99,7 @@
   "complementarity": "One complementarity lemma behind the uniqueness results",
   "adaptivelipschitz": "Adaptive weights keep the temporal estimate locally Lipschitz",
   "weakreg": "Weak regularization: a limit in time, the aperture line in space",
-  "harmonicfill": "Where there are no events, smoothness fills in harmonically"
+  "harmonicfill": "Where there are no events, smoothness fills in harmonically",
+  "proofidea": "Proof idea: smoothness fixes variation, edges fix the drift",
+  "stereomvsec": "Stereo on MVSEC: competitive accuracy, more scored points"
 }

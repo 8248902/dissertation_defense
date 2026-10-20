@@ -2,7 +2,7 @@
 
 This is the single active defense, on `main`.
 
-The [spoken-recall Anki deck](anki/README.txt) has a 51-card core package and a 103-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
+The [spoken-recall Anki deck](anki/README.txt) has a 54-card core package and a 119-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
 
 - [Committee handout](defense-committee.pdf): the copy to send the committee. It has the 33 main slides, the backups listed in [committee-backups.txt](committee-backups.txt) (currently 7), and reference pages for the works those slides cite. Rebuild with `make committee`.
 - [Audience deck](defense.pdf): the full presenting deck, with 33 main slides and 73 backups (70 discussion slides and 3 reference pages).
