@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-10-20T19:04:13.341809+00:00",
+  "built_at_utc": "2026-10-20T19:41:55.617808+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 119,
   "cards": 119,
@@ -32,15 +32,15 @@
     "backup.tex": "44cb455021c3c569d91530ae0b5c1961d02b8c02a6c98d86bcb480b0e28c7bdf",
     "defense-script.md": "1bfa50bc8c28b305ccedb9bd33afb6116b1c877b366ad23557d12bc28c3713ca",
     "source-map.csv": "eed2d6b3f0205559cc1cc96a2f513987d86521f324a55cc800a38f04588932ad",
-    "thesis-references.json": "4b000d94eae57e9120e3821d0ec941ccb5a3925d2d78366e2ad6e526116efdd8",
+    "thesis-references.json": "c65d8685e870bceee44a3bf5e0d852e5e95b8aa77c7bb790a945846c4421b238",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "5a50eb0512508dfbf3f21bc1f0d54723fb32339608aee4d1fbb8833fb1e94fd7",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "460c1bae9f80032e40cb07aa0fa9cd9fca31c2cb407f2d5abc35240460dad16c",
-    "defense-core.apkg": "c98cf366b4da71e53f04f146da6aa4d8c70ebcb4b87c61925df5c3743ea59565",
+    "defense-oral.apkg": "82157866930a0b0babf2dc0c93a74badcb73ba4e2aac2c1e16c03dea14a4f7ef",
+    "defense-core.apkg": "13b329c2f2237b824fde43369b08175029b5237cccd693f9794e243f0e6e3a2a",
     "defense-oral.tsv": "40a943c940d77561bc62580058c14cdfc122cda841e3590cce7dad700cf0aa3e",
     "preview.html": "23cfd80a04defc7fe294b74049b024b340ecd774ed0488005dc8134d8391dfe6"
   }

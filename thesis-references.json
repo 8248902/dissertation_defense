@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-10-20T17:53:02+00:00",
+  "generated_at_utc": "2026-10-20T19:41:13+00:00",
   "thesis_main": "GMU-Diss_template",
-  "thesis_pdf_sha256": "80cbff0a16d9ddaf2278fe1f3406dce6f27acf3e23f6e9ed8a0b888e1de5a3ef",
+  "thesis_pdf_sha256": "00334fc535cef241453f34ce8ad2fe9ce0533b3f6dc343f4e56ba00a5865a827",
   "source_sha256": {
     "GMU-Diss_template.tex": "b64ab01e2c683ae787d4791a843129116e35d0215f006bb4a04cf443f3db1871",
     "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
@@ -146,7 +146,7 @@
     "figures/office/office_ex_6-eps-converted-to.pdf": "d535ecbe064069c22a770e2d4e1f564665fa5869ef5e3df9d133d5fe4e913fce",
     "figures/office/office_ex_6.eps": "a96497fd13e3aadeb1696dd67f2752969e870e115e487a3f24aad94e56a79aea",
     "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
-    "gmuETD.bib": "f8ca91ccf4139cf6c4c62ca59723c94e519121386f6206ff4f0b7cf368d5b45d",
+    "gmuETD.bib": "4ae813a012caca2e1a36f87bcf599fc72d6e94465299638238733cc6f8613954",
     "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
     "shared_bodies/ch2_dynamic_reconstruction_body.tex": "5a50eb0512508dfbf3f21bc1f0d54723fb32339608aee4d1fbb8833fb1e94fd7",
     "shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
