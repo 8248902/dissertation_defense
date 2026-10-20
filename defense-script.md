@@ -2,7 +2,7 @@
 
 Daniel Blauvelt • Canonical defense • Updated October 20, 2026
 
-This rehearsal script covers all 33 main slides and all 68 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
+This rehearsal script covers all 33 main slides and all 70 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
 The main talk contains approximately 5,870 spoken words: about 47–53 minutes at 110–125 words per minute, before pauses and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
@@ -154,7 +154,7 @@ In the ideal sensor, each event marks a change in log brightness of one contrast
 
 *[Point to the exact identity.]*
 
-Below it is the exact version, from Chapter 2. Three terms separate the two sides. B is kernel mass that spills across a bin boundary. Epsilon is the overshoot or threshold mismatch at each event; a missed or spurious event makes it as large as the threshold itself. And r is change since the pixel's last event that stayed below threshold, so the sensor never reported it. In the diagram, that's the gap at the right end.
+Below it is the exact version, from Chapter 2. Three terms separate the two sides. The boundary term, B, is kernel mass that spills across a bin boundary. Epsilon is the overshoot or threshold mismatch at each event; a missed or spurious event makes it as large as the threshold itself. And r is change since the pixel's last event that stayed below threshold, so the sensor never reported it. In the diagram, that's the gap at the right end.
 
 When those terms are small, A f approximately equal to y is a model of brightness changes. The events measure change; the absolute level has to come from the model. Next is how the model chooses it.
 
@@ -219,7 +219,7 @@ The rule we selected uses the size of the signed event total in each bin. Positi
 
 As activity increases, the sigmoid rule lowers the penalty. A positive floor keeps every weight above zero. So quiet intervals get the largest weights, and through the weighted-average identity they set each pixel's reference level. Busy intervals get the smallest weights: they're free to change, and they set the worst-case noise bound from the stability result. (Replaces: The practical intention is to allow stronger changes in active intervals while applying stronger magnitude control in quieter intervals.)
 
-We chose this rule empirically, as a compromise between reconstruction quality and conditioning. Outdoors, the sigmoid gives the lowest condition number of the three choices. Indoors, inverse-proportional weighting gives a lower condition number, so the choice trades conditioning against reconstruction quality.
+We chose this rule after grid sweeps of each rule's scale, as a compromise between reconstruction quality and conditioning. Outdoors, the sigmoid gives the lowest condition number of the three choices. Indoors, inverse-proportional weighting gives a lower condition number, so the choice trades conditioning against reconstruction quality.
 
 The point to remember is that the weights are computed from the data and then held fixed during the solve. The theorem covers that frozen problem. Stability of the full adaptive procedure also requires controlling how the weights change.
 
@@ -371,13 +371,13 @@ So we have three representations. Their coefficients differ, but they all lead t
 
 This keeps the classical data-plus-smoothness structure, with the event representation supplying the coefficients.
 
-The first integral measures agreement with the motion constraints. B is the data-curvature matrix: it records which motion directions the local edges measure, and how strongly. The forcing vector b carries the measured values. (Replaces: B is the data-curvature matrix and b is the forcing vector.) The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
+The first integral measures agreement with the motion constraints. B is the data matrix: it records which motion directions the local edges measure, and how strongly. The forcing b carries the measured values. (Replaces: B is the data-curvature matrix and b is the forcing vector.) The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
 
 For the time surface, B is the outer product of the time-surface gradient. For voxel projection, it's the outer product of the activity gradient. For the structure tensor, it's the pooled spatial block.
 
 The natural space is H one on the image domain, for both velocity components: square-integrable velocities with square-integrable weak derivatives.
 
-The advantage is that we prove one result for fixed B and b, and then apply it to each representation once we've checked its hypotheses.
+The advantage is that we prove one result for a fixed data matrix B and forcing b, and then apply it to each representation once we've checked its hypotheses.
 
 The question now is whether the data and the smoothness term, together, control every direction in that space.
 
@@ -387,7 +387,7 @@ This result specializes the classical well-posedness framework to the event-deri
 
 *[Read the hypotheses by explaining their roles, rather than reciting the symbols.]*
 
-The domain is bounded, connected, and Lipschitz, and the smoothness weight is positive. The matrix field B is bounded, symmetric, and positive semidefinite, and b is square-integrable.
+The domain is bounded, connected, and Lipschitz, and the smoothness weight is positive. The data matrix B is bounded, symmetric, and positive semidefinite, and the forcing b is square-integrable.
 
 The key assumption is that the integral of B over the domain is positive definite. Under these hypotheses, the energy has a unique minimizer in H one.
 
@@ -409,7 +409,7 @@ Poincaré's inequality bounds the fluctuation by the gradient, so the smoothness
 
 Smoothness charges nothing for a uniform pan, so the data have to fix the mean. That's the role of m, the smallest eigenvalue of the integrated matrix B. It measures how well the scene's edges, taken together, cover every direction of motion. Because m is positive, the data energy controls the mean.
 
-Together, the energy controls the full H one norm, with a constant c zero that depends on the domain, alpha, the bound on B, and m. Lax--Milgram then gives the unique minimizer.
+Together, the energy controls the full H one norm, with a constant c zero that depends on the domain, alpha, the bound on the data matrix, and m. Lax--Milgram then gives the unique minimizer.
 
 So the gradient penalty controls everything except the constants, and the integrated edge information controls the constants. The constant c zero shrinks as m shrinks: nearly parallel edges weaken control of the drift. The stripe scene on the next slide comes close to that case.
 
@@ -667,7 +667,7 @@ Deck page: 42.
 
 ### Answer
 
-Through m, the smallest eigenvalue of the integrated matrix B. Write the velocity as its spatial mean plus a zero-mean fluctuation, w. The gradient of w is the same as the gradient of the full field, so Poincaré's inequality bounds the L two norm of w by the gradient norm. Smoothness controls the fluctuation.
+Through m, the smallest eigenvalue of the integrated data matrix B. Write the velocity as its spatial mean plus a zero-mean fluctuation, w. The gradient of w is the same as the gradient of the full field, so Poincaré's inequality bounds the L two norm of w by the gradient norm. Smoothness controls the fluctuation.
 
 Smoothness charges nothing for a uniform pan, so the data have to fix the mean. Applying the integrated quadratic form to the mean gives a lower bound of m times the mean's squared size. To connect this to the energy of the full field, write the mean as v minus w. Apply the square root of B and use the squared triangle inequality. That bounds the mean term by twice the data energy of v, plus twice a B-weighted fluctuation term. The upper bound on B and Poincaré's inequality control that last term, which gives the displayed inequality.
 
@@ -687,7 +687,7 @@ Deck page: 43.
 
 ### Answer
 
-By subtracting the two weak equations and reusing one coercivity constant. Take two sets of coefficients with common bounds on B and b, and a common positive lower bound m on integrated identifiability. Those shared bounds give one coercivity constant, c zero, that works for both problems.
+By subtracting the two weak equations and reusing one coercivity constant. Take two sets of coefficients with common bounds on the data matrix B and the forcing b, and a common positive lower bound m on integrated identifiability. Those shared bounds give one coercivity constant, c zero, that works for both problems.
 
 Subtract the two weak equations, and test with the difference of the solutions, z. The left side controls c zero times the squared H one norm of z. The right side has two parts. One comes from the change in b. The other comes from the change in B, acting on the second solution. Cauchy--Schwarz, together with the bound R b over c zero on that solution, gives the final estimate.
 
@@ -1153,7 +1153,7 @@ Now add any multiple of c to a velocity field. Both quadratic terms stay the sam
 
 ### If asked for more
 
-The key step uses positive semidefiniteness pointwise. The nonnegative function c transpose B c has zero integral, so it's zero almost everywhere, and the square-root factorization then gives B c equal to zero. In the flat case, any minimizer comes with a whole family of equally good constant shifts; whether a minimizer exists at all is a separate question. Boundary constraints or a magnitude penalty can control the constant direction, and they change the uniqueness criterion accordingly.
+The key step uses positive semidefiniteness pointwise. With B the data matrix, the nonnegative function c transpose B c has zero integral, so it's zero almost everywhere, and the square-root factorization then gives B c equal to zero. In the flat case, any minimizer comes with a whole family of equally good constant shifts; whether a minimizer exists at all is a separate question. Boundary constraints or a magnitude penalty can control the constant direction, and they change the uniqueness criterion accordingly.
 
 ## Backup 36 — Coefficient stability is one stage of event-to-flow stability
 
@@ -1699,20 +1699,64 @@ The constants are pessimistic, because the floor of ten to the minus three enter
 
 Chapter 4 is different. Its observation weights are recomputed from the current profiles, so its estimator is a fixed point and needs the contraction condition in the stereo backups. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 32.
 
-## Backup 66 — References (1 of 3)
+## Backup 66 — How the parameters were chosen
 
 Deck page: 99.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** How did you choose the regularization parameters, and why not a standard rule such as the discrepancy principle?
 
-## Backup 67 — References (2 of 3)
+*[Read the table one row at a time, then point to the two blocks.]*
+
+### Answer
+
+Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning. The sigmoid rule has the lowest outdoor condition number, 29.60. Antil and Sayre use one scalar magnitude weight on the image; making that weight activity-adaptive, and comparing three ways to do it, is the change Chapter 2 evaluates.
+
+For flow, the smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, the coupling weight and the number of latent images came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences.
+
+The theorems hold for every positive value of these parameters. So the choice moves bias and accuracy, and the solve stays unique and stable whatever value the sweep picks.
+
+### If asked for more
+
+The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts, the Skellam model gives the variance as the sum of the ON and OFF rates, which can be estimated from the counts; after the Chapter 4 transformation, that variance has to be propagated through it. The L-curve and generalized cross-validation need no noise level, so they apply directly.
+
+The sweeps used the same sequences we report, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of the weights, from the research-opportunities slide.
+
+## Backup 67 — Learned estimators face the same free directions
 
 Deck page: 100.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** Why not train a neural network to do this?
 
-## Backup 68 — References (3 of 3)
+*[Read the "left free by the events" column first, then the two choice columns.]*
+
+### Answer
+
+A trained network is also a regularized estimator. Where the events leave the answer free, it fills the gap from its training images; my methods fill it with a penalty that is written down and analyzed.
+
+The dissertation identifies those free directions. In the temporal problem it's the constant brightness offset at each pixel. In flow it's the motion component along a straight edge. In stereo it's the disparity candidates whose temporal profiles coincide. No estimator recovers those from events alone; each one supplies them from somewhere. That's also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open.
+
+The two approaches combine naturally. The weights can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in the weights, that outer problem is well defined. And for data like the ISS and ballistics sequences, the reconstruction runs from events alone, with no reference images or training set.
+
+### If asked for more
+
+If the question is benchmark accuracy: on the public flow and stereo benchmarks, learned methods report the lowest errors. The dissertation asks a different question, what the data determine and when each estimator is stable, and its stereo comparison is against model-based event methods.
+
+A second combination is unrolling: run a fixed number of block-Jacobi or IRLS iterations and treat each one as a network layer. The convergence results then describe what each layer does.
+
+## Backup 68 — References (1 of 3)
 
 Deck page: 101.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 69 — References (2 of 3)
+
+Deck page: 102.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 70 — References (3 of 3)
+
+Deck page: 103.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*

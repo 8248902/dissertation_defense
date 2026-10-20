@@ -92,5 +92,7 @@
   "live": "Can the reconstruction run in real time?",
   "flowprotocol": "How the known-motion comparison was evaluated",
   "alignment": "Stereo alignment after motion compensation",
-  "depth": "Depth sensitivity grows with distance"
+  "depth": "Depth sensitivity grows with distance",
+  "paramchoice": "How the parameters were chosen",
+  "learnedfit": "Learned estimators face the same free directions"
 }

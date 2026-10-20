@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-10-20T04:34:33+00:00",
+  "generated_at_utc": "2026-10-20T17:27:34+00:00",
   "thesis_main": "GMU-Diss_template",
-  "thesis_pdf_sha256": "9fd1ba17edcfc5c81f32ec1e6713495953f2b3291bb8d275ea1ff21d3396f4d0",
+  "thesis_pdf_sha256": "2c727dfad54295d255f4a2d82f5a4bd9901c54579a6e72f87eb4c7bea3b88a6a",
   "source_sha256": {
     "GMU-Diss_template.tex": "b64ab01e2c683ae787d4791a843129116e35d0215f006bb4a04cf443f3db1871",
     "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
-    "appendix_bodies/ch3_protocol.tex": "071b3ec3a260d4d4b6fa56dbed66ca271c090c76cf6bd69ab3497ffabecbe180",
+    "appendix_bodies/ch3_protocol.tex": "d503c656475a2970584ae65f2bcc123d2bb094a7e263523e5e54e56543352950",
     "appendix_bodies/ch4_protocol.tex": "2e588f971105bc69fb99cc7f0408b60c6ad631c3d419e3265267979ef06cdb66",
     "chapterFive.tex": "07febc113efa11afa713b04c26dc033d5753a8132b3d32fb9b1cf4435fc8df33",
     "chapterFour.tex": "002dcc1345ead5e527b9dbf12bbb742d2b043c0289e44a32952f54978ffcabe8",
@@ -148,9 +148,9 @@
     "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
     "gmuETD.bib": "f8ca91ccf4139cf6c4c62ca59723c94e519121386f6206ff4f0b7cf368d5b45d",
     "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
-    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "5f64b0f673e0114535967030468c03b8cc6dfcc0818a53072381e41c82785af2",
+    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "5a50eb0512508dfbf3f21bc1f0d54723fb32339608aee4d1fbb8833fb1e94fd7",
     "shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
-    "shared_bodies/ch4_stereo_depth_body.tex": "5f0b40ea02ea0fb44386dbf6813a2ee1501ae15fd7a7ceac18bc838e5739c860"
+    "shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "auxiliary_sha256": {
     "GMU-Diss_template.aux": "b524aa5b1e7bbd9614f16637487d9b15336e2fc932bc9d0b933e45b94104eb6f",
@@ -159,7 +159,7 @@
     "chapterThree.aux": "1dd0f0b73582169b349ee2e03d609e6dc94579b7da4815a9955c109eb4369cd2",
     "chapterFour.aux": "52be39129c3eb52550aa68b6fc83a54235140b31fe51f02b7c8a1fad7f00380b",
     "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
-    "appendixA.aux": "243d753cb766e2c3e33fbc3144b51f1fdb86a97fc2dea28e911030f00134e7ed",
+    "appendixA.aux": "16edc08bbb33c7f6aecb89056715f1e99b204a23920695d5fb2c9b2bed5fc8ce",
     "GMU-Diss_template.bbl": "b30dc232747b55b0591870af7d2504840fbc2d74b1b3235be6351a878178bff6"
   },
   "labels": {
@@ -171,7 +171,7 @@
     },
     "app:ch3_cmax_params": {
       "number": "A.1.5",
-      "page": "165",
+      "page": "166",
       "title": "Contrast Maximization: Run Parameters",
       "anchor": "subsection*.490"
     },

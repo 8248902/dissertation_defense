@@ -34,7 +34,7 @@
 \begin{itemize}
 \item Depth coverage; \ifdefined\DefenseNotes alignment; sensitivity\else\hyperlink{stereoalignment}{alignment}; \hyperlink{depthsensitivity}{sensitivity}\fi
 \item \ifdefined\DefenseNotes One lemma behind the uniqueness results\else\hyperlink{complementarity}{One lemma behind the uniqueness results}\fi
-\item What is contributed by the dissertation?
+\item Contribution; \ifdefined\DefenseNotes parameters; learning\else\hyperlink{paramchoice}{parameters}; \hyperlink{learnedfit}{learning}\fi
 \item Literature anchors and source map
 \end{itemize}
 \end{columns}
@@ -1220,6 +1220,65 @@ Exponential decay & $10^{-3}+10e^{-10}$ & $10.001$ & $10$\\\bottomrule
 % source detail: Ch. 2, thm:uniqueness, subsubsec:lambdacal. Short argument beyond the chapter; checked numerically for all three rules.
 \src{\dref{Theorem}{thm:uniqueness}; adaptive rules (\drefpage{subsubsec:lambdacal}). The Lipschitz bound is a short argument beyond the chapter.}
 \talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor improves to $10^{-3}+10/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 32.}
+\end{frame}
+
+% Parameter selection: Ch. 2 subsubsec:lambdacal sentence on per-rule scale sweeps; Ch. 3 app:ch3_discrete_stencils grid-sweep sentence; Ch. 4 sec:experimental_validation selection sentence.
+\begin{frame}[t,label=paramchoice]{How the parameters were chosen}
+\footnotesize
+{\scriptsize\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}p{.17\textwidth}p{.33\textwidth}p{.43\textwidth}@{}}\toprule
+Problem & Parameters & Selection\\\midrule
+% source: Ch. 2 subsubsec:lambdacal (per-rule scale sweep), subsubsec:bump_selection (kernel sweep), subsubsec:lambda_comparison.
+Temporal (Ch.~2) & Scale of each $\Lam$ rule; kernel and width & Grid sweep per rule; three rules compared by fidelity and CN\\
+% source: Ch. 3 app:ch3_discrete_stencils, grid-sweep sentence.
+Flow (Ch.~3) & Smoothness weight $\alpha$ & Grid sweeps on MVSEC\\
+% source: Ch. 4 sec:experimental_validation, selection sentence.
+Stereo (Ch.~4) & Coupling $\gamma$, latent count; weighting & Grid sweep; paired weighting comparison on the four sequences\\\bottomrule
+\end{tabular}\par}
+Antil--Sayre~\cite{HAntil_DSayre_2023a}: scalar weight $\lambda_2$. Chapter~2: adaptive diagonal $\Lam$, three rules evaluated.
+\begin{columns}[T]
+\column{.47\textwidth}
+\begin{block}{What the theorems guarantee}
+The results hold for every positive value: sweeps tune bias and accuracy; uniqueness and stability hold throughout.
+\end{block}
+\column{.49\textwidth}
+\begin{block}{Principled selection rules}
+Discrepancy principle (Morozov 1966; Skellam noise level $\theta_++\theta_-$), L-curve (Hansen 1992), GCV (Golub--Heath--Wahba 1979), bilevel learning.
+\end{block}
+\end{columns}
+{\let\small\footnotesize\takeaway{Sweeps chose the values; the theorems cover every positive choice.}}
+% source detail: Ch. 2 subsubsec:lambdacal, tab:lambda_outdoor_avg; Ch. 3 app:ch3_discrete_stencils; Ch. 4 sec:experimental_validation, def:skellam_surrogate (Skellam variance). External rules are typed text: Morozov, Soviet Math. Dokl. 7 (1966); Hansen, SIAM Rev. 34 (1992); Golub, Heath, Wahba, Technometrics 21 (1979).
+\src{Adaptive rules (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}; flow sweeps (\drefpage{app:ch3_discrete_stencils}); \dref{Section}{sec:experimental_validation}; \dref{Definition}{def:skellam_surrogate}. Parameter-choice rules: external works named above.}
+\talknote{Question: how did you choose $\lambda$, $\alpha$, and $\gamma$? About 90 seconds.}{Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning; sigmoid has the lowest outdoor CN, 29.60. Antil and Sayre use one scalar magnitude weight; making it activity-adaptive is the change Chapter 2 evaluates. The flow smoothness weight came from Grid sweeps on MVSEC. In stereo, $\gamma$ and the latent count came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences. The theorems hold for every positive value, so the choice moves bias and accuracy and keeps the solve unique and stable.}{The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts the Skellam model gives the variance $\theta_++\theta_-$, estimable from ON and OFF counts; after the Chapter 4 transformation that variance must be propagated through it. The L-curve and generalized cross-validation need no noise level. The sweeps used the evaluated sequences, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of $\Lam$ (slide 32).}
+\end{frame}
+
+% Learned estimators: Ch. 2 lem:nullspace, thm:uniqueness, subsec:validation; Ch. 3 fig:aperture_problem, thm:unified_wellposedness; Ch. 4 prop:disparity_nonidentifiability.
+\begin{frame}[t,label=learnedfit]{Learned estimators face the same free directions}
+\footnotesize
+{\scriptsize\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{@{}p{.11\textwidth}p{.28\textwidth}p{.28\textwidth}p{.23\textwidth}@{}}\toprule
+Problem & Left free by the events & Model-based choice & Learned choice\\\midrule
+% source: Ch. 2 lem:nullspace (ker A = constants), thm:uniqueness (positive penalty selects it).
+Temporal & Constant offset at each pixel (\dref{Lemma}{lem:nullspace}) & Magnitude penalty $\Lam$ (\dref{Theorem}{thm:uniqueness}) & Brightness learned from training images~\cite{rebecq2019events}\\
+% source: Ch. 3 fig:aperture_problem (straight-edge aperture), thm:unified_wellposedness (integrated identifiability plus H1 smoothness).
+Flow & Motion along a straight edge (\dref{Figure}{fig:aperture_problem}) & $H^1$ smoothness, integrated data (\dref{Theorem}{thm:unified_wellposedness}) & Spatial context learned from data~\cite{zhu2019unsupervised}\\
+% source: Ch. 4 prop:disparity_nonidentifiability (coincident right-view profiles); sec:sgm_and_masking (SGM aggregation).
+Stereo & Candidates with coincident right-view profiles (\dref{Proposition}{prop:disparity_nonidentifiability}) & Spatial cost aggregation (SGM) & Learned matching cost\\\bottomrule
+\end{tabular}\par}
+\begin{columns}[T]
+\column{.55\textwidth}
+\begin{block}{Combining them}
+Learn $\Lam$ in an outer problem [Antil--Di--Khatri 2020]; for $\Lam\succ0$, $\Lam\mapsto\mathbf f^*(\Lam)$ is single-valued and smooth.
+\end{block}
+\column{.41\textwidth}
+\begin{block}{Data without a training set}
+ISS and ballistics: reconstructed from events alone, without reference images or training data.
+\end{block}
+\end{columns}
+{\let\small\footnotesize\takeaway{The theorems separate what the events determine from what the regularizer supplies, in either form.}}
+% source detail: Ch. 2 lem:nullspace, thm:uniqueness, subsec:validation (ISS and ballistics); Ch. 3 fig:aperture_problem, thm:unified_wellposedness; Ch. 4 prop:disparity_nonidentifiability. External: Antil, Di, Khatri, Inverse Problems 36 (2020) 064001.
+\src{\dref{Lemma}{lem:nullspace}, \dref{Theorem}{thm:uniqueness}, \dref{Theorem}{thm:unified_wellposedness}, \dref{Proposition}{prop:disparity_nonidentifiability}; qualitative demonstrations (\drefpage{subsec:validation}). External paper cited above.}
+\talknote{Question: why not train a neural network? About 60 seconds.}{A trained network is also a regularized estimator. Where the events leave the answer free, it fills the gap from training images; my methods fill it with a penalty that is written down and analyzed. The dissertation identifies those free directions: the constant brightness offset at each pixel, the flow component along an edge, and disparity candidates whose temporal profiles coincide. That is also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open. The approaches combine naturally: the weights $\Lam$ can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in $\Lam$, that outer problem is well defined.}{If asked directly about benchmark accuracy: on the public flow and stereo benchmarks, learned methods report the lowest errors. The dissertation asks what the data determine and when each estimator is stable, and its stereo comparison is against model-based event methods. A second combination: a fixed number of block-Jacobi or IRLS iterations can be unrolled into network layers, with the convergence results describing each layer.}
 \end{frame}
 
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.

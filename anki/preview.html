@@ -23,7 +23,7 @@ body { max-width: 850px; margin: auto; padding: 20px; background: #fafbf9; font-
 article { padding: 22px 0; border-bottom: 1px solid #cbd4d0; } article > details > summary { font-size: 21px; }
 h2 { margin-top: 45px; } p { line-height: 1.6; }
 </style><h1>Defense: spoken mathematics</h1>
-<p>91 cards: 49 core rehearsal, 42 deeper follow-ups. Say your answer before opening a card. The wording is a model, not a script.</p>
+<p>93 cards: 49 core rehearsal, 44 deeper follow-ups. Say your answer before opening a card. The wording is a model, not a script.</p>
 <p><a href='#core'>Core rehearsal</a> · <a href='#followup'>Deeper follow-ups</a></p>
 <h2 id='core'>Core rehearsal</h2>
 <article id='F01'><div class='meta'>F01 · Foundations</div>
@@ -664,4 +664,18 @@ h2 { margin-top: 45px; } p { line-height: 1.6; }
 <div class="anchors"><span class="label">Keep these ideas</span><br>observation error · smooth solution map · trajectory null space</div>
 <details><summary>If pressed</summary><p>Present learned regularization as a possible extension. The GMU neuromorphic lab supports controlled acquisitions for the sensor-error direction.</p></details>
 <details class="sources"><summary>Return to the talk / source</summary>Deck p. 32: Research opportunities<br><br>Dissertation p. 24: Physical Connection to Luminosity<br><br>Dissertation p. 17: Theorem 2.2.5: Uniqueness and Stability<br><br>Dissertation p. 50: Proposition 2.4.1: Unobservable scene modes and regularized inversion</details></div></details></article>
+<article id='X06'><div class='meta'>X06 · Connecting the talk</div>
+<details><summary>How did you choose the regularization parameters, and why not the discrepancy principle?</summary><div class='card'><div class="meta">Connecting the talk · Deeper follow-up · X06</div>
+<div class="question">How did you choose the regularization parameters, and why not the discrepancy principle?</div><hr id="answer">
+<div class="label">One way to say it</div><div class="answer">Each was chosen by grid sweep: the scale of each adaptive rule and the kernel in Chapter 2, the smoothness weight in Chapter 3, and the coupling weight and latent count in Chapter 4. Antil and Sayre use one scalar magnitude weight; Chapter 2 makes it activity-adaptive and compares three rules. The theorems hold for every positive value, so the choice moves bias and accuracy while the solve stays unique and stable.</div>
+<div class="anchors"><span class="label">Keep these ideas</span><br>grid sweeps in all three chapters · adaptive versus scalar weight · theorems cover every positive value</div>
+<details><summary>If pressed</summary><p>The discrepancy principle needs a noise level; for raw signed counts the Skellam variance supplies one. The L-curve and generalized cross-validation need none. The sweeps used the evaluated sequences, so a held-out protocol is the next experiment.</p></details>
+<details class="sources"><summary>Return to the talk / source</summary>Deck p. 99: How the parameters were chosen<br><br>Deck p. 15: How are the temporal weights chosen?<br><br>Dissertation p. 38: Adaptive Methods<br><br>Dissertation p. 164: Evaluated Smoothing Stencils and Iteration Schedules<br><br>Dissertation p. 150: Experimental Validation</details></div></details></article>
+<article id='X07'><div class='meta'>X07 · Connecting the talk</div>
+<details><summary>Why not train a neural network?</summary><div class='card'><div class="meta">Connecting the talk · Deeper follow-up · X07</div>
+<div class="question">Why not train a neural network?</div><hr id="answer">
+<div class="label">One way to say it</div><div class="answer">A trained network is also a regularized estimator: where the events leave the answer free, it fills the gap from training images, and these methods fill it with an analyzed penalty. The dissertation identifies those free directions: the per-pixel offset, the flow component along an edge, and disparities with coincident profiles. The two combine: learning the weights in a bilevel problem is well defined because each fixed-weight solve is unique and smooth in the weights.</div>
+<div class="anchors"><span class="label">Keep these ideas</span><br>network is a regularizer · three free directions · bilevel learning of the weights</div>
+<details><summary>If pressed</summary><p>On public flow and stereo benchmarks learned methods report the lowest errors; the dissertation asks what the data determine and when each estimator is stable. Event reconstruction has no agreed standard, because frame-image scores assume a brightness level the events leave open.</p></details>
+<details class="sources"><summary>Return to the talk / source</summary>Deck p. 100: Learned estimators face the same free directions<br><br>Deck p. 4: Where this work fits<br><br>Dissertation p. 17: Lemma 2.2.4: Null Space of Difference Matrix<br><br>Dissertation p. 93: Theorem 3.6.1: Quadratic variational well-posedness and stability<br><br>Dissertation p. 143: Proposition 4.6.20: Non-identifiability under coincident right-view profiles<br><br>Proof companion: Chapters 3–4 claim–justification tables (10 October 2026), corresponding result.</details></div></details></article>
 </html>

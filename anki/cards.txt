@@ -548,3 +548,15 @@ Q: How do you position the work relative to its main predecessors?
 A: Event reconstruction includes learned event-only methods, flow-based image inverse models, and frame-assisted bilevel methods. Our temporal construction uses event increments and explicit activity-based penalties. For flow I build on classical data-plus-smoothness theory and event timestamp geometry, then analyze three event-derived coefficient constructions in a common framework.
 Keep: distinguish reconstruction families; credit classical flow; specify present analysis
 More: Useful anchors are Rebecq and colleagues for learned reconstruction; Zhang, Yezzi, and Gallego for flow-based reconstruction; Antil–Sayre for bilevel reconstruction; Horn–Schunck, Benosman, and Weickert–Schnörr for flow foundations.
+
+@ X06 | synthesis | followup | paramchoice,15 | subsubsec:lambdacal,app:ch3_discrete_stencils,sec:experimental_validation
+Q: How did you choose the regularization parameters, and why not the discrepancy principle?
+A: Each was chosen by grid sweep: the scale of each adaptive rule and the kernel in Chapter 2, the smoothness weight in Chapter 3, and the coupling weight and latent count in Chapter 4. Antil and Sayre use one scalar magnitude weight; Chapter 2 makes it activity-adaptive and compares three rules. The theorems hold for every positive value, so the choice moves bias and accuracy while the solve stays unique and stable.
+Keep: grid sweeps in all three chapters; adaptive versus scalar weight; theorems cover every positive value
+More: The discrepancy principle needs a noise level; for raw signed counts the Skellam variance supplies one. The L-curve and generalized cross-validation need none. The sweeps used the evaluated sequences, so a held-out protocol is the next experiment.
+
+@ X07 | synthesis | followup | learnedfit,4 | lem:nullspace,thm:unified_wellposedness,prop:disparity_nonidentifiability
+Q: Why not train a neural network?
+A: A trained network is also a regularized estimator: where the events leave the answer free, it fills the gap from training images, and these methods fill it with an analyzed penalty. The dissertation identifies those free directions: the per-pixel offset, the flow component along an edge, and disparities with coincident profiles. The two combine: learning the weights in a bilevel problem is well defined because each fixed-weight solve is unique and smooth in the weights.
+Keep: network is a regularizer; three free directions; bilevel learning of the weights
+More: On public flow and stereo benchmarks learned methods report the lowest errors; the dissertation asks what the data determine and when each estimator is stable. Event reconstruction has no agreed standard, because frame-image scores assume a brightness level the events leave open.

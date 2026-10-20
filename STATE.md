@@ -2,9 +2,20 @@
 
 **Schedule: pre-defense October 22, 2026; defense November 23, 2026.** Draft deck goes to the committee October 20.
 
+## Start here — handoff, October 20 (parameter-choice and learned-estimator backups)
+
+**Deck:** 33 main slides + 70 backups. defense.pdf 103 pages; script 106; presenter 206; committee 43 (unchanged content). `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
+
+- Backup 66 (p. 99) "How the parameters were chosen": grid sweeps in all three chapters, Antil–Sayre scalar weight versus adaptive diagonal Λ, theorems hold for every positive value, classical rules (discrepancy principle with Skellam noise level, L-curve, GCV; typed external citations) and bilevel learning as next steps.
+- Backup 67 (p. 100) "Learned estimators face the same free directions": per-problem table of what the events leave free, the model-based choice, and the learned choice; bilevel combination; ISS/ballistics without training data. Talk note holds the spoken "why not a neural network?" answer; benchmark-accuracy concession is in "if asked for more" only (user: event vision has no agreed reconstruction standard, so do not volunteer it).
+- References moved to pp. 101–103 (Backups 68–70). Existing "page 97/98" references unchanged. Discussion guide: "Contribution; parameters; learning" links.
+- Slide 15 now says "Selected by grid sweeps, balancing image fidelity and conditioning"; its talk note and script match and point to Backup 66. Slide 4 talk note points to Backup 67.
+- Anki: X06 (parameter choice) and X07 (learned estimators) follow-ups; 93 cards.
+- Dissertation: three sourced sentences (Ch. 2 per-rule scale sweep; Ch. A.1.3 flow grid sweeps on MVSEC; Ch. 4 grid sweep of γ and latent count plus paired weighting comparison). Recheck 35/0/0 from `/tmp/udts_recheck.lr3fff`; `make refs` refreshed from it. "Optuna" appears only in source comments, at the user's request.
+
 ## Start here — handoff, October 20 (pre-defense revisions)
 
-**Deck:** 33 main slides + 68 backups. defense.pdf 101 pages; script 104; presenter 202. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
+**Deck (superseded above):** 33 main slides + 68 backups. defense.pdf 101 pages; script 104; presenter 202. `make check`, `make all`, `make presenter PYTHON=/usr/bin/python3`, and the Anki rebuild are clean (zero overfull boxes). Uncommitted; the user commits and pushes.
 
 Applied `../misc_ideas_feedback/pre-defense_review_recommendations_2026-10-20.md` (user-approved; choices: slide 23 keeps the derivation with a labeled assumption; future work keeps sensor modeling, learned regularization, ESAR):
 - Slide 11 is now "From threshold crossings to an approximate observation": ideal-threshold approximation plus the Ch. 2 arbitrary-endpoint identity, with the B / overshoot / sub-threshold terms as underbraces. The distributional IVP is Backup 03 only.

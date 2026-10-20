@@ -2,10 +2,10 @@
 
 This is the single active defense, on `main`.
 
-The [spoken-recall Anki deck](anki/README.txt) has a 49-card core package and a 91-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
+The [spoken-recall Anki deck](anki/README.txt) has a 49-card core package and a 93-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
 
 - [Committee handout](defense-committee.pdf): the copy to send the committee. It has the 33 main slides, the backups listed in [committee-backups.txt](committee-backups.txt) (currently 7), and reference pages for the works those slides cite. Rebuild with `make committee`.
-- [Audience deck](defense.pdf): the full presenting deck, with 33 main slides and 68 backups (65 discussion slides and 3 reference pages).
+- [Audience deck](defense.pdf): the full presenting deck, with 33 main slides and 70 backups (67 discussion slides and 3 reference pages).
 - [Speaker edition](defense-notes.pdf): slide-level notes.
 - [Rehearsal script](defense-script.pdf): full main-talk scripts and self-contained backup answers; editable source is [defense-script.md](defense-script.md).
 - [Synchronized presenter edition](defense-presenter.pdf): slides and full script paired for Pympress; rebuild with `make presenter`.
@@ -26,7 +26,7 @@ Dated committee review evidence is under `history/committee-review-2026-10-03/`.
 
 Footers use actual LaTeX cross-references imported from a complete dissertation build. Write `\dref{Theorem}{thm:uniqueness}` for a numbered result and `\drefpage{subsubsec:ode}` for a page reference. Unnumbered topics use their name and page, since their labels inherit an enclosing section counter. `thesis-references.json` bundles the compiled labels and hashes of the thesis inputs; keep it with the defense source. The build creates the auxiliary file for `xr` under `/tmp` and renders `\ref*` / `\pageref*`.
 
-Citations use the dissertation's own numbers. Write `\cite{piatkowska2017}` with any key the dissertation cites; it prints the dissertation number, for example [78], and links to the reference pages at the end of the deck (pages 99–101). The snapshot also stores each cited work's number and `.bbl` entry, so the build writes those pages from it. A key the dissertation does not cite stops the build. The three `\thesisreferences{n}` frames at the end of `backup.tex` hold the list; the build splits the cited works across however many such frames exist, so add a frame (and its script section) if a page overflows. Sources outside the dissertation bibliography (Adelson–Movshon, Wolfe et al., Antil–Di–Khatri, Willert–Klinner) stay as typed text.
+Citations use the dissertation's own numbers. Write `\cite{piatkowska2017}` with any key the dissertation cites; it prints the dissertation number, for example [78], and links to the reference pages at the end of the deck (pages 101–103). The snapshot also stores each cited work's number and `.bbl` entry, so the build writes those pages from it. A key the dissertation does not cite stops the build. The three `\thesisreferences{n}` frames at the end of `backup.tex` hold the list; the build splits the cited works across however many such frames exist, so add a frame (and its script section) if a page overflows. Sources outside the dissertation bibliography (Adelson–Movshon, Wolfe et al., Antil–Di–Khatri, Willert–Klinner) stay as typed text.
 
 After changing dissertation sources:
 

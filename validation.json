@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-10-20T08:18:00+00:00",
+  "generated_at_utc": "2026-10-20T17:28:45+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 33,
-  "backup_frames": 68,
+  "backup_frames": 70,
   "referenced_figure_count": 44,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
@@ -13,15 +13,29 @@
   },
   "pdfs": {
     "defense.pdf": {
-      "pages": 101,
-      "compile_warnings": []
+      "pages": 103,
+      "compile_warnings": [
+        "Underfull \\hbox (badness 1152) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 2020) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 4341) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282"
+      ]
     },
     "defense-notes.pdf": {
-      "pages": 101,
-      "compile_warnings": []
+      "pages": 103,
+      "compile_warnings": [
+        "Underfull \\hbox (badness 1152) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 2020) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 4341) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282",
+        "Underfull \\hbox (badness 10000) in paragraph at lines 1282--1282"
+      ]
     },
     "defense-script.pdf": {
-      "pages": 104,
+      "pages": 106,
       "compile_warnings": []
     },
     "defense-committee.pdf": {
@@ -30,20 +44,20 @@
     }
   },
   "sha256": {
-    "core.tex": "9beccae96459f26ecc74761d1ae13267bf14488d28aeaa31fbfa807033a1c72e",
-    "backup.tex": "29b5ade1f3966ffae5cf700cf76b8797e06f7c4c0a0f991db773cd87359657d2",
+    "core.tex": "99c72aa16cb6403443d79bb332e770d1a278d73ec15f33f709bdf78482f2a177",
+    "backup.tex": "2b2d4e0fa78b38daa09dc48502cbe818955e34200a4128273a4dfc4cce5c84fd",
     "defense.tex": "e321373c93e0e259c6f05e9bc51365d7eea7919c2e136e99d51692fdc47ded22",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
     "committee-backups.txt": "b6d79f450237bdadb299457c66c51eb2c56424504aee98a5b33e281eadfd772c",
-    "defense-script.md": "3d8437efc1164f368466cd95b5f91d47cb300c5f4c0c045e1dae5187ba2533fb",
+    "defense-script.md": "68c4a57b17b27912098f1dcd3fede4c42d385663a8051d8305da628e56d73630",
     "build_script.py": "91c201d6310e0ee4b084b590851c95c86fbdc793fd4839075de69f9fa2ded80d",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
     "Makefile": "400a0e6ba9c8083ab0842ead2d7ebbef3f2e45b6d83377b6d948d879dd89361b",
     "reference_support.py": "37bc847eb4983c31b17e9152a0167460d0b983d02632a5d41c3482cdc160c046",
-    "thesis-references.json": "fbcad88b66f615e7c03bc718b16ee48dbb2ccd03e11042f2899f1b11c80d95f2",
-    "defense.pdf": "54de9450c08edece3f264332264b678c083df7753512ece280057f0b2c0ee726",
-    "defense-notes.pdf": "2a64bc3f6d2f7108caae257aeb7af9b9b5ca91d490b42344a6e558cb35f66af3",
-    "defense-script.pdf": "3c247dbc70b4ea4fdbc6708ff4d754628c8028fb6611f043a7dbc588a8ae5ddb",
-    "defense-committee.pdf": "a0daf715bceca437cb5a4753192238208d51b8ae2ef3bfeea96e3daa437ec51d"
+    "thesis-references.json": "2076cec4aa4b3a732edb921d030d044cf5275104fd40de6aad8ef4918559c5a3",
+    "defense.pdf": "bcc76f7cfea434c5da38d5a12c06b493d92e5c24a585564e7c125b7c9c45550c",
+    "defense-notes.pdf": "5bd332e1d09c17d574466e50f1c299d734e362820d0845526aeb1dcb6e775386",
+    "defense-script.pdf": "66f2a7edeeb250e930edc483bff0e4d70f6ece97daa69e4585e72ba9153691a7",
+    "defense-committee.pdf": "6f6a848eebbb10bdc33652b12dce7e62fbe585a2c02542e8b12ebdaed30fe16b"
   }
 }
