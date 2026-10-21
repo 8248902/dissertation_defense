@@ -504,14 +504,17 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \begin{tikzpicture}[x=.4cm,y=.4cm,>=Latex]
 \draw[muted,->] (-.3,0)--(5.6,0) node[right,font=\scriptsize] {$v_x$};
 \draw[muted,->] (0,-.3)--(0,4.4) node[left,font=\scriptsize] {$v_y$};
-\draw[amber,very thick] (2.5,-.2)--(2.5,4.3) node[right,font=\scriptsize] {edge 1 constraint};
+\draw[ink,very thick] (2.5,-.2)--(2.5,4.3) node[right,font=\scriptsize] {edge 1 constraint};
 \draw[ink,very thick] (.6,3.9)--(4.2,.3) node[pos=.9,above right,font=\scriptsize] {edge 2 constraint};
-\fill[teal] (2.5,2) circle (3pt);
-\node[teal,font=\scriptsize,anchor=west] at (2.7,2.5) {one velocity};
+\draw[ink,thick,->,shorten >=3.5pt] (0,0)--(2.5,2) node[pos=.45,above left,font=\scriptsize] {$\mathbf v$};
+\draw[teal,very thick,->] (0,0)--(2.5,0);
+\draw[amber,very thick,->,shorten >=3.5pt] (2.5,0)--(2.5,2);
+\draw[ink,fill=white,thick] (2.5,2) circle (3.5pt);
+\fill[ink] (2.5,2) circle (1.8pt);
 \end{tikzpicture}\par
-{\scriptsize Each edge constrains one component of velocity. Two independent constraints determine a common velocity.}
+{\scriptsize Edge 1 fixes the {\color{teal}normal} part. If edge 2 shares the motion, it fixes the {\color{amber}tangent} part edge 1 left free.}
 \end{columns}
-\vspace{1mm}
+\vspace{0mm}
 {\scriptsize\textbf{The flow model in scene terms}}
 \begin{columns}[T]
 \column{.49\textwidth}
@@ -522,13 +525,13 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \column{.49\textwidth}
 \begin{itemize}\scriptsize\setlength{\itemsep}{0pt}
 \item \textbf{Neighbors move alike:} supplies motion along edges and where no events occur.
-\item \textbf{Requirement:} edges in at least two orientations somewhere.
+\item \textbf{Requirement (main theorem):} edges in at least two orientations somewhere, so their lines cross.
 \end{itemize}
 \end{columns}
 \takeaway{As with the temporal baseline, the data leave one quantity free; smoothness carries information from other edge orientations to supply it.}
 % source detail: Ch. 3, prop:time_surface and aperture remark (normal-speed constraint); thm:unified_wellposedness (integrated identifiability). Velocity-space intersection of constraints: Adelson and Movshon (1982).
 \vspace{-1mm}{\fontsize{6.5}{8}\selectfont\color{muted}Intersection of constraints [Adelson \& Movshon 1982]. Dissertation: \dref{Proposition}{prop:time_surface}; requirement in \dref{Theorem}{thm:unified_wellposedness}.\par}
-\talknote{Flow model in scene terms; about 90 seconds.}{Left: the dark edge, its normal motion in teal, its tangent in amber; the dashed line is the edge's later position. Right, in velocity space rather than image coordinates: the amber line is edge 1's constraint, every velocity consistent with its events. Edge 1 is vertical, so its events fix the horizontal velocity and leave the vertical velocity free; every point on the line has the same $v_x$. A second edge with a different orientation gives the diagonal constraint line. If both edges share the motion, the two lines cross at one velocity, the teal dot. Smoothness lets pixels share that information, so the two edges can be in different places.}{Mathematically, the time-surface coefficient at an edge is the rank-one matrix of the crossing-time gradient, proportional to n n-transpose. Two non-parallel normals give a positive-definite sum: that is the integrated-identifiability condition of the main theorem for the constant mode. Smoothness controls the fluctuation; the integrated data control the mean. Slide 28 shows the consequence on simulated data: the stripes supply one orientation in their interior, the checkerboard supplies two. The velocity-space picture is the classical intersection-of-constraints construction of Adelson and Movshon.}
+\talknote{Flow model in scene terms; about two minutes.}{A pixel fires when its log brightness changes by the threshold, so firing times trace an image edge. Left: normal motion in teal, tangent in amber. Right, velocity space, no positions: each line is every velocity one edge's events allow. Teal is the normal part edge 1 measures; amber is the tangent part it leaves free. If edge 2 shares the motion, the lines cross at $\mathbf v$, teal plus amber. Shared motion is an assumption: non-parallel lines always cross, so for edges moving differently the crossing is wrong for both. Requirement: two orientations somewhere.}{With exact coefficients and one shared velocity, the constant field is the unique minimizer at any $\alpha$ and separation. Example: edge 1 vertical moving right at $s$, edge 2 with normal $(1,1)/\sqrt2$ stationary; estimate $(s,-s)$ everywhere. Time-surface coefficient at an edge: rank one, proportional to $\mathbf n\mathbf n^\top$; two non-parallel normals give a positive-definite sum, the integrated condition. Slide 28: stripes give one orientation inside, the checkerboard two. Intersection of constraints: Adelson and Movshon.}
 \end{frame}
 
 \begin{frame}{Derive the time-surface constraint by following the edge}
@@ -601,16 +604,16 @@ Structure tensor & $\widetilde{\mathbf J}$ & $-\mathbf j_t$ & gradients pooled o
 Let $\Omega\subset\R^2$ be bounded, connected, and Lipschitz; $\alpha>0$.
 Assume
 \[\B\in L^\infty,\quad \B=\B^\top\succeq0\text{ a.e.},\quad b\in L^2,\qquad
-\int_\Omega\B(\mathbf x)\,d\mathbf x\succ0.\]
+\setlength{\fboxsep}{1.5pt}\boxed{\int_\Omega\B(\mathbf x)\,d\mathbf x\succ0}.\]
 Then $E_{\B,b}$ has a unique minimizer in $H^1(\Omega;\R^2)$.
 \end{block}
 \vspace{1mm}
 The integrated matrix must identify \textbf{every constant velocity direction}.\par
-\small In scene terms: edges in at least two orientations somewhere in the image; neighbors supply the motion where $\B=0$.
+\small In scene terms: edges in two or more orientations somewhere, so their constraint lines cross; neighbors supply the motion where $\B=0$.
 \takeaway{$\B$ may vanish on open regions; integrated directional information and smoothness still give a unique estimate.}
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:integrated\_identifiability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:integrated_identifiability}; classical quadratic-flow theory~\cite{weickert2001theoretical}.}
-\talknote{Central theorem; 90 seconds.}{Classical quadratic optical flow already has well-posedness theory, including Weickert and Schn\"orr. The contribution here is one analysis for three event-derived coefficient constructions, with explicit identifiability and perturbation hypotheses. Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise. Scene terms: edges in at least two orientations somewhere in the image.}
+\talknote{Central theorem; 90 seconds.}{Classical quadratic optical flow already has well-posedness theory, including Weickert and Schn\"orr. The contribution here is one analysis for three event-derived coefficient constructions, with explicit identifiability and perturbation hypotheses. Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise. Scene terms: edges in at least two orientations somewhere in the image. The one hypothesis the scene must supply; if it fails, a uniform slide along the null direction leaves the energy unchanged (Backup 35). It is checked on represented data, including smoothing artifacts at never-fired pixels. Accuracy rests on slide 21's shared-motion assumption (measured on slide 28).}
 \end{frame}
 
 \begin{frame}{Proof idea: smoothness fixes variation, edges fix the drift}

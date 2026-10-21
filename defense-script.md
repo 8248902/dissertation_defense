@@ -329,19 +329,23 @@ Next, I'll draw this ambiguity for a single edge and state what the flow model a
 
 *[Point to the left diagram: the edge, the teal arrow, then the amber arrow.]*
 
-Here is one straight edge. The teal arrow is its motion perpendicular to the edge; the dashed line shows where the edge will be a moment later. The amber arrow is motion along the edge. Sliding an edge along itself changes nothing a pixel can see. So the events determine the teal component and leave the amber one free.
+First, what the camera sees. An edge in the scene is where the light changes sharply: a dark object's outline against a bright wall, or a painted stripe. The camera records only changes: each pixel fires an event when its log brightness changes by a fixed threshold. As this edge sweeps over a pixel, the pixel fires, so the firing times trace where the edge is.
+
+The teal arrow is the edge's motion perpendicular to itself; the dashed line is where it will be a moment later. The amber arrow is motion along the edge. Sliding a straight edge along itself, with its ends out of view, leaves every pixel's brightness unchanged, so the events fix the teal part and leave the amber part free.
 
 *[Point to the right diagram.]*
 
-The right panel is now in velocity space, not image coordinates. The amber line represents all velocities consistent with observing edge 1. Because edge 1 is vertical, its events constrain horizontal motion, but tell us nothing about vertical motion. So every point on the amber line has the same horizontal velocity, with a different possible vertical velocity.
+The right panel plots possible velocities, not positions. Each line is every velocity that fits one edge's events. Edge 1 is vertical, so its events fix the horizontal speed, the teal arrow, and leave the vertical speed free.
 
-A second edge, oriented differently, provides another constraint, shown by the diagonal line. If both edges share the same motion, their constraints intersect at one velocity, shown by the teal dot. This is how observing different edge orientations can resolve the aperture ambiguity.
+A second edge, elsewhere in the image and oriented differently, gives the diagonal line. If both edges move with the same velocity, the crossing picks it out: the ringed dot, v. It's the teal part edge 1 measured, plus the amber part edge 2 fixed.
 
-Here's the flow model in scene terms. The unknown is the image velocity at every pixel. At each edge, the events give the speed perpendicular to that edge. The model assumes that neighboring pixels move alike. That fills in the motion along edges, and the motion where there are no events. It's also why the two edges in the picture can be in different places: smoothness carries each edge's information across the image. The three representations differ in how they get the edge measurement: from crossing times, from transported event activity, or from gradients pooled over a small window. The main theorem makes the requirement precise: somewhere in the scene, there must be edges in at least two orientations.
+The two edges don't have to touch or be close. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both. Each edge's perpendicular speed is still matched; the error sits in the along-edge motion the events can't see.
 
-As with the temporal baseline, the data leave one quantity free, and the model supplies it. Next, we'll derive the local constraint behind this picture, from the time at which an edge crosses each pixel.
+So the flow model is: the unknown is the image velocity at every pixel; events give each edge's perpendicular speed; neighbors moving alike fill in the rest. The three representations differ in how they get the edge measurement: crossing times, transported event activity, or gradients pooled over a small window.
 
-*[If asked whether two orientations anywhere in the image really suffice: the theorem on slide 26; for necessity, Backup 35, page 68.]*
+Hold on to the last bullet: somewhere in the recording, edges in at least two orientations, so their lines cross. It's the one hypothesis of the main theorem the scene has to supply, and on slide 26 it decides whether the answer is unique. Next, we'll derive the local constraint behind this picture.
+
+*[If asked whether two orientations anywhere suffice: slide 26; necessity, Backup 35, page 68. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: the events contradict one velocity, and smoothing blends the motions across the boundary, Backup 27, page 60, and Backup 70, page 103.]*
 
 ## Slide 22 — Derive the time-surface constraint by following the edge
 
@@ -426,6 +430,8 @@ The domain is bounded, connected, and Lipschitz, and the smoothness weight is po
 The key assumption is that the integral of B over the domain is positive definite. Under these hypotheses, the energy has a unique minimizer in H one.
 
 What does that integrated condition mean? Take any nonzero constant velocity. Summed over the domain, the observations must give positive energy in that direction. In scene terms, the recording has edges in at least two orientations, possibly at different pixels: the two crossing lines from the velocity diagram.
+
+This is the requirement from slide 21: the one hypothesis the scene has to supply, while the others come from how we set up the problem. If every edge is parallel, as inside a stripe pattern, a uniform slide along the stripes costs nothing, and many answers fit equally well. The theorem promises one answer; whether it's the true motion depends on slide 21's assumption that neighbors move alike, and slide 28 measures how close it comes.
 
 Individual locations may give only one direction. Regions with no texture or no events give zero data curvature, and their neighbors supply the motion there. (Replaces: Individual locations may supply only one direction, and some open regions may supply zero data curvature. Spatial coupling allows the estimator to combine information from different locations.)
 
