@@ -21,6 +21,29 @@ from reference_support import load_snapshot, validate_references, write_external
 from update_metadata import ROOT, figure_paths
 
 
+def internal_links(reader, page_index: int) -> list[tuple[list, int]]:
+    """(rectangle, target page index in the same PDF) for each internal link on a page."""
+    names = reader.named_destinations
+    links = []
+    for reference in reader.pages[page_index].get('/Annots', []) or []:
+        annotation = reference.get_object()
+        if annotation.get('/Subtype') != '/Link':
+            continue
+        action = annotation.get('/A')
+        target = action.get_object().get('/D') if action is not None else annotation.get('/Dest')
+        if target is None:
+            continue
+        target = target.get_object() if hasattr(target, 'get_object') else target
+        if isinstance(target, str):
+            if target not in names:
+                raise ValueError(f'Unresolved link target {target!r} on source page {page_index + 1}')
+            number = reader.get_destination_page_number(names[target])
+        else:
+            number = reader.get_page_number(target[0].get_object())
+        links.append(([float(v) for v in annotation['/Rect']], number))
+    return links
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, default=ROOT)
@@ -82,6 +105,32 @@ def main() -> None:
         # Pympress pairs a slide labelled N with the next page labelled notes:N.
         writer.set_page_label(2 * index, 2 * index, style='/D', start=index + 1)
         writer.set_page_label(2 * index + 1, 2 * index + 1, style='/D', prefix='notes:', start=index + 1)
+    # pypdf drops internal links when it copies pages, so add them back. Pympress 1.8 reads a
+    # link's target page number as a slide number in notes:-label mode, so a link to slide k
+    # points at merged page k (0-based) rather than at that slide's own page 2k.
+    from pypdf.generic import ArrayObject, DictionaryObject, FloatObject, NameObject, NumberObject
+    slide_of_script_page = {source: index for index, source in enumerate(script_indices)}
+    for page in writer.pages:
+        # Drop any internal link pypdf kept; its target is a merged page, which Pympress misreads.
+        if '/Annots' in page:
+            kept = [ref for ref in page['/Annots'] if not (ref.get_object().get('/Subtype') == '/Link' and (
+                '/Dest' in ref.get_object() or ref.get_object().get('/A', {}).get('/S') == '/GoTo'))]
+            page[NameObject('/Annots')] = ArrayObject(kept)
+    restored = []
+    for index, source_page in enumerate(script_indices):
+        for merged, reader, source, to_slide in ((2 * index, audience, index, lambda n: n),
+                                                 (2 * index + 1, narration, source_page,
+                                                  lambda n: slide_of_script_page.get(n))):
+            for rect, number in internal_links(reader, source):
+                slide = to_slide(number)
+                if slide is None or not 0 <= slide < count:
+                    raise ValueError(f'Link on merged page {merged + 1} targets no slide')
+                writer.add_annotation(merged, DictionaryObject({
+                    NameObject('/Type'): NameObject('/Annot'), NameObject('/Subtype'): NameObject('/Link'),
+                    NameObject('/Rect'): ArrayObject(FloatObject(v) for v in rect),
+                    NameObject('/Border'): ArrayObject([NumberObject(0)] * 3),
+                    NameObject('/Dest'): ArrayObject([writer.pages[slide].indirect_reference, NameObject('/Fit')])}))
+                restored.append((merged, slide))
     writer.add_metadata({'/Title': 'Dissertation defense — slides and full-script presenter notes',
                          '/Author': 'Daniel Blauvelt'})
     candidate = scratch / 'defense-presenter.pdf'
@@ -122,6 +171,9 @@ def main() -> None:
     destination = args.output_dir / candidate.name
     shutil.copy2(candidate, destination)
     print(f'Validated {count} slides + {count} complete script pages; two looping MP4 panels on slide {movies[0][0]}.')
+    on_slides = sum(merged % 2 == 0 for merged, _ in restored)
+    print(f'Restored {len(restored)} internal links for Pympress: {on_slides} on slides, '
+          f'{len(restored) - on_slides} on script pages.')
     print(f'Wrote {destination}')
     print('Launch from its directory: pympress --notes=prefix defense-presenter.pdf')
     if automatic:

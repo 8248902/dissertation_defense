@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-10-21T20:31:07.419292+00:00",
+  "built_at_utc": "2026-10-21T21:03:23.723604+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 123,
   "cards": 123,
@@ -30,7 +30,7 @@
     "anki/slide_titles.json": "797b2ce4af570e45afcf074f35cfd2a9773a93e4b2f383f2a1964691d6c993f6",
     "core.tex": "53583c7c262fc8e41c47ddafadd4d4402ca423f98ec2132ed3ecb0a2bbf2ae82",
     "backup.tex": "1bee6836103e152b3e723e6032ab3fe5528a42ceefcf4e2f2c4069466c449d7a",
-    "defense-script.md": "35c2ae6460a7a83b78f25316496f910826b7e73de09504a61d3269b85eaba935",
+    "defense-script.md": "955344a3227c662d8b54e69d0347e484c4bc03d9b9fe877e92952c30e21615d9",
     "source-map.csv": "854318d22dfe36257a69f68e6db7e64e715758706cf5708b6b2271c26aae5ea5",
     "thesis-references.json": "c65d8685e870bceee44a3bf5e0d852e5e95b8aa77c7bb790a945846c4421b238",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
@@ -39,8 +39,8 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "b1174d2920fc26d77da87d2890a94729a73ab61562f86a2bdc568895f1d0c8a6",
-    "defense-core.apkg": "31bcddb2535de4f0cc6af1ae6c72b2f9bda8b86c6dd7631d9551de4bb5e46e7f",
+    "defense-oral.apkg": "91c7fe9d14d953188359d4c58ebf3d800312c252009f79587bee7a2e67d9e543",
+    "defense-core.apkg": "5d73ada7bae873a7919e583300ae061fa430f1637ed32ca383b05e81b29fde9e",
     "defense-oral.tsv": "8e3fb464b1d2dce554d7abe639f7e08dbc70c0eb3a785ba80143f8d64b281e92",
     "preview.html": "c2976b2279eba09576a03d522d221bc8a404646ad754dcf0f3291d8b0a8453a9"
   }

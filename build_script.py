@@ -71,21 +71,44 @@ def inline(text: str) -> str:
                    r'\texttt{' + tex_escape(p[1:-1]) + '}' if p.startswith('`') else tex_escape(p)
                    for p in parts)
 
-def paragraphs(body: str) -> list[str]:
+REFERENCE = re.compile(r'Backup (\d+)(?:, page (\d+))?|\b[Ss]lide (\d+)\b|\bpage (\d+)\b')
+
+def link_refs(tex: str, pages: dict | None) -> str:
+    """Link Backup N, Backup N, page P, slide N, and page P to that deck page's script page."""
+    if not pages:
+        return tex
+    def replace(match: re.Match) -> str:
+        backup, stated, slide, page = match.groups()
+        if backup:
+            target = pages['backup'].get(int(backup))
+            if target is None:
+                raise ValueError(f'Script refers to missing Backup {backup}')
+            if stated and int(stated) != target:
+                raise ValueError(f'Script says Backup {backup} is on page {stated}; it is on page {target}')
+        elif slide:
+            target = int(slide) if 1 <= int(slide) <= pages['main'] else None
+        else:
+            target = int(page) if 1 <= int(page) <= pages['total'] else None
+        if target is None:
+            return match[0]
+        return f'\\hyperlink{{deck{target}}}{{{match[0]}}}'
+    return REFERENCE.sub(replace, tex)
+
+def paragraphs(body: str, pages: dict | None = None) -> list[str]:
     output = []
     for paragraph in re.split(r'\n\s*\n', body.strip()):
         paragraph = paragraph.strip()
         if not paragraph: continue
         if paragraph.startswith('*[') and paragraph.endswith(']*'):
-            output.append(r'{\small\itshape\color{muted}' + tex_escape(paragraph[1:-1]) + '}\n')
+            output.append(r'{\small\itshape\color{muted}' + link_refs(tex_escape(paragraph[1:-1]), pages) + '}\n')
         elif paragraph.startswith('### '):
             output.append(r'{\small\bfseries\color{teal}' + tex_escape(paragraph[4:]) + '}\\par\n')
         elif paragraph.startswith('**Likely question:**'):
-            output.append(r'{\small\color{muted}' + inline(paragraph) + '}\\par\n')
+            output.append(r'{\small\color{muted}' + link_refs(inline(paragraph), pages) + '}\\par\n')
         elif paragraph.startswith('#'):
             raise ValueError(f'Unsupported heading in script body: {paragraph}')
         else:
-            output.append(inline(paragraph.replace('\n', ' ')) + '\n')
+            output.append(link_refs(inline(paragraph.replace('\n', ' ')), pages) + '\n')
     return output
 
 PREAMBLE = r'''\documentclass[12pt,letterpaper]{article}
@@ -111,6 +134,8 @@ def render(intro: str, sections: list[dict]) -> str:
     out = [PREAMBLE, r'\thispagestyle{empty}\pdfbookmark[0]{Using this script}{intro}',
            r'{\LARGE\bfseries Defense rehearsal script\par}\vspace{1em}']
     out += paragraphs(intro)
+    pages = {'backup': {s['number']: s['page'] for s in sections if s['role'] == 'discussion'},
+             'main': sum(s['role'] == 'core' for s in sections), 'total': len(sections)}
     for role, label in [('core', 'Main talk index'), ('discussion', 'Backup responses index')]:
         out += [r'\clearpage\markright{' + label + '}',
                 r'\pdfbookmark[0]{' + label + '}{index' + role + '}',
@@ -134,7 +159,7 @@ def render(intro: str, sections: list[dict]) -> str:
                 r'{\Large\bfseries\raggedright ' + tex_escape(section['title']) + r'\par}\vspace{0.4em}',
                 f"\\label{{scriptpage{section['page']}}}",
                 f"% source: defense-script.md; {section['filename']}:{section['line']}."]
-        out += paragraphs(section['body'])
+        out += paragraphs(section['body'], pages)
         out += [f"\\label{{scriptend{section['page']}}}"]
     out += [r'\end{document}']
     return '\n'.join(out)
