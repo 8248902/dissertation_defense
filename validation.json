@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-21T19:11:17+00:00",
+  "generated_at_utc": "2026-10-21T20:30:47+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 33,
   "backup_frames": 73,
@@ -41,15 +41,15 @@
     "defense.tex": "e321373c93e0e259c6f05e9bc51365d7eea7919c2e136e99d51692fdc47ded22",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
     "committee-backups.txt": "b6d79f450237bdadb299457c66c51eb2c56424504aee98a5b33e281eadfd772c",
-    "defense-script.md": "e5d03c64b40dad925caf883586acc777f32e80f354dccaabac25085d78f7893c",
+    "defense-script.md": "35c2ae6460a7a83b78f25316496f910826b7e73de09504a61d3269b85eaba935",
     "build_script.py": "91c201d6310e0ee4b084b590851c95c86fbdc793fd4839075de69f9fa2ded80d",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
-    "Makefile": "400a0e6ba9c8083ab0842ead2d7ebbef3f2e45b6d83377b6d948d879dd89361b",
+    "Makefile": "c386324167799aeacffe165bbe11bb54713c3ca7f4dd5f1a7605d80ed8d075d2",
     "reference_support.py": "37bc847eb4983c31b17e9152a0167460d0b983d02632a5d41c3482cdc160c046",
     "thesis-references.json": "c65d8685e870bceee44a3bf5e0d852e5e95b8aa77c7bb790a945846c4421b238",
-    "defense.pdf": "37e92da629dc2f09831f8dbaaa4ad6656f07682c76a9a0a7d0d03e5d7c5de4a2",
-    "defense-notes.pdf": "a4a4bd4777451d16dff63f7e35a5de14fe1c04a8c22cdc3c73ea69ddf6c40dae",
-    "defense-script.pdf": "9a3b6b1a4b012bd3bddec789bdb51046e70730a97e175fb6e4e13d187712d9f2",
-    "defense-committee.pdf": "c5b96a27e5c9f66d056f22551cce79b3e36bc17db412d98a265276c58478cf88"
+    "defense.pdf": "87067cfd1eb9300ad9374db7ad2e1eee3c5a9dd4bf60c6a8e2b84c3db4a43a7c",
+    "defense-notes.pdf": "08ab13e438cb3da746446288a7566c8eba861a0efebbbc2587a424afa28c2e35",
+    "defense-script.pdf": "d2a1ca056f6e3a340ea01da16003aead5bd211a15a1720a8bf20a34cfd6d047e",
+    "defense-committee.pdf": "b76bcf7f72c3d239ca589493047790fde45e94a04a92718fb401c35fbcc35384"
   }
 }

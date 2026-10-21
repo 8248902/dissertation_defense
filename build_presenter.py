@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Build a Pympress PDF: all slides, then matching full-script notes.
+"""Build a Pympress PDF: each slide followed by its full-script page.
 
+Script pages are labelled notes:<slide>, so Pympress uses its notes layout
+(script, current slide, next slide).
 Requires the normal TeX build tools and pypdf in the selected Python environment.
-Run the result with: pympress --notes=after defense-presenter.pdf
+Run the result with: pympress --notes=prefix defense-presenter.pdf
 """
 from __future__ import annotations
 
@@ -74,11 +76,12 @@ def main() -> None:
         raise ValueError(f'Slide PDF has {len(audience.pages)} pages for {count} script sections')
 
     writer = PdfWriter()
-    writer.append(audience)
-    writer.append(narration, pages=script_indices)
-    writer.set_page_label(0, count - 1, style='/D', start=1)
-    # Pympress reserves notes: for adjacent slide/notes pairs; this file uses halves.
-    writer.set_page_label(count, 2 * count - 1, style='/D', prefix='script:', start=1)
+    for index, source_page in enumerate(script_indices):
+        writer.append(audience, pages=[index])
+        writer.append(narration, pages=[source_page])
+        # Pympress pairs a slide labelled N with the next page labelled notes:N.
+        writer.set_page_label(2 * index, 2 * index, style='/D', start=index + 1)
+        writer.set_page_label(2 * index + 1, 2 * index + 1, style='/D', prefix='notes:', start=index + 1)
     writer.add_metadata({'/Title': 'Dissertation defense — slides and full-script presenter notes',
                          '/Author': 'Daniel Blauvelt'})
     candidate = scratch / 'defense-presenter.pdf'
@@ -88,14 +91,14 @@ def main() -> None:
     result = PdfReader(candidate)
     if len(result.pages) != 2 * count:
         raise ValueError('Presenter PDF page count does not match paired slides and notes')
-    expected_labels = [str(n) for n in range(1, count + 1)] + [f'script:{n}' for n in range(1, count + 1)]
+    expected_labels = [label for n in range(1, count + 1) for label in (str(n), f'notes:{n}')]
     if result.page_labels != expected_labels:
         raise ValueError('Presenter slide/notes labels do not match')
     for index, source_page in enumerate(script_indices):
-        if result.pages[count + index].extract_text() != narration.pages[source_page].extract_text():
+        if result.pages[2 * index + 1].extract_text() != narration.pages[source_page].extract_text():
             raise ValueError(f'Full script text changed for deck page {index + 1}')
     movies = []
-    for number, page in enumerate(result.pages[:count], 1):
+    for number, page in enumerate(result.pages[0::2], 1):
         for reference in page.get('/Annots', []):
             annotation = reference.get_object()
             if annotation.get('/Subtype') == '/Movie':
@@ -120,7 +123,7 @@ def main() -> None:
     shutil.copy2(candidate, destination)
     print(f'Validated {count} slides + {count} complete script pages; two looping MP4 panels on slide {movies[0][0]}.')
     print(f'Wrote {destination}')
-    print('Launch from its directory: pympress --notes=after defense-presenter.pdf')
+    print('Launch from its directory: pympress --notes=prefix defense-presenter.pdf')
     if automatic:
         shutil.rmtree(scratch)
 

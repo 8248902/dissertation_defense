@@ -60,7 +60,7 @@ Now to the sensor, and the observations these models use.
 
 *[Trace the moving bar through the two diagrams.]*
 
-A conventional camera samples the whole image at fixed frame times. In the left diagram, each vertical column is one frame across all the pixels.
+A conventional camera samples the whole image at fixed frame times. In the left diagram, each vertical column is one frame across all the pixels. The diagonal bar is a bar moving across a scene.
 
 In an event camera, each pixel works on its own. When the leading edge of this bright bar reaches a pixel, the pixel gets brighter and fires a positive event. When the trailing edge passes, it gets darker and fires a negative event.
 
