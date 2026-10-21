@@ -6,7 +6,7 @@ START HERE
 Import defense-core.apkg into Anki for the 54 essential rehearsal cards.
 Open Anki, choose File > Import, and select the package.
 
-defense-oral.apkg contains all 119 cards: the same 54 core cards plus 65 deeper
+defense-oral.apkg contains all 122 cards: the same 54 core cards plus 68 deeper
 follow-ups. The two packages use the same deck, model, and note identities.
 Importing the full package later adds the follow-ups to the same deck.
 If you want everything immediately, import only defense-oral.apkg.
@@ -32,11 +32,11 @@ CONTENTS
 
                          Core   Follow-up   Total
 Foundations                4        2         6
-Temporal reconstruction   15       11        26
+Temporal reconstruction   15       14        29
 Optical flow              19       29        48
 Stereo depth              11       16        27
 Connecting the talk         5        7        12
-Total                     54       65       119
+Total                     54       68       122
 
 Cards emphasize what the observations determine, what regularization selects,
 why proof assumptions matter, and which conclusion a theorem supports.

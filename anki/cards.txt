@@ -195,6 +195,24 @@ A: The baseline rule is the same at every scale: testing with the constant vecto
 Keep: scale-free baseline rule; minimum-weighted-norm exact fit; running-sum noise gain
 More: The condition number grows only along the constant mode, which the data never excite. Convergence to the limit begins once lambda squared is small compared with g one, about pi squared over N_t squared.
 
+@ T27 | temporal | followup | 14,9 | lem:A_spectrum
+Q: What are the temporal modes on the spectral slide, physically?
+A: The latent signal is one pixel's history over the reconstruction times: log brightness in threshold units, up to a constant. The modes are the eigenvectors of A-transpose-A, cosines over the window, and any pixel history splits into them. Mode zero is the constant level, the baseline. Mode one is a single slow rise or fall across the window, like a lighting drift or a slow shadow. High modes change from one interval to the next: an edge sweeping past the pixel, flicker, or noise.
+Keep: one pixel's history, not an image; constant mode is the baseline; slow drift low, passing edges high
+More: Mode k makes about k over two oscillations across the window; with uniform spacing its frequency is k over 2 n delta t. With a moving camera, most of a pixel's variation comes from texture moving across it rather than from illumination change.
+
+@ T28 | temporal | followup | 14 | lem:A_spectrum,thm:frequency_response
+Q: What does a temporal mode's eigenvalue g measure, and why does it set the gain?
+A: g is the energy of the mode's interval-to-interval changes per unit of the mode's own energy. Events report changes, so g measures how much evidence the data carry about that mode. The gain g over g plus lambda squared weighs that evidence against the penalty's cost. Slow modes have small g, so the penalty dominates and shrinks them; fast modes keep most of their amplitude.
+Keep: change energy per unit amplitude; evidence versus penalty cost; half gain where g equals lambda squared
+More: g_k equals 4 sine squared of pi k over 2n, about pi k over n squared for small k. Half gain falls near omega over pi of 0.03 for lambda 0.1, and at one third for lambda 1. The formula is exact for a scalar penalty; diagonal weights mix the modes.
+
+@ T29 | temporal | followup | 14,6 | lem:A_spectrum
+Q: How does a temporal mode show up in a pixel's events?
+A: Through the polarity pattern over time. A low mode gives long runs of one polarity, a high mode flips polarity between neighboring intervals, and the constant mode gives no events at all. The event count tracks the size of the change: a large slow drift fires many same-sign events, while a small fast flicker can stay below threshold and fire none.
+Keep: polarity pattern across intervals; count tracks change size; constant fires nothing
+More: The observations are y equals A f, and the images A v_k are orthogonal with norm square root of g_k. So mode k enters y scaled by root g_k: a slow mode gives small per-interval increments relative to its size.
+
 @ V01 | flow | core | 20,21,90 | prop:time_surface
 Q: Explain the aperture problem to a mathematician outside vision.
 A: A straight edge reveals how quickly it moves across itself. Sliding it along itself produces the same local brightness history, so one velocity component stays free. In velocity space one edge permits a line of answers; another edge orientation can intersect that line and determine both components.

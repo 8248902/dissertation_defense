@@ -504,12 +504,12 @@ Outdoor & Bilevel / event-only & 8.41 / 8.71 & 39755 / 27.10\\\bottomrule
 \begin{tikzpicture}[x=.4cm,y=.4cm,>=Latex]
 \draw[muted,->] (-.3,0)--(5.6,0) node[right,font=\scriptsize] {$v_x$};
 \draw[muted,->] (0,-.3)--(0,4.4) node[left,font=\scriptsize] {$v_y$};
-\draw[amber,very thick] (2.5,-.2)--(2.5,4.3) node[right,font=\scriptsize] {edge 1};
-\draw[ink,very thick] (.6,3.9)--(4.2,.3) node[pos=.9,above right,font=\scriptsize] {edge 2};
+\draw[amber,very thick] (2.5,-.2)--(2.5,4.3) node[right,font=\scriptsize] {edge 1 constraint};
+\draw[ink,very thick] (.6,3.9)--(4.2,.3) node[pos=.9,above right,font=\scriptsize] {edge 2 constraint};
 \fill[teal] (2.5,2) circle (3pt);
 \node[teal,font=\scriptsize,anchor=west] at (2.7,2.5) {one velocity};
 \end{tikzpicture}\par
-{\scriptsize Each edge allows a line of velocities, parallel to it.\\Two orientations cross at one velocity.}
+{\scriptsize Each edge constrains one component of velocity. Two independent constraints determine a common velocity.}
 \end{columns}
 \vspace{1mm}
 {\scriptsize\textbf{The flow model in scene terms}}
