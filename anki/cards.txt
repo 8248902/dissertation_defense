@@ -215,8 +215,8 @@ More: The observations are y equals A f, and the images A v_k are orthogonal wit
 
 @ V01 | flow | core | 20,21,90 | prop:time_surface
 Q: Explain the aperture problem to a mathematician outside vision.
-A: A straight edge reveals how quickly it moves across itself. Sliding it along itself produces the same local brightness history, so one velocity component stays free. In velocity space one edge permits a line of answers; another edge orientation can intersect that line and determine both components.
-Keep: normal measured; tangent free; intersect directional constraints
+A: A straight edge reveals only its speed perpendicular to itself. Sliding it along itself produces the same local brightness history, so the tangential component stays free. In velocity space, a separate plot from the image, that edge becomes a constraint line: every velocity with the observed normal component. A second edge orientation gives a second line, and if both edges share the motion, the two lines cross at one velocity.
+Keep: normal measured; tangent free; constraint lines in velocity space cross
 More: The ideal example assumes steady illumination, matching sensor references, and no visible endpoints or other distinguishing features in the local window.
 
 @ V02 | flow | core | 22 | prop:time_surface
@@ -437,8 +437,8 @@ More: Parts of the region on the image border carry the natural Neumann conditio
 
 @ V38 | flow | followup | weakreg,21 | thm:unified_wellposedness,prop:time_surface
 Q: What happens to the flow problem as the smoothness weight goes to zero?
-A: Smoothness is what controls spatial variation, so coercivity weakens with it: a test field supported in an event-free region has energy alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha zero the energy is pointwise, and for the time surface every velocity on the aperture line minimizes it at each pixel. The integrated condition fixes only the mean.
-Keep: coercivity at most alpha squared; pointwise energy; aperture line at each pixel
+A: Smoothness is what controls spatial variation, so coercivity weakens with it: a test field supported in an event-free region has energy alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha zero the energy is pointwise, and for the time surface every velocity on each pixel's constraint line minimizes it. The integrated condition fixes only the mean.
+Keep: coercivity at most alpha squared; pointwise energy; constraint line at each pixel
 More: For the structure tensor at alpha zero, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane. The opposite limit, alpha to infinity, gives one constant flow.
 
 @ V39 | flow | core | 29,43 | thm:convergence
@@ -500,6 +500,12 @@ Q: What changes if timestamp errors are correlated?
 A: Correlation changes the uncertainty and leaves the solve coercive. For a centered symmetric regression design Z with Q equal to Z transpose Z, the slope covariance is the sandwich inverse Q, Z transpose, Sigma, Z, inverse Q, which reduces to sigma squared inverse Q for independent errors. In the temporal solve, any positive-definite covariance Gamma gives the system A transpose Gamma inverse A plus Lambda squared, still positive definite with a positive penalty.
 Keep: sandwich covariance; reduces to sigma squared Q inverse; coercivity from the penalty
 More: A common error mean cancels from a centered slope. Smoothing maps the covariance to S Sigma S transpose, which can be singular, so an inverse-covariance weighting then needs a treatment of its null space.
+
+@ V49 | flow | followup | 21 | prop:time_surface
+Q: On the aperture slide, what do the two lines in the right-hand panel represent?
+A: That panel plots velocities, with axes v_x and v_y, rather than positions in the image. Each line is one edge's constraint: the set of velocities that would produce the events observed at that edge. Edge 1 is vertical, so its events fix the horizontal velocity and leave the vertical one free, which gives a vertical line. A second edge at another orientation gives a line in another direction; if both edges share the motion, the true velocity is where the lines cross.
+Keep: velocity plane, not image plane; constraint line is every event-consistent velocity; crossing is the common velocity
+More: The constraint is v dot n equals the normal speed, so each line is perpendicular to its edge's normal, which makes it parallel to the edge. In the drawing, edge 1 gives v_x equals 2.5 and edge 2 gives v_x plus v_y equals 4.5; they meet at (2.5, 2). This is Adelson and Movshon's intersection of constraints.
 
 @ S01 | stereo | core | 31,depth | eq:depth_conversion
 Q: Why does a small disparity error matter more for distant objects?

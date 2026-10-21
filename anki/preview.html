@@ -23,7 +23,7 @@ body { max-width: 850px; margin: auto; padding: 20px; background: #fafbf9; font-
 article { padding: 22px 0; border-bottom: 1px solid #cbd4d0; } article > details > summary { font-size: 21px; }
 h2 { margin-top: 45px; } p { line-height: 1.6; }
 </style><h1>Defense: spoken mathematics</h1>
-<p>122 cards: 54 core rehearsal, 68 deeper follow-ups. Say your answer before opening a card. The wording is a model, not a script.</p>
+<p>123 cards: 54 core rehearsal, 69 deeper follow-ups. Say your answer before opening a card. The wording is a model, not a script.</p>
 <p><a href='#core'>Core rehearsal</a> · <a href='#followup'>Deeper follow-ups</a></p>
 <h2 id='core'>Core rehearsal</h2>
 <article id='F01'><div class='meta'>F01 · Foundations</div>
@@ -162,8 +162,8 @@ h2 { margin-top: 45px; } p { line-height: 1.6; }
 <article id='V01'><div class='meta'>V01 · Optical flow</div>
 <details><summary>Explain the aperture problem to a mathematician outside vision.</summary><div class='card'><div class="meta">Optical flow · Core rehearsal · V01</div>
 <div class="question">Explain the aperture problem to a mathematician outside vision.</div><hr id="answer">
-<div class="label">One way to say it</div><div class="answer">A straight edge reveals how quickly it moves across itself. Sliding it along itself produces the same local brightness history, so one velocity component stays free. In velocity space one edge permits a line of answers; another edge orientation can intersect that line and determine both components.</div>
-<div class="anchors"><span class="label">Keep these ideas</span><br>normal measured · tangent free · intersect directional constraints</div>
+<div class="label">One way to say it</div><div class="answer">A straight edge reveals only its speed perpendicular to itself. Sliding it along itself produces the same local brightness history, so the tangential component stays free. In velocity space, a separate plot from the image, that edge becomes a constraint line: every velocity with the observed normal component. A second edge orientation gives a second line, and if both edges share the motion, the two lines cross at one velocity.</div>
+<div class="anchors"><span class="label">Keep these ideas</span><br>normal measured · tangent free · constraint lines in velocity space cross</div>
 <details><summary>If pressed</summary><p>The ideal example assumes steady illumination, matching sensor references, and no visible endpoints or other distinguishing features in the local window.</p></details>
 <details class="sources"><summary>Return to the talk / source</summary>Deck p. 20: The aperture problem: what a local view reveals<br><br>Deck p. 21: Motion introduces a new invisible direction<br><br>Deck p. 96: Motion-induced events and the aperture problem<br><br>Dissertation p. 59: Proposition 3.3.4: Time Surface Constraint<br><br>Proof companion: Chapters 3–4 claim–justification tables (10 October 2026), corresponding result.</details></div></details></article>
 <article id='V02'><div class='meta'>V02 · Optical flow</div>
@@ -660,8 +660,8 @@ h2 { margin-top: 45px; } p { line-height: 1.6; }
 <article id='V38'><div class='meta'>V38 · Optical flow</div>
 <details><summary>What happens to the flow problem as the smoothness weight goes to zero?</summary><div class='card'><div class="meta">Optical flow · Deeper follow-up · V38</div>
 <div class="question">What happens to the flow problem as the smoothness weight goes to zero?</div><hr id="answer">
-<div class="label">One way to say it</div><div class="answer">Smoothness is what controls spatial variation, so coercivity weakens with it: a test field supported in an event-free region has energy alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha zero the energy is pointwise, and for the time surface every velocity on the aperture line minimizes it at each pixel. The integrated condition fixes only the mean.</div>
-<div class="anchors"><span class="label">Keep these ideas</span><br>coercivity at most alpha squared · pointwise energy · aperture line at each pixel</div>
+<div class="label">One way to say it</div><div class="answer">Smoothness is what controls spatial variation, so coercivity weakens with it: a test field supported in an event-free region has energy alpha squared times its gradient, so the coercivity constant is at most alpha squared. At alpha zero the energy is pointwise, and for the time surface every velocity on each pixel&#x27;s constraint line minimizes it. The integrated condition fixes only the mean.</div>
+<div class="anchors"><span class="label">Keep these ideas</span><br>coercivity at most alpha squared · pointwise energy · constraint line at each pixel</div>
 <details><summary>If pressed</summary><p>For the structure tensor at alpha zero, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane. The opposite limit, alpha to infinity, gives one constant flow.</p></details>
 <details class="sources"><summary>Return to the talk / source</summary>Deck p. 102: Weak regularization: a limit in time, the aperture line in space<br><br>Deck p. 21: Motion introduces a new invisible direction<br><br>Dissertation p. 93: Theorem 3.6.1: Quadratic variational well-posedness and stability<br><br>Dissertation p. 59: Proposition 3.3.4: Time Surface Constraint<br><br>Proof companion: Chapters 3–4 claim–justification tables (10 October 2026), corresponding result.</details></div></details></article>
 <article id='V40'><div class='meta'>V40 · Optical flow</div>
@@ -720,6 +720,13 @@ h2 { margin-top: 45px; } p { line-height: 1.6; }
 <div class="anchors"><span class="label">Keep these ideas</span><br>sandwich covariance · reduces to sigma squared Q inverse · coercivity from the penalty</div>
 <details><summary>If pressed</summary><p>A common error mean cancels from a centered slope. Smoothing maps the covariance to S Sigma S transpose, which can be singular, so an inverse-covariance weighting then needs a treatment of its null space.</p></details>
 <details class="sources"><summary>Return to the talk / source</summary>Deck p. 73: Correlation changes uncertainty without removing coercivity<br><br>Dissertation p. 62: Proposition 3.3.7: Bias and Variance of the Local Plane Fit<br><br>Dissertation p. 17: Theorem 2.2.5: Uniqueness and Stability<br><br>Proof companion: Chapters 3–4 claim–justification tables (10 October 2026), corresponding result.</details></div></details></article>
+<article id='V49'><div class='meta'>V49 · Optical flow</div>
+<details><summary>On the aperture slide, what do the two lines in the right-hand panel represent?</summary><div class='card'><div class="meta">Optical flow · Deeper follow-up · V49</div>
+<div class="question">On the aperture slide, what do the two lines in the right-hand panel represent?</div><hr id="answer">
+<div class="label">One way to say it</div><div class="answer">That panel plots velocities, with axes v_x and v_y, rather than positions in the image. Each line is one edge&#x27;s constraint: the set of velocities that would produce the events observed at that edge. Edge 1 is vertical, so its events fix the horizontal velocity and leave the vertical one free, which gives a vertical line. A second edge at another orientation gives a line in another direction; if both edges share the motion, the true velocity is where the lines cross.</div>
+<div class="anchors"><span class="label">Keep these ideas</span><br>velocity plane, not image plane · constraint line is every event-consistent velocity · crossing is the common velocity</div>
+<details><summary>If pressed</summary><p>The constraint is v dot n equals the normal speed, so each line is perpendicular to its edge&#x27;s normal, which makes it parallel to the edge. In the drawing, edge 1 gives v_x equals 2.5 and edge 2 gives v_x plus v_y equals 4.5; they meet at (2.5, 2). This is Adelson and Movshon&#x27;s intersection of constraints.</p></details>
+<details class="sources"><summary>Return to the talk / source</summary>Deck p. 21: Motion introduces a new invisible direction<br><br>Dissertation p. 59: Proposition 3.3.4: Time Surface Constraint<br><br>Proof companion: Chapters 3–4 claim–justification tables (10 October 2026), corresponding result.</details></div></details></article>
 <article id='S03'><div class='meta'>S03 · Stereo depth</div>
 <details><summary>What do sum and difference coordinates reveal about stereo coupling?</summary><div class='card'><div class="meta">Stereo depth · Deeper follow-up · S03</div>
 <div class="question">What do sum and difference coordinates reveal about stereo coupling?</div><hr id="answer">
