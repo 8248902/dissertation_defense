@@ -44,8 +44,6 @@ We'll start with the sensor, and how its events become data that an estimator ca
 
 Next is optical flow, where spatial information helps pin down motion. I'll walk through the central theorem and its proof. After a brief summary of stereo depth, I'll finish with the contributions and the questions they open.
 
-One question ties these stages together: what do the observations determine, and what does the model supply?
-
 Before the sensor, let me place this work among the approaches it builds on.
 
 ## Slide 4 — Where this work fits
@@ -162,7 +160,7 @@ Next: when does this integrated observation match a physical brightness change?
 
 ## Slide 11 — From threshold crossings to an approximate observation
 
-So far, y is something we compute from the events. When does it measure something physical?
+So far, y is something we compute from the events.
 
 *[Point to the diagram.]*
 
@@ -227,7 +225,7 @@ The constant mode has eigenvalue zero, so reconstruction removes it entirely. Am
 
 That's what the penalty does to the latent signal. Kernel averaging is a separate step, and it can blur fast changes before the solve.
 
-The curves connect the finite-grid gains so the trend is visible. This mode-by-mode formula holds for a scalar weight. A general positive diagonal still gives the uniqueness theorem, but its effect on the modes needs a fuller matrix analysis.
+The curves connect the finite-grid gains so the trend is visible. A general positive diagonal still gives the uniqueness theorem, but its effect on the modes needs a fuller matrix analysis.
 
 So how are the diagonal weights chosen in the experiments?
 
@@ -235,7 +233,7 @@ So how are the diagonal weights chosen in the experiments?
 
 ## Slide 15 — How are the temporal weights chosen?
 
-Since lambda controls how strongly the reconstruction is pulled toward its reference level. All three rules reduce that pull as the magnitude of net signed activity increases. Sigmoid gives a smooth, bounded transition; inverse-proportional weighting retains a longer tail of shrinkage; and exponential weighting drops rapidly until its input clamp is reached. At our selected scales, inverse-proportional weighting applies the strongest shrinkage.
+Lambda controls how strongly the reconstruction is pulled toward its reference level, and all three rules reduce that pull as the magnitude of net signed activity increases. Sigmoid gives a smooth, bounded transition; inverse-proportional weighting retains a longer tail of shrinkage; and exponential weighting drops rapidly until its input clamp is reached. At our selected scales, inverse-proportional weighting applies the strongest shrinkage.
 
 The rule we selected uses the size of the signed event total in each bin. Positive and negative events can cancel in that total, so it measures net signed activity.
 
@@ -305,7 +303,7 @@ So far, every pixel has been treated on its own. Next, a way to connect the pixe
 
 ## Slide 19 — Shared motion couples temporal profiles to one scene
 
-So far, each pixel's history has been rebuilt on its own. In joint work with Professor Antil and David Sayre that also focuses on reconstruction, called ESAR, the same event constraints describe one static scene seen by a moving camera.
+In joint work with Professor Antil and David Sayre that also focuses on reconstruction, called ESAR, the same event constraints describe one static scene seen by a moving camera.
 
 *[Point to the operator equation.]*
 
@@ -343,7 +341,7 @@ Next, I'll draw this ambiguity for a single edge and state what the flow model a
 
 *[Point to the left diagram: the edge, the teal arrow, then the amber arrow.]*
 
-First, what the camera sees. An edge in the scene is where the light changes sharply: a dark object's outline against a bright wall, or a painted stripe. The camera records only changes: each pixel fires an event when its log brightness changes by a fixed threshold. As this edge sweeps over a pixel, the pixel fires, so the firing times trace where the edge is.
+First, what the camera sees. An edge in the scene is where the light changes sharply: a dark object's outline against a bright wall, or a painted stripe. As this edge sweeps over a pixel, the pixel fires, so the firing times trace where the edge is.
 
 The teal arrow is the edge's motion perpendicular to itself; the dashed line is where it will be a moment later. The amber arrow is motion along the edge. Sliding a straight edge along itself, with its ends out of view, leaves every pixel's brightness unchanged, so the events fix the teal part and leave the amber part free.
 
@@ -353,11 +351,11 @@ The right panel plots possible velocities, not positions. Each line is every vel
 
 A second edge, elsewhere in the image and oriented differently, gives the diagonal line. If both edges move with the same velocity, the crossing picks it out: the ringed dot, v. It's the teal part edge 1 measured, plus the amber part edge 2 fixed.
 
-The two edges don't have to touch or be close. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both. Each edge's perpendicular speed is still matched; the error sits in the along-edge motion the events can't see.
+The two edges don't have to touch or be close. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both.
 
 So the flow model is: the unknown is the image velocity at every pixel; events give each edge's perpendicular speed; neighbors moving alike fill in the rest. The three representations differ in how they get the edge measurement: crossing times, transported event activity, or gradients pooled over a small window.
 
-The last bullet is the condition to remember: edges in two different orientations, anywhere in the recording, give constraint lines that cross, and the crossing fixes the velocity. It's the one hypothesis of the main theorem the scene has to supply, and on slide 26 it decides whether the answer is unique. Next, we'll derive the local constraint behind this picture.
+The condition to remember is edges in two different orientations, anywhere in the recording: their constraint lines cross, and the crossing fixes the velocity. On slide 26 it decides whether the answer is unique. Next, we derive the local constraint behind this picture.
 
 *[If asked whether two orientations anywhere suffice: slide 26; necessity, Backup 35, page 68. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: the events contradict one velocity, and smoothing blends the motions across the boundary, Backup 27, page 60, and Backup 70, page 103.]*
 
@@ -393,7 +391,7 @@ Integrating the transport equation gives another transport equation, now for a. 
 
 The residual is then the spatial gradient of a, dotted with the velocity, plus that time derivative.
 
-The continuous identity holds under the transport assumption with consistent derivatives. Binning and the choice of numerical derivatives can introduce mismatch. The common theorem applies to the fixed coefficients that enter the energy; how accurate the result is physically also depends on how well this representation describes the motion.
+The continuous identity holds under the transport assumption with consistent derivatives. Binning and the choice of numerical derivatives can introduce mismatch.
 
 The third representation pools gradients over a small neighborhood.
 
@@ -413,9 +411,7 @@ A single spatial gradient constrains one direction. Pooling gradients that point
 
 That's one way to get more directional information. The theorem I'll present requires edge directions to be covered somewhere in the domain, and spatial smoothness carries that information to every pixel.
 
-The difference from voxel projection is where the averaging happens. Voxel projection averages over time, assuming constant velocity across the time window, and each pixel contributes a single constraint. The structure tensor averages over space, assuming constant velocity across a small neighborhood, so one neighborhood can contribute constraints in several directions at once. The neighborhood size sets the trade-off between identifying both components and resolving motion boundaries.
-
-So we have three representations. Their coefficients differ, but they all lead to the same kind of variational problem.
+The difference from voxel projection is where the averaging happens. Voxel projection averages over time, assuming constant velocity across the time window, and each pixel contributes a single constraint. The structure tensor averages over space, assuming constant velocity across a small neighborhood. The neighborhood size sets the trade-off between identifying both components and resolving motion boundaries.
 
 *[If asked when sampled gradient directions suffice: Backup 11, page 44. If asked whether integrated directional information is necessary: Backup 35, page 68.]*
 
@@ -455,7 +451,7 @@ Individual locations may give only one direction. Regions with no texture or no 
 
 Connectedness matters because it makes any field with zero gradient a single constant vector over the whole domain. The integrated matrix controls that remaining freedom.
 
-The proof follows this picture directly: split the field into its mean and its fluctuation, and control each part.
+The proof follows this picture directly: it controls the drift and the variation separately.
 
 *[If asked what the estimate does where there are no events: it is the harmonic fill-in of the surrounding motion, Backup 70, page 103. If asked how to check the condition on data: the discrete version is the smallest eigenvalue of the two-by-two sum of sampled data blocks, Backup 11, page 44; its size is the margin m. If asked about a disconnected domain: each component carries its own constant drift and needs its own integrated condition. If asked whether the integrated condition is necessary: Backup 35, page 68. If asked whether the convergence proof covers the solvers used in the experiments: Backup 12, page 45. If asked what happens as alpha goes to zero or grows large: Backup 69, page 102, and Backup 38, page 71.]*
 
@@ -471,7 +467,7 @@ Smoothness charges nothing for a uniform pan, so the data have to fix the mean. 
 
 Together, the energy controls the full H one norm, with a constant c zero that depends on the domain, alpha, the bound on the data matrix, and m. Lax--Milgram then gives the unique minimizer.
 
-So the gradient penalty controls everything except the constants which is controlled by the integrated edge information. The constant c zero shrinks as m shrinks: nearly parallel edges weaken control of the drift. The stripe scene on the next slide comes close to that case.
+The constant c zero shrinks as m shrinks: nearly parallel edges weaken control of the drift. The stripe scene on the next slide comes close to that case.
 
 *[If asked for the derivations: the full proof is Backup 09, page 42. If asked about stability: the same c zero gives a Lipschitz bound in B and b, Backup 10, page 43. If asked what happens when the integrated matrix is singular: a constant velocity direction is uncontrolled, Backup 35. If asked whether the flow is stable with respect to the raw events: Backup 36, page 69. If asked whether one mechanism runs through all three uniqueness results: Backup 64, page 97.]*
 
@@ -479,14 +475,12 @@ So the gradient penalty controls everything except the constants which is contro
 
 *[Give the audience a moment to compare the two rows.]*
 
-These examples use a known diagonal motion. The top row has a stripe texture, and the bottom row a checkerboard. The true-motion arrows and the estimates share a common scale.
+These selected simulation windows illustrate the directional-information argument, using a known diagonal motion. The top row has a stripe texture, and the bottom row a checkerboard. The true-motion arrows and the estimates share a common scale.
 
 Inside a vertical stripe region, the strong gradients are horizontal, so they mainly constrain the normal motion. In the theorem's terms, this texture gives the integrated matrix little energy along the stripes. In the velocity diagram from earlier, the stripe interior gives only one line. The checkerboard has edges along both axes, so its lines cross, which reduces the aperture ambiguity. Object boundaries can add directional information as well. How accurate the estimate is also depends on the representation and the regularization.
 
 
 *[If asked about other methods: the contrast-maximization comparison on these scenes is Backup 43; "why analyze the quadratic family" is Backup 45. If asked how the examples were selected and scored: Backup 44, page 77. If asked about real-data flow: Backup 26, page 59. If asked whether contrast maximization has a global minimizer: Backup 46, page 79. If asked whether the spline regularizer loses coercivity under refinement: Backup 68, page 101.]*
-
-Again, these are selected simulation windows that illustrate the directional-information argument. The purpose here is to connect the geometry of the observations with the conditions in the theorem.
 
 ## Slide 29 — Two viewpoints turn correspondence into depth
 
@@ -500,9 +494,9 @@ By similar triangles, depth is the focal length times the camera baseline, divid
 
 For each left pixel, we compare candidate right pixels along the same row. Each candidate gives a right-view temporal signal to pair with the left one.
 
-Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their observed event signals should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. We call this method WLS, for weighted least squares. The weights come from a count model: if positive and negative events arrive as independent Poisson counts, their difference has variance equal to their total, so busier bins are noisier. Weighting each bin by one over its predicted activity is the Gaussian, least-squares approximation to that. The weights are updated from the current profiles and frozen for each solve, and the result on the next slide covers each frozen solve. The best-scoring candidate gives the disparity, and from that the depth. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates. Concretely, the inner level is a small positive-definite linear system for each pixel and candidate, solved directly and repeated a few times with updated weights; the pixels run in parallel. Each solve produces one score. Collecting the scores over all pixels and candidates gives a cost volume. The outer level aggregates that volume spatially with semi-global matching and takes the minimum along the disparity axis.
+Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their observed event signals should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. We call this method WLS, for weighted least squares. The weights come from a count model: if positive and negative events arrive as independent Poisson counts, their difference has variance equal to their total, so busier bins are noisier. Weighting each bin by one over its predicted activity is the Gaussian, least-squares approximation to that. The weights are updated from the current profiles and frozen for each solve, and the result on the next slide covers each frozen solve. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates. Concretely, the inner level is a small positive-definite linear system for each pixel and candidate, solved directly and repeated a few times with updated weights; the pixels run in parallel. Each solve produces one score. Collecting the scores over all pixels and candidates gives a cost volume. The outer level aggregates that volume spatially with semi-global matching and takes the lowest-cost candidate as the disparity, from which depth follows.
 
-The model assumes the candidate match holds approximately over the window, with the scene point visible in both views. The key distinction is between solving for the profiles and choosing the match.
+The model assumes the candidate match holds approximately over the window, with the scene point visible in both views.
 
 *[If asked why the two pixel histories should agree when the rig and scene move: Backup 49, page 82. If asked what quantity the disparity choice compares: Backup 53, page 86. If asked why the weights treat busy intervals as noisier: Backup 58, page 91; on heavy tails, Backup 24, page 57. If asked what a disparity error means for depth: Backup 57, page 90. For the full stereo argument: Backup 47, page 80; in one slide, Backup 48, page 81; the unknowns, Backup 50, page 83. If asked for a probabilistic reading of the attenuation: Backup 29, page 62.]*
 
@@ -514,7 +508,7 @@ At each candidate disparity, the model solves for one temporal profile per view.
 
 *[Point to the two labels.]*
 
-The mathematical result is for a fixed disparity with the weights frozen. The coupling term is nonnegative, so the temporal coercivity proof carries over, and the inner problem has a unique solution. The benchmark runs the full method: the weights are updated, the costs are aggregated over neighboring pixels, and the lowest-cost candidate gives the disparity.
+The mathematical result is for a fixed disparity with the weights frozen. The coupling term is nonnegative, so the temporal coercivity proof carries over, and the inner problem has a unique solution. The benchmark runs the full method described on the previous slide.
 
 Back on MVSEC, here's how that performs on the indoor flying sequences, against the dataset's lidar-based ground-truth depth. The first four columns are mean depth error in centimeters, one per sequence. Then log RMSE, and the number of scored points.
 
@@ -538,7 +532,7 @@ For flow, the events give directional constraints on the motion. Smoothness and 
 
 For stereo, the two cameras give paired event-feature profiles. At a fixed candidate disparity, with the weights frozen, the inner solve is unique. Choosing the disparity is a separate comparison across candidates.
 
-The proof tools are classical. The contribution is the analysis of these event-derived models under explicit hypotheses: what the observations control, and what the model selects.
+The proof tools are classical. The contribution is the analysis of these event-derived models under explicit hypotheses.
 
 Those results point to a few research directions.
 
