@@ -811,7 +811,7 @@ Display / error & Common arrow scale; AEE is mean Euclidean displacement error, 
 Warp each event to a common normalized reference time:
 \[\mathbf x_k^w=\mathbf x_k+(\widetilde t_{\rm ref}-\widetilde t_k)\mathbf q(\mathbf x_k),
 \qquad \mathbf q=T\vct_{\rm phys}.\]
-Represent $\mathbf q$ by continuous B-splines with coefficients $\mathbf c$.
+Represent $\mathbf q$ by a tensor-product cubic B-spline on a uniform knot grid ($h=8$\,px), with coefficients $\mathbf c$; both components share the basis.
 \[F(\mathbf c)=-\operatorname{Var}(I_{\mathbf c})+\mathbf c^\top\K_{\rm reg}\mathbf c,
 \qquad \K_{\rm reg}\succeq\tau_{\rm ridge}\mathbf I,\quad\tau_{\rm ridge}>0.\]
 \begin{itemize}
@@ -821,7 +821,7 @@ Represent $\mathbf q$ by continuous B-splines with coefficients $\mathbf c$.
 \takeaway{The full objective is generally nonconvex. The quadratic flow theorem does not apply.}
 % source detail: Ch. 3, sec:cmax, prop:cmax\_wellposed, prop:cmax\_existence.
 \src{\dref{Section}{sec:cmax}, \dref{Proposition}{prop:cmax_wellposed}, \dref{Proposition}{prop:cmax_existence}; contrast maximization~\cite{gallego2018unifying}.}
-\talknote{Nonconvex extension; 60 seconds.}{In this model the unknown changes the represented data during optimization. q is displacement in pixels per normalized window, avoiding a confusion between velocity and normalized time. A continuous spline basis supplies well-defined event-location evaluations. General H1 equivalence classes in two dimensions cannot be evaluated at prescribed points without more regularity.}{The regularizer has a diffusion floor and a coefficient ridge with different roles. A positive diffusion floor penalizes all nonconstant spline variations but still leaves global translations free. The coefficient ridge controls those constant-flow directions and supplies coercivity of the full finite-dimensional objective.}
+\talknote{Nonconvex extension; 60 seconds.}{In this model the unknown changes the represented data during optimization. q is displacement in pixels per normalized window, avoiding a confusion between velocity and normalized time. The flow is a tensor-product cubic B-spline on a uniform 8-pixel knot grid, with the two components sharing one basis. This continuous basis supplies well-defined event-location evaluations. General H1 equivalence classes in two dimensions cannot be evaluated at prescribed points without more regularity.}{The regularizer has a diffusion floor and a coefficient ridge with different roles. A positive diffusion floor penalizes all nonconstant spline variations but still leaves global translations free. The coefficient ridge controls those constant-flow directions and supplies coercivity of the full finite-dimensional objective.}
 \end{frame}
 
 \begin{frame}{A global minimizer exists, even though the solver is local}
