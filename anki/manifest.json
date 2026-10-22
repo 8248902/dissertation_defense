@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-10-22T14:06:13.600376+00:00",
+  "built_at_utc": "2026-10-22T14:13:03.141216+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 123,
   "cards": 123,
@@ -39,8 +39,8 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "7ea479e6d17437d746a39812e0319eb01625e9b924d0933221ed1f03643359c1",
-    "defense-core.apkg": "0bb231b50cdbb7ab7bde4beb1174c68c06ec41e90d1a4dbac572faf182fafa30",
+    "defense-oral.apkg": "3f06b8b1c0a6f6d91424aa4bd542a00eca1c705b05aebd0f1cfbc29fd760e529",
+    "defense-core.apkg": "d7b4e6baba9894c446d06c6e9d9ba0dc599c710120f97fb11da83ab9101b8889",
     "defense-oral.tsv": "8e3fb464b1d2dce554d7abe639f7e08dbc70c0eb3a785ba80143f8d64b281e92",
     "preview.html": "c2976b2279eba09576a03d522d221bc8a404646ad754dcf0f3291d8b0a8453a9"
   }

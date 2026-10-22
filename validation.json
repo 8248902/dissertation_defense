@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-22T14:05:52+00:00",
+  "generated_at_utc": "2026-10-22T14:12:43+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 33,
   "backup_frames": 73,
@@ -45,9 +45,9 @@
     "Makefile": "c386324167799aeacffe165bbe11bb54713c3ca7f4dd5f1a7605d80ed8d075d2",
     "reference_support.py": "37bc847eb4983c31b17e9152a0167460d0b983d02632a5d41c3482cdc160c046",
     "thesis-references.json": "2cc4fea33f1e34525de90ee51862336ce4ca2d62c23a03b7ea3e5427c7e67828",
-    "defense.pdf": "e56dcd58a439a1224b59cbad3ed189ce359adaeb02ad0ec090e54024d04de18d",
-    "defense-notes.pdf": "51c1cd52cd4de05f4523e6de66b8ba5bb908818f210fce6e3a0e933d6f189dba",
-    "defense-script.pdf": "2396c0f3832614f422758b78c484544ebe649bba29a10b12963fa49307ac5bb2",
-    "defense-committee.pdf": "43185d25f60370ae49767cb3d61383082ccf9b33357b1e793635c99607af103a"
+    "defense.pdf": "12084a5d77ba2fd8b3d73ed125e9494cb3aec9d801c1b53696e1a7f6fdbef03a",
+    "defense-notes.pdf": "089ea62f2a8a18b48fb9efb245e675c598cb5ed55876ee5ecc85f7ec608f8f6a",
+    "defense-script.pdf": "f7b0bc64968b88601f430ff3ce767656cf6db562e41549ac12346ad26a0342cd",
+    "defense-committee.pdf": "30313540fb1716693cc7a74d9089a8d5b6beb59018cdd0f2630d05fdf8f1cc19"
   }
 }
