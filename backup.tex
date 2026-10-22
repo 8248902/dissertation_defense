@@ -6,7 +6,7 @@
 \column{.48\textwidth}
 \textbf{Observation and temporal inversion}
 \begin{itemize}
-\item Minimal uniqueness condition / gauge
+\item Minimal uniqueness condition / reference level
 \item Measure-valued continuous-time limit
 \item Signal gain versus noise gain
 \item Kernels; \ifdefined\DefenseNotes metrics; real time; $\Lam(\mathbf y)$ stability\else\hyperlink{metricguide}{metrics}; \hyperlink{realtime}{real time}; \hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
@@ -55,10 +55,10 @@ On a connected first-difference chain, $\ker\A=\operatorname{span}\{\mathbf1\}$.
 \item A single nonzero diagonal penalty entry removes that constant mode.
 \item Fixing one reference value or imposing zero mean also removes it.
 \end{itemize}
-\takeaway{A gauge resolves the mathematical ambiguity; a measured reference would add physical information.}
+\takeaway{Any choice of reference level resolves the mathematical ambiguity; a measured reference would add physical information.}
 % source detail: Ch. 2, lem:nullspace; Ch. 4, discussion following lem:A\_spectrum.
 \src{\dref{Lemma}{lem:nullspace}; discussion following \dref{Lemma}{lem:A_spectrum}.}
-\talknote{Question: why use a full positive diagonal?}{The main theorem's positive diagonal is a strong sufficient hypothesis with an immediate quantitative lower bound. It is not necessary for definiteness. The kernel-intersection argument shows the minimal condition. A one-point anchoring penalty gives definiteness, but its eigenvalue bound is not the same as lambda\_min squared when other diagonal entries are zero.}{An explicit zero-mean parameterization can avoid penalizing the unobserved offset. It changes the estimator: the original magnitude penalty also attenuates nonconstant modes and controls noise. Choosing a gauge alone never recovers an unmeasured absolute brightness baseline.}
+\talknote{Question: why use a full positive diagonal?}{The main theorem's positive diagonal is a strong sufficient hypothesis with an immediate quantitative lower bound. It is not necessary for definiteness. The kernel-intersection argument shows the minimal condition. A one-point anchoring penalty gives definiteness, but its eigenvalue bound is not the same as lambda\_min squared when other diagonal entries are zero.}{An explicit zero-mean parameterization can avoid penalizing the unobserved offset. It changes the estimator: the original magnitude penalty also attenuates nonconstant modes and controls noise. A chosen reference level fixes the estimate's offset; the absolute brightness baseline needs a measurement.}
 \end{frame}
 
 \begin{frame}{The event measure has a jump primitive}

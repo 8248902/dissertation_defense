@@ -106,7 +106,7 @@
 \end{tikzpicture}
 \end{columns}
 \vspace{-1mm}
-{\footnotesize Dashed line: a moving bright bar. Teal: brightening ($+$); amber: darkening ($-$).}
+{\footnotesize Dashed line: the leading edge of a moving bright bar. Teal: brightening ($+$); amber: darkening ($-$).}
 \begin{itemize}\footnotesize
 % source: Gallego et al., "Event-based Vision: A Survey," IEEE TPAMI 44(1), 2022, abstract (gmuETD.bib gallego2022event).
 \item Microsecond timestamps, about $140$\,dB dynamic range versus $60$\,dB, low power, little motion blur~\cite{gallego2022event}.
@@ -147,25 +147,40 @@ The preceding reset $s_k^-$ is \textbf{local to that pixel}.
 \begin{frame}{From events to images, motion, and depth}
 \begin{columns}[T]
 \column{.32\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/bspline_reconstruction.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/indoor_flying2_t47p6/bspline_reconstruction.png}\par\vspace{1mm}
 {\small\textbf{Image reconstruction}}\par
 {\footnotesize Ch.\ 2}\par
 {\scriptsize Grayscale: reconstructed value.}
 \column{.32\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/cmax_flow_event_pixels.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/indoor_flying2_t47p6/cmax_flow_event_pixels.png}\par\vspace{1mm}
 {\small\textbf{Optical-flow estimate}}\par
 {\footnotesize Ch.\ 3; event-active pixels}\par
-{\scriptsize Color: direction and magnitude.}
+\begin{tikzpicture}[baseline=(wheel.center)]
+\node[inner sep=0pt] (wheel) at (0,0) {\phantom{\rule{.7cm}{.7cm}}};
+\foreach \a in {0,10,...,350}{%
+  \pgfmathsetmacro{\hue}{\a/360}\definecolor{wheelhue}{hsb}{\hue,1,1}%
+  \begin{scope}\clip (0,0)--(-\a:.32)--(-\a-11:.32)--cycle;
+  \shade[inner color=black,outer color=wheelhue] (0,0) circle (.32);\end{scope}}
+\node[font=\tiny,inner sep=1pt] at (0:.47) {$\rightarrow$};\node[font=\tiny,inner sep=1pt] at (-90:.46) {$\downarrow$};
+\node[font=\tiny,inner sep=1pt] at (180:.47) {$\leftarrow$};\node[font=\tiny,inner sep=1pt] at (90:.46) {$\uparrow$};
+\node[font=\tiny,align=left,anchor=west] at (.62,0) {hue: direction\\brightness: size\\(full at $\approx14$\,px)};
+\end{tikzpicture}
 \column{.32\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/indoor_flying2_t47p6/wls_depth.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/indoor_flying2_t47p6/wls_depth.png}\par\vspace{1mm}
 {\small\textbf{Stereo-depth estimate}}\par
 {\footnotesize Ch.\ 4}\par
 % source: figures/indoor_flying2_t47p6/metadata.json, wls_display.
-{\scriptsize Depth: $0.5$--$8$\,m, blue to red (jet).}
+\begin{tikzpicture}
+\foreach \i in {0,...,59}{\pgfmathsetmacro{\t}{\i/59}%
+  \pgfmathsetmacro{\jr}{min(max(1.5-abs(4*\t-3),0),1)}\pgfmathsetmacro{\jg}{min(max(1.5-abs(4*\t-2),0),1)}\pgfmathsetmacro{\jb}{min(max(1.5-abs(4*\t-1),0),1)}%
+  \definecolor{jetstep}{rgb}{\jr,\jg,\jb}\fill[jetstep] ({.04*\i},0) rectangle ({.04*\i+.05},.16);}
+\node[font=\tiny,anchor=north] at (0,0) {$0.5$};\node[font=\tiny,anchor=north] at (2.4,0) {$8$\,m};
+\node[font=\tiny,anchor=south] at (1.2,.16) {depth (jet), near to far};
+\end{tikzpicture}
 \end{columns}
-\vspace{2mm}
+\vspace{1mm}
 % source: figures/indoor_flying2_t47p6/metadata.json, reconstruction and flow timestamps and WLS center.
-{\footnotesize MVSEC indoor\_flying2, near $47.6$\,s; stereo depth uses two cameras.}
+{\footnotesize MVSEC~\cite{MVSEC2018} indoor\_flying2, drone-mounted event cameras, near $47.6$\,s; stereo depth uses both.}
 \takeaway{Each problem leaves a different choice: a brightness baseline, motion along an edge, and which pixels correspond.}
 % source detail: Saved HPC estimates; provenance, hashes, timestamps, display scales, and masks in figures/indoor_flying2_t47p6/metadata.json.
 \src{Methods: \dref{Chapter}{ch:monocular_reconstruction}, \dref{Chapter}{ch:optical_flow}, and \dref{Chapter}{ch:stereo_depth_estimation}; MVSEC~\cite{MVSEC2018}.}

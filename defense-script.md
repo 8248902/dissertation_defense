@@ -64,7 +64,7 @@ Now to the sensor, and the observations these models use.
 
 *[Trace the moving bar through the two diagrams.]*
 
-A conventional camera samples the whole image at fixed frame times. In the left diagram, each vertical column is one frame across all the pixels. The diagonal bar is a bar moving across a scene.
+A conventional camera samples the whole image at fixed frame times. In the left diagram, each vertical column is one frame across all the pixels. The dashed diagonal line is an edge moving across the scene the pixels are viewing: time runs left to right, and the pixels are stacked vertically.
 
 In an event camera, each pixel works on its own. When the leading edge of this bright bar reaches a pixel, the pixel gets brighter and fires a positive event. When the trailing edge passes, it gets darker and fires a negative event.
 
@@ -92,9 +92,9 @@ Real sensors add threshold variation and other errors. We use the ideal rule to 
 
 *[Indicate the three panels from left to right.]*
 
-These three estimates come from the same indoor flight, at nearly the same moment. Each method uses its own observation window, and the depth estimate uses two cameras.
+These three estimates come from MVSEC, the Multi-Vehicle Stereo Event Camera dataset. It records a synchronized pair of event cameras on a drone flying indoors and on a car driving outdoors. The cameras also capture ordinary frames, which we use as reference images, and the dataset includes lidar-derived ground-truth depth, which we'll use for stereo. All three estimates here come from one indoor flight, at nearly the same moment. Each method uses its own observation window, and the depth estimate uses two cameras.
 
-On the left is an image reconstructed by the temporal model. In the middle is optical flow, the apparent motion in the image plane. Color shows the direction and size of the motion wherever events occurred. On the right is depth from the two event cameras, with the color scale running from half a meter to eight meters.
+On the left is an image reconstructed by the temporal model. In the middle is optical flow, the apparent motion in the image plane. Color shows the direction and size of the motion wherever events occurred; white marks pixels with no events. The color wheel under the panel is the key. Hue is direction, measured in image coordinates with the vertical axis pointing down: red is motion to the right, yellow-green is down, cyan is left, and violet is up. The diagonals fall between them: orange for down and right, green for down and left, blue for up and left, and rose for up and right. Brightness is size: black is no motion, and full color is a displacement of about fourteen pixels over the observation window, the ninety-fifth percentile of the pixels shown. In this frame, the floor at the bottom is mostly yellow-green, so those pixels are moving down the image. On the right is depth from the two event cameras, with the color scale running from half a meter to eight meters.
 
 Each problem has its own difficulty. For reconstruction, the brightness baseline is unknown. For flow, a local edge reveals the motion across it and leaves the motion along it free. For stereo, we have to decide which points in the two views are the same point in the scene.
 
@@ -245,9 +245,7 @@ Here's what these choices give on real data.
 
 *[Point to the images, then to the table.]*
 
-MVSEC, the Multi-Vehicle Stereo Event Camera dataset, records a synchronized pair of event cameras on a drone flying indoors and on a car driving outdoors. The cameras also capture ordinary frames, which give the reference image here, and the dataset includes lidar-derived ground-truth depth, which we'll use later for stereo.
-
-The pictures are a representative example from MVSEC indoor flying two: a reference image, and an event-only reconstruction with sigmoid weights. The table summarizes the kernel comparison over the indoor flying sequences.
+The pictures are a representative example from MVSEC indoor flying two, the dataset from slide 7: a reference image from the ordinary frames, and an event-only reconstruction with sigmoid weights. The table summarizes the kernel comparison over the indoor flying sequences.
 
 The reconstruction makes the scene structure visible. The table reports two things: PSNR, which measures similarity to the reference image, and the condition number of the linear system. PSNR also scores the absolute brightness level, which the model selects, so it measures something different from agreement with the recorded changes.
 
