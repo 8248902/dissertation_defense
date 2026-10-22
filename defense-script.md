@@ -315,6 +315,8 @@ To recover the scene, we fit it to all the event counts at once: least squares p
 
 Here's a simulated example: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
 
+Temporal reconstruction solves for each pixel's history independently, where the only free direction is the baseline. ESAR solves for one static scene through a known motion, so the pixels are coupled and the free directions are the patterns the motion leaves invisible.
+
 Here the motion was known. In optical flow, the motion is the unknown.
 
 *[If asked what regularization supplies when the observations leave directions free: Backup 64, page 97. If asked about related prior work: Backup 32, page 65.]*
