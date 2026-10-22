@@ -499,7 +499,7 @@ By similar triangles, depth is the focal length times the camera baseline, divid
 
 For each left pixel, we compare candidate right pixels along the same row. Each candidate gives a right-view temporal signal to pair with the left one.
 
-Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their event profiles should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. We call this method WLS, for weighted least squares. The weights come from a count model: if positive and negative events arrive as independent Poisson counts, their difference has variance equal to their total, so busier bins are noisier. Weighting each bin by one over its predicted activity is the Gaussian, least-squares approximation to that. The weights are updated from the current profiles and frozen for each solve, and the result on the next slide covers each frozen solve. The best-scoring candidate gives the disparity, and from that the depth. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates.
+Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their observed event signals should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. We call this method WLS, for weighted least squares. The weights come from a count model: if positive and negative events arrive as independent Poisson counts, their difference has variance equal to their total, so busier bins are noisier. Weighting each bin by one over its predicted activity is the Gaussian, least-squares approximation to that. The weights are updated from the current profiles and frozen for each solve, and the result on the next slide covers each frozen solve. The best-scoring candidate gives the disparity, and from that the depth. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates. Concretely, the inner level is a small positive-definite linear system for each pixel and candidate, solved directly and repeated a few times with updated weights; the pixels run in parallel. Each solve produces one score. Collecting the scores over all pixels and candidates gives a cost volume. The outer level aggregates that volume spatially with semi-global matching and takes the minimum along the disparity axis.
 
 The model assumes the candidate match holds approximately over the window, with the scene point visible in both views. The key distinction is between solving for the profiles and choosing the match.
 
@@ -1117,7 +1117,7 @@ Deck page: 62.
 
 Yes, for the Gaussian model with fixed common parameters. Read the magnitude and coupling penalties as a Gaussian prior on the two latent profiles, and assume independent unit-variance Gaussian observation noise. After integrating out the profiles, the right observation given the left is Gaussian. Its mean is c, the same shifted center as in the cost ellipsoid, and its covariance is the inverse of two P.
 
-So the model predicts an attenuated profile, rather than necessarily the left observation itself. For a scalar regularizer, that attenuation is diagonal in the temporal observation modes. Comparing the coupled model's evidence with the independent model's leaves the discrepancy term plus a constant that is the same for every candidate. Under these Gaussian assumptions, that explains both the shifted prediction and a possible discrepancy-based comparison.
+So the model predicts an attenuated right observation, rather than necessarily the left observation itself. For a scalar regularizer, that attenuation is diagonal in the temporal observation modes. Comparing the coupled model's evidence with the independent model's leaves the discrepancy term plus a constant that is the same for every candidate. Under these Gaussian assumptions, that explains both the shifted prediction and a possible discrepancy-based comparison.
 
 ### If asked for more
 
@@ -1467,7 +1467,7 @@ On the MVSEC benchmark, WLS leads on indoor flying two and narrowly on the aggre
 
 Deck page: 82.
 
-**Likely question:** Why should two pixel histories agree when the rig and scene are moving?
+**Likely question:** Why should two pixels' observed event signals agree when the rig and scene are moving?
 
 ### Answer
 
@@ -1477,7 +1477,7 @@ The preprocessing also compensates motion within each slice. It fits one global 
 
 When the warps agree, the comparison is preserved. A horizontal mismatch changes the disparity the matcher sees; a vertical mismatch moves the correspondence off its row. The reported slices are twelve and a half milliseconds wide, within a quarter-second evaluation window.
 
-The inner positive-definite system gives a unique fit to whatever profiles it receives. Whether that fit reflects the physical correspondence also depends on the timing, calibration, and motion approximation used to build the profiles.
+The inner positive-definite system gives a unique fit to whatever observations it receives. Whether that fit reflects the physical correspondence also depends on the timing, calibration, and motion approximation used to build the observations.
 
 ### If asked for more
 
