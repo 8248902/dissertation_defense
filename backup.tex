@@ -479,16 +479,27 @@ Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\m
 \begin{frame}{A real MVSEC flow example is qualitative}
 \centering
 % source: Ch. 3 fig:vox_comparison; six source panels, MVSEC indoor_flying2 frame 0340.
-\small MVSEC indoor\_flying2, frame 0340.\par\vspace{1mm}
+\small MVSEC indoor\_flying2, frame 0340.\quad
+% source: Ch. 3 appendix ch3_protocol, flow rendering: hue encodes direction; each panel scales brightness by its own finite 95th-percentile magnitude.
+\begin{tikzpicture}[baseline=(wheel.center)]
+\node[inner sep=0pt] (wheel) at (0,0) {\phantom{\rule{.7cm}{.7cm}}};
+\foreach \a in {0,10,...,350}{%
+  \pgfmathsetmacro{\hue}{\a/360}\definecolor{wheelhue}{hsb}{\hue,1,1}%
+  \begin{scope}\clip (0,0)--(-\a:.32)--(-\a-11:.32)--cycle;
+  \shade[inner color=black,outer color=wheelhue] (0,0) circle (.32);\end{scope}}
+\node[font=\tiny,inner sep=1pt] at (0:.47) {$\rightarrow$};\node[font=\tiny,inner sep=1pt] at (-90:.46) {$\downarrow$};
+\node[font=\tiny,inner sep=1pt] at (180:.47) {$\leftarrow$};\node[font=\tiny,inner sep=1pt] at (90:.46) {$\uparrow$};
+\node[font=\tiny,align=left,anchor=west] at (.62,0) {hue: direction\\brightness: size, scaled within each panel\\(95th percentile); white: no flow value};
+\end{tikzpicture}\par\vspace{1mm}
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{ccc}
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/gray_0340.png}&
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_gt_0340.png}&
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_acc_0340.png}\\
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/gray_0340.png}&
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_gt_0340.png}&
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_acc_0340.png}\\
 Reference&Ground truth&Event-accumulation baseline\\[2mm]
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_ts_0340.png}&
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_0340.png}&
-\includegraphics[width=.30\textwidth,height=1.85cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_struct_0340.png}\\
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_ts_0340.png}&
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_0340.png}&
+\includegraphics[width=.30\textwidth,height=1.5cm,keepaspectratio]{figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_struct_0340.png}\\
 Time surface&Voxel&Structure tensor voxel
 \end{tabular}
 \takeaway{This is one qualitative example; Chapter 3 reports no aggregate real-data AEE.}

@@ -6,3 +6,4 @@ build/
 *.snm
 *.toc
 *.vrb
+__pycache__/

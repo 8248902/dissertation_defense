@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-10-22T13:52:23.045580+00:00",
+  "built_at_utc": "2026-10-22T14:06:13.600376+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 123,
   "cards": 123,
@@ -29,9 +29,9 @@
     "anki/README.txt": "89fc4ec5240f428d0e9f37101f7bbaf6a4a8125e2253b1846afa362f470eb3e0",
     "anki/slide_titles.json": "797b2ce4af570e45afcf074f35cfd2a9773a93e4b2f383f2a1964691d6c993f6",
     "core.tex": "b076d2cf1960c909cee378a23bbd688094a12d8112fd39ecc3bc64e82919d26c",
-    "backup.tex": "e8597064dd90dcd566d829ad80980bbb53db29973380abb0d5433190b11db936",
-    "defense-script.md": "31b9ef8df9519b529ac2b605a16002ecb47156cf3e2139007723c09256a9c33f",
-    "source-map.csv": "f1e39eee6a38acb08b1d1f870495d9aea1d94abf85a49708175c35bf02697a31",
+    "backup.tex": "f00a65a3fb22346a054b3d3bb9d87a52a3bd71c6df99728a82b5e353242f88df",
+    "defense-script.md": "0e53f53fa4f350fb587c717f646b12e29322b48677839316880bfea1260d7d4a",
+    "source-map.csv": "63c89155798cce41b95021a48e5704b6404a9f9ad7e45b99840d0f7af2ef4d7d",
     "thesis-references.json": "2cc4fea33f1e34525de90ee51862336ce4ca2d62c23a03b7ea3e5427c7e67828",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "041411c89ffdeed7324f0544b4a7496d651a80488977418c45df764cc9657491",
@@ -39,8 +39,8 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "069b48c9e8ae2d698646d09d15334976602a31d7befc287edf196def7775226a",
-    "defense-core.apkg": "fcfb932677557f38dc12463e38a47fb038cda0bd11e5c96b8eac4542a0928a32",
+    "defense-oral.apkg": "7ea479e6d17437d746a39812e0319eb01625e9b924d0933221ed1f03643359c1",
+    "defense-core.apkg": "0bb231b50cdbb7ab7bde4beb1174c68c06ec41e90d1a4dbac572faf182fafa30",
     "defense-oral.tsv": "8e3fb464b1d2dce554d7abe639f7e08dbc70c0eb3a785ba80143f8d64b281e92",
     "preview.html": "c2976b2279eba09576a03d522d221bc8a404646ad754dcf0f3291d8b0a8453a9"
   }
