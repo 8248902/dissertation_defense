@@ -357,7 +357,7 @@ The two edges don't have to touch or be close. The model assumes neighboring pix
 
 So the flow model is: the unknown is the image velocity at every pixel; events give each edge's perpendicular speed; neighbors moving alike fill in the rest. The three representations differ in how they get the edge measurement: crossing times, transported event activity, or gradients pooled over a small window.
 
-Hold on to the last bullet: somewhere in the recording, edges in at least two orientations, so their lines cross. It's the one hypothesis of the main theorem the scene has to supply, and on slide 26 it decides whether the answer is unique. Next, we'll derive the local constraint behind this picture.
+The last bullet is the condition to remember: edges in two different orientations, anywhere in the recording, give constraint lines that cross, and the crossing fixes the velocity. It's the one hypothesis of the main theorem the scene has to supply, and on slide 26 it decides whether the answer is unique. Next, we'll derive the local constraint behind this picture.
 
 *[If asked whether two orientations anywhere suffice: slide 26; necessity, Backup 35, page 68. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: the events contradict one velocity, and smoothing blends the motions across the boundary, Backup 27, page 60, and Backup 70, page 103.]*
 
@@ -403,7 +403,7 @@ The third representation pools gradients over a small neighborhood.
 
 The structure tensor pools several nearby gradients of the represented event field.
 
-Each space-time gradient contributes an outer product. With nonnegative pooling weights, the result is positive semidefinite, because its quadratic form is an integral of squares.
+Each space-time gradient contributes an outer product. With nonnegative pooling weights, the result is positive semidefinite, because its quadratic form is an integral of squares. Contracting J with the augmented velocity gives the pooled squared transport residual: for one gradient, the residual is V_x v_x plus V_y v_y plus V_t, and its square is the augmented velocity times that gradient's outer product times the augmented velocity.
 
 *[Point to the spatial block and the temporal cross term.]*
 
@@ -411,7 +411,9 @@ The spatial block gives the quadratic dependence on the two velocity components.
 
 A single spatial gradient constrains one direction. Pooling gradients that point in different directions can constrain both components at one location.
 
-That's one way to get more directional information. The theorem I'll present needs less: enough information across the whole domain, together with spatial smoothness.
+That's one way to get more directional information. The theorem I'll present requires edge directions to be covered somewhere in the domain, and spatial smoothness carries that information to every pixel.
+
+The difference from voxel projection is where the averaging happens. Voxel projection averages over time, assuming constant velocity across the time window, and each pixel contributes a single constraint. The structure tensor averages over space, assuming constant velocity across a small neighborhood, so one neighborhood can contribute constraints in several directions at once. The neighborhood size sets the trade-off between identifying both components and resolving motion boundaries.
 
 So we have three representations. Their coefficients differ, but they all lead to the same kind of variational problem.
 
@@ -469,7 +471,7 @@ Smoothness charges nothing for a uniform pan, so the data have to fix the mean. 
 
 Together, the energy controls the full H one norm, with a constant c zero that depends on the domain, alpha, the bound on the data matrix, and m. Lax--Milgram then gives the unique minimizer.
 
-So the gradient penalty controls everything except the constants, and the integrated edge information controls the constants. The constant c zero shrinks as m shrinks: nearly parallel edges weaken control of the drift. The stripe scene on the next slide comes close to that case.
+So the gradient penalty controls everything except the constants which is controlled by the integrated edge information. The constant c zero shrinks as m shrinks: nearly parallel edges weaken control of the drift. The stripe scene on the next slide comes close to that case.
 
 *[If asked for the derivations: the full proof is Backup 09, page 42. If asked about stability: the same c zero gives a Lipschitz bound in B and b, Backup 10, page 43. If asked what happens when the integrated matrix is singular: a constant velocity direction is uncontrolled, Backup 35. If asked whether the flow is stable with respect to the raw events: Backup 36, page 69. If asked whether one mechanism runs through all three uniqueness results: Backup 64, page 97.]*
 
@@ -481,11 +483,10 @@ These examples use a known diagonal motion. The top row has a stripe texture, an
 
 Inside a vertical stripe region, the strong gradients are horizontal, so they mainly constrain the normal motion. In the theorem's terms, this texture gives the integrated matrix little energy along the stripes. In the velocity diagram from earlier, the stripe interior gives only one line. The checkerboard has edges along both axes, so its lines cross, which reduces the aperture ambiguity. Object boundaries can add directional information as well. How accurate the estimate is also depends on the representation and the regularization.
 
-The voxel and structure-tensor columns illustrate the quadratic representations from the talk.
 
 *[If asked about other methods: the contrast-maximization comparison on these scenes is Backup 43; "why analyze the quadratic family" is Backup 45. If asked how the examples were selected and scored: Backup 44, page 77. If asked about real-data flow: Backup 26, page 59. If asked whether contrast maximization has a global minimizer: Backup 46, page 79. If asked whether the spline regularizer loses coercivity under refinement: Backup 68, page 101.]*
 
-These are selected simulation windows that illustrate the directional-information argument. A quantitative assessment across real scenes would need a broader evaluation. The purpose here is to connect the geometry of the observations with the conditions in the theorem.
+Again, these are selected simulation windows that illustrate the directional-information argument. The purpose here is to connect the geometry of the observations with the conditions in the theorem.
 
 ## Slide 29 — Two viewpoints turn correspondence into depth
 
