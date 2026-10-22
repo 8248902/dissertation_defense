@@ -13,11 +13,11 @@
 \centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/reference.png}\par\vspace{1mm}
 {\small\textbf{Reference image}}
 \column{.30\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/events_accumulation.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/events_accumulation_orange_positive.png}\par\vspace{1mm}
 {\small\textbf{Accumulated events}}\par
 % source: figures/mvsec_outdoor_day1/defense_matched/metadata.json, display_event_window_duration_s and accumulation_rule.
 {\scriptsize $50$\,ms sample}\par
-{\scriptsize\textcolor[RGB]{0,118,160}{Blue $+$}; \textcolor[RGB]{204,76,31}{orange $-$}; \textcolor[RGB]{119,70,151}{purple: both}.}
+{\scriptsize\textcolor[RGB]{204,76,31}{Orange $+$}; \textcolor[RGB]{0,118,160}{blue $-$}; \textcolor[RGB]{119,70,151}{purple: both}.}
 \column{.035\textwidth}
 \vspace{1.1cm}\centering\textcolor{teal}{$\rightarrow$}
 \column{.30\textwidth}
@@ -27,10 +27,10 @@
 \vspace{3mm}
 {\large What do the observations determine, and what does the model supply?\par}
 \takeaway{The observations constrain changes; the model supplies the remaining choices.}
-% source detail: Ch. 2 saved outdoor_day1 release; reference.png, events_accumulation.png, and reconstruction.png under figures/mvsec_outdoor_day1/defense_matched/.
+% source detail: Ch. 2 saved outdoor_day1 release; reference.png, events_accumulation_orange_positive.png, and reconstruction.png under figures/mvsec_outdoor_day1/defense_matched/.
 % source: figures/mvsec_outdoor_day1/defense_matched/metadata.json, exact timing, raw-left geometry, normalization, and hashes.
 \src{\dref{Chapter}{ch:monocular_reconstruction}, saved MVSEC~\cite{MVSEC2018} outdoor\_day1 reconstruction example.}
-\talknote{Motivation; about 60 seconds.}{Left is a conventional reference image of the outdoor scene. Center is a 50 ms sample of the event measurements used by the reconstruction: blue marks positive-only pixels, orange negative-only pixels, and purple pixels with both polarities. Right is our event-derived reconstruction, using a longer observation interval. The arrow represents events feeding the estimator; the reference supplies visual context. Events determine temporal changes, and the model selects a brightness baseline and how to balance observations with regularization.}{All panels use the raw left DAVIS geometry, $346\times260$ pixels. The 50 ms display interval ends at reconstruction time 1506118045.9162312 s and contains 23,780 events. The nearest reference is 4.672 ms later. Reconstruction uses the full 500,000-event input spanning about 0.846 s; the center panel displays a subset of that input. Event color strength is logarithmic in count and saturates at four events per pixel. The reference uses a sequence-wide min/max mapping; reconstruction uses one affine mapping across its 20-frame sequence, then clips to $[0,1]$. This displays a latent event-derived state rather than calibrated absolute brightness. The dissertation asks what observations determine, what penalties select, and what guarantees survive spatial or binocular coupling.}
+\talknote{Motivation; about 60 seconds.}{Left is a conventional reference image of the outdoor scene. Center is a 50 ms sample of the event measurements used by the reconstruction: orange marks positive-only pixels, blue negative-only pixels, and purple pixels with both polarities. Right is our event-derived reconstruction, using a longer observation interval. The arrow represents events feeding the estimator; the reference supplies visual context. Events determine temporal changes, and the model selects a brightness baseline and how to balance observations with regularization.}{All panels use the raw left DAVIS geometry, $346\times260$ pixels. The 50 ms display interval ends at reconstruction time 1506118045.9162312 s and contains 23,780 events. The nearest reference is 4.672 ms later. Reconstruction uses the full 500,000-event input spanning about 0.846 s; the center panel displays a subset of that input. Event color strength is logarithmic in count and saturates at four events per pixel. The reference uses a sequence-wide min/max mapping; reconstruction uses one affine mapping across its 20-frame sequence, then clips to $[0,1]$. This displays a latent event-derived state rather than calibrated absolute brightness. The dissertation asks what observations determine, what penalties select, and what guarantees survive spatial or binocular coupling.}
 \end{frame}
 
 \begin{frame}{The route through the talk}

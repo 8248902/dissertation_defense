@@ -92,6 +92,50 @@
     "indoor_flying2_depth.png": "05bdbb1800c3639d98b450421b31f89f0d5ed93ebe0425536b163805249cb391",
     "indoor_flying3_reconstruction.png": "750668efbae6112e465427067b267775e7a4b2f5b92bff6f631196face1ece32",
     "indoor_flying3_flow.png": "95977a92f18c0644c654822487381e6d93872693b9d92d75e6be3634d6ae0461",
-    "indoor_flying3_depth.png": "ce0c7c07934da11926a901abf978f2e0d290b94e190fa747c76d8f2d39aae1ad"
+    "indoor_flying3_depth.png": "ce0c7c07934da11926a901abf978f2e0d290b94e190fa747c76d8f2d39aae1ad",
+    "events_accumulation_orange_positive.png": "bb268e7a03a2904183105046bddce1b56d12a375cac72ae0718ef078ca23ed65",
+    "triptych_preview_orange_positive.png": "b6de94804f5fab38e673ec104f4cce0bc39b41069f0815852f5bac2e3db1cd5e"
+  },
+  "preferred_event_panel": "events_accumulation_orange_positive.png",
+  "orange_positive_variant": {
+    "file": "events_accumulation_orange_positive.png",
+    "preview": "triptych_preview_orange_positive.png",
+    "positive": {
+      "cache_value": 1,
+      "sensor_polarity_flag": true,
+      "color_rgb": [
+        204,
+        76,
+        31
+      ]
+    },
+    "negative": {
+      "cache_value": -1,
+      "sensor_polarity_flag": false,
+      "color_rgb": [
+        0,
+        118,
+        160
+      ]
+    },
+    "both_polarities_color_rgb": [
+      119,
+      70,
+      151
+    ],
+    "neutral_background_rgb": [
+      246,
+      246,
+      246
+    ],
+    "display_window_epoch_s": [
+      1506118045.8662312,
+      1506118045.9162312
+    ],
+    "display_event_count": 23780,
+    "positive_count": 9673,
+    "negative_count": 14107,
+    "scaling": "unchanged: min(1, log1p(total_count)/log1p(4)); counts >=4 saturate",
+    "original_blue_positive_pixels_reproduced_exactly": true
   }
 }

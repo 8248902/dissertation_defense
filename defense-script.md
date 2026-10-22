@@ -26,7 +26,7 @@ One question runs through the whole talk: if all we observe are changes, what ca
 
 *[Point to the reference image, the accumulated events, and the reconstruction.]*
 
-On the left is an ordinary camera image of an outdoor scene; we keep it there to help recognize the scene. In the middle is a fifty-millisecond sample of the events from the same recording. Blue marks pixels that got brighter, orange pixels that got darker, and purple pixels that did both. On the right is our reconstruction, computed from a longer stretch of those events, a little under a second.
+On the left is an ordinary camera image of an outdoor scene; we keep it there to help recognize the scene. In the middle is a fifty-millisecond sample of the events from the same recording. Orange marks pixels that got brighter, blue pixels that got darker, and purple pixels that did both. On the right is our reconstruction, computed from a longer stretch of those events, a little under a second.
 
 Each event says only that the brightness at one pixel changed at one moment. So the events record change and nothing else: they have no record of how bright anything is. To get from events to the image on the right, the model has to fill in what the events leave out, starting with a reference brightness level. Regularization makes that choice and balances it against fitting the data.
 
@@ -182,7 +182,7 @@ In practice, we build this matrix and right-hand side for each pixel, solve the 
 
 The system also tells us how the level is chosen. Take the inner product of the normal equations with the constant vector. A sends constants to zero, so the data term drops out, and we're left with the weighted zero-mean identity shown here.
 
-In scene terms, the weighted average of each pixel's history is zero, so the intervals with the largest weights set the reference level. (Replaces: The penalty therefore chooses a baseline.) The penalty also changes the fitted increments, because the solution balances both terms. Next, why this construction gives uniqueness and a quantitative stability bound.
+In scene terms, the weighted average of each pixel's history is zero, so the intervals with the largest weights set the reference level. The penalty also changes the fitted increments, because the solution balances both terms. Next, why this construction gives uniqueness and a quantitative stability bound.
 
 *[If asked whether every weight must be positive: Backup 02, page 35. If asked how lambda should scale when the time grid is refined: Backup 37, page 70. If asked about run time: Backup 07, page 40.]*
 
@@ -197,7 +197,7 @@ The first term is nonnegative. The second is at least the smallest weight square
 
 That gives coercivity and strict convexity, so a minimizer exists and is unique.
 
-For stability, compare two data vectors with the same weights. Subtracting their normal equations gives the exact difference between the two solutions, shown here. Bounding the inverse matrix gives the estimate. In scene terms, one spurious or missed event changes the data by at most one in norm, because each kernel splits a single unit of polarity across the bins. So the bound limits how far one noise event can move a pixel's history, and the smallest weight sets that limit. (Replaces: Bounding the inverse matrix gives the displayed estimate in terms of the data difference and the smallest weight.)
+For stability, compare two data vectors with the same weights. Subtracting their normal equations gives the exact difference between the two solutions, shown here. Bounding the inverse matrix gives the estimate. In scene terms, one spurious or missed event changes the data by at most one in norm, because each kernel splits a single unit of polarity across the bins. So the bound limits how far one noise event can move a pixel's history, and the smallest weight sets that limit.
 
 The last expression bounds the condition number in terms of the largest and smallest weights. Lowering the smallest weight weakens these worst-case guarantees.
 
@@ -215,7 +215,7 @@ The eigenvectors of A transpose A are temporal modes. In that basis, reconstruct
 
 *[Point first to zero frequency, then along the two curves.]*
 
-The constant mode has eigenvalue zero, so reconstruction removes it entirely. Among the remaining modes, the slowest are damped the most. In the images, slow brightness drift fades and passing edges remain, which is why the reconstructions look edge-enhanced. (Replaces: The low nonconstant modes are attenuated most.) A larger lambda damps more.
+The constant mode has eigenvalue zero, so reconstruction removes it entirely. Among the remaining modes, the slowest are damped the most. In the images, slow brightness drift fades and passing edges remain, which is why the reconstructions look edge-enhanced. A larger lambda damps more.
 
 That's what the penalty does to the latent signal. Kernel averaging is a separate step, and it can blur fast changes before the solve.
 
@@ -231,7 +231,7 @@ The rule we selected uses the size of the signed event total in each bin. Positi
 
 *[Point to the sigmoid expression.]*
 
-As activity increases, the sigmoid rule lowers the penalty. A positive floor keeps every weight above zero. So quiet intervals get the largest weights, and through the weighted-average identity they set each pixel's reference level. Busy intervals get the smallest weights: they're free to change, and they set the worst-case noise bound from the stability result. (Replaces: The practical intention is to allow stronger changes in active intervals while applying stronger magnitude control in quieter intervals.)
+As activity increases, the sigmoid rule lowers the penalty. A positive floor keeps every weight above zero. So quiet intervals get the largest weights, and through the weighted-average identity they set each pixel's reference level. Busy intervals get the smallest weights: they're free to change, and they set the worst-case noise bound from the stability result.
 
 We chose this rule after grid sweeps of each rule's scale, as a compromise between reconstruction quality and conditioning. Outdoors, the sigmoid gives the lowest condition number of the three choices. Indoors, inverse-proportional weighting gives a lower condition number, so the choice trades conditioning against reconstruction quality.
 
@@ -244,6 +244,8 @@ Here's what these choices give on real data.
 ## Slide 16 — Temporal evidence: structure without an absolute baseline
 
 *[Point to the images, then to the table.]*
+
+MVSEC, the Multi-Vehicle Stereo Event Camera dataset, records a synchronized pair of event cameras on a drone flying indoors and on a car driving outdoors. The cameras also capture ordinary frames, which give the reference image here, and the dataset includes lidar-derived ground-truth depth, which we'll use later for stereo.
 
 The pictures are a representative example from MVSEC indoor flying two: a reference image, and an event-only reconstruction with sigmoid weights. The table summarizes the kernel comparison over the indoor flying sequences.
 
@@ -299,13 +301,13 @@ So far, each pixel's history has been rebuilt on its own. In joint work with Pro
 
 Theta is the scene. P holds the known motion: it maps the scene into each view. A takes differences between consecutive views, as before. So B sub SAR maps one scene to the event changes predicted across the whole sequence. SAR stands for synthetic aperture radar, which combines a moving sensor's views into one image of a fixed scene.
 
+To recover the scene, we fit it to all the event counts at once: least squares plus a penalty, as for a single pixel. The penalty is a choice. With a simple quadratic penalty, it's one linear system, and the dissertation proves the solution is unique and bounds how far noise can move it. That penalty also fixes the overall brightness offset, which the events leave free. The figure follows the joint work and uses a smoothed total-variation penalty, minimized with L-BFGS. Total variation also leaves the offset free, so we remove it before scoring.
+
 *[Point to the figure.]*
 
 Here's a simulated example: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
 
 Here the motion was known. In optical flow, the motion is the unknown.
-
-*[If asked whether the figure uses the ridge model: the figure uses the smoothed total-variation penalty named in the caption; Proposition 2.4.1 gives uniqueness and the perturbation bound for the positive quadratic ridge.]*
 
 ## Slide 20 — The aperture problem: what a local view reveals
 
@@ -407,7 +409,7 @@ So we have three representations. Their coefficients differ, but they all lead t
 
 This keeps the classical data-plus-smoothness structure, with the event representation supplying the coefficients.
 
-The first integral measures agreement with the motion constraints. B is the data matrix: it records which motion directions the local edges measure, and how strongly. The forcing b carries the measured values. (Replaces: B is the data-curvature matrix and b is the forcing vector.) The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
+The first integral measures agreement with the motion constraints. B is the data matrix: it records which motion directions the local edges measure, and how strongly. The forcing b carries the measured values. The second integral penalizes spatial variation of the velocity, with positive strength alpha squared.
 
 For the time surface, B is the outer product of the time-surface gradient. For voxel projection, it's the outer product of the activity gradient. For the structure tensor, it's the pooled spatial block.
 
@@ -433,7 +435,7 @@ What does that integrated condition mean? Take any nonzero constant velocity. Su
 
 This is the requirement from slide 21: the one hypothesis the scene has to supply, while the others come from how we set up the problem. If every edge is parallel, as inside a stripe pattern, a uniform slide along the stripes costs nothing, and many answers fit equally well. The theorem promises one answer; whether it's the true motion depends on slide 21's assumption that neighbors move alike, and slide 28 measures how close it comes.
 
-Individual locations may give only one direction. Regions with no texture or no events give zero data curvature, and their neighbors supply the motion there. (Replaces: Individual locations may supply only one direction, and some open regions may supply zero data curvature. Spatial coupling allows the estimator to combine information from different locations.)
+Individual locations may give only one direction. Regions with no texture or no events give zero data curvature, and their neighbors supply the motion there.
 
 Connectedness matters because it makes any field with zero gradient a single constant vector over the whole domain. The integrated matrix controls that remaining freedom.
 
@@ -483,7 +485,7 @@ By similar triangles, depth is the focal length times the camera baseline, divid
 
 For each left pixel, we compare candidate right pixels along the same row. Each candidate gives a right-view temporal signal to pair with the left one.
 
-Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their event profiles should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. The weights treat busy intervals as noisier, as Poisson counts would be, so they give more weight to intervals with less predicted activity. The best-scoring candidate gives the disparity, and from that the depth. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates. (Replaces: This creates two levels of estimation. At a fixed candidate, we solve for the latent temporal profiles. We then compare candidates to choose a disparity.)
+Here's the stereo model in scene terms. If a left pixel and a right pixel see the same scene point, they see the same changes over time, so their event profiles should agree over the window. For each candidate disparity, the model reconstructs a profile in each view, ties the two together softly, and scores how well one shared explanation fits both streams. We call this method WLS, for weighted least squares. The weights come from a count model: if positive and negative events arrive as independent Poisson counts, their difference has variance equal to their total, so busier bins are noisier. Weighting each bin by one over its predicted activity is the Gaussian, least-squares approximation to that. The weights are updated from the current profiles and frozen for each solve, and the result on the next slide covers each frozen solve. The best-scoring candidate gives the disparity, and from that the depth. So there are two levels: solving for the profiles at a fixed candidate, and then comparing candidates.
 
 The model assumes the candidate match holds approximately over the window, with the scene point visible in both views. The key distinction is between solving for the profiles and choosing the match.
 
@@ -499,7 +501,7 @@ At each candidate disparity, the model solves for one temporal profile per view.
 
 The mathematical result is for a fixed disparity with the weights frozen. The coupling term is nonnegative, so the temporal coercivity proof carries over, and the inner problem has a unique solution. The benchmark runs the full method: the weights are updated, the costs are aggregated over neighboring pixels, and the lowest-cost candidate gives the disparity.
 
-Here's how that performs on the MVSEC indoor flying sequences, against the dataset's lidar-based ground-truth depth. The first four columns are mean depth error in centimeters, one per sequence. Then log RMSE, and the number of scored points.
+Back on MVSEC, here's how that performs on the indoor flying sequences, against the dataset's lidar-based ground-truth depth. The first four columns are mean depth error in centimeters, one per sequence. Then log RMSE, and the number of scored points.
 
 Our weighted least-squares method, WLS, has the lowest error on indoor flying two and the lowest log RMSE. On the other three sequences, the local adaptation of Piatkowska and colleagues' method is lower, by between one and a half and six centimeters. WLS scores two point six six million points, more than twice the one point two million for that method. It also leads the three other prior event-based methods on every sequence.
 
