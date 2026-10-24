@@ -2,10 +2,10 @@
 
 This is the single active defense, on `main`.
 
-The [spoken-recall Anki deck](anki/README.txt) has a 54-card core package and a 123-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
+The [spoken-recall Anki deck](anki/README.txt) has a 55-card core package and a 125-card complete package, focused on explaining the talk's results, proof mechanisms, assumptions, and consequences aloud. [Preview the cards](anki/preview.html) or import [the core deck](anki/defense-core.apkg) to begin.
 
-- [Committee handout](defense-committee.pdf): the copy to send the committee. It has the 33 main slides, the backups listed in [committee-backups.txt](committee-backups.txt) (currently 7), and reference pages for the works those slides cite. Rebuild with `make committee`.
-- [Audience deck](defense.pdf): the full presenting deck, with 33 main slides and 73 backups (70 discussion slides and 3 reference pages).
+- [Committee handout](defense-committee.pdf): the copy to send the committee. It has the 22 main slides (with their source footers), the backups listed in [committee-backups.txt](committee-backups.txt) (currently 7), and reference pages for the works those slides cite. Rebuild with `make committee`.
+- [Audience deck](defense.pdf): the full presenting deck, with 22 main slides and 85 backups (82 discussion slides and 3 reference pages). Main slides omit the "Dissertation: …" source footer; backups, the committee handout, and the notes keep it. Backups 71–82 (pages 93–104) are the slides moved out of the main talk on October 24, 2026.
 - [Speaker edition](defense-notes.pdf): slide-level notes.
 - [Rehearsal script](defense-script.pdf): full main-talk scripts and self-contained backup answers; editable source is [defense-script.md](defense-script.md).
 - [Synchronized presenter edition](defense-presenter.pdf): slides and full script paired for Pympress; rebuild with `make presenter`.
@@ -18,7 +18,7 @@ Edit slide content and embedded speaker notes in `core.tex` and `backup.tex`; ed
 
 Slide 20 contains the credited aperture animations. Playback depends on PDF-viewer support; `aperture-demo.html` provides a self-contained browser alternative. Static posters remain visible in print and the speaker edition.
 
-Earlier proposal folders are preserved under `../misc_ideas_feedback/_archive/`. The old candidate branch is historical; continue work here on `main`. The five reviewed backup additions are integrated at pages 39, 40, 77, 82, and 90, with matching script answers and notes. Two theory backups (complementarity lemma, adaptive-weight stability) are integrated at pages 97 and 98. Two more, on weak-regularization limits and on harmonic fill-in of event-free flow regions, are at pages 102 and 103. A third, on fractional regularization, is kept in `held/` and stays out of every build until it is ready; `held/fractional-backup.tex` lists the steps to add it. Continue editing the active files here; the separate draft package is a review record.
+Earlier proposal folders are preserved under `../misc_ideas_feedback/_archive/`. The old candidate branch is historical; continue work here on `main`. The five reviewed backup additions are integrated at pages 28, 29, 66, 71, and 79, with matching script answers and notes. Two theory backups (complementarity lemma, adaptive-weight stability) are integrated at pages 86 and 87. Two more, on weak-regularization limits and on harmonic fill-in of event-free flow regions, are at pages 91 and 92. A third, on fractional regularization, is kept in `held/` and stays out of every build until it is ready; `held/fractional-backup.tex` lists the steps to add it. Continue editing the active files here; the separate draft package is a review record.
 
 Dated committee review evidence is under `history/committee-review-2026-10-03/`. Current `validation.json` reports build and synchronization checks, not a new mathematical review.
 
@@ -26,7 +26,7 @@ Dated committee review evidence is under `history/committee-review-2026-10-03/`.
 
 Footers use actual LaTeX cross-references imported from a complete dissertation build. Write `\dref{Theorem}{thm:uniqueness}` for a numbered result and `\drefpage{subsubsec:ode}` for a page reference. Unnumbered topics use their name and page, since their labels inherit an enclosing section counter. `thesis-references.json` bundles the compiled labels and hashes of the thesis inputs; keep it with the defense source. The build creates the auxiliary file for `xr` under `/tmp` and renders `\ref*` / `\pageref*`.
 
-Citations use the dissertation's own numbers. Write `\cite{piatkowska2017}` with any key the dissertation cites; it prints the dissertation number, for example [78], and links to the reference pages at the end of the deck (pages 104–106). The snapshot also stores each cited work's number and `.bbl` entry, so the build writes those pages from it. A key the dissertation does not cite stops the build. The three `\thesisreferences{n}` frames at the end of `backup.tex` hold the list; the build splits the cited works across however many such frames exist, so add a frame (and its script section) if a page overflows. Sources outside the dissertation bibliography (Adelson–Movshon, Wolfe et al., Antil–Di–Khatri, Willert–Klinner) stay as typed text.
+Citations use the dissertation's own numbers. Write `\cite{piatkowska2017}` with any key the dissertation cites; it prints the dissertation number, for example [78], and links to the reference pages at the end of the deck (pages 105–107). The snapshot also stores each cited work's number and `.bbl` entry, so the build writes those pages from it. A key the dissertation does not cite stops the build. The three `\thesisreferences{n}` frames at the end of `backup.tex` hold the list; the build splits the cited works across however many such frames exist, so add a frame (and its script section) if a page overflows. Sources outside the dissertation bibliography (Adelson–Movshon, Wolfe et al., Antil–Di–Khatri, Willert–Klinner) stay as typed text.
 
 After changing dissertation sources:
 

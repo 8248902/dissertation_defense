@@ -1,6 +1,43 @@
 # Defense presentation — current state
 
-**Schedule: pre-defense October 22, 2026; defense November 23, 2026.** Draft deck goes to the committee October 20.
+**Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
+
+## Start here — handoff, October 24 (pare-down after the pre-defense)
+
+**Pre-defense feedback (Oct 22):** the motivation was thin, the talk turned technical immediately, and the slides were packed. Löhner and Griva also asked about the computational cost and whether the method could run on low-power edge hardware.
+
+**Deck:** 22 main slides + 85 backups (82 discussion, 3 references); defense.pdf has 107 pages. `make all` is clean apart from the 4 pt overfull on the discussion guide, which was already there. The plan and approved choices are in `../misc_ideas_feedback/defense_pare_down_2026-10-24/plan.md`. Everything is uncommitted.
+
+- **New main order:**
+  - title;
+  - **hook** (old 18: office / cup / ISS, plus why event cameras and on-board use);
+  - why an event camera, threshold crossings, three problems;
+  - **"Three estimators, each well posed"** (replaces the route);
+  - one pixel, kernels, observation identity;
+  - **unique + stable** (old 12 + 13);
+  - **"One tridiagonal solve per pixel"** (new: cost, streaming identity, laptop timings);
+  - penalty spectrum;
+  - **MVSEC comparison with Antil–Sayre bilevel** (old 16 images + 17 table);
+  - ESAR;
+  - aperture, invisible direction (bottom text halved), three representations, theorem (proof idea spoken in one sentence), known-motion examples;
+  - **stereo** (old 29 + two-row 30 table);
+  - research opportunities (four blocks, adding edge hardware);
+  - **closing** (old 31 table + common question + thank you).
+- **Moved to Backups 71–82 (pages 93–104):** old 2, 4, 8, 13, 15, 16, 22, 23, 24, 27, 30, 33. Their script sections are now backup answers. Backups 1–70 keep their numbers; references are now Backups 83–85.
+- **Density:**
+  - Takeaway boxes are removed from main slides except the closing one.
+  - Main-slide source footers are hidden in the audience/notes/presenter decks; `\src` prints on backups and when `\DefenseCommittee` is defined, which the committee build sets.
+  - Slide 16's hand-written source line follows the same rule.
+- **Script:**
+  - main talk about 4,600 spoken words (was about 6,570 by the same count), about 37–42 min at 110–125 wpm before pauses;
+  - Backup 07 (real time) rewritten with measured numbers;
+  - all "Backup N, page P" cues remapped (page = N + 22).
+- **Anki:**
+  - slide_titles.json retitled;
+  - new key `tridiag`;
+  - new cards T30 (core: cost) and T31 (follow-up: streaming); 125 cards (55 core).
+- **Timings source:** `monocular_reconstruction/python/edge/README.md` (branch `feature/edge-tridiag`, uncommitted). Raspberry Pi 5 numbers are pending hardware.
+- **Not changed:** strategy.md (historical slide numbers), committee-backups.txt (titles unchanged).
 
 ## Start here — handoff, October 20 (Anki gap pass)
 

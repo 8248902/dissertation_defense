@@ -46,7 +46,7 @@
 \newcommand{\routecrumb}[2]{\ifnum\value{section}=#1\textcolor{teal}{\textbf{#2}}\else\textcolor{muted}{#2}\fi}
 \newcommand{\routeseparator}{\;\textcolor{muted}{$\rightarrow$}\;}
 \setbeamertemplate{footline}{\hspace{8mm}\scriptsize\ifbackup\textcolor{muted}{Discussion}\hfill\textcolor{muted}{\insertframenumber}\else\routecrumb{1}{Sensor and data}\routeseparator\routecrumb{2}{Reconstruction}\routeseparator\routecrumb{3}{Optical flow}\routeseparator\routecrumb{4}{Stereo depth}\routeseparator\routecrumb{5}{Conclusions}\hfill\textcolor{muted}{\insertframenumber\,/\,\MainFrames}\fi\hspace{8mm}\vspace{3mm}}
-\newcommand{\MainFrames}{33}
+\newcommand{\MainFrames}{22}
 \newcommand{\R}{\mathbb R}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\A}{\mathbf A}
@@ -61,7 +61,9 @@
 \newcommand{\yL}{\mathbf y_L}
 \newcommand{\yR}{\mathbf y_R}
 \newcommand{\takeaway}[1]{\vspace{1.5mm}\begin{beamercolorbox}[sep=1.6mm,wd=\textwidth]{block body}\small\textbf{Takeaway.} #1\end{beamercolorbox}}
-\newcommand{\src}[1]{\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Dissertation: #1\par}}
+% Source footers: shown on backups, in the committee handout, and in the notes; the presenting deck omits them on main slides.
+\newcommand{\srcline}[1]{\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Dissertation: #1\par}}
+\newcommand{\src}[1]{\ifbackup\srcline{#1}\else\ifdefined\DefenseCommittee\srcline{#1}\fi\fi}
 \newcommand{\panel}[3]{\begin{minipage}{#1\textwidth}\centering\includegraphics[width=\linewidth,height=3.1cm,keepaspectratio]{#2}\par\vspace{1mm}{\small #3}\end{minipage}}
 % Presenter commentary is embedded beside each frame and hidden in the audience edition.
 \newcommand{\talknote}[3]{\note{\raggedright\textbf{Slide \insertframenumber. Purpose / pace:} #1\par\medskip\textbf{Talking points:} #2\par\medskip\textbf{Explanation / transition:} #3\par}}

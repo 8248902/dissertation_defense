@@ -1,7 +1,7 @@
 {
   "1": "Title",
   "2": "What can changes tell us about a scene?",
-  "3": "The route through the talk",
+  "3": "Three estimators, each well posed",
   "4": "Where this work fits",
   "5": "Why an event camera? Each pixel reports its own changes",
   "6": "An event camera: each pixel reports threshold crossings",
@@ -10,13 +10,13 @@
   "9": "Start with one pixel: integrated changes on a temporal chain",
   "10": "Temporal kernels: how far each event's influence spreads",
   "11": "From threshold crossings to an approximate observation",
-  "12": "A regularized estimate is uniquely selected",
+  "12": "A unique, stable estimate for every positive weight",
   "13": "Why uniqueness and stability hold",
   "14": "What the penalty does to temporal information",
   "15": "How are the temporal weights chosen?",
   "16": "Temporal evidence: structure without an absolute baseline",
-  "17": "Relation to Antil--Sayre bilevel reconstruction",
-  "18": "Real event data: indoor, high-speed, and orbital scenes",
+  "17": "MVSEC comparison with Antil--Sayre bilevel",
+  "18": "Scenes recovered from brightness changes",
   "19": "Shared motion couples temporal profiles to one scene",
   "20": "The aperture problem: what a local view reveals",
   "21": "Motion introduces a new invisible direction",
@@ -29,7 +29,7 @@
   "28": "Stability follows by subtracting weak equations",
   "29": "Discrete flow: connectivity and sampled directions matter",
   "30": "Known-motion examples make the aperture problem visible",
-  "31": "Two viewpoints turn correspondence into depth",
+  "31": "Stereo depth: competitive accuracy, most scored points",
   "32": "Stereo depth in one slide: what Chapter 4 adds",
   "33": "What the data constrain and what the models prove",
   "35": "Research opportunities",
@@ -101,5 +101,6 @@
   "weakreg": "Weak regularization: a limit in time, the aperture line in space",
   "harmonicfill": "Where there are no events, smoothness fills in harmonically",
   "proofidea": "Proof idea: smoothness fixes variation, edges fix the drift",
-  "stereomvsec": "Stereo on MVSEC: competitive accuracy, more scored points"
+  "stereomvsec": "Stereo on MVSEC: competitive accuracy, more scored points",
+  "tridiag": "One tridiagonal solve per pixel"
 }

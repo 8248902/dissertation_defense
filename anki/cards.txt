@@ -213,6 +213,18 @@ A: Through the polarity pattern over time. A low mode gives long runs of one pol
 Keep: polarity pattern across intervals; count tracks change size; constant fires nothing
 More: The observations are y equals A f, and the images A v_k are orthogonal with norm square root of g_k. So mode k enters y scaled by root g_k: a slow mode gives small per-interval increments relative to its size.
 
+@ T30 | temporal | core | tridiag | eq:tempdiffA,thm:uniqueness
+Q: How expensive is the reconstruction, and could it run on low-power hardware?
+A: Each pixel solves one tridiagonal system: A transpose A is the path Laplacian, and the positive weights make the matrix diagonally dominant. The Thomas algorithm solves it in time proportional to the number of samples, without pivoting, and the pixels are independent. It reproduces the dissertation's MATLAB solver to ten to the minus fifteen, and DAVIS data runs about thirty times faster than real time on one laptop core.
+Keep: tridiagonal and diagonally dominant; linear time per pixel, no pivoting; validated, real time on one core
+More: On the cup recording, the dense MATLAB solve takes 39.6 s and the tridiagonal solve 0.22 s. At EVK4 resolution with every pixel active, eight laptop cores keep up; Raspberry Pi 5 timings with power are the next measurement.
+
+@ T31 | temporal | followup | tridiag,live | eq:tempdiffA
+Q: Why is the newest frame available before the backward sweep?
+A: Forward elimination of a row uses only the rows before it, and the last row has weight zero with the last increment as its right-hand side. So the last unknown is the last eliminated right-hand side divided by its pivot. When a new interval arrives, the old last row becomes an interior row and the recursion continues, with three stored numbers per pixel.
+Keep: forward elimination is causal; the last row closes the system; constant work per new interval
+More: On the cup recording the streaming value matches the batch solution's last frame to rounding error at every checkpoint, in double and single precision.
+
 @ V01 | flow | core | 20,21,90 | prop:time_surface
 Q: Explain the aperture problem to a mathematician outside vision.
 A: A straight edge reveals only its speed perpendicular to itself. Sliding it along itself produces the same local brightness history, so the tangential component stays free. In velocity space, a separate plot from the image, that edge becomes a constraint line: every velocity with the observed normal component. A second edge orientation gives a second line, and if both edges share the motion, the two lines cross at one velocity.

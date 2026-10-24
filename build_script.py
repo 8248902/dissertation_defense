@@ -255,7 +255,7 @@ def main() -> None:
                 shutil.copy2(ROOT / name, work / name)
             if target == 'committee':
                 (work / 'backup.tex').write_text(committee_backup(references), encoding='utf-8')
-                (work / 'defense-committee.tex').write_text('% Committee handout: main slides and selected backups.\n\\input{defense.tex}\n', encoding='utf-8')
+                (work / 'defense-committee.tex').write_text('% Committee handout: main slides (with source footers) and selected backups.\n\\def\\DefenseCommittee{}\n\\input{defense.tex}\n', encoding='utf-8')
                 check_links(work)
             write_external_aux(work, references, used_labels, work)
             for source in figures:

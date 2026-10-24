@@ -1,11 +1,12 @@
 DISSERTATION DEFENSE — DELIVERY GUIDE
-Daniel Blauvelt | updated October 20, 2026
+Daniel Blauvelt | updated October 24, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 33 main slides + 73 backups (70 discussion, 3 references).
+  defense.pdf          Audience presentation: 22 main slides + 85 backups (82 discussion, 3 references).
+                       Main slides omit source footers; the committee handout keeps them.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
   defense-script.md    Editable, authoritative script prose.
@@ -14,26 +15,31 @@ CANONICAL MATERIAL
   STATE.md             Current session status and handoff.
 
 DELIVERY
-  Slide 3: concise outline; the footer highlights the active stage throughout.
-  Slide 4: relevant work and the dissertation's contribution.
-  Slide 11: sensor-to-observation model; the exact identity and its three error terms.
-  Slide 12: objective to normal equations, parallel pixel solves, then frames.
-  Slide 16: matched indoor reconstruction image with indoor aggregate metrics.
-  Slide 19: ESAR shared scene; figure first, one operator equation, about a minute.
-  Slide 20: embedded aperture animations; play the left panel, then the right.
-  Slide 21: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 23: point to the modeling-assumption box (transport of activity).
-  Slide 26: main flow theorem; explain the integrated directional condition.
-  Slide 27: proof idea: mean and fluctuation, three columns; stability is Backup 10.
-  Slide 28: known-motion stripes and checkerboard.
-  Slide 30: stereo model; mathematical result vs. benchmark labels; MVSEC table.
-  Slides 31-32: three-row synthesis; three research directions.
-  Slide 33: close, then take questions.
-  Full flow proof 42; stability 43; discrete flow / Jacobi 44–45; Chapter 4 results 81.
-  Other backups: metrics 39; real-time 40; flow protocol 77; alignment 82; depth sensitivity 90;
-  weak-regularization limits 102; event-free flow regions 103.
-  Backup pages 34–103: select by question; page numbers match the script/index.
-  Pages 104–106: references, numbered as in the dissertation; every [n] links here.
+  Slide 2: open on the results (office, cup, ISS); why event cameras and on-board use matter.
+  Slide 3-4: what the sensor reports; the ideal threshold rule and the free baseline.
+  Slide 5: the three MVSEC estimates; one difficulty per problem.
+  Slide 6: the three results of the talk; the common question.
+  Slide 9: sensor-to-observation model; the exact identity and its three error terms.
+  Slide 10: uniqueness, the stability bound, and the reference level on one slide.
+  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, measured timings.
+  Slide 13: MVSEC images, then the Antil--Sayre comparison table.
+  Slide 14: ESAR shared scene; figure first, one operator equation, about a minute.
+  Slide 15: embedded aperture animations; play the left panel, then the right.
+  Slide 16: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 17: three representations, one quadratic problem; derivations are Backups 77-79.
+  Slide 18: main flow theorem; integrated directional condition; one sentence of proof idea.
+  Slide 19: known-motion stripes and checkerboard.
+  Slide 20: stereo geometry, unique inner solve, two-row MVSEC table.
+  Slide 21: four research directions, including the edge implementation.
+  Slide 22: three-row synthesis, the common question, thank you; then take questions.
+  Moved from the main talk (Backups 71-82, pages 93-104): opening triptych, related work,
+  point measure, uniqueness proof, weight choice, kernel table, time-surface derivation,
+  voxel projection, structure tensor, flow proof idea, full stereo table, old closing.
+  Full flow proof 31; stability 32; discrete flow / Jacobi 33-34; Chapter 4 results 70.
+  Other backups: metrics 28; real-time 29; flow protocol 66; alignment 71; depth sensitivity 79;
+  weak-regularization limits 91; event-free flow regions 92.
+  Backup pages 23-104: select by question; page numbers match the script/index.
+  Pages 105-107: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
   Answer the question asked in one or two sentences, then offer the backup.

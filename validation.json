@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-10-22T14:12:43+00:00",
+  "generated_at_utc": "2026-10-24T04:38:24+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
-  "main_frames": 33,
-  "backup_frames": 73,
+  "main_frames": 22,
+  "backup_frames": 85,
   "referenced_figure_count": 44,
   "checks": {
     "script_titles_and_numbers_match_deck": true,
@@ -13,41 +13,41 @@
   },
   "pdfs": {
     "defense.pdf": {
-      "pages": 106,
+      "pages": 107,
       "compile_warnings": [
         "Overfull \\vbox (4.04459pt too high) detected at line 42"
       ]
     },
     "defense-notes.pdf": {
-      "pages": 106,
+      "pages": 107,
       "compile_warnings": [
         "Overfull \\vbox (4.04459pt too high) detected at line 42"
       ]
     },
     "defense-script.pdf": {
-      "pages": 109,
+      "pages": 110,
       "compile_warnings": []
     },
     "defense-committee.pdf": {
-      "pages": 43,
+      "pages": 31,
       "compile_warnings": []
     }
   },
   "sha256": {
-    "core.tex": "b076d2cf1960c909cee378a23bbd688094a12d8112fd39ecc3bc64e82919d26c",
-    "backup.tex": "f00a65a3fb22346a054b3d3bb9d87a52a3bd71c6df99728a82b5e353242f88df",
-    "defense.tex": "e321373c93e0e259c6f05e9bc51365d7eea7919c2e136e99d51692fdc47ded22",
+    "core.tex": "d5f51275bc36c794082eb4735cb5f8fbf2201cf62703b795c57d110e023e5464",
+    "backup.tex": "fa98e4ec1798d260f585972255032cd87d91c6314952c69def859d75a57acb8a",
+    "defense.tex": "9a29d1a1d809c3c6e2ed6a21cb0781a62ebd19accd9aa14ac22bb7e2beace4c0",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
     "committee-backups.txt": "b6d79f450237bdadb299457c66c51eb2c56424504aee98a5b33e281eadfd772c",
-    "defense-script.md": "0e53f53fa4f350fb587c717f646b12e29322b48677839316880bfea1260d7d4a",
-    "build_script.py": "4549fc2b14eb08053b6047cfb64569262f84ca79eee62b97b47a7a6a62a12576",
+    "defense-script.md": "350c3c150aeab7b51f8a3d18ec06f9ac960b37de26f9163da74e6ab54389f0ae",
+    "build_script.py": "cf559e6e24ddf218bbc2bc698ed6e32a3b9450566388bbd97b6e3dede0e8c96d",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
     "Makefile": "c386324167799aeacffe165bbe11bb54713c3ca7f4dd5f1a7605d80ed8d075d2",
     "reference_support.py": "37bc847eb4983c31b17e9152a0167460d0b983d02632a5d41c3482cdc160c046",
     "thesis-references.json": "2cc4fea33f1e34525de90ee51862336ce4ca2d62c23a03b7ea3e5427c7e67828",
-    "defense.pdf": "12084a5d77ba2fd8b3d73ed125e9494cb3aec9d801c1b53696e1a7f6fdbef03a",
-    "defense-notes.pdf": "089ea62f2a8a18b48fb9efb245e675c598cb5ed55876ee5ecc85f7ec608f8f6a",
-    "defense-script.pdf": "f7b0bc64968b88601f430ff3ce767656cf6db562e41549ac12346ad26a0342cd",
-    "defense-committee.pdf": "30313540fb1716693cc7a74d9089a8d5b6beb59018cdd0f2630d05fdf8f1cc19"
+    "defense.pdf": "079fa1d6e3f3baa1e9fa24be9b0db933df3c3521aa1bbbd760dd63ab1f80b851",
+    "defense-notes.pdf": "b7f92e1b1cedfe1eb1f026f20261175a0d4fc575a0d469d9f903b28741f3c8ba",
+    "defense-script.pdf": "bb074a333f01ff1d1f38b52c1c4de1cc2c3ac7da155b878793a9e022d608bc0f",
+    "defense-committee.pdf": "fa8ac2ab6adfa3ae339ee016abcb3b407ed9e24bb0126f7b2eba849bb1a9c187"
   }
 }
