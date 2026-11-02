@@ -1,6 +1,6 @@
 % Discussion slides are outside the timed core. Their source labels name the dissertation.
 \begin{frame}{Discussion guide}
-\footnotesize
+\fontsize{8}{9.5}\selectfont
 {\scriptsize\textbf{Further detail:} \ifdefined\DefenseNotes time-surface regression and contrast maximization; the full stereo arc (Chapter 4); references\else\hyperlink{flowdetails}{time-surface regression and contrast maximization}; \hyperlink{stereoarc}{the full stereo arc (Chapter 4)}; \hyperlink{references}{references}\fi.}\par\vspace{-1mm}
 \begin{columns}[T]
 \column{.48\textwidth}
@@ -9,7 +9,8 @@
 \item Minimal uniqueness condition / reference level
 \item Measure-valued continuous-time limit
 \item Signal gain versus noise gain
-\item Kernels; \ifdefined\DefenseNotes metrics; real time; $\Lam(\mathbf y)$ stability\else\hyperlink{metricguide}{metrics}; \hyperlink{realtime}{real time}; \hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
+\item \ifdefined\DefenseNotes Metrics; real time; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{temporalcost}{problem size}\fi
+\item Kernels; \ifdefined\DefenseNotes $\Lam(\mathbf y)$ stability\else\hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
 \end{itemize}
 \textbf{Flow analysis}
 \begin{itemize}
@@ -139,11 +140,12 @@ A constant sequence has $\mathrm{TC}=1$ and $\mathrm{ERC}=0$ under the stated co
 
 \begin{frame}[t,label=realtime]{Can the reconstruction run in real time?}
 \footnotesize
-\textbf{Measured on a laptop CPU} (i7-10875H; float32; processing time $\div$ recording time; below 1 keeps up)\par\smallskip
+\textbf{Historical laptop measurements} (i7-10875H; float32; processing time $\div$ recording time)\par
+{\scriptsize Earlier penalty convention; repeat timings for the current squared weights and positive terminal weight.}\par\smallskip
 % source: monocular_reconstruction/python/edge/README.md, laptop timings table; bench JSON in python/edge/results/.
 \begin{tabular}{llrrrrr}\toprule
 & & & \multicolumn{2}{c}{Batch: 100\,ms, $N=50$} & \multicolumn{2}{c}{Streaming: 2\,ms steps}\\
-Data & Pixels & Events/s & 1 core & 8 cores & 1 core & 8 cores\\\midrule
+Data & Pixels & Events/s & 1 thr. & All & 1 thr. & All\\\midrule
 DAVIS346 pendulum & 90k & 0.25\,M & 0.03 & 0.01 & 0.33 & 0.08\\
 Cup & 307k & 1.1\,M & 0.18 & 0.08 & & \\
 EVK4 office & 922k & 13\,M & 2.5 & 0.67 & 3.7 & 0.75\\\bottomrule
@@ -152,20 +154,20 @@ EVK4 office & 922k & 13\,M & 2.5 & 0.67 & 3.7 & 0.75\\\bottomrule
 \column{.48\textwidth}
 \textbf{Why it is fast}
 \begin{itemize}
-\item One tridiagonal sweep per pixel; $O(N)$ work.
+\item Tridiagonal solve: $O(N)$ work per pixel.
 \item Pixels without events are skipped ($\mathbf f=0$).
-\item Streaming: three stored numbers per pixel.
+\item Streaming state: $O(HW)$.
 \end{itemize}
 \column{.48\textwidth}
 \textbf{Next measurements}
 \begin{itemize}
-\item Raspberry Pi 5: one and four cores, with power.
-\item Updating only pixels with events.
+\item Pi 5: latency, memory, and power.
+\item Sparse updates with quiet-state propagation.
 \end{itemize}
 \end{columns}
-{\let\small\footnotesize\takeaway{At DAVIS346 resolution the method runs far faster than real time on one core; full EVK4 resolution needs several cores or a smaller region.}}
-\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Source: edge implementation (monocular\_reconstruction/python/edge), validated against the Ch.~2 MATLAB solver to $10^{-15}$.\par}
-\talknote{Question: can the reconstruction run in real time? About 60 seconds.}{Batch: each 100 ms window with 50 latent times is binned and solved; the number is processing time over window length. Streaming: the newest frame every 2 ms, from the forward sweep. DAVIS346 runs about thirty times faster than real time on one core. At EVK4 resolution with default sensor settings every pixel is active and memory traffic dominates: real time on eight laptop cores.}{Raspberry Pi 5 numbers, with power, are the next measurement. Options for high resolution: a region of interest, 2-by-2 pixel binning, fewer latent times, or tuned sensor biases. The streaming value equals the batch solution's last frame to rounding error.}
+{\let\small\footnotesize\takeaway{Measure latency and energy on the target device.}}
+\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Source: edge README, historical validation and laptop timings; problem size and deployment options: Backup 83.\par}
+\talknote{Question: can the reconstruction run in real time? About 60 seconds.}{These are historical implementation measurements from before the squared-weight and positive-terminal-weight correction. They demonstrate feasibility for that earlier estimator. The current estimator retains the same linear solve structure; measure its latency and energy on the deployment device. Batch processes a complete window; streaming returns the newest endpoint of a growing prefix with finalized interval observations.}{The terminal weight repeats the last interval weight, so its diagonal is one plus that weight squared. Streaming matches the full mathematical batch solve on each growing prefix; the legacy net-sum pixel mask is a separate implementation convention. Earlier output frames can change when later data arrive. A sliding window changes the left boundary and needs additional handling. Backup 83 covers complexity, memory, and low-power choices.}
 \end{frame}
 
 \begin{frame}{The weak equation supplies the natural boundary condition}
@@ -1623,6 +1625,36 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \end{frame}
 
 
+
+\begin{frame}[t,label=temporalcost]{How big is the temporal monocular problem?}
+\small
+\textbf{Unknowns:} $HW$ independent pixel histories, each with $N_t$ samples.
+\[
+\underbrace{(\A^\top\A+\Lam_{xy}^{\top}\Lam_{xy})}_{\text{SPD, tridiagonal}}\mathbf f_{xy}
+=\A^\top\mathbf y_{xy},\qquad \boxed{\text{solve work }O(HWN_t)}.
+\]
+\begin{columns}[T]
+\column{.49\textwidth}
+\footnotesize\textbf{Work and storage}
+\begin{itemize}\setlength{\itemsep}{3pt}
+\item Weights, right-hand side, and solve: $O(N_t)$ per pixel.
+\item Full output: $O(HWN_t)$ storage; solver scratch: $O(N_t)$ per pixel processed at once.
+\item $E$ events, at most $k$ bins/event: $O(Ek+HWN_t)$ with direct bin indexing.
+\end{itemize}
+\column{.47\textwidth}
+\footnotesize\textbf{For a low-power device}
+\begin{itemize}\setlength{\itemsep}{3pt}
+\item Newest endpoint only: $O(HW)$ work per interval and $O(HW)$ state.
+\item Bin directly; skip histories with $\mathbf y_{xy}=0$; reuse buffers.
+\item ROI, coarser sampling, and lower precision trade coverage, detail, or numerical accuracy for cost.
+\end{itemize}
+\end{columns}\smallskip
+% source: illustrative arithmetic: 346*260*50 = 4498000 samples; *4 bytes = 17992000 bytes (18.0 decimal MB). Output only, excluding observations/workspace.
+{\footnotesize\textbf{Scale example:} $346\times260\times50\approx4.50$ million unknowns; float32 output alone $\approx18$ MB.}\par
+% source: Ch. 2 eq:tempdiffA and eq:normal_equations; python/src/core/solver.py:solve_pixel (dense), python/edge/tridiag.py:solve_tridiag_parallel and StreamingReconstructor (structured).
+\src{\dref{Eq.}{eq:tempdiffA}, \dref{Eq.}{eq:normal_equations}; edge solver. Uniform bins, fixed kernel order; streaming uses a growing prefix.}
+\talknote{Question: how big is the problem, and what would run on a low-power platform? About 90 seconds.}{Independent temporal chains give O(H W N t) work for weights, right-hand sides, and tridiagonal solves. Direct indexing adds O(E k) event work. The edge path uses this structure; the main Python path uses dense solves. The example counts output storage only.}{Sigmoid/delta streaming keeps three recurrence scalars plus output per pixel: O(H W) state and work per interval, matching the growing-prefix endpoint for finalized inputs. Exact savings: direct binning, buffer reuse, zero-history skipping, factor reuse for identical weights. ROI and coarser grids trade coverage/detail; shorter windows change history; reduced precision needs error checks. Earlier activity still drives quiet pixels. Symmetric kernels add look-ahead. Measure latency, peak RAM, and joules per estimate. The full script covers detection-only alternatives.}
+\end{frame}
 
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.
 \begin{frame}[label=references]{References (1 of 3)}

@@ -172,21 +172,19 @@ Next: what this solve costs.
 
 ## Slide 11 — One tridiagonal solve per pixel
 
-At the pre-defense, the committee asked what this costs, and whether it could run on small, low-power hardware. The structure of the matrix answers that.
+At the pre-defense, the committee asked what this costs, and whether it could run on small, low-power hardware. The structure of the matrix answers the cost question.
 
 *[Point to the matrix.]*
 
-A takes consecutive differences, so A transpose A has twos on the diagonal, ones at the two ends, and minus ones beside the diagonal. Adding the positive weights keeps the matrix tridiagonal and makes it diagonally dominant. A tridiagonal system is solved by one forward sweep and one backward sweep, the Thomas algorithm, with a fixed number of operations per time sample and no pivoting. So each pixel costs time proportional to its number of samples, and a pixel with no events costs nothing: its solution is zero.
+A takes consecutive differences, so A transpose A has twos on the diagonal, ones at the ends, and minus ones beside the diagonal. Adding the squared positive weights preserves that structure. One forward sweep and one backward sweep solve each pixel's system in time proportional to the number of samples. Across the image, that is O(H W N_t). A pixel whose whole observation vector is zero has the exact zero solution and can skip the solve.
 
-There's a bonus. Forward elimination of a row uses only the rows before it, so the newest frame is available at the end of the forward sweep. When the next interval arrives, the recursion simply continues. Each pixel carries three numbers, and each new interval costs a constant amount of work per pixel.
+If only the newest frame is needed, the forward recurrence returns the endpoint of the batch solution on the history accumulated so far. It keeps three recurrence numbers plus an output value per pixel. Each new interval costs constant work per pixel; older frames would need backward substitution to be revised.
 
 *[Point to the table.]*
 
-I implemented this and checked it against the MATLAB code behind the dissertation's results. On the cup recording it gives the same output to within ten to the minus fifteen, in about a fifth of a second instead of about forty seconds. The table gives processing time divided by recording time, so anything below one keeps up with the camera. For a DAVIS camera, one laptop core processes a second of data in about thirty milliseconds. For the newer EVK4 sensor, with ten times as many pixels and every pixel active, eight cores keep up.
+These are historical timings of the edge implementation, taken before the penalty was aligned to the chapter's squared weights and positive terminal weight. They show that the earlier implementation could keep up with DAVIS data on one thread and with EVK4 data using all available threads. The current estimator has the same linear computational structure. Its runtime and energy need fresh measurements on the deployment device.
 
-The next measurement is a Raspberry Pi, with a power meter.
-
-*[If asked about the streaming version, high resolution, or the earlier live demo: Backup 07, page 29. If asked why no pivoting is needed: the matrix is symmetric positive definite and diagonally dominant, so Gaussian elimination is stable without it.]*
+*[For the historical timing detail: Backup 07, page 29. For problem size, memory, and low-power strategies: Backup 83, page 105.]*
 
 ## Slide 12 — What the penalty does to temporal information
 
@@ -385,7 +383,7 @@ Across all three, the common question is which directions the observations contr
 
 Thank you. I'm happy to take your questions.
 
-*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 23; flow detail starts at Backup 41, page 63; the stereo arc at Backup 47, page 69; references at page 105.]*
+*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 23; flow detail starts at Backup 41, page 63; the stereo arc at Backup 47, page 69; references at page 106.]*
 
 # Backup responses
 
@@ -505,15 +503,17 @@ Deck page: 29.
 
 ### Answer
 
-Yes, at DAVIS resolution with room to spare. Each pixel's system is tridiagonal, so one sweep solves it, and pixels without events are skipped. On a laptop, one core processes a hundred-millisecond window of DAVIS data, with fifty time samples, in about three milliseconds: about thirty times faster than real time. The streaming version, which updates the newest frame every two milliseconds, uses about a third of real time on one core.
+The historical edge implementation demonstrated real-time feasibility on a laptop. These measurements used the earlier unsquared penalty and zero terminal weight. For DAVIS data, one thread took about three milliseconds per hundred-millisecond window; at full EVK4 resolution, all available threads kept up. The table reports processing time divided by recording time, including binning.
 
-At the EVK4's resolution, about nine hundred thousand pixels, with default sensor settings every pixel is active and memory traffic dominates. One core takes about two and a half times real time, and eight cores keep up.
-
-The next measurement is a Raspberry Pi 5, on one and four cores, with a power meter.
+The current code uses squared weights and repeats the final interval weight at the terminal sample. Its tridiagonal structure gives the same linear scaling. To claim current-estimator performance on a low-power device, I would repeat the benchmark there and measure latency, peak memory, and energy per estimate.
 
 ### If asked for more
 
-The streaming value equals the batch solution's last frame to rounding error: forward elimination of a row uses only earlier rows, and the last row has weight zero. For high resolution, the options are a region of interest, two-by-two pixel binning, fewer latent times, or tuned sensor biases; updating only the pixels that receive events is the next algorithmic step. Before this, I built a C++ and CUDA module in iniVation's DV software for live reconstruction. It used a general sparse solver, so the tridiagonal structure gives a large margin over it.
+The streaming recurrence uses the positive terminal diagonal, one plus the final interval weight squared. It matches the newest endpoint of the full mathematical batch solve on a growing prefix, with finalized interval observations. The default batch code's net-sum pixel mask is a separate convention: a nonzero history can have zero net sum. Match masks explicitly when comparing implementations.
+
+A moving window changes the left boundary and needs additional handling. The current streaming path uses sigmoid weights and delta binning; symmetric kernels would require look-ahead to finalize bins. Quiet pixels with earlier activity still evolve under the recurrence. Before the edge package, I built a C++ and CUDA module in iniVation's DV software for live reconstruction using a general sparse solver.
+
+*[For operation counts, memory, and deployment tradeoffs: Backup 83, page 105.]*
 
 ## Backup 08 — The weak equation supplies the natural boundary condition
 
@@ -1959,22 +1959,46 @@ Temporal reconstruction shows how a penalty selects the baseline. Flow shows how
 
 Across all three, the common question is which directions the observations control, and which the model chooses.
 
-*[For questions: the discussion guide is Backup 01, page 23; flow detail starts at Backup 41, page 63; the stereo arc at Backup 47, page 69; references at page 105.]*
+*[For questions: the discussion guide is Backup 01, page 23; flow detail starts at Backup 41, page 63; the stereo arc at Backup 47, page 69; references at page 106.]*
 
-## Backup 83 — References (1 of 3)
+## Backup 83 — How big is the temporal monocular problem?
 
 Deck page: 105.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** How many unknowns are there, what does the solve cost, and what would you change for low-power use?
 
-## Backup 84 — References (2 of 3)
+### Answer
+
+There are H times W times N_t unknowns, split into independent temporal histories. Each pixel has a positive-definite tridiagonal system. Weights, right-hand side, and solve each take O(N_t), giving O(H W N_t) total work.
+
+With E events and at most k bins per event, direct indexing on a uniform grid gives O(E k + H W N_t) including accumulation, for fixed kernel order. Delta binning has k equal to one. The edge solver uses this structure; the main Python path uses cubic dense solves.
+
+A 346 by 260 sensor with fifty samples has about four and a half million unknowns: eighteen megabytes of float32 output alone. Newest-endpoint streaming takes O(H W) state and work per interval. It matches the growing-prefix batch endpoint for finalized inputs; rolling windows change the boundary problem.
+
+### If asked for more
+
+**Preserve the estimator.** Bin directly, reuse buffers, and skip entirely zero observation histories. Zero net sum can hide changes. Reuse factors across identical weight profiles; cache weights for repeated integer counts. Quiet pixels with earlier activity still need state updates.
+
+**Trade resources deliberately.** ROI reduces coverage; coarser sampling reduces detail; shorter windows change history. Symmetric kernels add look-ahead latency. Float32, quantized weights, and fixed-point arithmetic require error checks, especially at weak regularization. Tune thread count for joules per estimate under the latency deadline. Measure peak memory too.
+
+**For detection,** event counts or a leaky activity state may suffice. Asynchronous high-pass or complementary filters offer another compact estimator, including an events-only option. Their objective and baseline behavior differ from this model: benchmark task accuracy alongside cost.
+
+**Sources:** Chapter 2 normal equations; edge implementation and README; [Scheerlinck et al., Continuous-time Intensity Estimation Using Event Cameras (ACCV 2018)](https://www.cedricscheerlinck.com/continuous-time-intensity-estimation). Historical timings: Backup 07, page 29.
+
+## Backup 84 — References (1 of 3)
 
 Deck page: 106.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
 
-## Backup 85 — References (3 of 3)
+## Backup 85 — References (2 of 3)
 
 Deck page: 107.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 86 — References (3 of 3)
+
+Deck page: 108.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*

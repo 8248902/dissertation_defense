@@ -254,19 +254,20 @@ is tridiagonal and diagonally dominant.
 \item The newest frame comes from the forward sweep alone: constant work per pixel for each new interval.
 \end{itemize}
 \column{.51\textwidth}
-\footnotesize\textbf{Measured on a laptop CPU}\par
+\footnotesize\textbf{Historical laptop measurements}\par
+{\scriptsize Earlier penalty convention; current-estimator timings require a rerun.\par}
 {\scriptsize processing time $\div$ recording time; 100\,ms windows, $N=50$\par}\smallskip
 % source: monocular_reconstruction/python/edge/README.md, laptop timings table (bench JSON in python/edge/results/: davis_pendulum T100ms N50, evk4_office T100ms N50; float32, active-pixel solve for DAVIS).
-\begin{tabular}{lrrrr}\toprule Sensor & Pixels & Events/s & 1 core & 8 cores\\\midrule
+\begin{tabular}{lrrrr}\toprule Sensor & Pixels & Events/s & 1 thr. & All\\\midrule
 DAVIS346 & 90k & 0.25\,M & 0.03 & 0.01\\
 EVK4 & 922k & 13\,M & 2.5 & 0.67\\\bottomrule
 \end{tabular}\par\medskip
 % source: monocular_reconstruction/python/edge/README.md, Validation: cup, 500k events, 150 latent times; MATLAB lat_image_af_with_lambda.m 39.6 s, tridiagonal 0.22 s, max relative difference 6.6e-16.
-Cup recording, 500k events, 150 frames: MATLAB reference 39.6\,s $\to$ 0.22\,s, same output to $10^{-15}$.
+Earlier cup implementation, 500k events, 150 frames: 39.6\,s $\to$ 0.22\,s; agreement within $10^{-15}$ for that earlier estimator.
 \end{columns}
 % source detail: Ch. 2 eq:tempdiffA and thm:uniqueness (structure); monocular_reconstruction/python/edge (implementation, validation, timings).
 \src{\dref{Eq.}{eq:tempdiffA}, \dref{Theorem}{thm:uniqueness}; Thomas algorithm~\cite{golub2013matrix}; timings: edge implementation, October 2026.}
-\talknote{Cost; about 3 minutes. This answers the pre-defense question about edge hardware.}{The first-difference matrix makes $\A^\top\A$ the path-graph Laplacian; adding a positive diagonal keeps it tridiagonal and makes it diagonally dominant, so Gaussian elimination without pivoting is stable. One forward sweep and one backward sweep cost a fixed number of operations per time sample. Only the diagonal changes from pixel to pixel, so all pixels are swept together. Forward elimination of a row uses only earlier rows, and the last row has weight zero, so the newest value is available after the forward sweep: $f_N=(y_{N-1}+r_{N-1})/(1-m^{-1}_{N-1})$, where $m_{N-1}$ and $r_{N-1}$ are the pivot and eliminated right-hand side of row $N-1$. A new interval turns the old last row into an interior row, so the recursion continues with three stored numbers per pixel.}{The dissertation's MATLAB code used a dense solve per pixel; the tridiagonal solver reproduces it to rounding error on the cup recording. DAVIS346 data runs far faster than real time on one core. At EVK4 resolution with default sensor settings every pixel is active and memory traffic sets the cost: real time on eight laptop cores. Raspberry Pi 5 timings and power are being measured (Backup 07).}
+\talknote{Cost; about 3 minutes. This answers the pre-defense question about edge hardware.}{The first-difference matrix makes $\A^\top\A$ the path-graph Laplacian. Adding a positive diagonal preserves the tridiagonal structure and gives strict diagonal dominance. One forward and one backward sweep cost O(N t) per pixel, hence O(H W N t) overall. In the implemented sigmoid/delta path, the forward recurrence gives the newest endpoint of a growing prefix. The terminal diagonal is $1+\lambda_{N_t-1}^2$, because the last interval weight is repeated; the next interval turns that endpoint into an interior row. Three recurrence scalars plus the current output are stored per pixel.}{The main Python solver uses dense matrices; the edge path already exploits the tridiagonal structure. The displayed timing and agreement measurements used the earlier unsquared penalty and zero terminal weight. They document that implementation; current-estimator deployment needs fresh latency, memory, and energy measurements. Backup 07 gives the historical timing detail; Backup 83 gives problem size and low-power options.}
 \end{frame}
 
 \begin{frame}{What the penalty does to temporal information}

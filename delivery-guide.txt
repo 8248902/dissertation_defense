@@ -5,7 +5,7 @@ CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 22 main slides + 85 backups (82 discussion, 3 references).
+  defense.pdf          Audience presentation: 22 main slides + 86 backups (83 discussion, 3 references).
                        Main slides omit source footers; the committee handout keeps them.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
@@ -21,7 +21,7 @@ DELIVERY
   Slide 6: the three results of the talk; the common question.
   Slide 9: sensor-to-observation model; the exact identity and its three error terms.
   Slide 10: uniqueness, the stability bound, and the reference level on one slide.
-  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, measured timings.
+  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, historical timings (earlier penalty convention).
   Slide 13: MVSEC images, then the Antil--Sayre comparison table.
   Slide 14: ESAR shared scene; figure first, one operator equation, about a minute.
   Slide 15: embedded aperture animations; play the left panel, then the right.
@@ -38,8 +38,8 @@ DELIVERY
   Full flow proof 31; stability 32; discrete flow / Jacobi 33-34; Chapter 4 results 70.
   Other backups: metrics 28; real-time 29; flow protocol 66; alignment 71; depth sensitivity 79;
   weak-regularization limits 91; event-free flow regions 92.
-  Backup pages 23-104: select by question; page numbers match the script/index.
-  Pages 105-107: references, numbered as in the dissertation; every [n] links here.
+  Backup pages 23-105: select by question; page numbers match the script/index.
+  Pages 106-108: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
   Answer the question asked in one or two sentences, then offer the backup.
@@ -96,3 +96,5 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   If updating an already-open presenter PDF, close both Pympress windows and
   reopen it. The builder uses script: page labels for grouped notes; notes:
   labels select Pympress's different, interleaved layout and hide the script.
+
+  Backup 83 (page 105): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.

@@ -2,6 +2,14 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## Start here — November 1 (temporal complexity and low-power questions)
+
+- Added Backup 83, page 105, **How big is the temporal monocular problem?**: independent pixel histories, O(H W N_t) tridiagonal solve work, O(E k) accumulation with direct indexing, output/scratch storage, and growing-prefix streaming. References are now Backups 84–86, pages 106–108; prior discussion pages stay fixed.
+- Matching embedded notes and full spoken answer cover exact savings, quiet-state propagation, ROI/resolution/history tradeoffs, precision checks, energy-aware thread selection, and task-specific event summaries or asynchronous filters. The 346 × 260 × 50 example is 4,498,000 unknowns and 17,992,000 bytes of float32 output alone.
+- Corrected Slide 11 and Backup 07 to identify the existing laptop timings as historical (earlier unsquared penalty and zero terminal weight), and their all-thread setting accurately. The current edge implementation already uses a tridiagonal solver; the main Python path remains dense. Streaming uses the positive repeated endpoint weight and matches the growing-prefix mathematical solution; the current streaming path is sigmoid/delta. Target-device latency and energy remain measurements to make.
+- Updated T30/T31 rehearsal cards, discussion navigation, README, delivery guide, source map, and generated editions. The main route remains 22 slides; there are 86 backups and 108 total slides. The script has 111 pages, with one script page per slide; the presenter has 216 pages. The committee selection remains unchanged.
+- Builds run under `/tmp/defense_complexity_20261101`; final PDFs and Anki packages belong here. Use the Makefile's `uv run --no-project --with pypdf python3` fallback for the presenter: the installed system pypdf is incompatible with its annotation writer. No thesis or reconstruction-code edits; no commit or push.
+
 ## Start here — handoff, October 24 (pare-down after the pre-defense)
 
 **Pre-defense feedback (Oct 22):** the motivation was thin, the talk turned technical immediately, and the slides were packed. Löhner and Griva also asked about the computational cost and whether the method could run on low-power edge hardware.

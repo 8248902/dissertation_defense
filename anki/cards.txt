@@ -214,16 +214,16 @@ Keep: polarity pattern across intervals; count tracks change size; constant fire
 More: The observations are y equals A f, and the images A v_k are orthogonal with norm square root of g_k. So mode k enters y scaled by root g_k: a slow mode gives small per-interval increments relative to its size.
 
 @ T30 | temporal | core | tridiag | eq:tempdiffA,thm:uniqueness
-Q: How expensive is the reconstruction, and could it run on low-power hardware?
-A: Each pixel solves one tridiagonal system: A transpose A is the path Laplacian, and the positive weights make the matrix diagonally dominant. The Thomas algorithm solves it in time proportional to the number of samples, without pivoting, and the pixels are independent. It reproduces the dissertation's MATLAB solver to ten to the minus fifteen, and DAVIS data runs about thirty times faster than real time on one laptop core.
-Keep: tridiagonal and diagonally dominant; linear time per pixel, no pivoting; validated, real time on one core
-More: On the cup recording, the dense MATLAB solve takes 39.6 s and the tridiagonal solve 0.22 s. At EVK4 resolution with every pixel active, eight laptop cores keep up; Raspberry Pi 5 timings with power are the next measurement.
+Q: How big is the temporal reconstruction problem, and why is its solve cheap?
+A: H times W times N_t unknowns split into independent pixel histories. Each positive-definite tridiagonal system takes O(N_t) work, including weights and right-hand side, so total solve work is O(H W N_t). The edge implementation exploits this structure; the main Python path uses dense solves.
+Keep: independent histories; linear work per pixel; distinguish implementation from model
+More: Direct indexing adds O(E k) event accumulation work. Full output takes O(H W N_t) memory. Historical laptop timings used an earlier penalty convention; current-estimator latency and energy need target-device measurements. Backup 83 covers low-power options.
 
 @ T31 | temporal | followup | tridiag,live | eq:tempdiffA
-Q: Why is the newest frame available before the backward sweep?
-A: Forward elimination of a row uses only the rows before it, and the last row has weight zero with the last increment as its right-hand side. So the last unknown is the last eliminated right-hand side divided by its pivot. When a new interval arrives, the old last row becomes an interior row and the recursion continues, with three stored numbers per pixel.
-Keep: forward elimination is causal; the last row closes the system; constant work per new interval
-More: On the cup recording the streaming value matches the batch solution's last frame to rounding error at every checkpoint, in double and single precision.
+Q: What exactly does the streaming temporal solver compute?
+A: For finalized interval observations, it returns the newest endpoint of the full batch solution on the growing history. The terminal diagonal is one plus the final interval weight squared. Three recurrence scalars plus the output per pixel give O(H W) state and O(H W) work per interval.
+Keep: growing-prefix endpoint; positive terminal weight; linear spatial state
+More: Revising older frames needs backward substitution. A rolling window changes the left boundary. Quiet pixels with earlier activity still evolve. Symmetric kernels add look-ahead. Compare batch and streaming with the same pixel-mask convention.
 
 @ V01 | flow | core | 20,21,90 | prop:time_surface
 Q: Explain the aperture problem to a mathematician outside vision.
