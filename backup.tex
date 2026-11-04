@@ -1630,7 +1630,7 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \small
 \textbf{Unknowns:} $HW$ independent pixel histories, each with $N_t$ samples.
 \[
-\underbrace{(\A^\top\A+\Lam_{xy}^{\top}\Lam_{xy})}_{\text{SPD, tridiagonal}}\mathbf f_{xy}
+\underbrace{(\A^\top\A+\Lam^\top\Lam)}_{\text{SPD, tridiagonal}}\mathbf f_{xy}
 =\A^\top\mathbf y_{xy},\qquad \boxed{\text{solve work }O(HWN_t)}.
 \]
 \begin{columns}[T]
@@ -1649,8 +1649,8 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \item ROI, coarser sampling, and lower precision trade coverage, detail, or numerical accuracy for cost.
 \end{itemize}
 \end{columns}\smallskip
-% source: illustrative arithmetic: 346*260*50 = 4498000 samples; *4 bytes = 17992000 bytes (18.0 decimal MB). Output only, excluding observations/workspace.
-{\footnotesize\textbf{Scale example:} $346\times260\times50\approx4.50$ million unknowns; float32 output alone $\approx18$ MB.}\par
+% source: illustrative arithmetic: 260*346*50 = 4498000 samples; *4 bytes = 17992000 bytes (18.0 decimal MB). Output only, excluding observations/workspace.
+{\footnotesize\textbf{Scale example:} $260\times346\times50\approx4.50$ million unknowns; float32 output alone $\approx18$ MB.}\par
 % source: Ch. 2 eq:tempdiffA and eq:normal_equations; python/src/core/solver.py:solve_pixel (dense), python/edge/tridiag.py:solve_tridiag_parallel and StreamingReconstructor (structured).
 \src{\dref{Eq.}{eq:tempdiffA}, \dref{Eq.}{eq:normal_equations}; edge solver. Uniform bins, fixed kernel order; streaming uses a growing prefix.}
 \talknote{Question: how big is the problem, and what would run on a low-power platform? About 90 seconds.}{Independent temporal chains give O(H W N t) work for weights, right-hand sides, and tridiagonal solves. Direct indexing adds O(E k) event work. The edge path uses this structure; the main Python path uses dense solves. The example counts output storage only.}{Sigmoid/delta streaming keeps three recurrence scalars plus output per pixel: O(H W) state and work per interval, matching the growing-prefix endpoint for finalized inputs. Exact savings: direct binning, buffer reuse, zero-history skipping, factor reuse for identical weights. ROI and coarser grids trade coverage/detail; shorter windows change history; reduced precision needs error checks. Earlier activity still drives quiet pixels. Symmetric kernels add look-ahead. Measure latency, peak RAM, and joules per estimate. The full script covers detection-only alternatives.}
