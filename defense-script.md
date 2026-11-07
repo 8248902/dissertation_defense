@@ -222,11 +222,11 @@ Last in this chapter: what changes when the pixels share one scene.
 
 ## Slide 14 — Shared motion couples temporal profiles to one scene
 
-On the International Space Station, motion is the enemy of a frame camera. For an event camera with a known orbit, motion is the measurement.
+On the International Space Station, motion is the enemy of a frame camera. For an event camera with a known orbit, motion is what's measured.
 
 The station moves at about seven point seven kilometers per second. Any exposure long enough to gather light smears the ground, and a single view can run from bright cloud to dark ocean. An event pixel timestamps each change to the microsecond, covers about 140 decibels, and sends only changes, which suits a payload with little power and a narrow downlink. And because the orbit is known, every view sees the same static ground through a known motion.
 
-In joint work with Professor Antil and David Sayre, called ESAR, we use exactly that: the same event constraints, now describing one static scene seen by a moving camera.
+In joint work with Professor Antil and Dr. Sayre, called ESAR, we use exactly that: the same event constraints, now describing one static scene seen by a moving camera.
 
 *[Point to the operator equation.]*
 
