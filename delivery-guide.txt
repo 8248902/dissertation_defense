@@ -21,7 +21,7 @@ DELIVERY
   Slide 6: the three results of the talk; the common question.
   Slide 9: sensor-to-observation model; the exact identity and its three error terms.
   Slide 10: uniqueness, the stability bound, and the reference level on one slide.
-  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, historical timings (earlier penalty convention).
+  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, CPU timings (DAVIS 0.04 of real time on one thread; cup 1.0).
   Slide 13: MVSEC images, then the Antil--Sayre comparison table.
   Slide 14: ESAR shared scene; figure first, one operator equation, about a minute.
   Slide 15: embedded aperture animations; play the left panel, then the right.

@@ -182,9 +182,9 @@ If only the newest frame is needed, the forward recurrence returns the endpoint 
 
 *[Point to the table.]*
 
-These are historical timings of the edge implementation, taken before the penalty was aligned to the chapter's squared weights and positive terminal weight. They show that the earlier implementation could keep up with DAVIS data on one thread and with EVK4 data using all available threads. The current estimator has the same linear computational structure. Its runtime and energy need fresh measurements on the deployment device.
+These timings are for the Chapter 2 estimator on one CPU node. The numbers are processing time divided by recording time, so anything below one keeps up. DAVIS data take about four percent of real time on one thread. The 640 by 480 cup recording, at 2.3 million events per second, keeps up on one thread and takes about a fifth of real time on eight. On an MVSEC recording with half a million events and 150 frames, the tridiagonal solve takes three hundredths of a second where the dense solve takes one and a half, and it agrees with the MATLAB reference to rounding error.
 
-*[For the historical timing detail: Backup 07, page 29. For problem size, memory, and low-power strategies: Backup 83, page 105.]*
+*[For streaming timings: Backup 07, page 29. For problem size, memory, and low-power strategies: Backup 83, page 105.]*
 
 ## Slide 12 — What the penalty does to temporal information
 
@@ -268,11 +268,11 @@ The teal arrow is the edge's motion perpendicular to itself; the dashed line is 
 
 *[Point to the right diagram.]*
 
-The right panel plots possible velocities, not positions. Each line is every velocity that fits one edge's events. Edge 1 is vertical, so its events fix the horizontal speed, the teal arrow, and leave the vertical speed free.
+The right panel plots possible velocities. Each line is every velocity that fits one edge's events. Edge 1 is vertical, so its events fix the horizontal speed, the teal arrow, and leave the vertical speed free.
 
 A second edge, elsewhere in the image and oriented differently, gives the diagonal line. If both edges move with the same velocity, the crossing picks it out: the ringed dot, v. It's the teal part edge 1 measured, plus the amber part edge 2 fixed.
 
-The two edges don't have to touch or be close. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both.
+The two edges can be anywhere in the window. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both.
 
 So the flow model is: the unknown is the image velocity at every pixel; events give each edge's perpendicular speed; neighbors moving alike fill in the rest. The three representations differ in how they get the edge measurement: crossing times, transported event activity, or gradients pooled over a small window.
 
@@ -302,7 +302,7 @@ The question now is whether the data and the smoothness term, together, control 
 
 This result specializes the classical well-posedness framework to the event-derived coefficients, under these hypotheses.
 
-*[Read the hypotheses by explaining their roles, rather than reciting the symbols.]*
+*[Explain each hypothesis by its role.]*
 
 The domain is bounded, connected, and Lipschitz, and the smoothness weight is positive. The data matrix B is bounded, symmetric, and positive semidefinite, and the forcing b is square-integrable.
 
@@ -503,15 +503,15 @@ Deck page: 29.
 
 ### Answer
 
-The historical edge implementation demonstrated real-time feasibility on a laptop. These measurements used the earlier unsquared penalty and zero terminal weight. For DAVIS data, one thread took about three milliseconds per hundred-millisecond window; at full EVK4 resolution, all available threads kept up. The table reports processing time divided by recording time, including binning.
+Yes, on an ordinary CPU. The table reports processing time divided by recording time, including binning, for the Chapter 2 estimator on one CPU node. For DAVIS data, one thread takes about four milliseconds per hundred-millisecond window, and the streaming solver returns a new frame every two milliseconds at well under real time. The 640 by 480 cup recording, at 2.3 million events per second, keeps up on one thread and takes about a fifth of real time on eight.
 
-The current code uses squared weights and repeats the final interval weight at the terminal sample. Its tridiagonal structure gives the same linear scaling. To claim current-estimator performance on a low-power device, I would repeat the benchmark there and measure latency, peak memory, and energy per estimate.
+The code solves the Chapter 2 normal equations, with the final interval weight repeated at the terminal sample, and it agrees with the MATLAB reference to rounding error. It needs only NumPy and Numba, so the same code targets ARM boards such as a Raspberry Pi. Backup 83 covers memory and low-power choices.
 
 ### If asked for more
 
-The streaming recurrence uses the positive terminal diagonal, one plus the final interval weight squared. It matches the newest endpoint of the full mathematical batch solve on a growing prefix, with finalized interval observations. The default batch code's net-sum pixel mask is a separate convention: a nonzero history can have zero net sum. Match masks explicitly when comparing implementations.
+The streaming recurrence uses the positive terminal diagonal, one plus the final interval weight squared. It matches the newest endpoint of the full mathematical batch solve on a growing prefix, with finalized interval observations. The batch code skips pixels whose net event sum is zero, and a nonzero history can have zero net sum, so compare streaming and batch on the same pixel set.
 
-A moving window changes the left boundary and needs additional handling. The current streaming path uses sigmoid weights and delta binning; symmetric kernels would require look-ahead to finalize bins. Quiet pixels with earlier activity still evolve under the recurrence. Before the edge package, I built a C++ and CUDA module in iniVation's DV software for live reconstruction using a general sparse solver.
+A moving window changes the left boundary and needs additional handling. The streaming path uses sigmoid weights and delta binning; symmetric kernels would require look-ahead to finalize bins. Quiet pixels with earlier activity still evolve under the recurrence. I also built a C++ and CUDA module in iniVation's DV software for live reconstruction using a general sparse solver.
 
 *[For operation counts, memory, and deployment tradeoffs: Backup 83, page 105.]*
 
@@ -551,7 +551,7 @@ Now the energy controls the mean, the fluctuation, and the gradient, so it bound
 
 ### If asked for more
 
-An admissible constant, not an optimal one, is c zero equals the smaller of two numbers: m over twice the domain's area, and alpha squared over one plus C P squared plus twice the area times beta B times C P squared over m. It comes from writing the squared H one norm as the area times the mean's squared size, plus the squared L two norm of the fluctuation, plus the squared gradient norm. For fixed alpha and beta B, this bound decreases linearly as m decreases.
+An admissible constant is c zero equals the smaller of two numbers: m over twice the domain's area, and alpha squared over one plus C P squared plus twice the area times beta B times C P squared over m. It comes from writing the squared H one norm as the area times the mean's squared size, plus the squared L two norm of the fluctuation, plus the squared gradient norm. For fixed alpha and beta B, this bound decreases linearly as m decreases.
 
 ## Backup 10 — Stability follows by subtracting weak equations
 
@@ -677,7 +677,7 @@ The leading squared-bias term grows like the radius to the fourth, and the varia
 
 ### If asked for more
 
-Minimizing one constant times r to the fourth plus another constant times r to the minus fourth makes r to the eighth equal to the ratio of the second constant to the first. Substituting the coefficients gives the factor shown. The asymptotic remainder can have either sign, so the leading expression alone isn't an upper bound for every finite design. And for an affine time surface the curvature bias is zero, so more samples only reduce variance, and this model has no finite balancing radius.
+Minimizing one constant times r to the fourth plus another constant times r to the minus fourth makes r to the eighth equal to the ratio of the second constant to the first. Substituting the coefficients gives the factor shown. The asymptotic remainder can have either sign, so the leading expression approximates the finite-design bound from either side. And for an affine time surface the curvature bias is zero, so more samples only reduce variance, and this model has no finite balancing radius.
 
 ## Backup 16 — Uniform projection and OLS slope need not be transport partners
 
@@ -767,7 +767,7 @@ Three estimates control that expression. First, the positive regularizer bounds 
 
 ### If asked for more
 
-The weight estimate pairs with the weighted residual, instead of a separate unweighted residual bound, and that's what produces the epsilon to the minus three-halves. The change in predicted temporal differences is at most the norm of A times the change in the state, which supplies the remaining factor. This is a sufficient global bound for the unclipped reciprocal map. When it's one or larger, it gives no conclusion about contraction; a convergence claim then needs another argument or a further sufficient condition.
+The weight estimate pairs with the weighted residual, and that's what produces the epsilon to the minus three-halves. The change in predicted temporal differences is at most the norm of A times the change in the state, which supplies the remaining factor. This is a sufficient global bound for the unclipped reciprocal map. It certifies contraction whenever that constant is below one.
 
 ## Backup 21 — A converged frozen-weight iteration need not be maximum likelihood
 
@@ -781,11 +781,11 @@ Deck page: 43.
 
 No. When the variance depends on the unknown state, a frozen-weight fixed point and a likelihood optimum solve different derivative equations. A scalar example shows this directly. Take a positive observation y, with variance equal to the absolute prediction plus a positive epsilon. With the variance frozen, every least-squares step is minimized at the prediction y, so the iteration reaches that fixed point immediately.
 
-The full Gaussian negative log-likelihood is different: the variance moves with the prediction, which adds a log-variance term. At the prediction y the residual is zero, but the derivative of the log-variance term is positive: one over two times the quantity y plus epsilon. So lowering the prediction slightly lowers the negative log-likelihood, and the fixed point is not its minimizer.
+The full Gaussian negative log-likelihood is different: the variance moves with the prediction, which adds a log-variance term. At the prediction y the residual is zero, but the derivative of the log-variance term is positive: one over two times the quantity y plus epsilon. So lowering the prediction slightly lowers the negative log-likelihood: its minimizer lies just below the fixed point.
 
 ### If asked for more
 
-This scalar example deliberately has no regularizer, to keep the mechanism visible. It separates two claims; it isn't an instance of the positive-penalty temporal theorem. The dissertation also gives a two-sample temporal example with positive regularization, where a fixed point differs from a stationary point of the final-state-weighted score, even before the Gaussian log term is added. The empirical estimator is evaluated as the specified surrogate procedure, with its own objective and stopping rules.
+This scalar example deliberately has no regularizer, to keep the mechanism visible. It isolates the weighting mechanism from the positive-penalty temporal theorem. The dissertation also gives a two-sample temporal example with positive regularization, where a fixed point differs from a stationary point of the final-state-weighted score, even before the Gaussian log term is added. The empirical estimator is evaluated as the specified surrogate procedure, with its own objective and stopping rules.
 
 ## Backup 22 — What the implemented IRLS procedure returns
 
@@ -803,7 +803,7 @@ For scoring, it recomputes the weights at the proposed state with the unclipped 
 
 ### If asked for more
 
-A stopping rule can return an accepted iterate before it reaches a fixed point. Later, finite penalty values used for guidance or rejection go into averaging, so they act as soft preferences rather than hard constraints. The final winner is the exact minimizer of its computed score list, and path aggregation supplies the spatial context for that list.
+A stopping rule can return an accepted iterate before it reaches a fixed point. Later, finite penalty values used for guidance or rejection go into averaging, so they act as soft preferences. The final winner is the exact minimizer of its computed score list, and path aggregation supplies the spatial context for that list.
 
 ## Backup 23 — Depth evaluation distinguishes returned coverage and scored coverage
 
@@ -833,7 +833,7 @@ Deck page: 46.
 
 ### Answer
 
-Not by itself; it's a reason to look more closely at the residuals. This simple mixture shows why. Suppose a fraction of pixels have exactly zero residual, and the rest are zero-mean Gaussian with variance sigma squared. The Gaussian part has ordinary Gaussian tails. But pooling it with the point mass at zero gives an excess kurtosis of three over the active fraction, minus three.
+On its own, it's a reason to look more closely at the residuals. This simple mixture shows why. Suppose a fraction of pixels have exactly zero residual, and the rest are zero-mean Gaussian with variance sigma squared. The Gaussian part has ordinary Gaussian tails. But pooling it with the point mass at zero gives an excess kurtosis of three over the active fraction, minus three.
 
 So the more zeros, the larger the pooled kurtosis. Event-free pixels can have exactly zero fitted transport residuals, so sparsity alone can create the effect. Regularized fitting, unequal variances, and temporal dependence also shape the residual distribution. So I'd read the pooled diagnostic alongside the event-active residuals and how their variance scales. That separates concentration at zero from the tails of the active errors, and gives a better basis for choosing the observation model.
 
@@ -871,7 +871,7 @@ Deck page: 48.
 
 It's a qualitative comparison on one frame: MVSEC indoor flying 2, frame 0340. The reference image shows the scene, and the ground-truth flow is the visual target. The other panels show the event-accumulation baseline and the time-surface, voxel, and structure-tensor voxel estimates.
 
-Those last three are the representations covered by the common quadratic analysis. They build different coefficient fields from the same kind of event input, so the panels show how those choices change the flow pattern in a real scene. The color legend is the one from slide 5: hue is direction and brightness is size, with each panel scaled to its own ninety-fifth-percentile magnitude, so compare directions across panels and sizes only within a panel. The accumulation baseline is a separate comparison method. Chapter 3 reports no aggregate real-data endpoint error for this comparison, so I describe what's visible in this frame and keep any dataset-level ranking separate.
+Those last three are the representations covered by the common quadratic analysis. They build different coefficient fields from the same kind of event input, so the panels show how those choices change the flow pattern in a real scene. The color legend is the one from slide 5: hue is direction and brightness is size, with each panel scaled to its own ninety-fifth-percentile magnitude, so compare directions across panels and sizes only within a panel. The accumulation baseline is a separate comparison method. Chapter 3's endpoint errors come from the known-motion scenes, so here I describe what's visible in this frame.
 
 ### If asked for more
 
@@ -907,13 +907,13 @@ Deck page: 50.
 
 ### Answer
 
-Not in general. For majorization–minimization, the frozen objective would have to lie above the state-dependent score and touch it at the current state. For differentiable functions, touching also means matching derivatives. Here the variance proxy depends on the predicted signal, so the derivative of the full score has an extra term from the changing denominator.
+Only when derivatives also match. For majorization–minimization, the frozen objective would have to lie above the state-dependent score and touch it at the current state. For differentiable functions, touching also means matching derivatives. Here the variance proxy depends on the predicted signal, so the derivative of the full score has an extra term from the changing denominator.
 
 The frozen quadratic matches the score's value at the current state, but its derivative treats that denominator as constant. So the term shown remains in the full derivative, and it's generally nonzero. That's why I analyze the method through its frozen-solve map: I prove that a fixed point exists, and that the iteration converges under a sufficient contraction condition. Those are precise properties of the map. A monotone-descent claim for a state-dependent score would need a separate surrogate inequality, or an acceptance rule that actually enforces descent.
 
 ### If asked for more
 
-If a differentiable surrogate majorizes the score and touches it at an interior point, their difference has a local minimum of zero there. So the derivative of the difference vanishes, and the derivatives must match. The extra variance derivative vanishes in special cases, such as a zero residual, but that alone gives no global majorizer. The implemented acceptance rule is a different mechanism and can allow small cost increases, so describe its behavior through its actual thresholds.
+If a differentiable surrogate majorizes the score and touches it at an interior point, their difference has a local minimum of zero there. So the derivative of the difference vanishes, and the derivatives must match. The extra variance derivative vanishes in special cases, such as a zero residual. The implemented acceptance rule is a different mechanism and can allow small cost increases, so describe its behavior through its actual thresholds.
 
 ## Backup 29 — A Gaussian model gives an evidence interpretation of attenuation
 
@@ -927,7 +927,7 @@ Deck page: 51.
 
 Yes, for the Gaussian model with fixed common parameters. Read the magnitude and coupling penalties as a Gaussian prior on the two latent profiles, and assume independent unit-variance Gaussian observation noise. After integrating out the profiles, the right observation given the left is Gaussian. Its mean is c, the same shifted center as in the cost ellipsoid, and its covariance is the inverse of two P.
 
-So the model predicts an attenuated right observation, rather than necessarily the left observation itself. For a scalar regularizer, that attenuation is diagonal in the temporal observation modes. Comparing the coupled model's evidence with the independent model's leaves the discrepancy term plus a constant that is the same for every candidate. Under these Gaussian assumptions, that explains both the shifted prediction and a possible discrepancy-based comparison.
+So the model predicts an attenuated right observation. For a scalar regularizer, that attenuation is diagonal in the temporal observation modes. Comparing the coupled model's evidence with the independent model's leaves the discrepancy term plus a constant that is the same for every candidate. Under these Gaussian assumptions, that explains both the shifted prediction and a possible discrepancy-based comparison.
 
 ### If asked for more
 
@@ -949,7 +949,7 @@ The final step picks a disparity from that score list, interpolating around the 
 
 ### If asked for more
 
-A few distinctions inside those layers. Solve weights are clipped; scoring weights are recomputed without clipping. Finite guidance penalties go into averaging, so the preference they create is soft. Picking the minimum of the final finite list is exact relative to that list; whether it's the physically correct match is a separate question. Likewise, path aggregation is its own specified spatial algorithm, rather than an exact solver for a general two-dimensional labeling problem. The reported benchmark includes score-minimum interpolation and leaves out the separate hole-filling and refinement stage.
+A few distinctions inside those layers. Solve weights are clipped; scoring weights are recomputed without clipping. Finite guidance penalties go into averaging, so the preference they create is soft. Picking the minimum of the final finite list is exact relative to that list; whether it's the physically correct match is a separate question. Likewise, path aggregation is its own specified spatial algorithm. The reported benchmark includes score-minimum interpolation and leaves out the separate hole-filling and refinement stage.
 
 ## Backup 31 — What does the dissertation contribute mathematically?
 
@@ -1015,7 +1015,7 @@ Deck page: 56.
 
 ### Answer
 
-No. The constant null space is exactly the ambiguity of the discrete first-difference model. The physical threshold sensor loses more, because it reports only threshold crossings rather than every change. This slide gives an explicit example, with the same initial reference for both signals.
+No. The constant null space is exactly the ambiguity of the discrete first-difference model. The physical threshold sensor loses more, because it reports only threshold crossings. This slide gives an explicit example, with the same initial reference for both signals.
 
 The first log intensity is constant. The second oscillates sinusoidally around that value, with amplitude strictly smaller than the contrast threshold. Its change from the reset reference stays inside the threshold the whole time, so both signals produce the same empty event stream. Exponentiating either one gives a positive physical intensity. So even time-varying signals can share an event stream. This matters for reading the reconstruction theorem: it proves uniqueness for the regularized increment surrogate. Connecting that surrogate to the physical signal also takes assumptions about the threshold measurement and about what the representation retains.
 
@@ -1175,7 +1175,7 @@ The method works directly on individual events and their own timestamps. The qua
 
 ### If asked for more
 
-These numbers come from one representative window, chosen by the rule that minimizes deviation from each method's median error, on simulated scenes with known motion. On the idealized stripes, contrast maximization also assigns flow to the background around the object. The dissertation reports no aggregate real-data endpoint error for any of the flow methods. The guarantee for contrast maximization is that a global minimizer exists; the solver is a local quasi-Newton method. The contrast-maximization objective and existence backups give those details.
+These numbers come from one representative window, chosen by the rule that minimizes deviation from each method's median error, on simulated scenes with known motion. On the idealized stripes, contrast maximization also assigns flow to the background around the object. The dissertation's endpoint errors come from these known-motion scenes. The guarantee for contrast maximization is that a global minimizer exists; the solver is a local quasi-Newton method. The contrast-maximization objective and existence backups give those details.
 
 ## Backup 44 — How the known-motion comparison was evaluated
 
@@ -1419,7 +1419,7 @@ So whenever eta is strictly less than half of delta, every perturbed gap stays p
 
 ### If asked for more
 
-The cost bound must cover the original winner as well as every competitor. At exactly half the margin, the bound allows a tie, so the strict inequality matters. An observation-based estimate can supply eta when the score parameters are fixed and the observation perturbations are controlled. Spatial aggregation can separate candidates using neighboring evidence, so the identical-profile example applies to the local score, rather than to every stereo algorithm that uses spatial context.
+The cost bound must cover the original winner as well as every competitor. At exactly half the margin, the bound allows a tie, so the strict inequality matters. An observation-based estimate can supply eta when the score parameters are fixed and the observation perturbations are controlled. Spatial aggregation can separate candidates using neighboring evidence, so the identical-profile example applies to the local score.
 
 ## Backup 57 — Depth sensitivity grows with distance
 
@@ -1475,7 +1475,7 @@ The weight map is continuous, and the frozen system stays positive definite, so 
 
 ### If asked for more
 
-With a fixed damping parameter greater than zero and at most one, the update is a convex combination of the old state and the undamped update. The fixed points stay the same, and the Lipschitz bound becomes one minus omega, plus omega times q. When q is below one, that's still a contraction. When q is one or larger, this bound gives no contraction certificate. A fixed point means consistency with the frozen weights; reading it as a likelihood optimum needs a separate analysis of the objective.
+With a fixed damping parameter greater than zero and at most one, the update is a convex combination of the old state and the undamped update. The fixed points stay the same, and the Lipschitz bound becomes one minus omega, plus omega times q. When q is below one, that's still a contraction. A fixed point means consistency with the frozen weights; reading it as a likelihood optimum needs a separate analysis of the objective.
 
 ## Backup 60 — Stereo benchmark: read accuracy alongside scored coverage
 
@@ -1513,7 +1513,7 @@ That supports the selected rule for these configurations and their scored popula
 
 ### If asked for more
 
-These are differences of reported mean errors, not paired per-pixel improvements. The empirical improvement motivates the implementation choice; a maximum-likelihood interpretation would also need a justified probabilistic model for the processed observations.
+These are differences of reported mean errors. The empirical improvement motivates the implementation choice; a maximum-likelihood interpretation would also need a justified probabilistic model for the processed observations.
 
 ## Backup 62 — Hard fusion changes both the constraint and the regularization
 
@@ -1531,7 +1531,7 @@ Averaged over the four sequences, the reported mean depth error is 102.10 centim
 
 ### If asked for more
 
-The soft model's mean equation already combines both views, so averaging alone gives no demonstrated explanation for the performance difference.
+The soft model's mean equation already combines both views.
 
 ## Backup 63 — Motion-induced events and the aperture problem
 
@@ -1571,7 +1571,7 @@ The condition is also necessary. If a leftover mode is invisible to the second t
 
 The proof is one line. Split u into its part in the leftover modes, n, and the rest, w. The square root of a is a seminorm, so a of n is at most twice a of u plus twice beta times the norm of w squared, and r controls the norm of w. Adding the two bounds gives the constant.
 
-The constant explains the scene statements: for flow it falls as m shrinks, which is why the stripe scene is nearly degenerate. Two parts of the dissertation sit outside this lemma. Correspondence selection compares finitely many candidate costs, so it needs a separation margin. Contrast maximization is nonconvex, so compactness gives existence only. Total variation isn't a quadratic form, so neither this lemma nor Lax--Milgram applies to it.
+The constant explains the scene statements: for flow it falls as m shrinks, which is why the stripe scene is nearly degenerate. Two parts of the dissertation sit outside this lemma. Correspondence selection compares finitely many candidate costs, so it needs a separation margin. Contrast maximization is nonconvex, so compactness gives existence only. This lemma and Lax--Milgram apply to quadratic forms; total variation needs separate tools.
 
 ### If asked how the result extends to another regularizer
 
@@ -1633,7 +1633,7 @@ Deck page: 89.
 
 A trained network is also a regularized estimator. Where the events leave the answer free, it fills the gap from its training images; my methods fill it with a penalty that is written down and analyzed.
 
-The dissertation identifies those free directions. In the temporal problem it's the constant brightness offset at each pixel. In flow it's the motion component along a straight edge. In stereo it's the disparity candidates whose temporal profiles coincide. No estimator recovers those from events alone; each one supplies them from somewhere. That's also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open.
+The dissertation identifies those free directions. In the temporal problem it's the constant brightness offset at each pixel. In flow it's the motion component along a straight edge. In stereo it's the disparity candidates whose temporal profiles coincide. Every estimator supplies those from a model or from training data. That's also why event reconstruction has no agreed standard yet: scoring against frame images assumes a brightness level the events leave open.
 
 The two approaches combine naturally. The weights can be learned in a bilevel problem, and because each fixed-weight solve is unique and smooth in the weights, the outer problem has a well-defined, smooth lower level. And for data like the ISS and ballistics sequences, the reconstruction runs from events alone, with no reference images or training set.
 
@@ -1719,7 +1719,7 @@ Deck page: 93.
 
 On the left is an ordinary camera image of an outdoor scene; we keep it there to help recognize the scene. In the middle is a fifty-millisecond sample of the events from the same recording. Orange marks pixels that got brighter, blue pixels that got darker, and purple pixels that did both. On the right is our reconstruction, computed from a longer stretch of those events, a little under a second.
 
-Each event says only that the brightness at one pixel changed at one moment. So the events record change and nothing else: they have no record of how bright anything is. To get from events to the image on the right, the model has to fill in what the events leave out, starting with a reference brightness level. Regularization makes that choice and balances it against fitting the data.
+Each event says only that the brightness at one pixel changed at one moment. So the events record change; the brightness level comes from the model. To get from events to the image on the right, the model has to fill in what the events leave out, starting with a reference brightness level. Regularization makes that choice and balances it against fitting the data.
 
 That is the theme of the talk. At each step, I'll separate what the observations determine from what the model chooses. Regularization can pick out a single answer. To know what that answer means, we need to know which parts came from the data and which came from the model.
 
@@ -1951,7 +1951,7 @@ Each method is scored on its own valid pixels, so the comparison reflects both a
 
 Deck page: 104.
 
-*[Closing summary from an earlier version of the talk; use it if the discussion returns to the common question.]*
+*[Closing summary; use it if the discussion returns to the common question.]*
 
 I began by asking what we can recover from changes alone.
 
@@ -1983,7 +1983,7 @@ A 346 by 260 sensor with fifty samples has about four and a half million unknown
 
 **For detection,** event counts or a leaky activity state may suffice. Asynchronous high-pass or complementary filters offer another compact estimator, including an events-only option. Their objective and baseline behavior differ from this model: benchmark task accuracy alongside cost.
 
-**Sources:** Chapter 2 normal equations; edge implementation and README; [Scheerlinck et al., Continuous-time Intensity Estimation Using Event Cameras (ACCV 2018)](https://www.cedricscheerlinck.com/continuous-time-intensity-estimation). Historical timings: Backup 07, page 29.
+**Sources:** Chapter 2 normal equations; edge implementation and README; [Scheerlinck et al., Continuous-time Intensity Estimation Using Event Cameras (ACCV 2018)](https://www.cedricscheerlinck.com/continuous-time-intensity-estimation). CPU timings: Backup 07, page 29.
 
 ## Backup 84 — References (1 of 3)
 
