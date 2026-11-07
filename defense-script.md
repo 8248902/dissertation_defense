@@ -224,25 +224,23 @@ Last in this chapter: what changes when the pixels share one scene.
 
 On the International Space Station, motion is the enemy of a frame camera. For an event camera with a known orbit, motion is what's measured.
 
-The station moves at about seven point seven kilometers per second. Any exposure long enough to gather light smears the ground, and a single view can run from bright cloud to dark ocean. An event pixel timestamps each change to the microsecond, covers about 140 decibels, and sends only changes, which suits a payload with little power and a narrow downlink. And because the orbit is known, every view sees the same static ground through a known motion.
+The station moves at about seven point seven kilometers per second, so any exposure long enough to gather light smears the ground. An event pixel timestamps each change to the microsecond, covers about 140 decibels, and sends only changes, which suits a payload with little power. And because the orbit is known, every view sees the same ground through a known motion.
 
 In joint work with Professor Antil and Dr. Sayre, called ESAR, we use exactly that: the same event constraints, now describing one static scene seen by a moving camera.
 
 *[Point to the operator equation.]*
 
-Theta is the scene. P holds the known motion: it maps the scene into each view. A takes differences between consecutive views, as before. So B sub SAR maps one scene to the event changes predicted across the whole sequence. The name borrows from synthetic aperture radar, which combines a moving sensor's views into one image of a fixed scene.
+Theta is the scene. P holds the known motion: it maps the scene into each view. A takes differences between consecutive views, as before. The name borrows from synthetic aperture radar, which combines a moving sensor's views into one image.
 
 *[Point to the orbital pair.]*
 
 This is a real Falcon Neuro pass looking straight down. On the left, each pixel is reconstructed on its own, and the structure is faint and noisy. On the right, every view constrains one shared scene, and the coastline and the land texture come out. The motion that blurs a frame camera gives the event camera more views of the same ground.
 
-To recover the scene, we fit it to all the event counts at once: least squares plus a penalty, as for a single pixel. The penalty is a choice. With a simple quadratic penalty, it's one linear system, and the dissertation proves the solution is unique and bounds how far noise can move it. That penalty also fixes the overall brightness offset, which the events leave free. The figure follows the joint work and uses a smoothed total-variation penalty, minimized with L-BFGS. Total variation also leaves the offset free, so we remove it before scoring.
+We fit the scene to all the event counts at once: least squares plus a penalty, as for a single pixel. With a quadratic penalty, it's one linear system, and the dissertation proves the solution is unique and bounds how far noise can move it.
 
 *[Point to the disks.]*
 
-The simulated example shows the mathematics: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
-
-Temporal reconstruction solves for each pixel's history independently, where the only free direction is the baseline. ESAR solves for one static scene through a known motion, so the pixels are coupled and the free directions are the patterns the motion leaves invisible.
+The simulated disks show the mathematics. The error concentrates along rows through the disks, because a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
 
 Here the motion was known. In optical flow, the motion is the unknown.
 
@@ -1379,7 +1377,7 @@ The left monocular term is the same for every candidate. The right monocular ter
 
 The derivation completes the square in the stacked latent variables, then uses the sum-and-difference transform to separate the terms. The inverse difference equals two gamma times the product of the two positive inverse matrices, so it's positive semidefinite. An exact winner of these unaggregated profiled costs minimizes the corresponding joint objective over the candidates and the latent variables. Showing that it's the physical match takes assumptions that connect that objective to the true correspondence.
 
-## Backup 54 — An attenuated correspondence can cost less than the perfect one
+## Backup 54 — An attenuated match can cost less than the perfect one
 
 Deck page: 76.
 
