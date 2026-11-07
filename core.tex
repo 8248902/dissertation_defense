@@ -28,9 +28,7 @@
 \end{columns}
 {\scriptsize\color{muted}Cup and ISS: grayscale (top) and false color (bottom) of the same reconstructed frame.\par}
 \vspace{1mm}\raggedright\small
-% source: Gallego et al., "Event-based Vision: A Survey," IEEE TPAMI 44(1), 2022, abstract: microsecond temporal resolution, low power consumption.
-Each pixel reports when its brightness changes, with microsecond timing and low power~\cite{gallego2022event}.\par\smallskip
-This dissertation recovers images, motion, and depth from these changes, with guarantees on the estimates and computation simple enough for on-board use.
+\textbf{What can brightness changes reveal about images, motion, and depth---and at what computational cost?}
 % source detail: Ch. 2, subsec:validation, f:office, f:cup, f:iss; datasets in subsubsec:datasets.
 \src{\dref{Figure}{f:office}, \dref{Figure}{f:cup}, and \dref{Figure}{f:iss}; \dref{Section}{subsec:validation}. Data: office~\cite{gallego2017accurate}, cup~\cite{rebecq2021highspeed}, Falcon Neuro~\cite{mcharg2022falcon}.}
 \talknote{Motivation; about 2 minutes. Show the results before any mathematics.}{Office: a handheld camera in an office; the desk objects and the person are recognizable. Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur. ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse. All three come from events alone, with one per-pixel solve and no intensity frames.}{Why it matters: fast scenes, wide brightness ranges, and platforms with tight power budgets such as drones and spacecraft. On those platforms the estimator must also be cheap and predictable, which the reconstruction chapter quantifies. Grayscale and false color are display choices for the reconstructed relative brightness. Transition: what the sensor reports, and why that makes these problems mathematically interesting.}
@@ -165,7 +163,7 @@ The reconstruction times $t_i$ are chosen by the algorithm.
 Events determine increments, leaving a constant free.
 \end{columns}
 \vspace{1mm}
-{\footnotesize\textbf{In scene terms:} each pixel's log-brightness history is rebuilt on its own from how much it rose or fell in each interval. The model chooses the reference level; a pixel without events stays at that level, whatever its brightness.\par}
+{\footnotesize Events fix the increments; the penalty chooses the reference level.\par}
 % source detail: Ch. 2, eq:exy, eq:Exy, eq:tempdiffA, lem:nullspace.
 \src{\dref{Eq.}{eq:Exy}, \dref{Eq.}{eq:tempdiffA}, and \dref{Lemma}{lem:nullspace}.}
 \talknote{Temporal observation model; 75 seconds.}{Suppress the pixel index to keep the notation readable. Integrating a unit-mass kernel across a bin assigns all or part of each event to that bin. Delta binning has no spread; Gaussian, rectangular, and spline kernels distribute influence over time. The entries of A are unscaled increments: A f lists the differences of consecutive samples.}{If Af=0, every consecutive pair of components is equal, hence f is constant. Conversely A1=0. Under ideal threshold calibration the observed increments approximate changes in L/c\_th, with kernel-boundary, overshoot, and between-event endpoint errors. No absolute frame is used to set the baseline. Scene terms: each pixel's brightness history is rebuilt on its own; a pixel without events stays at the reference level.}
@@ -369,7 +367,6 @@ Outdoor & 8.41 & 8.71 & 39755 & 27.10\\\bottomrule
 \fi
 \fi\par
 {\footnotesize The visible stripe motions look the same.}\par\smallskip
-\href{https://cdn.sinauer.com/wolfe4e/ch/08/act0802/app5-hide.gif}{\scriptsize\textcolor{teal}{Movie 5 source (GIF)}}
 \column{.49\textwidth}\centering
 \textbf{Reveal the full patterns}\par
 \ifdefined\DefenseNotes
@@ -382,10 +379,10 @@ Outdoor & 8.41 & 8.71 & 39755 & 27.10\\\bottomrule
 \fi
 \fi\par
 {\footnotesize The patterns translate in different directions.}\par\smallskip
-\href{https://cdn.sinauer.com/wolfe4e/ch/08/act0802/app6-show.gif}{\scriptsize\textcolor{teal}{Movie 6 source (GIF)}}
 \end{columns}
 % source detail: Ch. 3, prop:time_surface and following aperture remark.
-\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Perceptual illustration: Wolfe et al., \emph{Sensation and Perception}, 4th ed., Sinauer \textcopyright\ 2015. \href{https://cdn.sinauer.com/wolfe4e/wa08.02.html\#Aperture}{\textcolor{teal}{Activity 8.2, Movies 5--6}}.\par Dissertation: \dref{Proposition}{prop:time_surface} and the following aperture discussion.\par}
+\vfill{\fontsize{6.5}{8}\selectfont\color{muted}Publisher animations, unchanged: Wolfe et al.~\cite{wolfe2015animations}, Activity 8.2, Movies 5--6.\par}
+\src{\dref{Proposition}{prop:time_surface} and the following aperture discussion.}
 \talknote{Why events for motion, then the aperture problem visually; about 2 minutes.}{Motivation: a drone needs image motion now. Frames at 30--60 Hz compare two pictures; a fast edge jumps and blurs, and the answer arrives a frame late. Events timestamp the edge as it crosses each pixel; the time-surface slope gives its normal speed ($\nabla\mathcal T\cdot\mathbf v=1$). Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free.}{Play the masked panel first, then the revealed panel. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next, draw the same ambiguity for one edge and state the flow model in scene terms.}
 \end{frame}
 
@@ -453,8 +450,7 @@ Assume
 Then $E_{\B,b}$ has a unique minimizer in $H^1(\Omega;\R^2)$.
 \end{block}
 \vspace{1mm}
-The integrated matrix must identify \textbf{every constant velocity direction}.\par
-\small In scene terms: edges in two or more orientations somewhere, so their constraint lines cross; neighbors supply the motion where $\B=0$.
+\small Nonparallel edges control constant velocities; smoothness supplies motion where $\B=0$.
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:integrated\_identifiability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:integrated_identifiability}; classical quadratic-flow theory~\cite{weickert2001theoretical}.}
 \talknote{Central theorem; 90 seconds.}{Classical quadratic optical flow already has well-posedness theory, including Weickert and Schn\"orr. The contribution here is one analysis for three event-derived coefficient constructions, with explicit identifiability and perturbation hypotheses. Read the hypotheses and interpret each. Connectedness makes the kernel of the gradient consist of global constants. The positive regularization coefficient controls spatial variation. Bounded data curvature and L2 forcing make the weak forms bounded. Positive definiteness of the integrated B controls constant fields that smoothness cannot see.}{B may vanish on open subsets while its integral remains positive definite. In these observation models the residual forcing b also vanishes there, and smoothness propagates information from observed regions. For time surfaces, no nonzero vector can be perpendicular to all measured gradients almost everywhere. The condition need not hold pointwise. Scene terms: edges in at least two orientations somewhere in the image. The one hypothesis the scene must supply; if it fails, a uniform slide along the null direction leaves the energy unchanged (Backup 35). It is checked on represented data, including smoothing artifacts at never-fired pixels. Accuracy rests on slide 16's shared-motion assumption (measured on slide 19).}

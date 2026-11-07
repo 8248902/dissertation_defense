@@ -164,6 +164,18 @@ def load_snapshot(snapshot: Path = SNAPSHOT, thesis: Path = THESIS) -> dict:
             path = thesis / name
             if not path.is_file() or digest(path) != expected:
                 raise ValueError(f'Stale dissertation references: {name} changed or is missing. {REFRESH}')
+    # Defense-only references follow the full dissertation bibliography, leaving
+    # its citation numbers and the verified on-disk snapshot unchanged.
+    key = 'wolfe2015animations'
+    if key in data['citations']:
+        raise ValueError(f'Defense-only citation now appears in thesis: {key}; use the thesis entry')
+    number = str(max(int(value['number']) for value in data['citations'].values()) + 1)
+    data['citations'][key] = dict(number=number, entry=(
+        r'Wolfe et al., \emph{Sensation and Perception}, 4th ed. '
+        r'Sinauer Associates, \textcopyright\ 2015. '
+        r'\href{https://cdn.sinauer.com/wolfe4e/wa08.02.html}'
+        r'{Activity 8.2, Movies 5--6 (aperture problem)}. '
+        r'Publisher animations used unchanged.'))
     return data
 
 def used_references(text: str) -> list[tuple[str,str,str]]:
@@ -193,13 +205,13 @@ def cite_keys(argument_text: str) -> list[str]:
     return [key.strip() for key in argument_text.split(',') if key.strip()]
 
 def validate_citations(snapshot: dict, root: Path = ROOT) -> list[str]:
-    """Every \\cite key must be cited in the thesis; return keys in thesis order."""
+    """Validate thesis and defense-only citation keys; return in numeric order."""
     used = set()
     for filename in ['core.tex', 'backup.tex']:
         for match in CITE.finditer(without_comments((root / filename).read_text(encoding='utf-8'))):
             for key in cite_keys(match[1]):
                 if key not in snapshot['citations']:
-                    raise ValueError(f'Citation {key!r} in {filename} is not in the dissertation bibliography. {REFRESH}')
+                    raise ValueError(f'Citation {key!r} in {filename} is not in the dissertation or defense-only bibliography. {REFRESH}')
                 used.add(key)
     return sorted(used, key=lambda key: int(snapshot['citations'][key]['number']))
 
@@ -221,7 +233,7 @@ def split_references(keys: list[str], snapshot: dict, parts: int) -> list[list[s
 def write_citations(directory: Path, snapshot: dict, root: Path = ROOT) -> list[str]:
     keys = validate_citations(snapshot, root)
     chunks = split_references(keys, snapshot, reference_frames(root))
-    lines = ['% Generated from thesis-references.json; numbers are the dissertation bibliography numbers.', r'\makeatletter']
+    lines = ['% Dissertation numbers are preserved; defense-only references follow them.', r'\makeatletter']
     for index, chunk in enumerate(chunks, 1):
         lines.append(r'\expandafter\long\expandafter\def\csname thesisreferences@' + str(index) + r'\endcsname{%')
         lines.append(r'\begin{thebibliography}{100}')
