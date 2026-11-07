@@ -21,15 +21,15 @@ DELIVERY
   Slide 6: the three results of the talk; the common question.
   Slide 9: sensor-to-observation model; the exact identity and its three error terms.
   Slide 10: uniqueness, the stability bound, and the reference level on one slide.
-  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, CPU timings (DAVIS 0.04 of real time on one thread; cup 1.0).
+  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, one-core cost (DAVIS: batch 0.04, streaming 0.39 of real time, 1.4 MB state; cup streaming 1.3; skipping quiet pixels 10x).
   Slide 13: MVSEC images, then the Antil--Sayre comparison table.
-  Slide 14: ESAR shared scene; figure first, one operator equation, about a minute.
-  Slide 15: embedded aperture animations; play the left panel, then the right.
+  Slide 14: orbit hook (7.7 km/s smears frames; known motion = more views); Falcon pair, per-pixel vs one scene; operator; disks; about 90 seconds.
+  Slide 15: motion hook (frames compare two pictures; events timestamp the moving edge); then play the left panel, then the right.
   Slide 16: edge diagram, then velocity-space lines; two orientations cross at one velocity.
   Slide 17: three representations, one quadratic problem; derivations are Backups 77-79.
   Slide 18: main flow theorem; integrated directional condition; one sentence of proof idea.
   Slide 19: known-motion stripes and checkerboard.
-  Slide 20: stereo geometry, unique inner solve, two-row MVSEC table.
+  Slide 20: depth hook (time is the matching signal; coverage is the hard part); stereo geometry, unique inner solve, two-row MVSEC table, lead with scored points.
   Slide 21: four research directions, including the edge implementation.
   Slide 22: three-row synthesis, the common question, thank you; then take questions.
   Moved from the main talk (Backups 71-82, pages 93-104): opening triptych, related work,

@@ -182,9 +182,9 @@ If only the newest frame is needed, the forward recurrence returns the endpoint 
 
 *[Point to the table.]*
 
-These timings are for the Chapter 2 estimator on one CPU node. The numbers are processing time divided by recording time, so anything below one keeps up. DAVIS data take about four percent of real time on one thread. The 640 by 480 cup recording, at 2.3 million events per second, keeps up on one thread and takes about a fifth of real time on eight. On an MVSEC recording with half a million events and 150 frames, the tridiagonal solve takes three hundredths of a second where the dense solve takes one and a half, and it agrees with the MATLAB reference to rounding error.
+Every number here uses one CPU core, the closest stand-in for a small board. The numbers are processing time divided by recording time, so anything below one keeps up. Streaming is how a deployed device would run: a new frame every two milliseconds. On DAVIS data one core streams at 0.39 of real time, so it keeps up with room to spare, and the whole streaming state is four numbers per pixel, 1.4 megabytes for the full sensor. The work also follows the scene: only about seven percent of DAVIS pixels have events in a window, and skipping the rest cuts the batch work tenfold. The 640 by 480 cup recording, at 2.3 million events per second, streams at 1.3 of real time on one core, so that event rate calls for a second core; eight cores bring it to a fifth of real time. On an MVSEC recording, the tridiagonal solve takes three hundredths of a second where the dense solve takes one and a half, and it agrees with the MATLAB reference to rounding error.
 
-*[For streaming timings: Backup 07, page 29. For problem size, memory, and low-power strategies: Backup 83, page 105.]*
+*[For multithread timings: Backup 07, page 29. For problem size, memory, and low-power strategies: Backup 83, page 105.]*
 
 ## Slide 12 — What the penalty does to temporal information
 
@@ -222,17 +222,25 @@ Last in this chapter: what changes when the pixels share one scene.
 
 ## Slide 14 — Shared motion couples temporal profiles to one scene
 
-In joint work with Professor Antil and David Sayre that also focuses on reconstruction, called ESAR, the same event constraints describe one static scene seen by a moving camera.
+On the International Space Station, motion is the enemy of a frame camera. For an event camera with a known orbit, motion is the measurement.
+
+The station moves at about seven point seven kilometers per second. Any exposure long enough to gather light smears the ground, and a single view can run from bright cloud to dark ocean. An event pixel timestamps each change to the microsecond, covers about 140 decibels, and sends only changes, which suits a payload with little power and a narrow downlink. And because the orbit is known, every view sees the same static ground through a known motion.
+
+In joint work with Professor Antil and David Sayre, called ESAR, we use exactly that: the same event constraints, now describing one static scene seen by a moving camera.
 
 *[Point to the operator equation.]*
 
-Theta is the scene. P holds the known motion: it maps the scene into each view. A takes differences between consecutive views, as before. So B sub SAR maps one scene to the event changes predicted across the whole sequence. SAR stands for synthetic aperture radar, which combines a moving sensor's views into one image of a fixed scene.
+Theta is the scene. P holds the known motion: it maps the scene into each view. A takes differences between consecutive views, as before. So B sub SAR maps one scene to the event changes predicted across the whole sequence. The name borrows from synthetic aperture radar, which combines a moving sensor's views into one image of a fixed scene.
+
+*[Point to the orbital pair.]*
+
+This is a real Falcon Neuro pass looking straight down. On the left, each pixel is reconstructed on its own, and the structure is faint and noisy. On the right, every view constrains one shared scene, and the coastline and the land texture come out. The motion that blurs a frame camera gives the event camera more views of the same ground.
 
 To recover the scene, we fit it to all the event counts at once: least squares plus a penalty, as for a single pixel. The penalty is a choice. With a simple quadratic penalty, it's one linear system, and the dissertation proves the solution is unique and bounds how far noise can move it. That penalty also fixes the overall brightness offset, which the events leave free. The figure follows the joint work and uses a smoothed total-variation penalty, minimized with L-BFGS. Total variation also leaves the offset free, so we remove it before scoring.
 
-*[Point to the figure.]*
+*[Point to the disks.]*
 
-Here's a simulated example: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
+The simulated example shows the mathematics: disks seen through a window that shifts one pixel per view. Left is the scene, center the estimate, right the error. The error concentrates along rows through the disks. Those are the directions the motion leaves weakly constrained: a pattern that is constant along the motion looks the same in every view. It's the same lesson as the baseline: find what the observations control, and let regularization supply the rest.
 
 Temporal reconstruction solves for each pixel's history independently, where the only free direction is the baseline. ESAR solves for one static scene through a known motion, so the pixels are coupled and the free directions are the patterns the motion leaves invisible.
 
@@ -241,6 +249,8 @@ Here the motion was known. In optical flow, the motion is the unknown.
 *[If asked what regularization supplies when the observations leave directions free: Backup 64, page 86. If asked about related prior work: Backup 32, page 54.]*
 
 ## Slide 15 — The aperture problem: what a local view reveals
+
+A drone that stabilizes itself, dodges an obstacle, or tracks its own motion needs to know how the image is moving, right now. A frame camera infers motion by comparing two pictures. At thirty or sixty frames a second, a fast edge jumps many pixels between them and blurs within them, and the answer arrives a frame late. An event camera timestamps the edge as it crosses each pixel, to the microsecond. Those crossing times are the motion measurement: their slope gives the edge's speed. The catch is that a single edge reveals only part of its motion.
 
 Optical flow is the apparent velocity in the image plane. A local view can leave part of that velocity free. This is the aperture problem; an aperture here just means a limited window.
 
@@ -336,6 +346,8 @@ Last, a short summary of stereo depth.
 ## Slide 20 — Stereo depth: competitive accuracy, most scored points
 
 I'll close the technical part with stereo depth.
+
+A vehicle needs metric depth: how far away the obstacle is. One camera leaves the scale free; two cameras fix it. Frame stereo matches brightness patterns, and blur, glare, and darkness corrupt those patterns. Two event cameras watching the same edge see it change at the same moment, so time becomes the matching signal. The challenge is that only edges fire, so the hard part is how much of the scene gets a depth at all. That is where WLS leads.
 
 *[Point to the diagram.]*
 
@@ -503,7 +515,7 @@ Deck page: 29.
 
 ### Answer
 
-Yes, on an ordinary CPU. The table reports processing time divided by recording time, including binning, for the Chapter 2 estimator on one CPU node. For DAVIS data, one thread takes about four milliseconds per hundred-millisecond window, and the streaming solver returns a new frame every two milliseconds at well under real time. The 640 by 480 cup recording, at 2.3 million events per second, keeps up on one thread and takes about a fifth of real time on eight.
+Yes, on an ordinary CPU. The table reports processing time divided by recording time, including binning, for the Chapter 2 estimator on one CPU node. For DAVIS data, one thread takes about four milliseconds per hundred-millisecond window, and the streaming solver returns a new frame every two milliseconds at 0.39 of real time with 1.4 megabytes of state. The 640 by 480 cup recording, at 2.3 million events per second, runs at real time on one thread for batch windows and at 1.3 for streaming; eight threads bring both to about a fifth of real time.
 
 The code solves the Chapter 2 normal equations, with the final interval weight repeated at the terminal sample, and it agrees with the MATLAB reference to rounding error. It needs only NumPy and Numba, so the same code targets ARM boards such as a Raspberry Pi. Backup 83 covers memory and low-power choices.
 
@@ -679,7 +691,7 @@ The leading squared-bias term grows like the radius to the fourth, and the varia
 
 Minimizing one constant times r to the fourth plus another constant times r to the minus fourth makes r to the eighth equal to the ratio of the second constant to the first. Substituting the coefficients gives the factor shown. The asymptotic remainder can have either sign, so the leading expression approximates the finite-design bound from either side. And for an affine time surface the curvature bias is zero, so more samples only reduce variance, and this model has no finite balancing radius.
 
-## Backup 16 — Uniform projection and OLS slope need not be transport partners
+## Backup 16 — Uniform and OLS weights agree through quadratics and differ on cubics
 
 Deck page: 38.
 
@@ -769,7 +781,7 @@ Three estimates control that expression. First, the positive regularizer bounds 
 
 The weight estimate pairs with the weighted residual, and that's what produces the epsilon to the minus three-halves. The change in predicted temporal differences is at most the norm of A times the change in the state, which supplies the remaining factor. This is a sufficient global bound for the unclipped reciprocal map. It certifies contraction whenever that constant is below one.
 
-## Backup 21 — A converged frozen-weight iteration need not be maximum likelihood
+## Backup 21 — The frozen-weight fixed point and the likelihood stationary point differ
 
 Deck page: 43.
 
@@ -823,7 +835,7 @@ The control returns finite estimates at 50.17 percent of eligible locations, and
 
 A finite depth outside the band is excluded by the evaluation convention, though it may still be physically possible. That's why returned coverage, in-band retention, and accuracy answer different questions. The benchmark's raw outputs include interpolation around the finest-level score minimum, and leave out the separate posterior refinement step. Reading the errors alongside these counts keeps the interpretation precise. A common-population comparison would score both methods on the same eligible pixels.
 
-## Backup 24 — Pooled kurtosis does not establish heavy-tailed active errors
+## Backup 24 — Exact zeros alone produce large pooled kurtosis
 
 Deck page: 46.
 
@@ -897,7 +909,7 @@ The tradeoff is that quadratic smoothing spreads out sharp motion boundaries. To
 
 The integrated full-rank condition is sufficient for this particular quadratic H one argument. Replacing the gradient penalty with total variation changes how the functional grows, and which compactness and coercivity arguments are available. A squared-residual fidelity can be studied with TV, but the theorem has to address that functional directly. For the signed-linear energy written here, simply substituting TV can even make the energy unbounded below. Stronger fidelity assumptions can give strict convexity and uniqueness in a TV model.
 
-## Backup 28 — Frozen prediction weights are not generally an MM majorizer
+## Backup 28 — Frozen weights match the value; an MM majorizer also matches the derivative
 
 Deck page: 50.
 
@@ -1117,7 +1129,7 @@ A one-dimensional example separates the two. Let the velocity equal the position
 
 Event cameras are already used for particle velocimetry, for example by Willert and Klinner. Seeded particles give the flow a texture that moves with it, close to the scalar-transport model; conservation fits when the transported quantity is a density. Seeding also supplies texture in every direction, so the integrated identifiability condition is easy to meet. A known reference flow would test how well the representation describes the motion, and the new imaging lab makes those controlled acquisitions possible.
 
-## Backup 40 — Correlation changes uncertainty without removing coercivity
+## Backup 40 — Correlated errors change the uncertainty; coercivity holds
 
 Deck page: 62.
 
@@ -1367,7 +1379,7 @@ The left monocular term is the same for every candidate. The right monocular ter
 
 The derivation completes the square in the stacked latent variables, then uses the sum-and-difference transform to separate the terms. The inverse difference equals two gamma times the product of the two positive inverse matrices, so it's positive semidefinite. An exact winner of these unaggregated profiled costs minimizes the corresponding joint objective over the candidates and the latent variables. Showing that it's the physical match takes assumptions that connect that objective to the true correspondence.
 
-## Backup 54 — A perfect correspondence need not have the lowest cost
+## Backup 54 — An attenuated correspondence can cost less than the perfect one
 
 Deck page: 76.
 
@@ -1811,7 +1823,7 @@ The point to remember is that the weights are computed from the data and then he
 
 *[If asked how data-computed weights fit the fixed-weight theorem: Backup 25, page 47; for the full adaptive map: Backup 65, page 87. If asked how the scales were chosen, or about the discrepancy principle: Backup 66, page 88. If asked how kernel and weight choices change conditioning: Backup 05, page 27.]*
 
-## Backup 76 — Temporal evidence: structure without an absolute baseline
+## Backup 76 — Temporal evidence: events fix structure; the penalty sets the baseline
 
 Deck page: 98.
 

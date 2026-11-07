@@ -254,19 +254,24 @@ is tridiagonal and diagonally dominant.
 \item The newest frame comes from the forward sweep alone: constant work per pixel for each new interval.
 \end{itemize}
 \column{.51\textwidth}
-\footnotesize\textbf{CPU measurements}\par
-{\scriptsize processing time $\div$ recording time; 100\,ms windows, $N=50$; one HPC CPU node\par}\smallskip
-% source: /scratch/dblauvel/thesis_rerun_20261024/edge/run_2945746/window/bench_{davis_pendulum,hs_gun_bullet_mug}_amd041.orc.gmu.edu_T100ms_N50_delta.json (Slurm 2945746, revision cdca5a4, empty source.diff; float32, active-pixel solve, median of 10 windows; AMD node amd041, 1 and 8 threads). 
-\begin{tabular}{lrrrr}\toprule Data & Pixels & Events/s & 1 thr. & 8 thr.\\\midrule
-DAVIS346 & 90k & 0.25\,M & 0.04 & 0.008\\
-Cup & 307k & 2.3\,M & 1.0 & 0.19\\\bottomrule
-\end{tabular}\par\medskip
+\footnotesize\textbf{Cost on one CPU core}\par
+{\scriptsize processing time $\div$ recording time (below 1 keeps up); float32\par}\smallskip
+% source: /scratch/dblauvel/thesis_rerun_20261024/edge/run_2945746/{window,stream}/bench_{davis_pendulum,hs_gun_bullet_mug}_amd041.orc.gmu.edu_*.json (Slurm 2945746, revision cdca5a4, empty source.diff; AMD node amd041, 1 thread; batch: 100 ms windows, N=50, active-pixel solve, median of 10 windows, rtf_active DAVIS 0.041, cup 1.025; streaming: 2 ms steps, DAVIS 0.394, cup 1.342).
+% state: python/edge/tridiag.py StreamingReconstructor keeps inv_m, r, b_prev, f_now (4 float32 per pixel = 16 B); DAVIS346 346x260 = 89,960 px -> 1.4 MB; cup 640x480 = 307,200 px -> 4.9 MB.
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Data & Events/s & Batch & Stream & State\\\midrule
+DAVIS346 & 0.25\,M & 0.04 & 0.39 & 1.4\,MB\\
+Cup & 2.3\,M & 1.0 & 1.3 & 4.9\,MB\\\bottomrule
+\end{tabular}\par
+{\scriptsize Batch: 100\,ms windows, $N=50$. Stream: a new frame every 2\,ms. State: four numbers per pixel.\par}\smallskip
+% source: same run, DAVIS 1 thread: rtf_all 0.434 vs rtf_active 0.041; 6,096 of 89,960 pixels active per window (6.8%).
+Skipping pixels without events: $10\times$ less work on DAVIS ($0.43\to0.04$).\par\smallskip
 % source: repo_outputs/audits/thesis_rerun_20261024/validation/run_2940318/full.log, edge.validate report: MVSEC indoor_flying1 first 500k events, 200 events/frame, 150 latent times, delta; dense Python 1.46 s, tridiagonal (Numba, 6 threads) 0.028 s; max relative difference vs MATLAB lat_image_af_with_lambda.m 5.1e-16 (float64), 1.2e-7 (float32); MATLAB dense solve 368 s in that job.
-MVSEC indoor flying 1, 500k events, 150 frames: dense solve 1.5\,s $\to$ tridiagonal 0.03\,s; agrees with MATLAB within $10^{-15}$.
+{\scriptsize MVSEC indoor flying 1: dense solve 1.5\,s $\to$ tridiagonal 0.03\,s; agrees with MATLAB within $10^{-15}$.\par}
 \end{columns}
 % source detail: Ch. 2 eq:tempdiffA and thm:uniqueness (structure); monocular_reconstruction/python/edge (implementation); Slurm 2945746 (timings) and 2940318 (validation), October 25, 2026.
 \src{\dref{Eq.}{eq:tempdiffA}, \dref{Theorem}{thm:uniqueness}; Thomas algorithm~\cite{golub2013matrix}; timings and validation: edge implementation, October 2026.}
-\talknote{Cost; about 3 minutes. This answers the pre-defense question about edge hardware.}{The first-difference matrix makes $\A^\top\A$ the path-graph Laplacian. Adding a positive diagonal preserves the tridiagonal structure and gives strict diagonal dominance. One forward and one backward sweep cost O(N t) per pixel, hence O(H W N t) overall. In the implemented sigmoid/delta path, the forward recurrence gives the newest endpoint of a growing prefix. The terminal diagonal is $1+\lambda_{N_t-1}^2$, because the last interval weight is repeated; the next interval turns that endpoint into an interior row. Three recurrence scalars plus the current output are stored per pixel.}{The main Python solver uses dense matrices; the edge path already exploits the tridiagonal structure. The displayed timings and agreement are for the Chapter 2 estimator on one CPU node. DAVIS data take about four percent of real time on one thread; the cup recording keeps up on one thread. Backup 07 adds streaming timings; Backup 83 gives problem size and low-power options.}
+\talknote{Cost; about 3 minutes. This answers the pre-defense question about edge hardware.}{The first-difference matrix makes $\A^\top\A$ the path-graph Laplacian. Adding a positive diagonal preserves the tridiagonal structure and gives strict diagonal dominance. One forward and one backward sweep cost O(N t) per pixel, hence O(H W N t) overall. In the implemented sigmoid/delta path, the forward recurrence gives the newest endpoint of a growing prefix. The terminal diagonal is $1+\lambda_{N_t-1}^2$, because the last interval weight is repeated; the next interval turns that endpoint into an interior row. Three recurrence scalars plus the current output are stored per pixel.}{The main Python solver uses dense matrices; the edge path already exploits the tridiagonal structure. All timings use one core, the closest proxy for a small board. Streaming is the deployment mode: one core returns a DAVIS frame every 2 ms at 0.39 of real time, with 1.4 MB of state. Work follows scene activity: about 7 percent of DAVIS pixels have events in a window, and skipping the rest cuts batch work tenfold. The 640 by 480 cup at 2.3 million events per second streams at 1.3 of real time on one core and 0.21 on eight. Backup 07 adds the multithread timings; Backup 83 gives problem size and low-power options.}
 \end{frame}
 
 \begin{frame}{What the penalty does to temporal information}
@@ -318,29 +323,37 @@ Outdoor & 8.41 & 8.71 & 39755 & 27.10\\\bottomrule
 \end{columns}
 % source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor; images: MVSEC indoor flying 2, Ch. 2 saved release.
 \src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3). Images: MVSEC indoor flying 2.}
-\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Left: an MVSEC indoor frame and the event-only reconstruction; structure is recovered while the absolute brightness is the level the model selects. In Antil--Sayre, the outer variable $z_{xy}\in\R^{n_t}$ parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: frames buy PSNR indoors, while the event-only system is far better conditioned. Kernel comparisons are in the backup "Temporal evidence: structure without an absolute baseline".}
+\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Left: an MVSEC indoor frame and the event-only reconstruction; structure is recovered while the absolute brightness is the level the model selects. In Antil--Sayre, the outer variable $z_{xy}\in\R^{n_t}$ parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. Our Chapter 2 rule computes diagonal magnitude weights from event activity and then solves a fixed convex quadratic.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: frames buy PSNR indoors, while the event-only system is far better conditioned. Kernel comparisons are in the backup "Temporal evidence: events fix structure; the penalty sets the baseline".}
 \end{frame}
 
 \begin{frame}{Shared motion couples temporal profiles to one scene}
-\centering\includegraphics[width=\linewidth,height=2.55cm,keepaspectratio]{figures/sar_synthetic/disks_v2e.png}\par
-% source: Ch. 2 sec:ch2_sar_bridge and fig:ch2_sar_synthetic; one-pixel horizontal translation per view, v2e events, smoothed-TV penalty.
-{\scriptsize Simulated events (v2e~\cite{hu2021v2e}); the camera window shifts $1$\,px per view. Left: scene. Center: shared-scene estimate (smoothed-TV penalty). Right: squared error.\par}
-\raggedright\vspace{1mm}
-\begin{columns}[c]
-\column{.50\textwidth}
-\small\textbf{Chapter 2:} each pixel has its own temporal profile.\par\smallskip
+{\small\textbf{Orbit:} fast, known motion over a static scene. Events record it without smear, and every view adds evidence.\par}\smallskip
+% source: ../event-based-sar-manuscript/HA_DB_DS.tex fig:panama_reconstruction and Sec. on Falcon Neuro data: near-nadir ISS pass, bins of one estimated pixel shift; Nadir_Panama.png = panel 1 (ESAR, L2 penalty, native 240x180 grid) -> figures/sar_falcon/esar_nadir.png; Nadir_Panama_Dynamic_Recon.png = panel 2 (per-pixel dynamic reconstruction) -> figures/sar_falcon/perpixel_nadir.png.
+\begin{columns}[T]
+\column{.28\textwidth}\centering
+\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/sar_falcon/perpixel_nadir.png}\par
+{\scriptsize Each pixel on its own\par}
+\column{.28\textwidth}\centering
+\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/sar_falcon/esar_nadir.png}\par
+{\scriptsize All views, one scene (ESAR)\par}
+\column{.40\textwidth}
+\footnotesize\textbf{Chapter 2:} each pixel has its own temporal profile.\par\smallskip
 \textbf{Shared scene:} known motion $P$ maps one static scene $\theta$ into every view.
-\column{.46\textwidth}
 % source: Ch. 2 eq:ch2_sar_forward.
 \[\underbrace{B_{\rm SAR}}_{\text{scene-to-event operator}}=(A\otimes I)\,P.\]
 \end{columns}
-% source detail: Ch. 2, sec:ch2\_sar\_bridge, eq:ch2\_sar\_forward, prop:ch2\_sar\_solvability, fig:ch2\_sar\_synthetic.
-\src{\dref{Figure}{fig:ch2_sar_synthetic}, \dref{Eq.}{eq:ch2_sar_forward}, \dref{Proposition}{prop:ch2_sar_solvability}; joint ESAR work~\cite{antil2026esareventbasedsyntheticaperture}; synthetic aperture~\cite{vaish2006synthetic}.}
-\talknote{Shared-scene bridge; about 60 seconds. One idea: one scene, many views.}{Chapter 2 reconstructs independent pixel histories. In the joint ESAR work, $\theta$ is one static scene, the row-normalized footprint projections $P_k$ encode known motion and map it into each view, and $A$ differences consecutive views. The figure: twelve disks seen through a window translating one pixel per view; error concentrates along rows through the disks, the weakly constrained direction for horizontal motion. Chapter 3 then makes the motion itself the unknown.}{If asked for the algebra (Proposition 2.4.1): $\ker B_{\rm SAR}=\{\theta:P_{k+1}\theta=P_k\theta\}$ contains constants because $P_k\mathbf1=\mathbf1$; under translation, fields constant along the motion are weakly constrained. With unsquared ridge $\lambda>0$, $(B^\top B+\lambda I)\widehat\theta=B^\top b$ has a unique solution and $\norm{\delta\theta}\le\norm{B_{\rm SAR}}\norm{\delta b}/\lambda$. The figure uses a smoothed-TV penalty with the constant offset removed; the ridge result is the quadratic version of the same model. Other invariant modes depend on $P$ and the trajectory. JIF in Chapter 4 applies the same shared-unknown idea to two cameras.}
+{\scriptsize\color{muted}Falcon Neuro on the ISS, near-nadir pass~\cite{mcharg2022falcon}; reconstructions from the ESAR paper~\cite{antil2026esareventbasedsyntheticaperture}.\par}\smallskip
+% source: Ch. 2 sec:ch2_sar_bridge and fig:ch2_sar_synthetic; one-pixel horizontal translation per view, v2e events, smoothed-TV penalty.
+\centering\includegraphics[width=.78\linewidth,height=1.35cm,keepaspectratio]{figures/sar_synthetic/disks_v2e.png}\par
+{\scriptsize Simulated (v2e~\cite{hu2021v2e}), window shifts $1$\,px per view: scene, shared-scene estimate, squared error.\par}
+% source detail: Ch. 2, sec:ch2\_sar\_bridge, eq:ch2\_sar\_forward, prop:ch2\_sar\_solvability, fig:ch2\_sar\_synthetic; ESAR manuscript fig:panama_reconstruction; ISS orbital speed about 7.66 km/s (NASA ISS facts).
+\src{\dref{Figure}{fig:ch2_sar_synthetic}, \dref{Eq.}{eq:ch2_sar_forward}, \dref{Proposition}{prop:ch2_sar_solvability}; orbital data and reconstructions: ESAR~\cite{antil2026esareventbasedsyntheticaperture}, Falcon Neuro~\cite{mcharg2022falcon}; synthetic aperture~\cite{vaish2006synthetic}.}
+\talknote{Shared-scene bridge; about 90 seconds. One idea: in orbit, motion becomes the measurement.}{The ISS moves at about 7.7 km/s, so a frame exposure long enough to collect light smears the ground, and one view can span bright cloud and dark ocean. An event pixel timestamps each change to the microsecond, covers about 140 dB, and sends only changes, which suits a power- and downlink-limited payload. The orbit is known, so every view sees the same static ground through a known motion: $\theta$ is that scene, the row-normalized footprint projections $P_k$ map it into each view, and $A$ differences consecutive views. Point to the orbital pair: each pixel on its own shows faint, noisy structure; pooling every view into one scene brings out the coastline and land texture. The disks show the mathematics: error concentrates along rows through the disks, the weakly constrained direction for horizontal motion. Chapter 3 then makes the motion itself the unknown.}{If asked for the algebra (Proposition 2.4.1): $\ker B_{\rm SAR}=\{\theta:P_{k+1}\theta=P_k\theta\}$ contains constants because $P_k\mathbf1=\mathbf1$; under translation, fields constant along the motion are weakly constrained. With unsquared ridge $\lambda>0$, $(B^\top B+\lambda I)\widehat\theta=B^\top b$ has a unique solution and $\norm{\delta\theta}\le\norm{B_{\rm SAR}}\norm{\delta b}/\lambda$. The orbital ESAR panel uses an $L^2$ penalty on the native $240\times180$ grid, with bins that each span an estimated one-pixel shift; the disks use a smoothed-TV penalty with the constant offset removed. Other invariant modes depend on $P$ and the trajectory. JIF in Chapter 4 applies the same shared-unknown idea to two cameras.}
 \end{frame}
 
 \section{Dense optical flow}
 \begin{frame}{The aperture problem: what a local view reveals}
+{\small\textbf{Motion for agile platforms:} a moving edge fires as it crosses each pixel, timestamped to the microsecond, so each edge reports its normal speed directly~\cite{gallego2022event}.\par}\smallskip
 \small An \textbf{aperture} is a restricted observation window: a small view of an edge~\cite{marr1981directional}.
 \vspace{2mm}
 \begin{columns}[T]
@@ -373,7 +386,7 @@ Outdoor & 8.41 & 8.71 & 39755 & 27.10\\\bottomrule
 \end{columns}
 % source detail: Ch. 3, prop:time_surface and following aperture remark.
 \vfill{\fontsize{6.5}{8}\selectfont\color{muted}Perceptual illustration: Wolfe et al., \emph{Sensation and Perception}, 4th ed., Sinauer \textcopyright\ 2015. \href{https://cdn.sinauer.com/wolfe4e/wa08.02.html\#Aperture}{\textcolor{teal}{Activity 8.2, Movies 5--6}}.\par Dissertation: \dref{Proposition}{prop:time_surface} and the following aperture discussion.\par}
-\talknote{Define the aperture problem visually; about 90 seconds.}{Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free. These publisher animations illustrate motion perception. They are conceptual demonstrations.}{The two animations are embedded on this slide. Play the masked panel first using its forward-play control, then play the revealed panel; each loops at the original rate. First-frame posters preserve the visual comparison in static viewers and print. Use a PDF viewer with animation support and JavaScript enabled, as documented with the assets. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next, draw the same ambiguity for one edge and state the flow model in scene terms.}
+\talknote{Why events for motion, then the aperture problem visually; about 2 minutes.}{Motivation first: a drone that stabilizes itself, avoids an obstacle, or tracks its own motion needs image motion now. A frame camera at 30 to 60 Hz infers motion by comparing two pictures; a fast edge jumps many pixels between them, blurs within them, and the answer arrives a frame later. An event camera timestamps the edge as it crosses each pixel; those crossing times form the time surface, whose slope gives the edge's normal speed ($\nabla\mathcal T\cdot\mathbf v=1$). The catch is the part the edge leaves free. Optical flow is apparent velocity in the image plane. An aperture simply means a restricted observation window. First look at the circular windows: the moving stripes look alike. Revealing the full patterns shows three different translation directions. A local straight edge tells us its speed perpendicular to the edge; motion along its tangent stays free. These publisher animations illustrate motion perception. They are conceptual demonstrations.}{The two animations are embedded on this slide. Play the masked panel first using its forward-play control, then play the revealed panel; each loops at the original rate. First-frame posters preserve the visual comparison in static viewers and print. Use a PDF viewer with animation support and JavaScript enabled, as documented with the assets. Under steady illumination, different velocities with the same normal component produce the same local brightness changes and ideal events. Smoothness couples neighboring velocity estimates, while additional observed directions constrain the component left free by a single edge. Next, draw the same ambiguity for one edge and state the flow model in scene terms.}
 \end{frame}
 
 \begin{frame}{Motion introduces a new invisible direction}
@@ -461,6 +474,7 @@ The integrated matrix must identify \textbf{every constant velocity direction}.\
 
 \section{Stereo depth}
 \begin{frame}{Stereo depth: competitive accuracy, most scored points}
+{\small\textbf{Depth for navigation:} both views see an edge change at the same moment, so time is the matching signal. Only edges fire, so coverage is the hard part.\par}\smallskip
 \begin{columns}[c]
 \column{.38\textwidth}\centering
 \begin{tikzpicture}[x=.5cm,y=.36cm,>=Latex]
@@ -490,7 +504,7 @@ Piatkowska adaptation~\cite{piatkowska2017}&\textbf{67.96}&58.75&\textbf{68.88}&
 {\scriptsize MVSEC indoor flying 1--4; each method scored on its own estimates in $[0.5,8]$\,m. Three more methods in the backup table.\par}
 % source detail: Ch. 4, sec:solution, eq:depth\_conversion, thm:weighted\_spd; App., tab:unified\_benchmark, tab:metrics. Geometry is schematic.
 \src{\dref{Section}{sec:solution}, \dref{Eq.}{eq:depth_conversion}, \dref{Theorem}{thm:weighted_spd}; \dref{Table}{tab:unified_benchmark}; MVSEC~\cite{MVSEC2018}. Geometry is schematic.}
-\talknote{Stereo summary; about 3 minutes.}{Rectification places corresponding rays on the same image row; disparity is the horizontal shift and similar triangles give depth. At each candidate disparity, two softly coupled temporal profiles are solved; with frozen positive weights the Hessian is at least $\lambda_{\min}^2\mathbf I$, the Chapter 2 argument with one more nonnegative term. The benchmark uses the full WLS method: weight updates, cost aggregation, and candidate selection.}{WLS leads on Flying 2 and log RMSE; the Piatkowska adaptation leads on Flying 1, 3, and 4 by 5.9, 1.5, and 4.6 cm; WLS scores 2.66M points, the most of the five methods and 2.2 times Piatkowska's. Each method is scored on its own valid pixels, so read accuracy together with coverage. Correspondence questions go to the Chapter 4 backups.}
+\talknote{Stereo summary; about 3 minutes.}{Motivation first: a vehicle needs metric depth, how far the obstacle is, and two cameras supply the scale one camera leaves free. Frame stereo matches brightness patterns, which blur, glare, and darkness corrupt. Two event cameras watching the same edge see it change at nearly the same instant, so timing is the matching cue; WLS fits one shared temporal profile to both views. Only moving edges fire, so how much of the scene receives a depth is the hard part, and the scored-points column is the headline. Rectification places corresponding rays on the same image row; disparity is the horizontal shift and similar triangles give depth. At each candidate disparity, two softly coupled temporal profiles are solved; with frozen positive weights the Hessian is at least $\lambda_{\min}^2\mathbf I$, the Chapter 2 argument with one more nonnegative term. The benchmark uses the full WLS method: weight updates, cost aggregation, and candidate selection.}{WLS leads on Flying 2 and log RMSE; the Piatkowska adaptation leads on Flying 1, 3, and 4 by 5.9, 1.5, and 4.6 cm; WLS scores 2.66M points, the most of the five methods and 2.2 times Piatkowska's. Each method is scored on its own valid pixels, so read accuracy together with coverage. Correspondence questions go to the Chapter 4 backups.}
 \end{frame}
 
 \section{Contributions and next questions}

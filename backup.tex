@@ -155,8 +155,9 @@ Cup & 307k & 2.3\,M & 1.0 & 0.19 & 1.3 & 0.21\\\bottomrule
 \textbf{Why it is fast}
 \begin{itemize}
 \item Tridiagonal solve: $O(N)$ work per pixel.
-\item Pixels without events are skipped ($\mathbf f=0$).
-\item Streaming state: $O(HW)$.
+% source: run_2945746 window, DAVIS 1 thread rtf_all 0.434 vs rtf_active 0.041; state: tridiag.py StreamingReconstructor, 4 float32 arrays per pixel.
+\item Pixels without events are skipped ($\mathbf f=0$): $10\times$ less work on DAVIS.
+\item Streaming state: four numbers per pixel, 1.4\,MB for DAVIS346 and 4.9\,MB for the cup.
 \end{itemize}
 \column{.48\textwidth}
 \textbf{Toward embedded hardware}
@@ -165,9 +166,9 @@ Cup & 307k & 2.3\,M & 1.0 & 0.19 & 1.3 & 0.21\\\bottomrule
 \item Sparse updates with quiet-state propagation.
 \end{itemize}
 \end{columns}
-{\let\small\footnotesize\takeaway{One linear-time solve per pixel: DAVIS data at 4\% of real time on one thread.}}
+{\let\small\footnotesize\takeaway{One core streams DAVIS data at 0.39 of real time with 1.4\,MB of state.}}
 \vfill{\fontsize{6.5}{8}\selectfont\color{muted}Source: edge implementation, October 2026 CPU timings and MATLAB comparison; problem size and deployment options: Backup 83.\par}
-\talknote{Question: can the reconstruction run in real time? About 60 seconds.}{These are measurements of the Chapter 2 estimator on one CPU node. DAVIS data take about four percent of real time on one thread for batch windows. The 640 by 480 cup recording at 2.3 million events per second keeps up on one thread and takes about a fifth of real time on eight. Batch processes a complete window; streaming returns the newest endpoint of a growing prefix with finalized interval observations.}{The terminal weight repeats the last interval weight, so its diagonal is one plus that weight squared. Streaming matches the full mathematical batch solve on each growing prefix; the batch code skips pixels whose net event sum is zero, so compare the two on the same pixel set. Earlier output frames can change when later data arrive. A sliding window changes the left boundary and needs additional handling. Backup 83 covers complexity, memory, and low-power choices.}
+\talknote{Question: can the reconstruction run in real time? About 60 seconds.}{These are measurements of the Chapter 2 estimator on one CPU node. DAVIS data take about four percent of real time on one thread for batch windows. The 640 by 480 cup recording at 2.3 million events per second runs at real time on one thread for batch windows and 1.3 for streaming; eight threads bring both to about a fifth of real time. Streaming state is four float32 numbers per pixel: 1.4 MB for DAVIS346 and 4.9 MB for the cup. Batch processes a complete window; streaming returns the newest endpoint of a growing prefix with finalized interval observations.}{The terminal weight repeats the last interval weight, so its diagonal is one plus that weight squared. Streaming matches the full mathematical batch solve on each growing prefix; the batch code skips pixels whose net event sum is zero, so compare the two on the same pixel set. Earlier output frames can change when later data arrive. A sliding window changes the left boundary and needs additional handling. Backup 83 covers complexity, memory, and low-power choices.}
 \end{frame}
 
 \begin{frame}{The weak equation supplies the natural boundary condition}
@@ -312,7 +313,7 @@ The minimum of this leading expression, when all parameters are positive, is
 \talknote{Question: is your radius choice optimal?}{Differentiate the positive leading bias-squared plus variance expression, which scales as A r\textasciicircum{}4 + B r\textasciicircum{}{-4}. Its stationary radius obeys r\textasciicircum{}8=B/A. The resulting scaling is a guide to how timestamp noise, lattice spacing, and curvature interact.}{The exact finite-design bound uses lattice sums. The asymptotic error can have either sign, so the leading surrogate approximates the bound from either side. The formula also requires positive curvature Lipschitz bound and noise, a large radius in lattice units, and inclusion in the smoothness neighborhood. Boundary truncation or sparse event support can destroy central symmetry and alter the bias.}
 \end{frame}
 
-\begin{frame}{Uniform projection and OLS slope need not be transport partners}
+\begin{frame}{Uniform and OLS weights agree through quadratics and differ on cubics}
 The continuous OLS temporal slope over $[s,s+T]$ is
 \[\widehat\beta=\int_s^{s+T}w_s(t)V_t(t)\,dt,\qquad
 w_s(t)=\frac{6(t-s)(s+T-t)}{T^3}.\]
@@ -395,7 +396,7 @@ For reciprocal weights, $|w_i-w_i'|\le|s_i-s_i'|w_iw_i'$ and $w_i,w_i'\le\vareps
 \talknote{Question: where does the contraction constant come from?}{The difference identity isolates how changing weights changes the exact minimizer. For X=B\_time\textasciicircum{}T W\textasciicircum{}{1/2}, M\_W >= XX\textasciicircum{}T+ell I gives ||M\_W\textasciicircum{}{-1}X|| <= ell\textasciicircum{}{-1/2}. The residual bound comes from comparing the frozen optimum with zero. The reciprocal identity uses ||s|-|s'|| <= |s-s'| and two bounded reciprocal weights.}{This produces the epsilon\textasciicircum{}{-3/2} factor after applying the weighted residual bound, then ||s-s'||\_infty <= ||B\_time|| ||g-g'|| and ||B\_time||=||A||. The bound certifies contraction for $q<1$. At reported $n=20$, $\varepsilon=0.5$, and $\lambda\in[0.01,0.1]$, the sufficient threshold $\norm{\mathbf y}<\lambda\varepsilon^{3/2}/[2\cos(\pi/40)]$ ranges from about $0.001773$ to $0.017732$.  This concerns the unclipped map.}
 \end{frame}
 
-\begin{frame}{A converged frozen-weight iteration need not be maximum likelihood}
+\begin{frame}{The frozen-weight fixed point and the likelihood stationary point differ}
 Consider the scalar Gaussian proxy with $y>0$ and $\varepsilon>0$, \textbf{without a regularizer}:
 \[v(\theta)=|\theta|+\varepsilon,\qquad
 Q_k(\theta)=\frac{(y-\theta)^2}{2v(\theta_k)}.\]
@@ -450,7 +451,7 @@ The scoring band is $[0.5,8]$ m. Out-of-band finite depths are excluded by bench
 \talknote{Question: is WLS simply much denser?}{Its returned-estimate coverage is similar to control at the reported aggregate level, and the small difference changes sign across sequences. The main scored-point difference comes from much higher estimate-side in-band retention. The benchmark excludes out-of-band estimates, so the increase in scored points is an increase in in-band coverage.}{The two complete configurations differ in more than weighting, including final activity masking. The aggregate percentages use the dissertation's conventions. Raw outputs here exclude the separate posterior refinement operator but include the finest-level interpolation of the score minimum. Accuracy and retained coverage should be assessed jointly, ideally on a common population with out-of-band behavior also reported.}
 \end{frame}
 
-\begin{frame}{Pooled kurtosis does not establish heavy-tailed active errors}
+\begin{frame}{Exact zeros alone produce large pooled kurtosis}
 Suppose a residual distribution mixes a point mass at zero with a zero-mean Gaussian of variance $\sigma^2>0$, with zero-mass probability $0\le\pi_0<1$.
 \[\mathbb EX^2=(1-\pi_0)\sigma^2,\qquad
 \mathbb EX^4=3(1-\pi_0)\sigma^4.\]
@@ -532,7 +533,7 @@ The flow energy uses a quadratic gradient penalty:
 \talknote{Question: why use $H^1$ instead of TV?}{The quadratic model yields a bilinear form to which Lax--Milgram applies, then an energy identity gives coefficient stability. TV may retain discontinuities, but requires a separate existence framework in $BV$.}{Replacing the gradient term with TV in an abstract signed-linear energy can make it unbounded below. Full-rank pointwise fidelity can retain strict convexity, so TV can keep uniqueness; with TV, $H^1$ coercivity needs more than the integrated condition.}
 \end{frame}
 
-\begin{frame}{Frozen prediction weights are not generally an MM majorizer}
+\begin{frame}{Frozen weights match the value; an MM majorizer also matches the derivative}
 For a scalar prediction $s$, let $v(s)=|s|+\varepsilon$, $\varepsilon>0$, and
 % source: Ch. 4 sec:irls_scope and prop:irls_vs_nll; derivative is direct differentiation away from s=0.
 \[S(s)=\frac{(y-s)^2}{2v(s)}+R(s),\qquad
@@ -732,7 +733,7 @@ They coincide when $V\nabla\cdot v=0$, in particular for divergence-free flow.
 \talknote{Question: should events be modeled as a conserved fluid?}{That is an additional physical assumption. Scalar transport follows a pattern value along a trajectory; density conservation also accounts for compression or expansion through the divergence of flow.}{For a simple illustration, in one dimension let $v(x)=x$ and $V(x,t)=1$. It solves scalar transport, but source-free conservation has residual $\partial_x(Vv)=1$. A source term $V_t+\nabla\cdot(Vv)=s$ may be appropriate if events are created or lost.}
 \end{frame}
 
-\begin{frame}{Correlation changes uncertainty without removing coercivity}
+\begin{frame}{Correlated errors change the uncertainty; coercivity holds}
 For a centered symmetric regression design $Z$ with $Q=Z^\top Z\succ0$, timestamp-error covariance $\Sigma$ gives
 % source: Ch. 3 prop:ts_regression_bound; covariance identity is the direct OLS extension to correlated errors.
 \[\operatorname{Cov}(\hat g)=Q^{-1}Z^\top\Sigma ZQ^{-1}.\]
@@ -988,7 +989,7 @@ The exact minimized candidate cost is
 \talknote{Profiled cost; 90 seconds.}{Complete the square in the stacked latent variables: the minimum equals ||y|| squared over two minus h\textasciicircum{}T M\textasciicircum{}{-1} h over two. Use the sum--difference transform and the parallelogram identity to separate the independent monocular costs from the coupling discrepancy. The discrepancy matrix is PSD because the inverse difference is 2 gamma K\textasciicircum{}{-1}(K+2 gamma I)\textasciicircum{}{-1}.}{An exact winner of these unweighted, unaggregated profiled costs also minimizes the corresponding joint latent/disparity objective. For fixed common $\Lam,\gamma$ and unit observation noise, an ideal Gaussian model with latent prior precision $\mathbf M_0=\left(\begin{smallmatrix}\Lam^2+\gamma I&-\gamma I\\-\gamma I&\Lam^2+\gamma I\end{smallmatrix}\right)$ gives profiled $C_\gamma(y)$ as $-\log p_\gamma(y)$ up to a candidate-independent constant. Its linear conditional prediction is $\mathbf c=\mathbf P^{-1}\mathbf T\mathbf y_L$; scalar-$\Lam$ modes are attenuated.}
 \end{frame}
 
-\begin{frame}{A perfect correspondence need not have the lowest cost}
+\begin{frame}{An attenuated correspondence can cost less than the perfect one}
 % source: Ch. 4 sec:identifiability, prop:attenuation_bias, rem:selection_modal; exact two-sample example.
 Take $\A=[-1,1]$, $\Lam=\mathbf I$, $\gamma=1$, $y_L=1$, and $y_R=b$.
 \begin{columns}[c]
@@ -1482,7 +1483,7 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected after grid sweeps of each rule's scale, as a fidelity/conditioning compromise among the swept settings; Backup 66 (page 99) covers parameter selection in all three chapters. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 87. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
 \end{frame}
 
-\begin{frame}{Temporal evidence: structure without an absolute baseline}
+\begin{frame}{Temporal evidence: events fix structure; the penalty sets the baseline}
 \begin{columns}[c]
 \column{.55\textwidth}
 \small MVSEC~\cite{MVSEC2018} indoor flying 2\par\medskip
