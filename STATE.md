@@ -4,7 +4,7 @@
 
 ## Start here — November 8 (storyboard follow-ups, branch `storyboard-claims`)
 
-- 24 main slides + 87 backups (84 discussion, 3 references), 111 pages; backup page = N + 24. The per-core timing slide is now Backup 84 (page 108, `corerate`, also in the committee handout); slide 12 transitions straight to the penalty slide. Slide 3 now shows all three scenes in false color. Details in LOG/2026-11-08.md. Uncommitted.
+- 24 main slides + 87 backups (84 discussion, 3 references), 111 pages; backup page = N + 24. The per-core timing slide is now Backup 84 (page 108, `corerate`, also in the committee handout); slide 12 transitions straight to the penalty slide. Slide 3 now shows all three scenes in false color. Slides 10, 11, 12, 14, 23, 24 tightened (identity-first slide 10; explicit K_time on 12; bilevel image column on 14; single-statement closing box). Details in LOG/2026-11-08.md. Committed.
 
 ## Start here — November 7 (claim-title storyboard, branch `storyboard-claims`)
 

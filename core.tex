@@ -198,9 +198,12 @@ Choose a unit-mass temporal kernel $\phi_{s_k}$:
 \end{frame}
 
 \begin{frame}{Three discrepancies connect event sums to brightness changes}
+% Identity first; each underbraced term names the panel below it, left to right.
+\vspace{-1mm}
+\[\frac{L(b)-L(a)}{c_{\rm th}}=y(a,b)-\underbrace{{\color{muted}B(a,b)}}_{\textcolor{muted}{\text{\scriptsize\bfseries kernel spill}}}+\underbrace{{\color{teal}\frac1{c_{\rm th}}\sum_{a<s_\ell\le b}\varepsilon_\ell}}_{\textcolor{teal}{\text{\scriptsize\bfseries overshoot}}}+\underbrace{{\color{amber}r(b)-r(a)}}_{\textcolor{amber}{\text{\scriptsize\bfseries sub-threshold change}}}\qquad{\scriptstyle(a<b)}\]
+\vfill
 \begin{columns}[T]
 \column{.32\textwidth}\centering
-{\small\textbf{\textcolor{muted}{Kernel spill}}}\par\smallskip
 \begin{tikzpicture}[x=1cm,y=.9cm,>=Latex]
 \path[use as bounding box] (-.15,-.55) rectangle (4.1,2.45);
 \fill[muted!25] (2.1,0)--(2.1,.955)--(2.8,0)--cycle;
@@ -217,7 +220,6 @@ Choose a unit-mass temporal kernel $\phi_{s_k}$:
 \end{tikzpicture}\par
 {\scriptsize Shaded kernel mass lies beyond $b$.}
 \column{.32\textwidth}\centering
-{\small\textbf{Overshoot}}\par\smallskip
 \begin{tikzpicture}[x=1cm,y=.9cm,>=Latex]
 \path[use as bounding box] (-.15,-.55) rectangle (4.1,2.45);
 \draw[->,muted] (0,0)--(3.5,0) node[right,font=\scriptsize] {$t$};
@@ -235,7 +237,6 @@ Choose a unit-mass temporal kernel $\phi_{s_k}$:
 \end{tikzpicture}\par
 {\scriptsize Event recorded above threshold.}
 \column{.32\textwidth}\centering
-{\small\textbf{\textcolor{amber}{Sub-threshold change}}}\par\smallskip
 \begin{tikzpicture}[x=1cm,y=.9cm,>=Latex]
 \path[use as bounding box] (-.15,-.55) rectangle (4.1,2.45);
 \draw[->,muted] (0,0)--(3.5,0) node[right,font=\scriptsize] {$t$};
@@ -253,12 +254,9 @@ Choose a unit-mass temporal kernel $\phi_{s_k}$:
 \end{tikzpicture}\par
 {\scriptsize Change since the last event.}
 \end{columns}
-\vfill
-{\centering\small Exactly, for any times $a<b$ at one pixel:\par}
-\[\frac{L(b)-L(a)}{c_{\rm th}}=y(a,b)-\underbrace{{\color{muted}B(a,b)}}_{\text{\scriptsize kernel spill at bin edges}}+\underbrace{\frac1{c_{\rm th}}\sum_{a<s_\ell\le b}\varepsilon_\ell}_{\text{\scriptsize overshoot}}+\underbrace{{\color{amber}r(b)-r(a)}}_{\text{\scriptsize sub-threshold change}}.\]
 % source detail: Ch. 2, subsubsec:physical_assumptions (P1)--(P4); subsubsec:physical, eq:qxylog, eq:vconnectq, arbitrary endpoint identity and regularized residual.
 \src{Physical connection (\drefpage{subsubsec:physical}), \dref{Eq.}{eq:vconnectq}, arbitrary-endpoint identity; threshold model~\cite{lichtsteiner2008128}. Schematic diagram.}
-\talknote{Sensor-to-observation model; about 90 seconds. Answers ``why is $\A\mathbf f\approx\mathbf y$ a model of an event camera?'' before it is asked.}{Read the separate schematic examples left to right. Kernel spill: a positive event inside the bin spreads mass beyond $b$. Its contribution to $B$ is negative; subtracting $B$ restores the signed count. Overshoot: the recorded event exceeds the previous reset plus one threshold. The marked excess is $\varepsilon_\ell/c_{\rm th}$ on the normalized brightness axis. Endpoint residual: the gap since the last reset is $r(b)$; the identity uses $r(b)-r(a)$. Kernel spill comes from the representation and bin boundaries. The other terms connect event measurements to physical brightness.}{Assumptions (P1)--(P4): unit-mass kernels, kernels localized relative to event spacing, $|\varepsilon_\ell|\ll c_{\rm th}$, and positive intensity. A missed or spurious event makes some $\varepsilon_\ell$ comparable to $c_{\rm th}$, which is outside (P3). The regularized solution adds a fourth discrepancy, the data residual: $f^*_k-f^*_i=y(t_i,t_k)+\sum_{\ell=i}^{k-1}\rho_{{\rm res},\ell}$, and larger weights enlarge it. Subthreshold signals can be invisible over a whole window: discussion page ``The physical event stream loses more than one baseline''. The measure-valued continuous-time limit is the discussion page on the jump primitive. Transition: the events fix changes, so a penalty must choose the level, which is the next theorem.}
+\talknote{Sensor-to-observation model; about 90 seconds. Answers ``why is $\A\mathbf f\approx\mathbf y$ a model of an event camera?'' before it is asked.}{Identity first: event sum plus three corrections, one per panel. Then the panels, left to right. Kernel spill: a positive event inside the bin spreads mass beyond $b$. Its contribution to $B$ is negative; subtracting $B$ restores the signed count. Overshoot: the recorded event exceeds the previous reset plus one threshold. The marked excess is $\varepsilon_\ell/c_{\rm th}$ on the normalized brightness axis. Endpoint residual: the gap since the last reset is $r(b)$; the identity uses $r(b)-r(a)$. Kernel spill comes from the representation and bin boundaries. The other terms connect event measurements to physical brightness.}{Assumptions (P1)--(P4): unit-mass kernels, kernels localized relative to event spacing, $|\varepsilon_\ell|\ll c_{\rm th}$, and positive intensity. A missed or spurious event makes some $\varepsilon_\ell$ comparable to $c_{\rm th}$, which is outside (P3). The regularized solution adds a fourth discrepancy, the data residual: $f^*_k-f^*_i=y(t_i,t_k)+\sum_{\ell=i}^{k-1}\rho_{{\rm res},\ell}$, and larger weights enlarge it. Subthreshold signals can be invisible over a whole window: discussion page ``The physical event stream loses more than one baseline''. The measure-valued continuous-time limit is the discussion page on the jump primitive. Transition: the events fix changes, so a penalty must choose the level, which is the next theorem.}
 \end{frame}
 
 \begin{frame}{A unique, stable estimate for every positive weight}
@@ -269,7 +267,8 @@ For fixed $\Lam=\operatorname{diag}(\lambda_i)$ with every $\lambda_i>0$,
 \vspace{2mm}
 \renewcommand{\arraystretch}{1.9}
 \begin{tabular}{@{}>{\bfseries}p{2.6cm}p{5.1cm}>{\raggedright\arraybackslash\leavevmode\color{muted}}p{5.4cm}@{}}
-Unique & $\K_{\rm time}\mathbf f^*=\A^\top\mathbf y$ has one solution & \\
+% source: Ch. 2 thm:uniqueness (K_time positive definite, so invertible); tridiagonal structure eq:tempdiffA.
+Unique & $\mathbf f^*=\K_{\rm time}^{-1}\A^\top\mathbf y$ & one tridiagonal solve per pixel\\
 % source: Ch. 2 prop:stability, ||A||_2 <= 2; one event changes y by at most 1 in norm.
 Stable & $\norm{\delta\mathbf f^*}\le(2/\lambda_{\min}^2)\norm{\delta\mathbf y}$ & one spurious event moves a history by at most $2/\lambda_{\min}^2$\\
 % source: Direct consequence of Ch. 2 thm:uniqueness normal equations and A1=0; supplementary identity.
@@ -282,18 +281,12 @@ Reference level & $\mathbf1^\top\Lam^2\mathbf f^*=0$ & quiet intervals carry the
 
 \begin{frame}{Each pixel costs one tridiagonal sweep; streaming adds constant work per new frame}
 \begin{columns}[c]
-\column{.40\textwidth}\centering
-% Band pattern of K_time for N = 7; schematic.
-\begin{tikzpicture}[x=.42cm,y=.42cm]
-\foreach \i in {1,...,7}{\foreach \j in {1,...,7}{%
-  \pgfmathtruncatemacro{\d}{abs(\i-\j)}%
-  \ifnum\d=0\fill[teal] (\j,-\i) rectangle ++(.86,.86);\else\ifnum\d=1\fill[teal!40] (\j,-\i) rectangle ++(.86,.86);\else\fill[muted!12] (\j,-\i) rectangle ++(.86,.86);\fi\fi}}
-\node[font=\small,anchor=north] at (4.43,-7.3) {$\K_{\rm time}=\A^\top\A+\Lam^\top\Lam$};
-\node[font=\scriptsize,anchor=north,align=center,text=muted] at (4.43,-8.4) {diagonal $(1,2,\dots,2,1)+\lambda_i^2$\\off-diagonals $-1$};
-\end{tikzpicture}
-\column{.56\textwidth}
+\column{.45\textwidth}\centering
+% K_time = A^T A + Lambda^T Lambda written out; Ch. 2 eq:tempdiffA (path-graph Laplacian plus positive diagonal).
+{\small\setlength{\arraycolsep}{3pt}\[\K_{\rm time}=\begin{pmatrix}1+{\color{teal}\lambda_1^2}&-1&&\\-1&2+{\color{teal}\lambda_2^2}&-1&\\&\ddots&\ddots&\ddots\\&&-1&1+{\color{teal}\lambda_N^2}\end{pmatrix}\]}
+\column{.53\textwidth}
 \renewcommand{\arraystretch}{1.7}
-\begin{tabular}{@{}>{\bfseries\raggedright\arraybackslash}p{2.4cm}>{\raggedright\arraybackslash}p{5.1cm}@{}}
+\begin{tabular}{@{}>{\bfseries\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{4.9cm}@{}}
 $\bm{O(N)}$ per pixel & Thomas sweep, no pivoting; tridiagonal and diagonally dominant\\
 Independent pixels & a pixel without events returns $\mathbf f=0$\\
 Newest frame & the forward sweep alone gives it: constant work per pixel for each new interval\\
@@ -329,31 +322,27 @@ For scalar $\Lam=\lambda\mathbf I$ and noiseless data $\mathbf y=\A\mathbf f_{\r
 \end{frame}
 
 \begin{frame}{Events alone recover scene structure with one convex solve and a unique global minimizer}
-\begin{columns}[c]
-\column{.35\textwidth}
-{\scriptsize\color{muted}MVSEC~\cite{MVSEC2018} indoor flying 2\par}\smallskip
-% source: figures/reconstruction_evaluation/metadata.json (indoor_flying2_bump_05; reference and event-only panels).
-\panel{.48}{figures/reconstruction_evaluation/reference.png}{Reference}
-\hfill\panel{.48}{figures/reconstruction_evaluation/event_only_reconstruction.png}{Event only}
-\column{.63\textwidth}
-\small
-% source: https://arxiv.org/pdf/2302.02052, Sec. 3, Eqs. (3.1)--(3.3); Ch. 2 tab:bilevel_comp_indoor and tab:bilevel_comp_outdoor.
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{@{}l>{\raggedleft\arraybackslash}p{3.3cm}>{\raggedleft\arraybackslash}p{2.1cm}@{}}\toprule
-(PSNR in dB) & Bilevel~\cite{HAntil_DSayre_2023a} & Events\\\midrule
-Inputs & events + frames & events\\
-% source: Ch. 2 tab:bilevel_comp_indoor; reported PSNR and CN values.
-PSNR indoor & 15.37 & 10.85\\
-% source: Ch. 2 tab:bilevel_comp_outdoor; reported PSNR and CN values.
-PSNR outdoor & 8.41 & 8.71\\
-Solve & outer + inner & one convex\\
+% Images head the columns: one MVSEC outdoor day 1 frame (Ch. 2 f:bilevel_visual_day1, middle column).
+\vspace{-1mm}
+\centering\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}m{2.5cm}*{3}{>{\centering\arraybackslash}m{3.4cm}}@{}}
+% source: Ch. 2 f:bilevel_visual_day1, frame_012 (ground truth, bilevel, event-only rows).
+{\scriptsize\color{muted}MVSEC~\cite{MVSEC2018}\newline outdoor day 1}
+& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_012.png}
+& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_012.png}
+& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_012.png}\\
+& \textbf{Reference frame} & \textbf{Bilevel}~\cite{HAntil_DSayre_2023a} & \textbf{Events}\\\midrule
+Inputs & & events + frames & events\\
+% source: Ch. 2 tab:bilevel_comp_indoor and tab:bilevel_comp_outdoor; reported PSNR values (bilevel 15.37 / 8.41, events 10.85 / 8.71).
+PSNR (dB) {\scriptsize\color{muted}indoor / outdoor} & & 15.37 / 8.41 & 10.85 / 8.71\\
+Solve & & outer + inner & one convex\\
 % source: Antil--Sayre (2023) bilevel analysis: existence and local uniqueness under additional conditions; Ch. 2 thm:uniqueness: unique global minimizer for every fixed positive diagonal.
-Guarantee & existence; conditional local uniqueness & unique global minimizer\\\bottomrule
+Guarantee & & existence; conditional local uniqueness & unique global minimizer\\\bottomrule
 \end{tabular}
-\end{columns}
-% source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor; images: MVSEC indoor flying 2, Ch. 2 saved release.
-\src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3). Images: MVSEC indoor flying 2.}
-\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Left: an MVSEC indoor frame and the event-only reconstruction; structure is recovered while the absolute brightness is the level the model selects. This chapter: events only, then activity weights, then one fixed convex solve. Antil--Sayre: events and frames, with an outer optimization over $z_{xy}\in\R^{n_t}$, which parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. PSNR is similarity to a reference frame in dB.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: frames buy PSNR indoors; outdoors the event-only estimate is slightly higher. Kernel comparisons are in the backup "Temporal evidence: events fix structure; the penalty sets the baseline".}
+% source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor; images: Ch. 2 f:bilevel\_visual\_day1, MVSEC outdoor day 1, frame 12.
+\src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3). Images: \dref{Figure}{f:bilevel_visual_day1}.}
+\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Top: one MVSEC outdoor frame, the bilevel reconstruction, and the event-only reconstruction; both recover the tree line, vehicles, and hood glare, the bilevel edges are sharper, and the event-only brightness is the level the model selects. This chapter: events only, then activity weights, then one fixed convex solve. Antil--Sayre: events and frames, with an outer optimization over $z_{xy}\in\R^{n_t}$, which parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. PSNR is similarity to a reference frame in dB.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: frames buy PSNR indoors; outdoors the event-only estimate is slightly higher. Kernel comparisons are in the backup "Temporal evidence: events fix structure; the penalty sets the baseline".}
 \end{frame}
 
 \begin{frame}{Known motion lets every view constrain one scene}
@@ -547,29 +536,28 @@ Piatkowska adaptation~\cite{piatkowska2017}&\textbf{67.96}&58.75&\textbf{68.88}&
 
 \section{Contributions and next questions}
 \begin{frame}{Each next step starts from a result in the dissertation}
-\small
 \vfill
 \begin{columns}[T]
 \column{.24\textwidth}
-\begin{block}{Sensor modeling}
-{\footnotesize\color{teal}From: the error terms of slide~10}\par\smallskip
-Measure them on real sensors; the stability bounds turn them into estimate bounds.
-\end{block}
+\begin{block}{Sensor modeling}\begin{minipage}[t][2.9cm][t]{\linewidth}\raggedright
+{\small\color{teal}error terms (slide~10)}\par\smallskip
+Measure them on real sensors; bound the estimate error.
+\end{minipage}\end{block}
 \column{.24\textwidth}
-\begin{block}{Learned weights}
-{\footnotesize\color{teal}From: a smooth solution map}\par\smallskip
-Learn $\Lam$ in an outer problem \cite{antil2020bilevel}; for $\Lam\succ0$, $\mathbf f^*(\Lam)$ is smooth.
-\end{block}
+\begin{block}{Learned weights}\begin{minipage}[t][2.9cm][t]{\linewidth}\raggedright
+{\small\color{teal}a smooth solution map}\par\smallskip
+Learn $\Lam$ in an outer problem~\cite{antil2020bilevel}.
+\end{minipage}\end{block}
 \column{.24\textwidth}
-\begin{block}{Shared scenes}
-{\footnotesize\color{teal}From: the null space of $B_{\rm SAR}$}\par\smallskip
-Find its motion-invariant modes for a trajectory (ESAR~\cite{antil2026esareventbasedsyntheticaperture}); apply to orbital streams.
-\end{block}
+\begin{block}{Shared scenes}\begin{minipage}[t][2.9cm][t]{\linewidth}\raggedright
+{\small\color{teal}the null space of $B_{\rm SAR}$}\par\smallskip
+Find motion-invariant modes; apply to orbital streams~\cite{antil2026esareventbasedsyntheticaperture}.
+\end{minipage}\end{block}
 \column{.24\textwidth}
-\begin{block}{Edge hardware}
-{\footnotesize\color{teal}From: the tridiagonal structure}\par\smallskip
-Update only pixels with events; measure time and power on a Raspberry Pi~5 and edge sensors.
-\end{block}
+\begin{block}{Edge hardware}\begin{minipage}[t][2.9cm][t]{\linewidth}\raggedright
+{\small\color{teal}the tridiagonal structure}\par\smallskip
+Time and power on a Raspberry Pi~5; update only active pixels.
+\end{minipage}\end{block}
 \end{columns}
 \vfill
 % source detail: Ch. 2, subsubsec:physical, thm:uniqueness, prop:ch2\_sar\_solvability; Ch. 3, eq:abstract\_stability; Ch. 5, Future Directions. External: Antil, Di, Khatri, Inverse Problems 36 (2020) 064001. Edge implementation: monocular_reconstruction/python/edge.
@@ -579,9 +567,7 @@ Update only pixels with events; measure time and power on a Raspberry Pi~5 and e
 
 \begin{frame}{What the data constrain and what the models prove}
 \begin{beamercolorbox}[sep=2.4mm,wd=\textwidth]{block body}
-{\large\bfseries\color{teal}Unique reconstruction and flow;\par unique stereo inner solves.\par}
-\smallskip
-{\footnotesize Under the hypotheses summarized below.\par}
+{\large\bfseries\color{teal}Each estimate is unique once the model supplies what events leave free.\par}
 \end{beamercolorbox}
 \medskip
 \footnotesize

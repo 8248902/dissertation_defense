@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-11-08T18:47:34.111959+00:00",
+  "built_at_utc": "2026-11-08T19:27:18.025252+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 125,
   "cards": 125,
@@ -28,10 +28,10 @@
     "anki/build_deck.py": "2beb528ba65bc54b833cd6f5e5ae8ec7ef773550a9a4455f350a47327ba6d233",
     "anki/README.txt": "c74a49013bc6f438676951c3209bef2ee975f93f6df2716812a4f525543106eb",
     "anki/slide_titles.json": "f51d927e74a9070732cef8acb2c6ec2cd287f039d63fbf091786fc81e4fbed46",
-    "core.tex": "16ab5657fc9f85daa5d8878cc14fcc9097ebb73f5bd4a771e212e0e7960cb957",
+    "core.tex": "834d1e7691b4b0050c53f99cb5717a55a09bd87512dfa31075161a3d0f1190c5",
     "backup.tex": "1b5c58f4248a3e2270adbadd4425430b071dcbd43e68846f5832390449fae2fd",
-    "defense-script.md": "e41a484ecbb44778b851ea481135ad8ac8a1530a9f48799a23d320d394acd4e7",
-    "source-map.csv": "a67a540f5a35934bdbb64a992b632eaa7b1f1515809cc46112474321f0156b24",
+    "defense-script.md": "92a7e5950d09a237bd12874a2032cd0c91302278700e8ec9ca0f73eae2eeda31",
+    "source-map.csv": "ec6c3bbe14f2583196ddf21a0980d4bf3cb83bed67d85f64099ec25e2f648e36",
     "thesis-references.json": "94b05ffef6d453676523454de832806394a5ef0d1510780679753d854b8cf17d",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "5859bdbe901b730f945fea37eab8d78a69aac5816b7754f87342ea70b8a2c714",
@@ -39,8 +39,8 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "output_sha256": {
-    "defense-oral.apkg": "b471a88773fcce420026c0349b1be127a215ae8addbaf9133b1e2bc3ababe049",
-    "defense-core.apkg": "133b4fb0eee2740c0d8de7d183e2e1fa0b0b1a875ba145bcb9ef0c78b5fe2abd",
+    "defense-oral.apkg": "a80825d48c5a4728c0daf56b7e0f5b1063f329600eac557b8e92c7176631ab9c",
+    "defense-core.apkg": "01922ab82c622ad05b2b94f7b557b83dfb149092397b8cbb9b0a60059921f719",
     "defense-oral.tsv": "af975eb8650c2e702951377e53d95cdeb2158af6e9e3a8e47ff64fae63105b7b",
     "preview.html": "bd7274d6dc666b686dda139da118d461f0f7dae80de5f56595010356003bd518"
   }

@@ -140,7 +140,11 @@ Next: when does this integrated observation match a physical brightness change?
 
 ## Slide 10 — Three discrepancies connect event sums to brightness changes
 
-So far, y is something we compute from the events. These three schematic panels show how it relates to physical brightness changes.
+So far, y is something we compute from the events. This identity from Chapter 2 says exactly how it relates to physical brightness change.
+
+*[Point to the identity.]*
+
+Between any two times a and b at one pixel, the change in log brightness, in threshold units, equals the event sum y plus three corrections. Each panel below shows one of them.
 
 *[Point to the panels from left to right.]*
 
@@ -150,9 +154,7 @@ Second, overshoot. The dashed level is one threshold above the last reset. The r
 
 Third, sub-threshold change. Brightness changes after the last event and stays below the next threshold. The vertical gap at b is r of b. There is a corresponding gap at a, so the identity uses their difference.
 
-*[Point to the exact identity.]*
-
-This identity from Chapter 2 brings the three discrepancies together. Kernel spill comes from the representation and bin boundaries; overshoot and the endpoint residual connect the events to physical brightness. When the corrections are small, A f approximately equal to y models brightness changes. The absolute level comes from the model. Next is how the model chooses it.
+Kernel spill comes from the representation and bin boundaries; overshoot and the sub-threshold change connect the events to physical brightness. When the corrections are small, A f approximately equal to y models brightness changes. The absolute level comes from the model. Next is how the model chooses it.
 
 *[If asked about missed or spurious events: they can make epsilon comparable to the threshold. For the continuous-time limit: Backup 03, the jump primitive. For signals that stay below threshold throughout a window: Backup 34.]*
 
@@ -162,7 +164,7 @@ The objective has two terms. The first fits the reconstructed increments to y. T
 
 *[Point to the matrix inequality.]*
 
-Setting the gradient to zero gives the normal equations, with matrix A transpose A plus Lambda transpose Lambda. Its quadratic form is the squared norm of A z plus the squared norm of Lambda z, and the second term alone is at least the smallest weight squared times the squared norm of z. So the matrix is positive definite, and the minimizer is unique.
+Setting the gradient to zero gives the normal equations, with matrix A transpose A plus Lambda transpose Lambda. Its quadratic form is the squared norm of A z plus the squared norm of Lambda z, and the second term alone is at least the smallest weight squared times the squared norm of z. So the matrix is positive definite and invertible, and the unique minimizer is its inverse applied to A transpose y.
 
 *[Point to the stability line.]*
 
@@ -184,7 +186,7 @@ At the pre-defense, the committee asked what this costs, and whether it could ru
 
 *[Point to the matrix.]*
 
-A takes consecutive differences, so A transpose A has twos on the diagonal, ones at the ends, and minus ones beside the diagonal. Adding the squared positive weights preserves that structure. One forward sweep and one backward sweep solve each pixel's system in time proportional to the number of samples. Across the image, that is O(H W N_t). A pixel whose whole observation vector is zero has the exact zero solution and can skip the solve.
+A takes consecutive differences, so A transpose A has twos on the diagonal, ones at the ends, and minus ones beside the diagonal. Adding the squared positive weights preserves that structure and makes each diagonal entry exceed its off-diagonal sum by lambda i squared, so the sweep needs no pivoting. One forward sweep and one backward sweep solve each pixel's system in time proportional to the number of samples. Across the image, that is O(H W N_t). A pixel whose whole observation vector is zero has the exact zero solution and can skip the solve.
 
 If only the newest frame is needed, the forward recurrence returns the endpoint of the batch solution on the history accumulated so far. It keeps three recurrence numbers plus an output value per pixel. Each new interval costs constant work per pixel; older frames would need backward substitution to be revised.
 
@@ -218,11 +220,11 @@ Next, how these reconstructions compare with the bilevel approach on MVSEC.
 
 ## Slide 14 — Events alone recover scene structure with one convex solve and a unique global minimizer
 
-*[Point to the two images, then to the table.]*
+*[Point to the three images, then down the columns.]*
 
-On the left is an indoor frame from MVSEC beside the event-only reconstruction. The structure of the scene is there; the overall brightness is the level the model selected, since the events constrain only changes.
+This is one outdoor frame from MVSEC: the camera's reference frame, the bilevel reconstruction, and the event-only reconstruction. Both recover the tree line, the parked vehicles, and the glare off the hood; the bilevel edges are sharper. The overall brightness of the event-only image is the level the model selected, since the events constrain only changes.
 
-On the right is the relation to the Antil–Sayre bilevel approach. In this chapter, the events set activity-based weights, and then we do one fixed convex solve over time. The bilevel approach uses events together with intensity frames, and its outer optimization adjusts z, a parameter of the event-based blur kernel that links each blurry frame to the sharp latent image. So their outer variable shapes how events explain the frames, while my rule chooses the magnitude weights of the temporal profile.
+Below the images is the relation to the Antil–Sayre bilevel approach. In this chapter, the events set activity-based weights, and then we do one fixed convex solve over time. The bilevel approach uses events together with intensity frames, and its outer optimization adjusts z, a parameter of the event-based blur kernel that links each blurry frame to the sharp latent image. So their outer variable shapes how events explain the frames, while my rule chooses the magnitude weights of the temporal profile.
 
 The table compares complete methods with different inputs. Indoors, the bilevel approach, which has the frames, reaches higher PSNR; outdoors, the event-only approach is slightly higher. PSNR compares with a reference frame, so it also scores the absolute brightness, which the events leave to the model.
 
@@ -409,7 +411,9 @@ For stereo, the two cameras give paired event-feature profiles. At a fixed candi
 
 The proof tools are classical. The contribution is the analysis of these event-derived models under explicit hypotheses.
 
-Under the stated hypotheses, regularization gives unique reconstruction and flow estimates, and a unique stereo inner solve at each candidate disparity. Accuracy also depends on the representation.
+*[Point to the box.]*
+
+So each estimate is unique once the model supplies what the events leave free, under the hypotheses in the table: a unique reconstruction, a unique flow, and a unique stereo inner solve at each candidate disparity. Accuracy also depends on the representation.
 
 Thank you. I'm happy to take your questions.
 
