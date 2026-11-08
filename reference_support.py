@@ -166,17 +166,26 @@ def load_snapshot(snapshot: Path = SNAPSHOT, thesis: Path = THESIS) -> dict:
                 raise ValueError(f'Stale dissertation references: {name} changed or is missing. {REFRESH}')
     # Defense-only references follow the full dissertation bibliography, leaving
     # its citation numbers and the verified on-disk snapshot unchanged.
-    key = 'wolfe2015animations'
-    if key in data['citations']:
-        raise ValueError(f'Defense-only citation now appears in thesis: {key}; use the thesis entry')
-    number = str(max(int(value['number']) for value in data['citations'].values()) + 1)
-    data['citations'][key] = dict(number=number, entry=(
+    for key, entry in DEFENSE_ONLY.items():
+        if key in data['citations']:
+            raise ValueError(f'Defense-only citation now appears in thesis: {key}; use the thesis entry')
+        number = str(max(int(value['number']) for value in data['citations'].values()) + 1)
+        data['citations'][key] = dict(number=number, entry=entry)
+    return data
+
+# Numbered in this order after the dissertation bibliography.
+DEFENSE_ONLY = {
+    'wolfe2015animations': (
         r'Wolfe et al., \emph{Sensation and Perception}, 4th ed. '
         r'Sinauer Associates, \textcopyright\ 2015. '
         r'\href{https://cdn.sinauer.com/wolfe4e/wa08.02.html}'
         r'{Activity 8.2, Movies 5--6 (aperture problem)}. '
-        r'Publisher animations used unchanged.'))
-    return data
+        r'Publisher animations used unchanged.'),
+    'antil2020bilevel': (
+        r'Harbir Antil, Zichao~(Wendy) Di, and Ratna Khatri. '
+        r'Bilevel optimization, deep learning and fractional Laplacian regularization '
+        r'with applications in tomography. \emph{Inverse Problems}, 36(6):064001, 2020.'),
+}
 
 def used_references(text: str) -> list[tuple[str,str,str]]:
     refs = []

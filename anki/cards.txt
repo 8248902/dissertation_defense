@@ -181,7 +181,7 @@ More: Qualitative office, high-speed, and orbital examples demonstrate recogniza
 Q: How does your temporal method relate to the Antil–Sayre bilevel approach?
 A: Our method uses events to set activity-based magnitude penalties and then solves a fixed convex temporal problem. Antil and Sayre use events with intensity frames and an outer optimization of a blur-kernel parameter z for each pixel and frame. The comparison therefore concerns complete approaches with different information and optimization variables, as well as different guarantees.
 Keep: event-only weights; frame-assisted threshold optimization; different guarantees
-More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions. Reported averages, bilevel versus event-only: indoors PSNR 15.37 versus 10.85 with condition numbers 39755 versus 25.51; outdoors PSNR 8.41 versus 8.71 with 39755 versus 27.10.
+More: Our fixed positive diagonal gives a unique global quadratic minimizer. The cited bilevel analysis gives existence and conditional local uniqueness under its assumptions. Reported average PSNR, bilevel versus event-only: 15.37 versus 10.85 dB indoors; 8.41 versus 8.71 dB outdoors.
 
 @ T25 | temporal | core | adaptivelipschitz,15 | thm:uniqueness,subsubsec:lambdacal
 Q: Your weights are computed from the data. Is the estimator you actually run stable?

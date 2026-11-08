@@ -141,7 +141,7 @@ def render(intro: str, sections: list[dict]) -> str:
                 r'\pdfbookmark[0]{' + label + '}{index' + role + '}',
                 r'{\LARGE\bfseries ' + label + r'\par}',
                 r'{\small Each entry links to its script page. Numbers identify audience-deck pages.}\par',
-                r'\begin{multicols}{2}\fontsize{8}{9.5}\selectfont\setlength{\parskip}{3pt}\raggedright']
+                r'\begin{multicols}{2}\fontsize{8}{9.5}\selectfont\setlength{\parskip}{1.5pt}\raggedright']
         for section in sections:
             if section['role'] == role:
                 out += [f"\\hyperlink{{deck{section['page']}}}{{\\textbf{{{section['page']}}} {tex_escape(section['title'])}}}\\par"]
@@ -190,7 +190,7 @@ def check_script_pages(work: Path, sections: list[dict]) -> None:
     print(f'Validated one script page per deck frame ({len(sections)} frames); {pages[0]-1} front/index pages.')
 
 COMMITTEE_LIST = ROOT / 'committee-backups.txt'
-REFS_PER_PAGE = 13  # the full deck fits 38 works on 3 pages
+REFS_PER_PAGE = 13  # the full deck fits 39 works on 3 pages
 
 def committee_backup(snapshot: dict) -> str:
     """backup.tex reduced to the listed frames, then right-sized reference pages."""

@@ -2,6 +2,10 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## Start here — November 8 (storyboard follow-ups, branch `storyboard-claims`)
+
+- 24 main slides + 87 backups (84 discussion, 3 references), 111 pages; backup page = N + 24. The per-core timing slide is now Backup 84 (page 108, `corerate`, also in the committee handout); slide 12 transitions straight to the penalty slide. Slide 3 now shows all three scenes in false color. Details in LOG/2026-11-08.md. Uncommitted.
+
 ## Start here — November 7 (claim-title storyboard, branch `storyboard-claims`)
 
 - Main talk restructured from a side-by-side storyboard review the user approved slide by slide (review page: claude.ai artifact "Defense Storyboard Review"). Titles now state each slide's finding; legends moved into figures; explanatory sentences moved to the talk notes and script.

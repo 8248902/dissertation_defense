@@ -64,9 +64,9 @@ Dissertation bibliography key: `weickert2001theoretical`.
 
 [Phenomenal Coherence of Moving Visual Patterns](https://doi.org/10.1038/300523a0). *Nature* 300, 523–525.
 
-Introduced the velocity-space intersection-of-constraints construction: each oriented component allows a line of velocities, and two orientations intersect at one. Slide 21 uses this picture to illustrate the integrated-identifiability requirement of the main flow theorem; the theorem itself is the dissertation's.
+Introduced the velocity-space intersection-of-constraints construction: each oriented component allows a line of velocities, and two orientations intersect at one. Slide 20 uses this picture to illustrate the integrated-identifiability requirement of the main flow theorem; the theorem itself is the dissertation's.
 
-Not in the dissertation bibliography; credited on slide 21 only.
+Not in the dissertation bibliography; credited on slide 20 only.
 
 ## Published temporal work
 

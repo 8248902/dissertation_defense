@@ -25,4 +25,4 @@ ffmpeg -nostdin -ignore_loop 1 -i app5-hide.gif -vf fps=30 -c:v libx264 -profile
 ffmpeg -nostdin -ignore_loop 1 -i app6-show.gif -vf fps=30 -c:v libx264 -profile:v baseline -level:v 3.0 -preset slow -crf 18 -pix_fmt yuv420p -an -movflags +faststart app6-show.mp4
 ```
 
-The optional `make presenter` build links these files on slide 20 for in-window playback in Pympress. See the defense README for the synchronized script and Zoom setup.
+The optional `make presenter` build links these files on slide 19 for in-window playback in Pympress. See the defense README for the synchronized script and Zoom setup.

@@ -9,7 +9,7 @@
 \item Minimal uniqueness condition / reference level
 \item Measure-valued continuous-time limit
 \item Signal gain versus noise gain
-\item \ifdefined\DefenseNotes Metrics; real time; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{temporalcost}{problem size}\fi
+\item \ifdefined\DefenseNotes Metrics; real time; core rate; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{corerate}{core rate}; \hyperlink{temporalcost}{problem size}\fi
 \item Kernels; \ifdefined\DefenseNotes $\Lam(\mathbf y)$ stability\else\hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
 \end{itemize}
 \textbf{Flow analysis}
@@ -213,12 +213,12 @@ For $\mathbf z=\vct_1^*-\vct_2^*$,
 \vspace{-2mm}
 \[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
 +c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
-% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 79).
-{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (stripes, slide 21). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 79).\par}
+% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 78).
+{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (stripes, slide 20). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 79).\par}
 \takeaway{The estimate is Lipschitz in its coefficients under uniform identifiability.}
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
-\talknote{Question: how is the stability bound derived? About 75 seconds.}{The same coercivity constant works on both coefficient pairs because the quantitative bounds are shared. Subtract their weak equations and test with the solution difference. Cauchy--Schwarz controls the right side, and $\norm{\vct_2^*}_{H^1}\le R_b/c_0$ follows from its own weak equation. Divide by $\norm{\mathbf z}_{H^1}$ if it is nonzero.}{The conclusion is stability of the chosen estimator. The estimate may become poor as $m\to0$. If a density-dependent diffusion tensor is recomputed, the regularizer also changes; its $L^\infty$ perturbation must enter the bound. Scene terms: coefficient changes come from timestamp jitter, binning, and noise events; small $m$ is the stripe case on slide 21.}
+\talknote{Question: how is the stability bound derived? About 75 seconds.}{The same coercivity constant works on both coefficient pairs because the quantitative bounds are shared. Subtract their weak equations and test with the solution difference. Cauchy--Schwarz controls the right side, and $\norm{\vct_2^*}_{H^1}\le R_b/c_0$ follows from its own weak equation. Divide by $\norm{\mathbf z}_{H^1}$ if it is nonzero.}{The conclusion is stability of the chosen estimator. The estimate may become poor as $m\to0$. If a density-dependent diffusion tensor is recomputed, the regularizer also changes; its $L^\infty$ perturbation must enter the bound. Scene terms: coefficient changes come from timestamp jitter, binning, and noise events; small $m$ is the stripe case on slide 20.}
 \end{frame}
 
 \begin{frame}{Discrete flow: connectivity and sampled directions matter}
@@ -480,7 +480,7 @@ Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\m
 \takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~98).}
 % source detail: Ch. 2, subsubsec:lambdacal; Ch. 4, sec:solution (regularization terms); Ch. 2, thm:uniqueness.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Section}{sec:solution} (regularization terms); \dref{Theorem}{thm:uniqueness}.}
-\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 90. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
+\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 89. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
 \end{frame}
 
 \begin{frame}{A real MVSEC flow example is qualitative}
@@ -856,7 +856,7 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \takeaway{A global minimizer exists by finite-dimensional coercivity; the local solver returns a local solution.}
 % source detail: Ch. 3, prop:cmax\_existence and evaluated-solver scope.
 \src{\dref{Proposition}{prop:cmax_existence} and evaluated-solver scope.}
-\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 93).}
+\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 92).}
 \end{frame}
 
 \begin{frame}{Stereo depth: full Chapter 4 arc}
@@ -1217,7 +1217,7 @@ Stereo inner (Ch.~4) & data $+\gamma\norm{\fL-\fR}^2$; $\W_c\succ0$, $\gamma>0$ 
 \talknote{Question: is there one mechanism behind the three uniqueness theorems? About 2 minutes.}{Proof: write $u=n+w$ with $n=Pu$. Since $\sqrt{a}$ is a seminorm, $a(n,n)\le2a(u,u)+2a(w,w)\le2a(u,u)+2\beta\norm{w}^2$, and $\norm{w}^2\le r(u,u)/\rho$. Then $\norm{u}^2=\norm{n}^2+\norm{w}^2\le\frac2\mu a+\frac{1+2\beta/\mu}{\rho}r$. Necessity: if $N=\ker r$ and $a(n,n)=0$ for some $n\ne0$ in $N$, the form vanishes at $n$. Instances: temporal $\mu=\frac1n\sum_i\lambda_i^2$, $\rho=g_1=4\sin^2(\pi/2n)$, $\beta=\lambda_{\max}^2$; flow $\mu=m/|\Omega|$, $\rho=\alpha^2/(1+C_P^2)$, $\beta=\beta_B$; discrete flow $\rho=\alpha^2$ times the algebraic connectivity.}{Temporal: the data see every variation and miss the baseline; the penalty fixes it (Backup 02 is the exact finite-dimensional version). Flow: smoothness sees every variation and misses a uniform pan; the edges fix it (Backup 35 is the necessity statement). Stereo: with positive observation weights and $\gamma>0$, data plus coupling leave only the common constant $(\mathbf 1,\mathbf 1)$. Outside the lemma: correspondence selection compares finitely many candidate costs (separation margin) and contrast maximization is nonconvex (compactness gives existence only). This lemma and Lax--Milgram apply to quadratic forms; TV needs separate tools.}
 \end{frame}
 
-% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 100 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 99 notes.
+% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 99 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 98 notes.
 \begin{frame}[label=adaptivelipschitz]{Adaptive weights keep the temporal estimate locally Lipschitz}
 \small
 Let $\lambda_i=\varphi(|dc_i|)$ with $0<\lambda_-\le\varphi\le\lambda_+$ and $\varphi$ $L$-Lipschitz. Subtracting the normal equations,
@@ -1237,7 +1237,7 @@ Exponential decay & $10^{-3}+10e^{-10}$ & $10.001$ & $10$\\\bottomrule
 \takeaway{Each Chapter 2 rule gives a locally Lipschitz estimator with explicit, pessimistic constants; Chapter 4's solution-dependent IRLS weights need the fixed-point analysis.}
 % source detail: Ch. 2, thm:uniqueness, subsubsec:lambdacal. Short argument beyond the chapter; checked numerically for all three rules.
 \src{\dref{Theorem}{thm:uniqueness}; adaptive rules (\drefpage{subsubsec:lambdacal}). The Lipschitz bound is a short argument beyond the chapter.}
-\talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor improves to $10^{-3}+10/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 24.}
+\talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor improves to $10^{-3}+10/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 23.}
 \end{frame}
 
 % Parameter selection: Ch. 2 subsubsec:lambdacal sentence on per-rule scale sweeps; Ch. 3 app:ch3_discrete_stencils grid-sweep sentence; Ch. 4 sec:experimental_validation selection sentence.
@@ -1267,7 +1267,7 @@ Discrepancy principle (Morozov 1966; Skellam noise level $\theta_++\theta_-$), L
 {\let\small\footnotesize\takeaway{Sweeps chose the values; the theorems cover every positive choice.}}
 % source detail: Ch. 2 subsubsec:lambdacal, tab:lambda_outdoor_avg; Ch. 3 app:ch3_discrete_stencils; Ch. 4 sec:experimental_validation, def:skellam_surrogate (Skellam variance). External rules are typed text: Morozov, Soviet Math. Dokl. 7 (1966); Hansen, SIAM Rev. 34 (1992); Golub, Heath, Wahba, Technometrics 21 (1979).
 \src{Adaptive rules (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}; flow sweeps (\drefpage{app:ch3_discrete_stencils}); \dref{Section}{sec:experimental_validation}; \dref{Definition}{def:skellam_surrogate}. Parameter-choice rules: external works named above.}
-\talknote{Question: how did you choose $\lambda$, $\alpha$, and $\gamma$? About 90 seconds.}{Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning; sigmoid has the lowest outdoor CN, 29.60. Antil and Sayre use one scalar magnitude weight; making it activity-adaptive is the change Chapter 2 evaluates. The flow smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, $\gamma$ and the latent count came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences. The theorems hold for every positive value, so the choice moves bias and accuracy and keeps the solve unique and stable.}{The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts the Skellam model gives the variance $\theta_++\theta_-$, estimable from ON and OFF counts; after the Chapter 4 transformation that variance must be propagated through it. The L-curve and generalized cross-validation need no noise level. The sweeps used the evaluated sequences, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of $\Lam$ (slide 24).}
+\talknote{Question: how did you choose $\lambda$, $\alpha$, and $\gamma$? About 90 seconds.}{Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning; sigmoid has the lowest outdoor CN, 29.60. Antil and Sayre use one scalar magnitude weight; making it activity-adaptive is the change Chapter 2 evaluates. The flow smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, $\gamma$ and the latent count came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences. The theorems hold for every positive value, so the choice moves bias and accuracy and keeps the solve unique and stable.}{The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts the Skellam model gives the variance $\theta_++\theta_-$, estimable from ON and OFF counts; after the Chapter 4 transformation that variance must be propagated through it. The L-curve and generalized cross-validation need no noise level. The sweeps used the evaluated sequences, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of $\Lam$ (slide 23).}
 \end{frame}
 
 % Learned estimators: Ch. 2 lem:nullspace, thm:uniqueness, subsec:validation; Ch. 3 fig:aperture_problem, thm:unified_wellposedness; Ch. 4 prop:disparity_nonidentifiability.
@@ -1286,7 +1286,7 @@ Stereo & Candidates with coincident right-view profiles (\dref{Proposition}{prop
 \begin{columns}[T]
 \column{.55\textwidth}
 \begin{block}{Combining them}
-Learn $\Lam$ in an outer problem [Antil--Di--Khatri 2020]; for $\Lam\succ0$, $\Lam\mapsto\mathbf f^*(\Lam)$ is single-valued and smooth.
+Learn $\Lam$ in an outer problem \cite{antil2020bilevel}; for $\Lam\succ0$, $\Lam\mapsto\mathbf f^*(\Lam)$ is single-valued and smooth.
 \end{block}
 \column{.41\textwidth}
 \begin{block}{Data without a training set}
@@ -1345,7 +1345,7 @@ $Mh^2\to|\Omega|$ (ratio $1.20$ at $h=8$\,px), so the $H^1$ coercivity constant 
 {\let\small\footnotesize\takeaway{Without the temporal penalty the increments are fit exactly and noise accumulates along the chain; without spatial smoothing each pixel returns to its aperture line.}}
 % source detail: Ch. 2 subsec:optform, eq:normal_equations; Ch. 4 lem:A_spectrum, prop:noise_gain; Ch. 3 thm:unified_wellposedness, eq:energy_functional, prop:time_surface. Flow statements are a short argument beyond the chapter.
 \src{Regularized formulation (\drefpage{subsec:optform}); \dref{Lemma}{lem:A_spectrum}; \dref{Proposition}{prop:noise_gain}; \dref{Theorem}{thm:unified_wellposedness}; \dref{Proposition}{prop:time_surface}. The flow statements are a short argument beyond the chapter.}
-\talknote{Question: what happens as the regularization goes to zero? About 90 seconds.}{Temporal: testing the normal equations with the constant vector removes the data term at every scale, so the weighted zero-mean rule for the baseline holds for every $\lambda$. As $\lambda\to0$ the solution converges to the minimum-weighted-norm exact fit, which Chapter 2 states. With $\mathbf D=\mathbf I$ that limit is the centered cumulative sum of the increments: noise in the increments passes through a running sum, with gain $1/\sqrt{g_1}\approx N_t/\pi$. The penalty caps the gain at $1/(2\lambda)$. Flow: the integrated condition fixes the mean, and only $\alpha$ controls variation. Any event-free open set gives a test field with Rayleigh quotient at most $\alpha^2$. At $\alpha=0$ the energy is pointwise and its minimizers are exactly the velocity-space lines of slide 18.}{The full-space condition number $(g_{\max}+\lambda^2)/\lambda^2$ blows up only along the constant mode, which the data never excite (Backup 17 removes it). Convergence to the limit begins once $\lambda^2$ is small compared with $g_1\approx\pi^2/N_t^2$. Positive $\lambda$ and $\alpha$ are hypotheses of the theorems, and these limits show the role of each. For the structure tensor at $\alpha=0$, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane.}
+\talknote{Question: what happens as the regularization goes to zero? About 90 seconds.}{Temporal: testing the normal equations with the constant vector removes the data term at every scale, so the weighted zero-mean rule for the baseline holds for every $\lambda$. As $\lambda\to0$ the solution converges to the minimum-weighted-norm exact fit, which Chapter 2 states. With $\mathbf D=\mathbf I$ that limit is the centered cumulative sum of the increments: noise in the increments passes through a running sum, with gain $1/\sqrt{g_1}\approx N_t/\pi$. The penalty caps the gain at $1/(2\lambda)$. Flow: the integrated condition fixes the mean, and only $\alpha$ controls variation. Any event-free open set gives a test field with Rayleigh quotient at most $\alpha^2$. At $\alpha=0$ the energy is pointwise and its minimizers are exactly the velocity-space lines of slide 17.}{The full-space condition number $(g_{\max}+\lambda^2)/\lambda^2$ blows up only along the constant mode, which the data never excite (Backup 17 removes it). Convergence to the limit begins once $\lambda^2$ is small compared with $g_1\approx\pi^2/N_t^2$. Positive $\lambda$ and $\alpha$ are hypotheses of the theorems, and these limits show the role of each. For the structure tensor at $\alpha=0$, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane.}
 \end{frame}
 
 % Event-free regions: Ch. 3 thm:euler_lagrange (weak equation), thm:unified_wellposedness. Interior harmonicity and maximum principle are a short argument beyond the chapter.
@@ -1423,7 +1423,7 @@ For a unit vector $\mathbf e$: if $\mathbf e\cdot\vct^*\le M$ on $\Gamma$, test 
 % source: Antil, Blauvelt, and Sayre, Dynamic reconstruction from neuromorphic data, 2026; doi:10.3934/fods.2026017.
 % source detail: Chs. 2--3 related work; linked papers. Temporal publication: Antil, Blauvelt, and Sayre (2026).
 \src{\dref{Chapter}{ch:monocular_reconstruction} and \dref{Section}{sec:related_work}; temporal publication: Antil, Blauvelt, and Sayre~\cite{antil2026dynamicrecon}.}
-\talknote{Positioning; about 90 seconds.}{For image reconstruction, Rebecq and colleagues use a recurrent neural network trained on simulated events. Zhang, Yezzi, and Gallego use optical flow to formulate a linear image inverse problem, with classical or learned image regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates a parameter of the event-based blur kernel. Our published temporal work reconstructs each pixel independently from event increments. I develop the temporal kernel representation and activity-based penalties, then analyze the fixed quadratic solve: what the observations determine, how regularization selects a baseline, and how perturbations affect the solution.}{For flow, the starting points are Horn and Schunck's data-plus-smoothness formulation and Benosman and colleagues' event-timestamp geometry. I formulate the time-surface, voxel-projection, and structure-tensor models in a common quadratic family and identify conditions that give existence, uniqueness, and stability. Classical variational flow already has well-posedness theory, including Weickert and Schn\"orr's framework; this dissertation supplies the event-derived coefficient constructions and their explicit identifiability and perturbation hypotheses. Begin the models by explaining what the sensor actually reports. If asked about learned methods, use Backup 67 (page 103).}
+\talknote{Positioning; about 90 seconds.}{For image reconstruction, Rebecq and colleagues use a recurrent neural network trained on simulated events. Zhang, Yezzi, and Gallego use optical flow to formulate a linear image inverse problem, with classical or learned image regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates a parameter of the event-based blur kernel. Our published temporal work reconstructs each pixel independently from event increments. I develop the temporal kernel representation and activity-based penalties, then analyze the fixed quadratic solve: what the observations determine, how regularization selects a baseline, and how perturbations affect the solution.}{For flow, the starting points are Horn and Schunck's data-plus-smoothness formulation and Benosman and colleagues' event-timestamp geometry. I formulate the time-surface, voxel-projection, and structure-tensor models in a common quadratic family and identify conditions that give existence, uniqueness, and stability. Classical variational flow already has well-posedness theory, including Weickert and Schn\"orr's framework; this dissertation supplies the event-derived coefficient constructions and their explicit identifiability and perturbation hypotheses. Begin the models by explaining what the sensor actually reports. If asked about learned methods, use Backup 67 (page 102).}
 \end{frame}
 
 \begin{frame}{A point measure needs a representation before optimization}
@@ -1479,7 +1479,7 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
 % source detail: Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}.}
-\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected after grid sweeps of each rule's scale, as a fidelity/conditioning compromise among the swept settings; Backup 66 (page 102) covers parameter selection in all three chapters. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 90. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
+\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected after grid sweeps of each rule's scale, as a fidelity/conditioning compromise among the swept settings; Backup 66 (page 101) covers parameter selection in all three chapters. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 89. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
 \end{frame}
 
 \begin{frame}{Temporal evidence: events fix structure; the penalty sets the baseline}
@@ -1656,9 +1656,49 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \talknote{Question: how big is the problem, and what would run on a low-power platform? About 90 seconds.}{Independent temporal chains give O(H W N t) work for weights, right-hand sides, and tridiagonal solves. Direct indexing adds O(E k) event work. The edge path uses this structure; the main Python path uses dense solves. The example counts output storage only.}{Sigmoid/delta streaming keeps three recurrence scalars plus output per pixel: O(H W) state and work per interval, matching the growing-prefix endpoint for finalized inputs. Exact savings: direct binning, buffer reuse, zero-history skipping, factor reuse for identical weights. ROI and coarser grids trade coverage/detail; shorter windows change history; reduced precision needs error checks. Earlier activity still drives quiet pixels. Symmetric kernels add look-ahead. Measure latency, peak RAM, and joules per estimate. The full script covers detection-only alternatives.}
 \end{frame}
 
+\begin{frame}[label=corerate]{One CPU core streams about 114 million pixel updates per second, with 16 bytes of state per pixel}
+% source: Slurm 2945746 streaming, 1 thread, 2 ms steps: 89,960*500/0.394 = 114.2M and 307,200*500/1.342 = 114.5M pixel updates/s; 16 B = 4 float32 per pixel (python/edge/tridiag.py StreamingReconstructor).
+\begin{columns}[c]
+\column{.55\textwidth}\centering
+% source: Slurm 2945746 (full path below), streaming at 2 ms steps (500 frames/s), 1 thread: rtf 0.394 at 346x260 = 89,960 px -> 89,960*500/0.394 = 114.2M pixel updates/s; rtf 1.342 at 640x480 = 307,200 px -> 307,200*500/1.342 = 114.5M/s (8.75 ns per update). 8 threads at 640x480: rtf 0.21 -> 307,200*500/0.21 = 731M/s (Backup 07).
+\begin{tikzpicture}
+\begin{axis}[width=7.4cm,height=5.0cm,xmode=log,ymode=log,xmin=3e4,xmax=3e6,ymin=50,ymax=5000,
+  xtick={1e5,307200,1e6},xticklabels={0.1\,MP,VGA,1\,MP},ytick={100,500,1000},yticklabels={100,500,1000},
+  xlabel={pixels},ylabel={frames per second},label style={font=\scriptsize},tick label style={font=\scriptsize},
+  minor tick num=0,axis on top]
+\addplot[name path=one,teal,thick,domain=3e4:3e6,samples=2]{1.14e8/x};
+\addplot[name path=eight,teal!55,thick,dashed,domain=3e4:3e6,samples=2]{7.31e8/x};
+\path[name path=floor] (axis cs:3e4,50)--(axis cs:3e6,50);
+\addplot[teal!12] fill between[of=one and floor];
+\addplot[only marks,mark=*,mark size=2.2pt,ink] coordinates {(89960,500) (307200,500)};
+\node[font=\scriptsize,anchor=south west,text=teal] at (axis cs:3.4e4,55) {shaded: one core keeps up};
+\node[font=\scriptsize,anchor=south west,text=teal] at (axis cs:4e5,2600) {8 cores};
+\node[font=\scriptsize,anchor=north] at (axis cs:89960,450) {$0.39\times$};
+\node[font=\scriptsize,anchor=west,align=left] at (axis cs:330000,500) {$1.3\times$\\8 cores: $0.21\times$};
+\end{axis}
+\end{tikzpicture}
+\column{.42\textwidth}
+\small
+\[\text{pixels}\times\text{frames/s}\;\le\;1.14\times10^{8}\ \text{per core}\]
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.6cm}@{}}
+$8.8$\,ns per pixel update; $16$\,B of state per pixel\\
+% source: Slurm 2945746, 1 thread, 100 ms windows, N=50: rtf_all 0.434 vs rtf_active 0.041; 6,096 of 89,960 pixels active per window (6.8%).
+Batch work follows scene activity: skipping pixels without events cuts it $10\times$ at $6.8\%$ active ($0.43\to0.04$)\\
+\end{tabular}
+\end{columns}
+\vfill
+% source: /scratch/dblauvel/thesis_rerun_20261024/edge/run_2945746/{window,stream}/bench_{davis_pendulum,hs_gun_bullet_mug}_amd041.orc.gmu.edu_*.json (Slurm 2945746, revision cdca5a4, empty source.diff; AMD node amd041, 1 thread; batch: 100 ms windows, N=50, active-pixel solve, median of 10 windows, rtf_active DAVIS 0.041, cup 1.025; streaming: 2 ms steps, DAVIS 0.394, cup 1.342).
+% state: python/edge/tridiag.py StreamingReconstructor keeps inv_m, r, b_prev, f_now (4 float32 per pixel = 16 B); 346x260 = 89,960 px -> 1.4 MB; 640x480 = 307,200 px -> 4.9 MB.
+{\fontsize{6.5}{8}\selectfont\color{muted}Points: two recordings, a frame every 2\,ms, float32; labels give processing time $\div$ recording time. 8-core line: measured at VGA.\par}
+% source detail: Slurm 2945746 (timings), October 25, 2026; monocular_reconstruction/python/edge (implementation).
+\src{Timings: edge implementation, October 2026; Thomas algorithm~\cite{golub2013matrix}.}
+\talknote{Question: how fast is it on one core, and what fits on a small board? About 2 minutes.}{Each streaming step does constant work per pixel, so the cost is one rate: about 114 million pixel updates per second on one core, 8.8 ns each. Both recordings give the same rate (114.2 and 114.5 million per second), although they differ in resolution and by nine times in event rate. Divide by the frame rate to get the pixels one core serves: about 229 thousand at 500 frames per second, 1.1 million at 100. The left point (346 by 260 pixels, 0.25 million events per second) streams at 0.39 of real time with 1.4 MB of state; the right point (640 by 480, 2.3 million events per second) at 1.3 on one core and 0.21 on eight.}{All timings use one core, the closest proxy for a small board, except the eight-core line. Batch reconstruction skips pixels without events; with 6.8 percent active that is tenfold less work. If asked about the sensors: both recordings are DAVIS-class data; the rate depends on pixels and frame rate. Backup 07 adds the multithread timings; Backup 83 gives problem size and low-power options.}
+\end{frame}
+
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.
 \begin{frame}[label=references]{References (1 of 3)}
-\fontsize{6}{7.2}\selectfont
+\fontsize{6}{7.0}\selectfont
 \begin{multicols}{2}
 \thesisreferences{1}
 \end{multicols}
@@ -1666,7 +1706,7 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \end{frame}
 
 \begin{frame}{References (2 of 3)}
-\fontsize{6}{7.2}\selectfont
+\fontsize{6}{7.0}\selectfont
 \begin{multicols}{2}
 \thesisreferences{2}
 \end{multicols}
@@ -1674,7 +1714,7 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \end{frame}
 
 \begin{frame}{References (3 of 3)}
-\fontsize{6}{7.2}\selectfont
+\fontsize{6}{7.0}\selectfont
 \begin{multicols}{2}
 \thesisreferences{3}
 \end{multicols}

@@ -1,11 +1,11 @@
 DISSERTATION DEFENSE — DELIVERY GUIDE
-Daniel Blauvelt | updated November 7, 2026
+Daniel Blauvelt | updated November 8, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 25 main slides + 86 backups (83 discussion, 3 references).
+  defense.pdf          Audience presentation: 24 main slides + 87 backups (84 discussion, 3 references).
                        Main slides omit source footers; the committee handout keeps them.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
@@ -15,35 +15,34 @@ CANONICAL MATERIAL
   STATE.md             Current session status and handoff.
 
 DELIVERY
-  Slides 2-3: open on the results (office, cup, ISS); advance to the false-color cup and ISS;
+  Slides 2-3: open on the results (office, cup, ISS); advance to the same three in false color;
     why event cameras and on-board use matter.
   Slides 4-5: what the sensor reports; the threshold rule; the shifted curve gives the same events.
   Slide 6: the three MVSEC estimates, each with its unobserved quantity.
   Slide 7: down each column: what the model supplies, then the guarantee; the common question.
   Slide 10: sensor-to-observation model; the exact identity and its three error terms.
   Slide 11: uniqueness, the stability bound, and the reference level.
-  Slide 12: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; MVSEC check.
-  Slide 13: cost in time: about 114M pixel updates/s per core, 16 B state per pixel;
-    budget pixels x frames/s <= 1.14e8 per core; batch skips quiet pixels (10x).
-  Slide 15: MVSEC images, then the Antil--Sayre table (inputs, PSNR, CN).
-  Slide 16: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
-  Slide 17: motion hook (frames compare two pictures; events timestamp the moving edge);
+  Slide 12: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; MVSEC check;
+    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 84, page 108).
+  Slide 14: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
+  Slide 15: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
+  Slide 16: motion hook (frames compare two pictures; events timestamp the moving edge);
     then play the left panel, then the right.
-  Slide 18: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 19: three representations, one quadratic problem; derivations are Backups 77-79.
-  Slide 20: main flow theorem; integrated directional condition; one sentence of proof idea.
-  Slide 21: known-motion stripes and checkerboard.
-  Slide 22: depth hook (time is the matching signal); stereo geometry, unique inner solve.
-  Slide 23: MVSEC table and scored-points bars; lead with coverage.
-  Slide 24: four research directions, each from a result in the dissertation.
-  Slide 25: three-column synthesis, the common question, thank you; then take questions.
-  Moved from the main talk (Backups 71-82, pages 96-107): opening triptych, related work,
+  Slide 17: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 18: three representations, one quadratic problem; derivations are Backups 77-79.
+  Slide 19: main flow theorem; integrated directional condition; one sentence of proof idea.
+  Slide 20: known-motion stripes and checkerboard.
+  Slide 21: depth hook (time is the matching signal); stereo geometry, unique inner solve.
+  Slide 22: MVSEC table and scored-points bars; lead with coverage.
+  Slide 23: four research directions, each from a result in the dissertation.
+  Slide 24: three-column synthesis, the common question, thank you; then take questions.
+  Moved from the main talk (Backups 71-82, pages 95-106): opening triptych, related work,
   point measure, uniqueness proof, weight choice, kernel table, time-surface derivation,
   voxel projection, structure tensor, flow proof idea, full stereo table, old closing.
-  Full flow proof 34; stability 35; discrete flow / Jacobi 36-37; Chapter 4 results 73.
-  Other backups: metrics 31; real-time 32; flow protocol 69; alignment 74; depth sensitivity 82;
-  weak-regularization limits 94; event-free flow regions 95.
-  Backup pages 26-108: select by question; page numbers match the script/index.
+  Full flow proof 33; stability 34; discrete flow / Jacobi 35-36; Chapter 4 results 72.
+  Other backups: metrics 30; real-time 31; flow protocol 68; alignment 73; depth sensitivity 81;
+  weak-regularization limits 93; event-free flow regions 94.
+  Backup pages 25-108: select by question; page numbers match the script/index.
   Pages 109-111: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
@@ -102,4 +101,6 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   reopen it. The builder uses script: page labels for grouped notes; notes:
   labels select Pympress's different, interleaved layout and hide the script.
 
-  Backup 83 (page 105): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
+  Backup 83 (page 107): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
+  Backup 84 (page 108): about 114M pixel updates/s per core, 16 B state per pixel;
+    budget pixels x frames/s <= 1.14e8 per core; batch skips quiet pixels (10x).
