@@ -1,11 +1,11 @@
 DISSERTATION DEFENSE — DELIVERY GUIDE
-Daniel Blauvelt | updated October 24, 2026
+Daniel Blauvelt | updated November 7, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 22 main slides + 86 backups (83 discussion, 3 references).
+  defense.pdf          Audience presentation: 25 main slides + 86 backups (83 discussion, 3 references).
                        Main slides omit source footers; the committee handout keeps them.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
@@ -15,31 +15,36 @@ CANONICAL MATERIAL
   STATE.md             Current session status and handoff.
 
 DELIVERY
-  Slide 2: open on the results (office, cup, ISS); why event cameras and on-board use matter.
-  Slide 3-4: what the sensor reports; the ideal threshold rule and the free baseline.
-  Slide 5: the three MVSEC estimates; one difficulty per problem.
-  Slide 6: the three results of the talk; the common question.
-  Slide 9: sensor-to-observation model; the exact identity and its three error terms.
-  Slide 10: uniqueness, the stability bound, and the reference level on one slide.
-  Slide 11: cost: tridiagonal, Thomas algorithm, streaming newest frame, one-core cost (DAVIS: batch 0.04, streaming 0.39 of real time, 1.4 MB state; cup streaming 1.3; skipping quiet pixels 10x).
-  Slide 13: MVSEC images, then the Antil--Sayre comparison table.
-  Slide 14: orbit hook (7.7 km/s smears frames; known motion = more views); Falcon pair, per-pixel vs one scene; operator; disks; about 90 seconds.
-  Slide 15: motion hook (frames compare two pictures; events timestamp the moving edge); then play the left panel, then the right.
-  Slide 16: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 17: three representations, one quadratic problem; derivations are Backups 77-79.
-  Slide 18: main flow theorem; integrated directional condition; one sentence of proof idea.
-  Slide 19: known-motion stripes and checkerboard.
-  Slide 20: depth hook (time is the matching signal; coverage is the hard part); stereo geometry, unique inner solve, two-row MVSEC table, lead with scored points.
-  Slide 21: four research directions, including the edge implementation.
-  Slide 22: three-row synthesis, the common question, thank you; then take questions.
-  Moved from the main talk (Backups 71-82, pages 93-104): opening triptych, related work,
+  Slides 2-3: open on the results (office, cup, ISS); advance to the false-color cup and ISS;
+    why event cameras and on-board use matter.
+  Slides 4-5: what the sensor reports; the threshold rule; the shifted curve gives the same events.
+  Slide 6: the three MVSEC estimates, each with its unobserved quantity.
+  Slide 7: down each column: what the model supplies, then the guarantee; the common question.
+  Slide 10: sensor-to-observation model; the exact identity and its three error terms.
+  Slide 11: uniqueness, the stability bound, and the reference level.
+  Slide 12: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; MVSEC check.
+  Slide 13: cost in time: about 114M pixel updates/s per core, 16 B state per pixel;
+    budget pixels x frames/s <= 1.14e8 per core; batch skips quiet pixels (10x).
+  Slide 15: MVSEC images, then the Antil--Sayre table (inputs, PSNR, CN).
+  Slide 16: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
+  Slide 17: motion hook (frames compare two pictures; events timestamp the moving edge);
+    then play the left panel, then the right.
+  Slide 18: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 19: three representations, one quadratic problem; derivations are Backups 77-79.
+  Slide 20: main flow theorem; integrated directional condition; one sentence of proof idea.
+  Slide 21: known-motion stripes and checkerboard.
+  Slide 22: depth hook (time is the matching signal); stereo geometry, unique inner solve.
+  Slide 23: MVSEC table and scored-points bars; lead with coverage.
+  Slide 24: four research directions, each from a result in the dissertation.
+  Slide 25: three-column synthesis, the common question, thank you; then take questions.
+  Moved from the main talk (Backups 71-82, pages 96-107): opening triptych, related work,
   point measure, uniqueness proof, weight choice, kernel table, time-surface derivation,
   voxel projection, structure tensor, flow proof idea, full stereo table, old closing.
-  Full flow proof 31; stability 32; discrete flow / Jacobi 33-34; Chapter 4 results 70.
-  Other backups: metrics 28; real-time 29; flow protocol 66; alignment 71; depth sensitivity 79;
-  weak-regularization limits 91; event-free flow regions 92.
-  Backup pages 23-105: select by question; page numbers match the script/index.
-  Pages 106-108: references, numbered as in the dissertation; every [n] links here.
+  Full flow proof 34; stability 35; discrete flow / Jacobi 36-37; Chapter 4 results 73.
+  Other backups: metrics 31; real-time 32; flow protocol 69; alignment 74; depth sensitivity 82;
+  weak-regularization limits 94; event-free flow regions 95.
+  Backup pages 26-108: select by question; page numbers match the script/index.
+  Pages 109-111: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
   Answer the question asked in one or two sentences, then offer the backup.
@@ -53,7 +58,7 @@ QUESTION HANDLING
   Rehearsal answers with follow-ups: ../misc_ideas_feedback/defense_probing_q&a.md.
 
 ANIMATIONS
-  Slide 20 contains both original publisher GIF sequences at their original
+  Slide 17 contains both original publisher GIF sequences at their original
   timing. Use the small forward-play controls; each animation loops.
   Playback was verified in Firefox 156 with PDF scripting enabled.
   Desktop Acrobat Reader is also supported by the animate package.
@@ -87,7 +92,7 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   the audience window in Zoom. S swaps screens. Next/previous slide actions
   advance the full script with the slide, including backup slides.
   The script is shown a page at a time; enlarge the notes pane for reading.
-  Click slide 20's panels to play the linked, looping MP4s. Keep both videos
+  Click slide 17's panels to play the linked, looping MP4s. Keep both videos
   in figures/aperture when moving the PDF. Rehearse playback and Zoom sharing
   on the actual presentation computer. Distribute defense.pdf to the audience;
   defense-presenter.pdf also contains the private full script.

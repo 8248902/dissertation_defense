@@ -2,6 +2,14 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## Start here — November 7 (claim-title storyboard, branch `storyboard-claims`)
+
+- Main talk restructured from a side-by-side storyboard review the user approved slide by slide (review page: claude.ai artifact "Defense Storyboard Review"). Titles now state each slide's finding; legends moved into figures; explanatory sentences moved to the talk notes and script.
+- 25 main slides + 86 backups, 111 pages. New frames: slide 3 repeats slide 2 with false-color cup and ISS (the deck tooling needs one page per frame, so reveals are separate frames); slide 11 split into 12 (tridiagonal structure) and 13 (cost in time); slide 20 split into 22 (stereo model) and 23 (MVSEC benchmark). Slide 16 (ESAR) is three static lanes: operator, simulated disks, ISS pair.
+- Slide 13 states cost sensor-independently: about 114M pixel updates/s per core (8.8 ns each), 16 B state per pixel, budget pixels × frames/s ≤ 1.14e8 per core; derived from Slurm 2945746 (stream rtf 0.394 at 89,960 px and 1.342 at 307,200 px, 2 ms steps; 8 threads 0.21 at VGA). Source comments are in core.tex.
+- Renumbered: main-slide references in backup.tex, talk notes, and the script; every backup deck page +3 (page = N + 25); delivery guide and README updated; anki/slide_titles.json retitled (new keys tridiagcost, stereobench); build_deck.py accepts a repeated title only on the next page; build_presenter.py finds the aperture slide by its new title.
+- `make all` is clean apart from sub-1.3 pt overfulls on the committee edition of slides 2–3 and the existing script-output overfull. Uncommitted on branch `storyboard-claims`.
+
 ## Start here — November 1 (temporal complexity and low-power questions)
 
 - Added Backup 83, page 105, **How big is the temporal monocular problem?**: independent pixel histories, O(H W N_t) tridiagonal solve work, O(E k) accumulation with direct indexing, output/scratch storage, and growing-prefix streaming. References are now Backups 84–86, pages 106–108; prior discussion pages stay fixed.

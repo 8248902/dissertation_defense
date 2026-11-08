@@ -159,7 +159,7 @@ def main() -> None:
                     raise ValueError(f'Movie rectangle has no visible area: {filename}')
                 movies.append((number, filename))
     expected_movies = [(section['page'], str(path)) for section in sections
-                       if 'The aperture problem:' in section['title'] for path in media]
+                       if 'look identical through a small window' in section['title'] for path in media]
     if movies != expected_movies:
         raise ValueError(f'Presenter movies differ from expected aperture panels: {movies}')
     args.output_dir.mkdir(parents=True, exist_ok=True)

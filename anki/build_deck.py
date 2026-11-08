@@ -94,8 +94,12 @@ def read_cards():
 def enrich(cards):
     with (DEFENSE / "source-map.csv").open(encoding="utf-8", newline="") as handle:
         slide_rows = list(csv.DictReader(handle))
-    slides = {row["slide_title"]: row for row in slide_rows}
-    assert len(slides) == len(slide_rows), "Slide titles must be unique to resolve anchors."
+    # A repeated title is allowed only on the next page (a reveal frame); anchors resolve to the first.
+    slides = {}
+    for row in slide_rows:
+        first = slides.setdefault(row["slide_title"], row)
+        assert first is row or int(row["pdf_slide"]) == int(first["pdf_slide"]) + 1, \
+            "Slide titles must be unique to resolve anchors."
     slide_anchors = json.loads((HERE / "slide_titles.json").read_text(encoding="utf-8"))
     references = json.loads((DEFENSE / "thesis-references.json").read_text())["labels"]
     script = (DEFENSE / "defense-script.md").read_text(encoding="utf-8")
