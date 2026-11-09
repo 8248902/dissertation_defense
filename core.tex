@@ -27,17 +27,17 @@
 \textbf{What can brightness changes reveal about images, motion, and depth---and at what computational cost?}\par\vspace{2mm}}
 
 \begin{frame}{Events alone recover a handheld office, a bullet hitting a cup, and Earth from orbit}
-% source: Ch. 2 subsubsec:datasets; office approx. 2.5M events (subsec:validation_office), cup approx. 350,000 events (f:cup), ISS approx. 2 million events (f:iss).
-\hookpanels{figures/office/office_ex_11.pdf}{figures/cup/cup_ex_5.pdf}{figures/ISS/110_0993g_reflected.png}
+% source: Ch. 2 subsubsec:datasets; office approx. 2.5M events (subsec:validation_office), cup approx. 750,000 events (f:cup), ISS approx. 2 million events (f:iss). Panels: figures/hook_p1/metadata.json (P1 configuration; office frame 29, cup frame 124, ISS frame 31).
+\hookpanels{figures/hook_p1/office.png}{figures/hook_p1/cup.png}{figures/hook_p1/iss.png}
 % source detail: Ch. 2, subsec:validation, f:office, f:cup, f:iss; datasets in subsubsec:datasets.
 \src{\dref{Figure}{f:office}, \dref{Figure}{f:cup}, and \dref{Figure}{f:iss}; \dref{Section}{subsec:validation}. Data: office~\cite{gallego2017accurate}, cup~\cite{rebecq2021highspeed}, Falcon Neuro~\cite{mcharg2022falcon}.}
-\talknote{Motivation; about 90 seconds. Show the results before any mathematics.}{Office: a handheld camera in an office; the desk objects and the person are recognizable (about 2.5 million events). Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur (about 350 thousand events). ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse (about 2 million events). All three come from events alone, with one per-pixel solve and no intensity frames.}{Advance to the same scenes in false color, then give the motivation there.}
+\talknote{Motivation; about 90 seconds. Show the results before any mathematics.}{Office: a handheld camera in an office; the desk objects and the person are recognizable (about 2.5 million events). Cup: a bullet strikes a ceramic cup from the left; the event stream resolves the fracture and spray, which a standard-rate frame camera would blur (about 750 thousand events). ISS: the Falcon Neuro event cameras on the International Space Station viewing the eastern coastline of Honduras; land--water boundaries and clouds are visible although the scene changes slowly and the events are sparse (about 2 million events). All three come from events alone, with one per-pixel solve and no intensity frames.}{Advance to the same scenes in false color, then give the motivation there.}
 \end{frame}
 
 \begin{frame}{Events alone recover a handheld office, a bullet hitting a cup, and Earth from orbit}
-\hookpanels{figures/office/office_ex_11_colormapped.png}{figures/cup/cm_cup/cup_5_0.0510_colormapped.png}{figures/ISS/110_0993_reflected.png}
+\hookpanels{figures/hook_p1/office_color.png}{figures/hook_p1/cup_color.png}{figures/hook_p1/iss_color.png}
 % source detail: Ch. 2, f:office, f:cup and f:iss (false-color renderings of the same reconstructed frames).
-% source: office_ex_11_colormapped.png = the 480x360 image embedded in figures/office/office_ex_11.pdf, matplotlib magma, monotone piecewise-linear map [0.5th pct, mode 128, 99.7th pct] -> [0, 0.18, 1], 4x nearest upsampling.
+% source: figures/hook_p1/*_color.png use the palette of the thesis cup false-color figure, indexed by the departure from the background; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export_hook.py.
 \src{\dref{Figure}{f:office}, \dref{Figure}{f:cup}, and \dref{Figure}{f:iss}, false-color renderings of the same reconstructed frames.}
 \talknote{Same scenes in false color; about 45 seconds.}{All three panels now show the same reconstructed frames in false color; grayscale and false color are display choices for the reconstructed relative brightness.}{Why it matters: fast scenes, wide brightness ranges, and platforms with tight power budgets such as drones and spacecraft. On those platforms the estimator must also be cheap and predictable, which the reconstruction chapter quantifies. Transition: what the sensor reports, and why that makes these problems mathematically interesting.}
 \end{frame}
