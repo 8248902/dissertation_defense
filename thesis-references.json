@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-10-26T03:28:10+00:00",
+  "generated_at_utc": "2026-11-09T04:51:49+00:00",
   "thesis_main": "GMU-Diss_template",
-  "thesis_pdf_sha256": "27d3570ea0a3da629c388aced7d2cb45912056843eea2aa7f4374061126deb80",
+  "thesis_pdf_sha256": "7a2dda38e22aca40c356754df1687db71805f84b6d79a637ea2b304e50bc55f0",
   "source_sha256": {
     "GMU-Diss_template.tex": "b64ab01e2c683ae787d4791a843129116e35d0215f006bb4a04cf443f3db1871",
     "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
@@ -13,12 +13,12 @@
     "chapterOne.tex": "fa8a18fa6a5ee74f1faff6404028a39d0da18b7045532a63576bb9b5a5ae6e4a",
     "chapterThree.tex": "ed0ecc3050de0ce21eede3ddff076b5a3a30219cb4a82b28a637e6922c601e10",
     "chapterTwo.tex": "f7731d10eff79cef6d323598a09ec55dd777fbaeb61ba70156875231254797d7",
-    "figures/ISS/109_09751_reflected.png": "089c3e7d650bf617bd44abb1c284a46170246f59545ec295ad2fb7ddde5d50f4",
-    "figures/ISS/109_09751g_reflected.png": "5086784de5872903a4569b621b53de9c3986093a253e1124eaa779a6577eb37f",
-    "figures/ISS/110_0993_reflected.png": "58bf4b5ea591647f605254a1d99b09607f9015a5a775d098763a785f26062c5b",
-    "figures/ISS/110_0993g_reflected.png": "717b07acf8347a0469dd6ccef6da487af3a8b04318b8ca06693e7c4b4a1f55ab",
-    "figures/ISS/112_087501_reflected.png": "4f27cb6c5b12ed5a1bf5e43d632eef3fed4ec52f222005983288ecf125dd261c",
-    "figures/ISS/112_087501g_reflected.png": "7ea71c2d8919511a5ef146f327df0a5eae36a753fce103e6d1862eb7985f1bf0",
+    "figures/ISS/p1/iss_f031.png": "2310f6c125d319d4d99b8b8143670ef5e638f86205b8b6fc3c5dc85bace41984",
+    "figures/ISS/p1/iss_f031_color.png": "0d22202f900dcedd47f21cd5017b3408923fcdc251a6f671baa7e7558a7735b0",
+    "figures/ISS/p1/iss_f047.png": "c3c97bf1653de7969cf800753e3f04c0d7077d1e68c0db085a986e28e8150889",
+    "figures/ISS/p1/iss_f047_color.png": "9639056a05f0282ca8af4a5d6e2984d833d035ef75b202d184fed757c2037803",
+    "figures/ISS/p1/iss_f063.png": "47eb918202e90021861ea1b05b084b788bdec943a6b2201702fa3710750cb2c2",
+    "figures/ISS/p1/iss_f063_color.png": "dccee0b56fb9d168c9c65f9f252247007619f1c3191c9ba3ba543ab044ee17a1",
     "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/cmax.png": "d95e10634027f196d3b9857e4deb78cb3e488d0b8342dfdcc23e64627f9bb620",
     "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/gt.png": "21c1b265e5aab5b24deba082897e4280a857de53fad48c2782329e85a1b35f83",
     "figures/ch3_quivers_consistent/pure_synth_stripes_f0022/crop/ts.png": "320e8177655afaa4bd6dc7768f0d09814ac719899404f998d33ff2d19ce76f94",
@@ -40,127 +40,123 @@
     "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_aniso_tensor.png": "aec0701504966d88095c2dfe14695010791cf00b91818ec2775b00fc7e0b8fe1",
     "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_cont.png": "2c3c8f8485da083083e030a85491e406f5a68eec8f161ea929eced447b02e08d",
     "figures/ch3_quivers_consistent/v2e_stripes_f0022/crop/vox_struct.png": "ea5a0febdcb8717f7d1daf578e0db72c6ea259fefa28e472062061a3f7b0533f",
-    "figures/cup/cm_cup/cup_12_0.0510_colormapped_adj.png": "c4965723cdbcdaa150d641d753f037a27397c3773305a04ee2a3bee57dbdef87",
-    "figures/cup/cm_cup/cup_2_0.0510_colormapped.png": "997ff1ac9effbc97489a56232f11ce84a4f1b700dba023defb89c21127af7d3f",
-    "figures/cup/cm_cup/cup_3_0.0510_colormapped.png": "c4f8a6d3b7f9fbd272dcde35076d472d44f738050fff93f355c328ac1510f516",
-    "figures/cup/cm_cup/cup_5_0.0510_colormapped.png": "b5c73e1d23a005b7fcc8a4d0ca006e36739373044b1590a350c307a8e83d27f6",
-    "figures/cup/cm_cup/cup_7_0.0510_colormapped_adj.png": "c148ef35a8b47d1496a95f5d0a870d0aaac1da37e9f0f822ae31027cc7325b25",
-    "figures/cup/cup_ex_12-eps-converted-to.pdf": "b8a991c6e4efb266c4f090e56f061e92ed0b6c90da8330398982500b36f7ef78",
-    "figures/cup/cup_ex_12.eps": "f0f0cf4c0ee5d2b9d4c8251f5bfcd1b20c8190de2db4e3ace98952aa3381c0cb",
-    "figures/cup/cup_ex_2-eps-converted-to.pdf": "ac7e259d932105f8ec55151ce53f87314043dfaa17e4d521c2b6d39643299a2f",
-    "figures/cup/cup_ex_2.eps": "04f8a0daae7de33ca22386e5481dc51e21ae2b5147e24435139298ad62e8ebe4",
-    "figures/cup/cup_ex_3-eps-converted-to.pdf": "743609ca8cdba968a04f54b36b77d1a63c68f92f11cb0403a5a56d08b0b455be",
-    "figures/cup/cup_ex_3.eps": "f6ed286bfa40437a0bd41aab866ef068c579170c9e6b1564a3b38f25be40c4e5",
-    "figures/cup/cup_ex_5-eps-converted-to.pdf": "2f372bddb43c9e83e80e9d2c01eaac707ff1ceda507dc1857b444998480dcf7c",
-    "figures/cup/cup_ex_5.eps": "92de40eb312178757dbff24508d1f4d44cf5eae9602411f6f821bd576f597665",
-    "figures/cup/cup_ex_7-eps-converted-to.pdf": "0582de29720f7a7a301a58e711973f9554beffdfa28bc0318afa1739e0ad932b",
-    "figures/cup/cup_ex_7.eps": "e6438b646727efbcf85cf281d731daa553fd5f0af46ee6f5f70ae79b8e174857",
+    "figures/cup/p1/cup_f106.png": "af05cf60c6bf8fec2bfbf692af0c63afe058792fdd997e7b6786d77b03b86b27",
+    "figures/cup/p1/cup_f106_color.png": "ab5c8bcf9ebbbe56178b8454a38a15856aabe0376f6eb2862307d51c4343b705",
+    "figures/cup/p1/cup_f124.png": "701b13147d4c8c82921c9df7d256367a0e2ed00985fdeca658c69d60189ef724",
+    "figures/cup/p1/cup_f124_color.png": "644da412d9d3ac153bb584a2299b6fc9bfbc6516c7988f1cf4082c3c894d9009",
+    "figures/cup/p1/cup_f134.png": "d9a983307e9690df3443af2da2d1b613995391f8a52a4f41532b532fd1d16414",
+    "figures/cup/p1/cup_f134_color.png": "2bf3d0f5a1cd9d4104f85787572c766c93de44b7a17106af72a3c13416a4a6f7",
+    "figures/cup/p1/cup_f140.png": "86a787727d74fcbcbb9169941534c650d1b824074c43202a9b6b7aaef8aa06d6",
+    "figures/cup/p1/cup_f140_color.png": "109b1f80d6a6117471ddf093bc363d2e679a2e7cda1030efd115c84d5ae855bf",
+    "figures/cup/p1/cup_f148.png": "99458cbac94118cdad10d5bdcb1b43f45b9da3a5eb7201205ae38a9e45a3a946",
+    "figures/cup/p1/cup_f148_color.png": "11cdfc68d4b24738d3bf95c5949f8572c67f20a5d7b1a49bca038597e50df12c",
     "figures/fig_supp_M2_residual_density.png": "590e6099f7b5daaccf5a887e27d7dd3ed4fed7c857e1a93d5d41cc331e6e3b32",
     "figures/indoor_flying3_wls_w250ms/SOTA_All_Methods_d2z_indoor_flying3_t25.59.png": "def81d99357ab09ecf6bc1160743454507171bd7c5e60839edd4e8c9e5887dbb",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame001.png": "a69b7fb5fc798cc4f757c89d56194b2ca9b98453729252838d4cf3ab9dde427b",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame061.png": "35d93324826b202571f6937a861dcfb52d543193cacb34d1f2c89760365bfd8a",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/ground_truth/ground_truth_frame120.png": "d60e3e35ed572de319b87848c11470bae9c3847bd28492ab86460ad127deaac8",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame001.png": "beeb09a01b3db4b54634ac26494bf2b041e9153188bfd3c3be48f1f157eeed9e",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame061.png": "349ec98cd49358223b1d2f52295bcb6036ed663610c992526ec085cc853f6cd2",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_exp_abs_frame120.png": "7ce88c7739b0b0f77c00017f108e66f6406584bce56499b976ad4d46fd9dd0d7",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame001.png": "25b5f52ec7eafc3bd6295c2cf1addcb74248ded6472cf6eae888a98c047134bf",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame061.png": "a6abf345ad60fa88994168a8694a99ec68e15aa7c561194931a16d224b485ce2",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_max_abs_frame120.png": "1b5169e58446aeaa3c777577402040c95539ece00f25e09f19eec82a8c639dc0",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame001.png": "1d99709a509ab2caf2edccfbc3ff10f669d1c8739f0a4096799c6d441d511b6a",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame061.png": "0d1dc22403a38d0876838f682c252ebafe524c02c19c6129a799072ef30eb567",
-    "figures/lambda_comparison/mvsec_outdoor_day2/lambda_comparison/lambda_frames/mvsec_outdoor_day2_subset_sigmoid_frame120.png": "de550e8bb166e12e0bf94e7bdae84c93df94580ef32d5cc8288c8db1f042e1bd",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_acc_0340.png": "ee198e1aac936bdb6b7431a6ac3b8b9ae01c01170f06b9fb3e283e906aa5fa4a",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_gt_0340.png": "7ed78bc8050d449d5803460a22a51819caccf1307ff7528caa56fc2eeaa9e731",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_ts_0340.png": "95c8f245d52ace3429d712e9b4bfd78a2bad649a0958df10db5994d05d25b31a",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_0340.png": "6b5d54ad8add8688cb5833c31d5567f02e6788ef1a5836cdc5977b1b96caf303",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/flow_vox_struct_0340.png": "008f604beb8f804a7bc9fbef2db3d32eb67f7ddfc5171f345eee550572d801d9",
     "figures/mvsec_indoor_flying_2_alpha_10_vox_focus/gray_0340.png": "737c1cc77994dee0c92c856c0b099694c1a728eb946373b3ddbdd94599f8d851",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_009.png": "bcf548e00f91c9bc6775baf8380880f8c673ac78356cd6f7c34caa2e850fbbb1",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_012.png": "9ea22f3c50f0a1941012bfe81284a1e71497020bf113d40773a3c55e9e8364d0",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_016.png": "19e416fbc000fd0f0a8acd18d0b7b96aeeb3b2d4e839b64253230436cec4a22c",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_009.png": "22f94bf15b057c58fe544c32073c399be4501c36071c3a68883972ba2e4a92a8",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_012.png": "a6422eac0d1b7c27f261d03530e9034a05c6ae91d42fe680f871e394bee9120e",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_016.png": "5144a4c701e1654feecc0af3671178b66ce7ee2001d5c07228992f33bcd14da0",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_009.png": "0e028f3ec6701a6b6ac7bc2c7cd9965ed1f169c4db7cd14c3b1ab40669d4aabf",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_012.png": "43c9dc2c1d0b825a2495d0366e19757f2cb7bc0199e4fdb1ef7773093b805829",
-    "figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_016.png": "d42d86b6171618babc4c6d6a9d91fa14053e9cc6be5f784a89b8cdf251106d22",
-    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame001.png": "84fcffb58b06fffe530d8eaf778313f78637e314fe90648ea718c87b7e2ac431",
-    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame076.png": "328e5c270bbc1d3588316494713194a25c430dcc399bd4b247f69d429e598dcb",
-    "figures/mvsec_outdoor_day1/bump_sweep/ground_truth/ground_truth_frame150.png": "576edb9308570214b4467072673dec3fbbd0b05611db72935bc21f4eaca4a627",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame001.png": "6cccb12df3af152df313bf208b184e38122c99b6d5edbcde0eace0ee55d2770d",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame076.png": "54512821311a76655b4649612b8868791fab0a01a28af1bcefba8ebfd2bf6959",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_bspline_order1p000_width0p010_param1_frame150.png": "bbedebd66dba7e927228458fee6634ca6c3bcef549d22e78ad705693ca9bc8a5",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame001.png": "5860ec94633b065d7dee0765be60ca31962818cee6be805e228716cc52e1abd1",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame076.png": "840aa42436b571ae24d28e607f0e90d960a498eabb83077ba960d985da977a4b",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_delta_param1_frame150.png": "a5d6a93e3a39e1af86abc21d57ae9e20f0dc27f88ea0fe1968be270613b33645",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame001.png": "7e022fbd599990330de612ee072db005c84d50cf822901175f3064090a65ad7b",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame076.png": "f8a9f19ab045657369c95eae2410cb46e921bdbacd137b05cb6e4a0d2d353a2e",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_gaussian_sigma0p001_param1_frame150.png": "f690dc528303defac85cd3e18eb346ecaffbb1bd89c10fe790372810a98f2a7d",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame001.png": "43f292264790c838c4e7852061cfd193281f85bb883f741f757116da229839c4",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame076.png": "e8b87240f62ec402b6a4230a440ab5bc7f96470c27f0d1f7943718dedf2e569b",
-    "figures/mvsec_outdoor_day1/bump_sweep/sample_reconstructions/mvsec_outdoor_day1_subset_rectangular_width0p001_param1_frame150.png": "18d7305f23628ff52d86170834466bc128a03f818dd5d89278f7056cad00bb6e",
-    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame001.png": "1e1fc37638314a1746c4660498c834a5de9bed7f7f9ce5c379154a74cc55997e",
-    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame061.png": "f49aed7ed6e882e47fbfad5d865f7436918468c139f204b9f64dbb64390080c8",
-    "figures/mvsec_outdoor_day1/lambda_comparison/ground_truth/ground_truth_frame120.png": "9de595156bd6f11fbfb1b755130c9c2a37e529440e8dd34510720ed77be350b1",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame001.png": "d42b9083dabb51bc536b15972d5103eb4bb25acf5ebb445ba5c575e6a7080f88",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame061.png": "cc5eb6da25d50bd876314bc2016c1df4eb7b17091be25babf11e5eb01a6c2272",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_exp_abs_frame120.png": "9c2234d38c732b85e967e71f1a2f4c86b5541a749617d15b8fab356e500fe7be",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame001.png": "3fac67f112d8767b7b4c9def02e4e88f9651b957b250da663eb664522d4000f4",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame061.png": "323db683841e1c0444763f88c3f4bf827b6db43743e64599d302a18855a67d7e",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_max_abs_frame120.png": "5fbbfca2c02996e858a9b7eb2f53ad77e5cf4bf17b3d7a678875f7ea948e60e4",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame001.png": "472fcac6a0523d63fcf9b2ec232875254200589ca6b124c3e709f3c0248ae142",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame061.png": "39d98557134e6c89002ebc2d2931bcddebdd63b9efc39f285c14115118b14e5e",
-    "figures/mvsec_outdoor_day1/lambda_comparison/lambda_frames/mvsec_outdoor_day1_subset_sigmoid_frame120.png": "71fd2a4e9aaeb0d44502435b0d80e78b3078adceb3314380a48efc8f63d970e7",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_009.png": "09bf2e9ac433d499e088a144d28616a10d4543f88cdcf292aae47f7cd829ad85",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_012.png": "5f622b736641f61ce1ed7465b6ac471fa73667ed694bfeea94f000a77ff89ca1",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/bilevel_row/frame_016.png": "8802a29b4d601d1556d90a1f705b46c08f100fa174331776281b9f72f741777a",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_009.png": "c35d4ce2440078952dc408469ceb9574b05301ef8503fa1bbacb695abf4f52b8",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_012.png": "f9aea24e8e9ee62d988115b8e9a6f3f369d92402286f0316134c9a291e729b3c",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/event_only_row/frame_016.png": "78b5d701b2200413d27439bf80f8e90e74c81195bf9e4d7b6d78bc8688e11aed",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_009.png": "ddac67967912d46190f6508aed93e1e32ae77b7ac85f326bb57a8334955848ea",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_012.png": "d7143718e5ecf95c5594fee50e71e11ef952c08ecd02c0333f39d503f00c9776",
-    "figures/mvsec_outdoor_day2/bilevel_comparison/ground_truth_row/frame_016.png": "c0e312b1fba6e6f899e3cc6686824d2fb917a49c8210c8f49795758117270aa5",
-    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame001.png": "135563bcc1bcde66a81ee441955ad6969e459988153f76cdb246bc622c5b3824",
-    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame076.png": "cc27dc3fbe92913fb7e9e1960688d88fda9018a2806f9c303fc6ffa34f8ef6c1",
-    "figures/mvsec_outdoor_day2/bump_sweep/ground_truth/ground_truth_frame150.png": "aaa97e8025ccbe246424d3db21b5e66da8d869d8fc71664441e8facf049c2e73",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame001.png": "eab934e96297c98623a5d682720debdaeb4b1c1ab187b41ed6a0b9ff07b7d0c4",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame076.png": "f8cdff180b94aa67d06dae2739684f57cd19a3b37f4a96d2553b6587feb95232",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_bspline_order1p000_width0p010_param1_frame150.png": "e1582baa2f0036a1ddc5d4417788e765282288c57ed516742bc7ff76304d1046",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame001.png": "2c8d1d096d24cd8ce4840c0c1b6bbacf66c5fd2cd08a7554d13b848239b21f77",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame076.png": "5970315a62d3e50ed964aee77c4d4a1450e83b6ab246f8f26cfbd424da57771d",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_delta_param1_frame150.png": "a43ddae6c955a2794b49d3a11dcfae3677f01963d90f5ad9104c118baa0a767d",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame001.png": "2cbab93db85e14507d800d3d79ec4486b283bd8b697dc85bb812469b8c78a395",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame076.png": "af953e23a66725f4324de2ebcff18bfe0f16dd90ae9582ac74ed5b667d48f943",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_gaussian_sigma0p001_param1_frame150.png": "ab6a62e8bbe87a615114c7908c37b828beb96f7f60b26e4d17a4e19978ec6993",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame001.png": "3b374e2aa77ae42446eee7a4938954144676771d9fba1a3d2333e354285ae32e",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame076.png": "40b3821ff75227e623c7ebf97f9ce819df44a82bc0eaba3fde3eaa781288e2ef",
-    "figures/mvsec_outdoor_day2/bump_sweep/sample_reconstructions/mvsec_outdoor_day2_subset_rectangular_width0p001_param1_frame150.png": "4198457c753c9b494bb0ac2861ba888f4a661510a6a16fe99b9126f21c5f816b",
-    "figures/office/office_ex_1-eps-converted-to.pdf": "5af2c235322bd66a3f2e020a5010ed6de1dfd9dbba274f34f6a7edde7fc7fe3d",
-    "figures/office/office_ex_1.eps": "66e381b00172cc78c46a54f3124fe6abfdad87d94c9ad0b54543eee9320f0461",
-    "figures/office/office_ex_11-eps-converted-to.pdf": "401d9186275fe76cbc4187ccc5d551a3ec87a483a84be0b80d093581a73088ba",
-    "figures/office/office_ex_11.eps": "27217b7d891c21ff3fe9cc91218912ce4be1bbdff14417ac4e77d3d49bbf6561",
-    "figures/office/office_ex_12-eps-converted-to.pdf": "7fb37628656c5fca8a814d37a8f17dacd3d93758e7c2f8fb1e9756485509085b",
-    "figures/office/office_ex_12.eps": "16975595b3b844d46d640f461acd16a234288052df8606fca41f7040d32613e3",
-    "figures/office/office_ex_3-eps-converted-to.pdf": "c3e06bba29de4746a73a99e66c6ea96e3e930bfafade242419b047c9dc342439",
-    "figures/office/office_ex_3.eps": "4de36cd189aac029764b1aeb7d7d0e344b9b9b07508bcc2bebc566b893e04209",
-    "figures/office/office_ex_6-eps-converted-to.pdf": "d535ecbe064069c22a770e2d4e1f564665fa5869ef5e3df9d133d5fe4e913fce",
-    "figures/office/office_ex_6.eps": "a96497fd13e3aadeb1696dd67f2752969e870e115e487a3f24aad94e56a79aea",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_u_b09.png": "cc169c376038f150a7686cb41a4dde91cab886fc7070965f3744ee958b0bb2f4",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_u_b12.png": "36f55506a70efa21fbeedd20c891372620da0c0aecf41a7f31db54afada1f089",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_u_b16.png": "1bae16eace72b3022aa7e6ed6d4f49d989cdd429f44836bb43af591e3775d1ec",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_v_b09.png": "05c121c0e23dc49c47e530c1c6e741a7e02067265480c402e01eb73294a5a141",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_v_b12.png": "fdd405a9d33c09a9d532cd1c5a9e8be74780eeb0fd6cd696d795fcffef5c3297",
+    "figures/mvsec_outdoor_day1/p1/bilevel/bilevel_v_b16.png": "af286a2c417656236a2f82432ee060e8430594f8275e8d478d4c7326ed747228",
+    "figures/mvsec_outdoor_day1/p1/bilevel/events_b09.png": "a2a2d6c9ff8a12384a73ae73aeaa244edb63ea57559f6a0e7527a7374b3c3f72",
+    "figures/mvsec_outdoor_day1/p1/bilevel/events_b12.png": "888d987d67284039ea5a959d95dbcc911642d0b90e9efeba2082646648777879",
+    "figures/mvsec_outdoor_day1/p1/bilevel/events_b16.png": "7847e209dd36ddb6d1ab11092cceb30f6f9c3a46e9acd44c69e7f915bdfee3b7",
+    "figures/mvsec_outdoor_day1/p1/bilevel/reference_b09.png": "e2e756e77cdcc542b267169322fac56acffb57ede8de70054e93c7bb17e493aa",
+    "figures/mvsec_outdoor_day1/p1/bilevel/reference_b12.png": "7da22c10d3c589ef0f702c3fa090be6a8e55cb976187e9b82116643cd9163b95",
+    "figures/mvsec_outdoor_day1/p1/bilevel/reference_b16.png": "e67466a665d4696ca34f47f5d892dc4cdfb09406767cb88db4f6c57f99292487",
+    "figures/mvsec_outdoor_day1/p1/bump/bspline_f001.png": "32d39497b6e261c9865b0fc4f5e1d0cd1c00259988e6818c74a204b4523e4615",
+    "figures/mvsec_outdoor_day1/p1/bump/bspline_f051.png": "b20ffe546f6ed56614432e5ab0a8a89348de48eed73fbbb684f24d6b39bff055",
+    "figures/mvsec_outdoor_day1/p1/bump/bspline_f100.png": "8ad814ea118f3006c3a4d190137936fedb262f4a9f5af9cca6a2fdd1695c5c2d",
+    "figures/mvsec_outdoor_day1/p1/bump/delta_f001.png": "63fb60c03ab79fbede17fc292998c511babff969b9eb34601a4c08989e9eb0d1",
+    "figures/mvsec_outdoor_day1/p1/bump/delta_f051.png": "6c29984c3477ebd5a363977621516c9a9bb693160e16caea2e94a545d68cb6e8",
+    "figures/mvsec_outdoor_day1/p1/bump/delta_f100.png": "c7ba8013e9e0576bd6e138c9310296f04bc47ee9fc2cffa05e124b4e9675adc7",
+    "figures/mvsec_outdoor_day1/p1/bump/gaussian_f001.png": "7be3d935d7eefae01aa365df312089f8c519850ed61a6143a7a9975e8a097f99",
+    "figures/mvsec_outdoor_day1/p1/bump/gaussian_f051.png": "2919011cea72e1f13747b1da427e5d7849d9208fd49613f25cd19f62730ced97",
+    "figures/mvsec_outdoor_day1/p1/bump/gaussian_f100.png": "589995f43aa6764c156fa40365a643f46dde258c8e4bf3042f05ba72bd53e8d2",
+    "figures/mvsec_outdoor_day1/p1/bump/ground_truth_f001.png": "1eb458ac11caf2b6605db41e51df7771cd5ef2e088665f8615fcc42b0aeb447d",
+    "figures/mvsec_outdoor_day1/p1/bump/ground_truth_f051.png": "b459aff2a747811ccbab9e71881829094a1452088c0a0ddf81b3213b81b4587d",
+    "figures/mvsec_outdoor_day1/p1/bump/ground_truth_f100.png": "9f3327eacc935323e8cb07e41896e8f970feaa607c1b6fdb9b35729f2a0c3206",
+    "figures/mvsec_outdoor_day1/p1/bump/rectangular_f001.png": "8369161340ca227fe9761effce0e6a883b191b4f451cf87a2fac30a58fa4021f",
+    "figures/mvsec_outdoor_day1/p1/bump/rectangular_f051.png": "7bcefc8af0e2d16c89928ed6272437c0f77ec1d8718fa3cc64aa450e2f6ad9f5",
+    "figures/mvsec_outdoor_day1/p1/bump/rectangular_f100.png": "4b3baff656a8385be6775b073a080239302f3bed8e0871c5ff3d7c26c9032c37",
+    "figures/mvsec_outdoor_day1/p1/lambda/exp_abs_f001.png": "2c06574ba24da2666f4d97da518e5a20774168b2320fc08a3a0b25e2a467b2bd",
+    "figures/mvsec_outdoor_day1/p1/lambda/exp_abs_f058.png": "89d9c63251c8b4babea7f117579a71917d1085dc8f3ad6b1be5bb196eb874d28",
+    "figures/mvsec_outdoor_day1/p1/lambda/exp_abs_f100.png": "77d8a6057cef5df82dee05e10e3205fe219c3585dcb4970e2520708075f37e44",
+    "figures/mvsec_outdoor_day1/p1/lambda/ground_truth_f001.png": "1eb458ac11caf2b6605db41e51df7771cd5ef2e088665f8615fcc42b0aeb447d",
+    "figures/mvsec_outdoor_day1/p1/lambda/ground_truth_f058.png": "7da22c10d3c589ef0f702c3fa090be6a8e55cb976187e9b82116643cd9163b95",
+    "figures/mvsec_outdoor_day1/p1/lambda/ground_truth_f100.png": "9f3327eacc935323e8cb07e41896e8f970feaa607c1b6fdb9b35729f2a0c3206",
+    "figures/mvsec_outdoor_day1/p1/lambda/max_abs_f001.png": "6af11d22210f18bd1c48328b09f4e0998021c5174e22e134fe87aeaa73f845cb",
+    "figures/mvsec_outdoor_day1/p1/lambda/max_abs_f058.png": "30c10c2876cc8ecc149625b96f08d3b4dcbe6f095439c848c4be6d6adc7c69fa",
+    "figures/mvsec_outdoor_day1/p1/lambda/max_abs_f100.png": "be2db1a1a63753531b90e9db9747aff2a0598f15a6982735b0a482232709009c",
+    "figures/mvsec_outdoor_day1/p1/lambda/sigmoid_f001.png": "21d561aee91385ca7ba99224ebfc932842378c2b0a5a99e742149b098af38ba9",
+    "figures/mvsec_outdoor_day1/p1/lambda/sigmoid_f058.png": "e39348871e40f6a7159978957e802aea4b85226d5ead1eedd11157859cec8308",
+    "figures/mvsec_outdoor_day1/p1/lambda/sigmoid_f100.png": "1d06cc0e6b6e9e5bc79c83f079454b1cf4f1395f90ffb7c6c8415487a73aa8be",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_u_b09.png": "2f1bb3d32a8173652daa976ccda11732e7f0d13d3e1b131a31730ccfb28840d4",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_u_b12.png": "f3d2b6e63ac3cd9369f52dbe3ebc25d88220800979797e916d616a42d60544d2",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_u_b16.png": "0ae3a3abba00c3cb64039c5384761c1fb8d6374aaeb8fd368ebf746b23671c11",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_v_b09.png": "df75ee268c3ddc6527160f34d7b23343bf64497941fba597666585c20c28c752",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_v_b12.png": "4ff2033f8be681371cb5db0d4b218f99046765f312cc09bb91d4410916d49453",
+    "figures/mvsec_outdoor_day2/p1/bilevel/bilevel_v_b16.png": "b89c8004455eb7f7dd89d9f5b9188a640e99281271089fba730dba2261a73cb5",
+    "figures/mvsec_outdoor_day2/p1/bilevel/events_b09.png": "08e868fc453ba068330725bdfa15368d5c409368b9816541d11e68d1b30604d3",
+    "figures/mvsec_outdoor_day2/p1/bilevel/events_b12.png": "6160d0a403ce1137de24aaf81f01016eb07ade2b3220b973168e1d1b281d26f5",
+    "figures/mvsec_outdoor_day2/p1/bilevel/events_b16.png": "9c03d1a8747451382cfd2ea7297d3f8fc196d7726db3ddbb07bce96f6f019275",
+    "figures/mvsec_outdoor_day2/p1/bilevel/reference_b09.png": "135d90c07a81726761fddaef046ca5a83f1ee6a45182da229e3fbe8b8709a098",
+    "figures/mvsec_outdoor_day2/p1/bilevel/reference_b12.png": "547c96ea2bcd9a0f359cff89ad2b7ba6fb3474c142e1017985619eefc64458b0",
+    "figures/mvsec_outdoor_day2/p1/bilevel/reference_b16.png": "3f041d3590fca6e461ff89f5e76ac534471a990fedb511c3c4924e31fac3a9af",
+    "figures/mvsec_outdoor_day2/p1/bump/bspline_f001.png": "656051761f55a788afb69ef0a22a903a97344ded4e182c0f0bace90d23cdc84d",
+    "figures/mvsec_outdoor_day2/p1/bump/bspline_f051.png": "8eb0159aee9bfbd72d413c00a21e7f4e573b79549a17e201be237f8f5421bdd5",
+    "figures/mvsec_outdoor_day2/p1/bump/bspline_f100.png": "309548ea5718ef05769c0ec289b39b33ebd0d75b2a8d86077c521f72e9d4087a",
+    "figures/mvsec_outdoor_day2/p1/bump/delta_f001.png": "cd0b1622319a3484c29c48a3895d063bfa4a7cd4cb6aa0402fbc405cdd8ab56e",
+    "figures/mvsec_outdoor_day2/p1/bump/delta_f051.png": "82f8384dd17278dc7a532a850beca0b0b59a5808c8731f7caa36ec43c06f51d8",
+    "figures/mvsec_outdoor_day2/p1/bump/delta_f100.png": "09f89e869ae30df3ec6b856d6ab5d4624c41bdc838f88ebbabe47dc5c5d0153a",
+    "figures/mvsec_outdoor_day2/p1/bump/gaussian_f001.png": "35871862a967a7ce3c5f50da72f30a87e50cafc4e1462c2ed2c04262df3df0f6",
+    "figures/mvsec_outdoor_day2/p1/bump/gaussian_f051.png": "87254d673432a86ef5f05a3faac6f741cc4d874cbd36c172366f0d95a7bf00a9",
+    "figures/mvsec_outdoor_day2/p1/bump/gaussian_f100.png": "25b87b043573a9cfc50994abba6dce9007099a3653fed0e396f6a55e34d1cf39",
+    "figures/mvsec_outdoor_day2/p1/bump/ground_truth_f001.png": "5cc892eb0918c6480b1b57d5a8948f530d729d602053841fec35e2bc227c5d70",
+    "figures/mvsec_outdoor_day2/p1/bump/ground_truth_f051.png": "75be6e71d34015ead38a0cd830df8a6298939c586b69535ac8e2747f8b625fd3",
+    "figures/mvsec_outdoor_day2/p1/bump/ground_truth_f100.png": "5976f9d9f035533fa855867ce32b3a16b5acb98ec05f56dd6276df284bbaf47f",
+    "figures/mvsec_outdoor_day2/p1/bump/rectangular_f001.png": "1918267c0f4f1b87ec086af901296aa43ee300e76b6b927931bacf1c2971d4cf",
+    "figures/mvsec_outdoor_day2/p1/bump/rectangular_f051.png": "721ec67caedbc40d0a54a1dad2c05c94e6ab3c4df6492f03a70dcc0d17a0ac3b",
+    "figures/mvsec_outdoor_day2/p1/bump/rectangular_f100.png": "ed004eb06ebc2e4ccc13840a5aa707b67553b3594ea08fa6df2c9635e106ff6b",
+    "figures/mvsec_outdoor_day2/p1/lambda/exp_abs_f001.png": "77cfab18b7439fa58d3e498b11847f99692475242d4f3ed92ab7ec33483b283c",
+    "figures/mvsec_outdoor_day2/p1/lambda/exp_abs_f058.png": "b7d7a7bc944dd0d93271c13d524fbea36fc6a9435a45c7e09a1f1243147d026b",
+    "figures/mvsec_outdoor_day2/p1/lambda/exp_abs_f100.png": "57d78fe5376f5ee6ca8225529afa70deaa34cebe1da9af9fd0ebaea8a087ea88",
+    "figures/mvsec_outdoor_day2/p1/lambda/ground_truth_f001.png": "5cc892eb0918c6480b1b57d5a8948f530d729d602053841fec35e2bc227c5d70",
+    "figures/mvsec_outdoor_day2/p1/lambda/ground_truth_f058.png": "547c96ea2bcd9a0f359cff89ad2b7ba6fb3474c142e1017985619eefc64458b0",
+    "figures/mvsec_outdoor_day2/p1/lambda/ground_truth_f100.png": "5976f9d9f035533fa855867ce32b3a16b5acb98ec05f56dd6276df284bbaf47f",
+    "figures/mvsec_outdoor_day2/p1/lambda/max_abs_f001.png": "5fe88a13135fa57a03ffc5b2e895118ab6a55434768d1913e6518cc472dab9c6",
+    "figures/mvsec_outdoor_day2/p1/lambda/max_abs_f058.png": "d8d999c3391bc371f86f720738db217aaf54845689d0acb01a61968f86779b38",
+    "figures/mvsec_outdoor_day2/p1/lambda/max_abs_f100.png": "906e79ba164536a5b9dbaac354e2319963b77251acdf1a7598fbbbdce89b27c2",
+    "figures/mvsec_outdoor_day2/p1/lambda/sigmoid_f001.png": "90527f59800f56f76d16731a6f7cd159b9b8a09d564987b19305c54913329c3e",
+    "figures/mvsec_outdoor_day2/p1/lambda/sigmoid_f058.png": "69d73ab894ca38c7a076d79fa0a31732e82bfa08d5f3cbbdea0d95224382b110",
+    "figures/mvsec_outdoor_day2/p1/lambda/sigmoid_f100.png": "c6b726e0262198900bd04652f84068bf49e01930f115caecf5d5837f0d4ec1bb",
+    "figures/office/p1/office_f021.png": "6b252721c927619618fa39f2e11479ee0d0b556a9fafa98d4af800f04a653262",
+    "figures/office/p1/office_f029.png": "03bab1f2db5445d540daf45f87745c2c53e810ce13a24f3dacb8b1ea28bff3ca",
+    "figures/office/p1/office_f049.png": "ffe02a1fe3b7b726fec52e187dd6639c96606dbdca78231c3be5180abca45962",
+    "figures/office/p1/office_f057.png": "0a3e08f8f6fd11caba638cc4518486edd144ec440886d4a6482b7d96b087dcc4",
+    "figures/office/p1/office_f113.png": "6608a18a092006ffabfc39655db5005ce4b9d8b2db66fc61c77f441122702eef",
     "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
     "gmuETD.bib": "4ae813a012caca2e1a36f87bcf599fc72d6e94465299638238733cc6f8613954",
     "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
-    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "5859bdbe901b730f945fea37eab8d78a69aac5816b7754f87342ea70b8a2c714",
+    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "691f2ec259a08f5dd8eaca8e2202c65881fc44b2463298284980cca0c076d71a",
     "shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
     "shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
   },
   "auxiliary_sha256": {
-    "GMU-Diss_template.aux": "b524aa5b1e7bbd9614f16637487d9b15336e2fc932bc9d0b933e45b94104eb6f",
+    "GMU-Diss_template.aux": "ddfb8ef0198a8434b066ec5409abd307dfca4475721e280ab625de9eeb3e7282",
     "chapterOne.aux": "974dd06f478f99e9622b9b0c78fec62d88c4d0c483b194f5eb9c05f9c45ed8e5",
-    "chapterTwo.aux": "274b0881b4feb72cde50581a052de25b03e3cd09468fe27016fe858988b441b2",
+    "chapterTwo.aux": "23e93f9b5dd289bc5b6cd2b29e08ce5822c601996bc5a491687f6d645918901e",
     "chapterThree.aux": "1dd0f0b73582169b349ee2e03d609e6dc94579b7da4815a9955c109eb4369cd2",
     "chapterFour.aux": "52be39129c3eb52550aa68b6fc83a54235140b31fe51f02b7c8a1fad7f00380b",
     "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
     "appendixA.aux": "16edc08bbb33c7f6aecb89056715f1e99b204a23920695d5fb2c9b2bed5fc8ce",
-    "GMU-Diss_template.bbl": "b30dc232747b55b0591870af7d2504840fbc2d74b1b3235be6351a878178bff6"
+    "GMU-Diss_template.bbl": "6919f88a2b0759fd6a71485c75c17250db9d1bbd6abdc937951250fb8dcfa78e"
   },
   "labels": {
     "app:ch3_accumulation": {
@@ -525,7 +521,7 @@
     },
     "eq:ch2_sar_forward": {
       "number": "2.47",
-      "page": "50",
+      "page": "49",
       "title": "Outlook: Coupling Views Through a Shared Scene",
       "anchor": "equation*.146"
     },
@@ -549,7 +545,7 @@
     },
     "eq:ch2_sar_projection": {
       "number": "2.46",
-      "page": "50",
+      "page": "49",
       "title": "Outlook: Coupling Views Through a Shared Scene",
       "anchor": "equation*.145"
     },
@@ -1047,25 +1043,25 @@
     },
     "f:bilevel_visual_day1": {
       "number": "2.5",
-      "page": "45",
+      "page": "44",
       "title": "MVSEC Outdoor Day Sequence 1: Event-Only and Bilevel Reconstructions",
       "anchor": "figure.caption.130"
     },
     "f:bilevel_visual_day2": {
       "number": "2.6",
-      "page": "46",
+      "page": "45",
       "title": "MVSEC Outdoor Day Sequence 2: Event-Only and Bilevel Reconstructions",
       "anchor": "figure.caption.131"
     },
     "f:cup": {
       "number": "2.8",
-      "page": "47",
+      "page": "46",
       "title": "Bullet Impact on a Cup: Grayscale and False-Color Reconstructions",
       "anchor": "figure.caption.136"
     },
     "f:iss": {
       "number": "2.9",
-      "page": "48",
+      "page": "47",
       "title": "Honduras Coastline Reconstructed from ISS Event-Camera Data",
       "anchor": "figure.caption.138"
     },
@@ -1083,19 +1079,19 @@
     },
     "f:mvsec_outdoor_day1_bump_comp": {
       "number": "2.1",
-      "page": "36",
+      "page": "35",
       "title": "MVSEC Outdoor Day Sequence 1: Bump-Function Reconstructions",
       "anchor": "figure.caption.117"
     },
     "f:mvsec_outdoor_day2_bump_comp": {
       "number": "2.2",
-      "page": "37",
+      "page": "36",
       "title": "MVSEC Outdoor Day Sequence 2: Bump-Function Reconstructions",
       "anchor": "figure.caption.118"
     },
     "f:office": {
       "number": "2.7",
-      "page": "47",
+      "page": "46",
       "title": "Office Scene Reconstructed from Event-Camera Data",
       "anchor": "figure.caption.134"
     },
@@ -1191,7 +1187,7 @@
     },
     "prop:ch2_sar_solvability": {
       "number": "2.4.1",
-      "page": "50",
+      "page": "49",
       "title": "Unobservable scene modes and regularized inversion",
       "anchor": "proposition.147"
     },
@@ -1359,7 +1355,7 @@
     },
     "s:chap_summ2": {
       "number": "2.4",
-      "page": "52",
+      "page": "51",
       "title": "Chapter Summary",
       "anchor": "section*.153"
     },
@@ -1659,13 +1655,13 @@
     },
     "subsec:validation": {
       "number": "2.3.3",
-      "page": "44",
+      "page": "43",
       "title": "Qualitative Demonstrations",
       "anchor": "subsection*.132"
     },
     "subsec:validation_office": {
       "number": "2.3.3",
-      "page": "44",
+      "page": "43",
       "title": "Office Scene Reconstruction",
       "anchor": "section*.133"
     },
@@ -1707,7 +1703,7 @@
     },
     "subsubsec:bump_selection": {
       "number": "2.3.2",
-      "page": "34",
+      "page": "33",
       "title": "Bump Function Selection",
       "anchor": "section*.114"
     },
@@ -1737,19 +1733,19 @@
     },
     "subsubsec:lambda_selection": {
       "number": "2.3.2",
-      "page": "35",
+      "page": "37",
       "title": "Regularization Strategy Selection",
       "anchor": "section*.119"
     },
     "subsubsec:lambdacal": {
       "number": "2.3.2",
-      "page": "38",
+      "page": "37",
       "title": "Adaptive Methods",
       "anchor": "section*.121"
     },
     "subsubsec:lambdamean": {
       "number": "2.3.2",
-      "page": "35",
+      "page": "37",
       "title": "Physical Meaning of Regularization Parameter",
       "anchor": "section*.120"
     },
@@ -1785,19 +1781,19 @@
     },
     "tab:bilevel_comp_outdoor": {
       "number": "2.9",
-      "page": "44",
+      "page": "43",
       "title": "Method Performance on MVSEC Outdoor Day Driving Sequences",
       "anchor": "table.caption.129"
     },
     "tab:bump_avg_indoor": {
       "number": "2.4",
-      "page": "35",
+      "page": "37",
       "title": "Bump-Function Performance on MVSEC Indoor Flying Sequences",
       "anchor": "table.caption.115"
     },
     "tab:bump_avg_outdoor": {
       "number": "2.5",
-      "page": "35",
+      "page": "37",
       "title": "Bump-Function Performance on MVSEC Outdoor Day Sequences",
       "anchor": "table.caption.116"
     },
@@ -2119,264 +2115,260 @@
       "number": "43",
       "entry": "Karl Pearson. \\newblock Note on regression and inheritance in the case of two parents. \\newblock {\\em Proceedings of the Royal Society of London}, 58:240--242, 1895."
     },
-    "saad2003iterative": {
-      "number": "44",
-      "entry": "Yousef Saad. \\newblock {\\em Iterative Methods for Sparse Linear Systems}. \\newblock SIAM, 2003."
-    },
     "antil2026esareventbasedsyntheticaperture": {
-      "number": "45",
+      "number": "44",
       "entry": "Harbir Antil, Daniel Blauvelt, and David Sayre. \\newblock {ESAR}: Event-based synthetic aperture reconstruction. \\newblock arXiv:2607.15073 [eess.IV], 2026."
     },
     "hu2021v2e": {
-      "number": "46",
+      "number": "45",
       "entry": "Yuhuang Hu, Shih-Chii Liu, and Tobi Delbruck. \\newblock v2e: From video frames to realistic {DVS} events. \\newblock In {\\em IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 1312--1321, 2021."
     },
     "lucas1981iterative": {
-      "number": "47",
+      "number": "46",
       "entry": "Bruce~D. Lucas and Takeo Kanade. \\newblock An iterative image registration technique with an application to stereo vision. \\newblock In {\\em Proceedings of the 7th International Joint Conference on Artificial Intelligence - Volume 2}, IJCAI'81, pages 674--679, San Francisco, CA, USA, 1981. Morgan Kaufmann Publishers Inc."
     },
     "barron1994performance": {
-      "number": "48",
+      "number": "47",
       "entry": "John~L Barron, David~J Fleet, and Steven~S Beauchemin. \\newblock Performance of optical flow techniques. \\newblock {\\em International Journal of Computer Vision}, 12(1):43--77, 1994."
     },
     "benosman2012asynchronous": {
-      "number": "49",
+      "number": "48",
       "entry": "Ryad Benosman, Sio-Hoi Ieng, Charles Clercq, Chiara Bartolozzi, and Mandyam Srinivasan. \\newblock Asynchronous frameless event-based optical flow. \\newblock {\\em Neural Networks}, 27:32--37, 2012."
     },
     "benosman2014event": {
-      "number": "50",
+      "number": "49",
       "entry": "Ryad Benosman, Charles Clercq, Xavier Lagorce, Sio-Hoi Ieng, and Chiara Bartolozzi. \\newblock Event-based visual flow. \\newblock {\\em IEEE Transactions on Neural Networks and Learning Systems}, 25(2):407--417, 2014."
     },
     "barranco2014contour": {
-      "number": "51",
+      "number": "50",
       "entry": "Francisco Barranco, Cornelia Fermu{\\\"\\i}ller, and Yiannis Aloimonos. \\newblock Contour motion estimation for asynchronous event-driven cameras. \\newblock {\\em Proceedings of the IEEE}, 102(10):1537--1556, 2014."
     },
     "Rueckauer2016": {
-      "number": "52",
+      "number": "51",
       "entry": "Bodo Rueckauer and Tobi Delbruck. \\newblock Evaluation of event-based algorithms for optical flow with ground-truth from inertial measurement sensor. \\newblock {\\em Frontiers in Neuroscience}, 10:176, 2016."
     },
     "ieng2017event": {
-      "number": "53",
+      "number": "52",
       "entry": "Sio-Hoi Ieng, Jo{\\~a}o Carneiro, and Ryad~B. Benosman. \\newblock Event-based {3D} motion flow estimation using {4D} spatio temporal subspaces properties. \\newblock {\\em Frontiers in Neuroscience}, 10:596, 2017."
     },
     "bardow2016simultaneous": {
-      "number": "54",
+      "number": "53",
       "entry": "Patrick Bardow, Andrew~J Davison, and Stefan Leutenegger. \\newblock Simultaneous optical flow and intensity estimation from an event camera. \\newblock In {\\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition}, pages 884--892, 2016."
     },
     "shiba2022secrets": {
-      "number": "55",
+      "number": "54",
       "entry": "Shintaro Shiba, Yoshimitsu Aoki, and Guillermo Gallego. \\newblock Secrets of event-based optical flow. \\newblock In {\\em European Conference on Computer Vision (ECCV)}, pages 628--645, 2022."
     },
     "shiba2024pami": {
-      "number": "56",
+      "number": "55",
       "entry": "Shintaro Shiba, Yannick Klose, Yoshimitsu Aoki, and Guillermo Gallego. \\newblock Secrets of event-based optical flow, depth and ego-motion estimation by contrast maximization. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 46(12):7742--7759, 2024."
     },
     "weickert2001theoretical": {
-      "number": "57",
+      "number": "56",
       "entry": "Joachim Weickert and Christoph Schnörr. \\newblock A {Theoretical} {Framework} for {Convex} {Regularizers} in {PDE}-{Based} {Computation} of {Image} {Motion}. \\newblock {\\em International Journal of Computer Vision}, 45(3):245--264, 2001."
     },
     "bruhn2005lucas": {
-      "number": "58",
+      "number": "57",
       "entry": "A.~Bruhn, J.~Weickert, and C.~Schn{\\\"o}rr. \\newblock {Lucas/Kanade} meets {Horn/Schunck}: Combining local and global optic flow methods. \\newblock {\\em International Journal of Computer Vision}, 61:211--231, 2005."
     },
     "aubert2006mathematical": {
-      "number": "59",
+      "number": "58",
       "entry": "Gilles Aubert and Pierre Kornprobst. \\newblock {\\em Mathematical problems in image processing: partial differential equations and the calculus of variations}, volume 147. \\newblock Springer Science \\& Business Media, 2006."
     },
     "osher1988fronts": {
-      "number": "60",
+      "number": "59",
       "entry": "Stanley Osher and James~A Sethian. \\newblock Fronts propagating with curvature-dependent speed: algorithms based on {Hamilton--Jacobi} formulations. \\newblock {\\em Journal of computational physics}, 79(1):12--49, 1988."
     },
     "lagorce2017hots": {
-      "number": "61",
+      "number": "60",
       "entry": "Xavier Lagorce, Garrick Orchard, Fabio Gallupi, Bo~E. Shi, and Ryad Benosman. \\newblock {HOTS}: A hierarchy of event-based time-surfaces for pattern recognition. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 39(7):1346--1359, 2017."
     },
     "ern2021finite": {
-      "number": "62",
+      "number": "61",
       "entry": "Alexandre Ern and Jean-Luc Guermond. \\newblock {\\em Finite Elements {I}: Approximation and Interpolation}, volume~72 of {\\em Texts in Applied Mathematics}. \\newblock Springer, 2021."
     },
     "fleet2006optical": {
-      "number": "63",
+      "number": "62",
       "entry": "D.~Fleet and Y.~Weiss. \\newblock Optical {Flow} {Estimation}. \\newblock In Nikos Paragios, Yunmei Chen, and Olivier Faugeras, editors, {\\em Handbook of {Mathematical} {Models} in {Computer} {Vision}}, pages 237--257. Springer US, Boston, MA, 2006."
     },
     "lindeberg1994scale": {
-      "number": "64",
+      "number": "63",
       "entry": "Tony Lindeberg. \\newblock Scale-space theory: A basic tool for analysing structures at different scales. \\newblock {\\em Journal of applied statistics}, 21(1-2):225--270, 1994."
     },
     "bigun1987optimalod": {
-      "number": "65",
+      "number": "64",
       "entry": "Josef Bigun and G{\\\"o}sta~H. Granlund. \\newblock Optimal orientation detection of linear symmetry. \\newblock In {\\em Proceedings of the First International Conference on Computer Vision (ICCV)}, pages 433--438, London, UK, June 8--11 1987. IEEE Computer Society."
     },
     "marr1981directional": {
-      "number": "66",
+      "number": "65",
       "entry": "David Marr and Shimon Ullman. \\newblock Directional selectivity and its use in early visual processing. \\newblock {\\em Proceedings of the Royal Society of London. Series B. Biological Sciences}, 211(1183):151--180, 1981."
     },
     "nagel1986investigation": {
-      "number": "67",
+      "number": "66",
       "entry": "Hans-Hellmut Nagel and Wilfried Enkelmann. \\newblock An investigation of smoothness constraints for the estimation of displacement vector fields from image sequences. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, PAMI-8(5):565--593, 1986."
     },
     "corpetti2002fluid": {
-      "number": "68",
+      "number": "67",
       "entry": "Thomas Corpetti, {\\'E}tienne M{\\'e}min, and Patrick P{\\'e}rez. \\newblock Estimating fluid optical flow. \\newblock In {\\em Proceedings of the 15th International Conference on Pattern Recognition}, volume~3, pages 1033--1036. IEEE, 2000."
     },
     "unser1999splines": {
-      "number": "69",
+      "number": "68",
       "entry": "Michael Unser. \\newblock Splines: A perfect fit for signal and image processing. \\newblock {\\em IEEE Signal processing magazine}, 16(6):22--38, 1999."
     },
     "ciarlet2002finite": {
-      "number": "70",
+      "number": "69",
       "entry": "Philippe~G Ciarlet. \\newblock {\\em The Finite Element Method for Elliptic Problems}. \\newblock SIAM, 2002."
     },
     "zhu1997algorithm": {
-      "number": "71",
+      "number": "70",
       "entry": "Ciyou Zhu, Richard~H. Byrd, Peihuang Lu, and Jorge Nocedal. \\newblock Algorithm 778: {L-BFGS-B}: Fortran subroutines for large-scale bound-constrained optimization. \\newblock {\\em ACM Transactions on Mathematical Software}, 23(4):550--560, 1997."
     },
     "lax1954parabolic": {
-      "number": "72",
+      "number": "71",
       "entry": "Peter~D Lax and Arthur~N Milgram. \\newblock Parabolic equations. \\newblock In {\\em Contributions to the Theory of Partial Differential Equations}, volume~33 of {\\em Annals of Mathematics Studies}, pages 167--190. Princeton University Press, 1954."
     },
     "varga2000matrix": {
-      "number": "73",
+      "number": "72",
       "entry": "R.~S. Varga. \\newblock {\\em Matrix Iterative Analysis}, volume~27 of {\\em Springer Series in Computational Mathematics}. \\newblock Springer, 2nd edition, 2000."
     },
     "zhu2018evflownet": {
-      "number": "74",
+      "number": "73",
       "entry": "Alex~Zihao Zhu, Liangzhe Yuan, Kenneth Chaney, and Kostas Daniilidis. \\newblock {EV-FlowNet}: Self-supervised optical flow estimation for event-based cameras. \\newblock In {\\em Robotics: Science and Systems}, 2018."
     },
     "EMVS_2018": {
-      "number": "75",
+      "number": "74",
       "entry": "Henri Rebecq, Guillermo Gallego, Elias Mueggler, and Davide Scaramuzza. \\newblock {EMVS}: Event-based multi-view stereo---{3D} reconstruction with an event camera in real-time. \\newblock {\\em International Journal of Computer Vision}, 126(12):1394--1414, 2018."
     },
     "MCEMVS_2022": {
-      "number": "76",
+      "number": "75",
       "entry": "Suman Ghosh and Guillermo Gallego. \\newblock Multi-event-camera depth estimation and outlier rejection by refocused events fusion. \\newblock {\\em Advanced Intelligent Systems}, 4(12):2200221, 2022."
     },
     "TSES_2018": {
-      "number": "77",
+      "number": "76",
       "entry": "Alex~Zihao Zhu, Yibo Chen, and Kostas Daniilidis. \\newblock Realtime time synchronized event-based stereo. \\newblock In {\\em European Conference on Computer Vision (ECCV)}, pages 438--452, 2018."
     },
     "piatkowska2017": {
-      "number": "78",
+      "number": "77",
       "entry": "Ewa Piatkowska, Jurgen Kogler, Nabil Belbachir, and Margrit Gelautz. \\newblock { Improved Cooperative Stereo Matching for Dynamic Vision Sensors with Ground Truth Evaluation }. \\newblock In {\\em 2017 IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, pages 370--377. IEEE Computer Society, 2017."
     },
     "bradski2000opencv": {
-      "number": "79",
+      "number": "78",
       "entry": "Gary Bradski. \\newblock The {OpenCV} library. \\newblock {\\em Dr. Dobb's Journal of Software Tools}, 2000."
     },
     "HartleyZisserman2003": {
-      "number": "80",
+      "number": "79",
       "entry": "Richard Hartley and Andrew Zisserman. \\newblock {\\em Multiple View Geometry in Computer Vision}. \\newblock Cambridge University Press, 2nd edition, 2003."
     },
     "strang1999discrete": {
-      "number": "81",
+      "number": "80",
       "entry": "Gilbert Strang. \\newblock The discrete cosine transform. \\newblock {\\em SIAM review}, 41(1):135--147, 1999."
     },
     "Anscombe1948": {
-      "number": "82",
+      "number": "81",
       "entry": "F.~J. Anscombe. \\newblock The transformation of {Poisson}, binomial and negative-binomial data. \\newblock {\\em Biometrika}, 35(3/4):246--254, 1948."
     },
     "aitken1936iv": {
-      "number": "83",
+      "number": "82",
       "entry": "Alexander~C Aitken. \\newblock Iv.—on least squares and linear combination of observations. \\newblock {\\em Proceedings of the Royal Society of Edinburgh}, 55:42--48, 1936."
     },
     "Green1984": {
-      "number": "84",
+      "number": "83",
       "entry": "Peter~J. Green. \\newblock Iteratively reweighted least squares for maximum likelihood estimation, and some robust and resistant alternatives. \\newblock {\\em Journal of the Royal Statistical Society: Series B}, 46(2):149--192, 1984."
     },
     "mann1953mean": {
-      "number": "85",
+      "number": "84",
       "entry": "W~Robert Mann. \\newblock Mean value methods in iteration. \\newblock {\\em Proceedings of the American Mathematical Society}, 4(3):506--510, 1953."
     },
     "Daubechies2010": {
-      "number": "86",
+      "number": "85",
       "entry": "Ingrid Daubechies, Ronald DeVore, Massimo Fornasier, and C.~Sinan G\\\"unt\\\"urk. \\newblock Iteratively reweighted least squares minimization for sparse recovery. \\newblock {\\em Communications on Pure and Applied Mathematics}, 63(1):1--38, 2010."
     },
     "Skellam1946": {
-      "number": "87",
+      "number": "86",
       "entry": "J.~G. Skellam. \\newblock The frequency distribution of the difference between two {Poisson} variates belonging to different populations. \\newblock {\\em Journal of the Royal Statistical Society: Series A}, 109(3):296, 1946."
     },
     "feller1968introduction": {
-      "number": "88",
+      "number": "87",
       "entry": "William Feller. \\newblock {\\em An introduction to probability theory and its applications}, volume~1. \\newblock John Wiley \\& Sons, 1968."
     },
     "Berry1941": {
-      "number": "89",
+      "number": "88",
       "entry": "A.~C. Berry. \\newblock The accuracy of the {Gaussian} approximation to the sum of independent variates. \\newblock {\\em Transactions of the American Mathematical Society}, 49(1):122--136, 1941."
     },
     "Esseen1942": {
-      "number": "90",
+      "number": "89",
       "entry": "C.G. Esseen. \\newblock On the liapunoff limit of error in the theory of probability. \\newblock {\\em Arkiv för matematik, astronomi och fysik}, 28A(9):1--19, 1942."
     },
     "Korolev2012": {
-      "number": "91",
+      "number": "90",
       "entry": "V.~Korolev and I.~Shevtsova. \\newblock An improvement of the {Berry--Esseen} inequality with applications to {Poisson} and mixed {Poisson} random sums. \\newblock {\\em Scandinavian Actuarial Journal}, 2012(2):81--105, 2012."
     },
     "brouwer1911beweis": {
-      "number": "92",
+      "number": "91",
       "entry": "Luitzen Egbertus~Jan Brouwer. \\newblock {{\\\"U}ber Abbildung von Mannigfaltigkeiten}. \\newblock {\\em Mathematische Annalen}, 71(1):97--115, 1911."
     },
     "ortega1970iterative": {
-      "number": "93",
+      "number": "92",
       "entry": "J.~M. Ortega and W.~C. Rheinboldt. \\newblock {\\em Iterative Solution of Nonlinear Equations in Several Variables}. \\newblock Academic Press, New York, 1970."
     },
     "higham2002accuracy": {
-      "number": "94",
+      "number": "93",
       "entry": "Nicholas~J Higham. \\newblock {\\em Accuracy and Stability of Numerical Algorithms}. \\newblock SIAM, 2002."
     },
     "Hirschmueller2008": {
-      "number": "95",
+      "number": "94",
       "entry": "Heiko Hirschm\\\"{u}ller. \\newblock Stereo processing by semiglobal matching and mutual information. \\newblock {\\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 30(2):328--341, 2008."
     },
     "boykov2001fast": {
-      "number": "96",
+      "number": "95",
       "entry": "Yuri Boykov, Olga Veksler, and Ramin Zabih. \\newblock Fast approximate energy minimization via graph cuts. \\newblock {\\em IEEE transactions on pattern analysis and machine intelligence}, 23(11):1222--1239, 2001."
     },
     "fua1993parallel": {
-      "number": "97",
+      "number": "96",
       "entry": "Pascal Fua. \\newblock A parallel stereo algorithm that produces dense depth maps and preserves image features. \\newblock {\\em Machine Vision and Applications}, 6:35--49, 1993."
     },
     "vaish2006synthetic": {
-      "number": "98",
+      "number": "97",
       "entry": "Vaibhav Vaish, Gaurav Garg, Eino-Ville Talvala, Emilio Antunez, Bennett Wilburn, Mark Horowitz, and Marc Levoy. \\newblock Synthetic aperture focusing using a shear-warp factorization of the viewing transform. \\newblock In {\\em 2006 Conference on Computer Vision and Pattern Recognition Workshop (CVPRW'06)}, pages 129--129. IEEE, 2006."
     },
     "Brenier1991": {
-      "number": "99",
+      "number": "98",
       "entry": "Yann Brenier. \\newblock Polar factorization and monotone rearrangement of vector-valued functions. \\newblock {\\em Communications on Pure and Applied Mathematics}, 44(4):375--417, 1991."
     },
     "BenamouBrenier2000": {
-      "number": "100",
+      "number": "99",
       "entry": "Jean-David Benamou and Yann Brenier. \\newblock A computational fluid mechanics solution to the {M}onge--{K}antorovich mass transfer problem. \\newblock {\\em Numerische Mathematik}, 84(3):375--393, 2000."
     },
     "Cuturi2013": {
-      "number": "101",
+      "number": "100",
       "entry": "Marco Cuturi. \\newblock Sinkhorn distances: Lightspeed computation of optimal transport. \\newblock In {\\em Advances in Neural Information Processing Systems (NeurIPS)}, volume~26, pages 2292--2300, 2013."
     },
     "tukey1977exploratory": {
-      "number": "102",
+      "number": "101",
       "entry": "John~W Tukey. \\newblock {\\em Exploratory Data Analysis}. \\newblock Addison-Wesley, 1977."
     },
     "Rogister2012": {
-      "number": "103",
+      "number": "102",
       "entry": "Paul Rogister, Ryad Benosman, Sio-Hoi Ieng, Patrick Lichtsteiner, and Tobi Delbruck. \\newblock Asynchronous event-based binocular stereo matching. \\newblock {\\em IEEE Transactions on Neural Networks and Learning Systems}, 23(2):347--353, 2012."
     },
     "kogler2011": {
-      "number": "104",
+      "number": "103",
       "entry": "J{\\\"u}rgen Kogler, Christoph Sulzbachner, Martin Humenberger, and Florian Eibensteiner. \\newblock Address-event based stereo vision with bio-inspired silicon retina imagers. \\newblock In Asim Bhatti, editor, {\\em Advances in Theory and Applications of Stereo Vision}, pages 165--188. InTech, 2011."
     },
     "Xie2018": {
-      "number": "105",
+      "number": "104",
       "entry": "Zhen Xie, Jianhua Zhang, and Pengfei Wang. \\newblock Event-based stereo matching using semiglobal matching. \\newblock {\\em International Journal of Advanced Robotic Systems}, 15(1):1729881417752759, 2018."
     },
     "eigen2014depth": {
-      "number": "106",
+      "number": "105",
       "entry": "David Eigen, Christian Puhrsch, and Rob Fergus. \\newblock Depth map prediction from a single image using a multi-scale deep network. \\newblock In {\\em Proceedings of the 28th International Conference on Neural Information Processing Systems - Volume 2}, NIPS'14, pages 2366--2374. MIT Press, 2014."
     },
     "Huber1981": {
-      "number": "107",
+      "number": "106",
       "entry": "Peter~J. Huber. \\newblock {\\em Robust Statistics}. \\newblock John Wiley \\& Sons, 1981."
     },
     "vantrees2001detection": {
-      "number": "108",
+      "number": "107",
       "entry": "Harry~L Van~Trees. \\newblock {\\em Detection, Estimation, and Modulation Theory, Part I}. \\newblock John Wiley \\& Sons, 2001."
     }
   }
