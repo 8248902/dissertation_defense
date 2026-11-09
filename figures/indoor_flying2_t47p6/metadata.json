@@ -164,6 +164,21 @@
       "epoch_s": 1504645315.4319983,
       "relative_to_stereo_start_s": 47.719162940979004,
       "sha256": "41f110c61501c4c7f3f4648376ab209ca680abbcf051ab8d5bdd33b19689067d"
+    },
+    "gaussian_reconstruction.png": {
+      "source": "/scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_bump_06/reconstruction.h5",
+      "sha256": "26d56702e951ff4cbfee905b3e392b7cb70d2ced13b6114f7199445705e5bbc6",
+      "frame_index_zero_based": 0,
+      "epoch_s": 1504645315.4026263,
+      "relative_to_stereo_start_s": 47.68979096412659,
+      "parameter": "gaussian(sigma=0.100)",
+      "regularization_rule": "sigmoid",
+      "display": {
+        "rule": "per-run global histogram background and 1st/99th percentile scale; clip to [0,1]",
+        "background": 0.0010283599318307024,
+        "scale": 29.666031911577477
+      },
+      "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export.py"
     }
   }
 }

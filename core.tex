@@ -104,7 +104,7 @@ For the ideal threshold model,
 \begin{frame}{From events to images, motion, and depth: each estimate has its own unobserved quantity}
 \begin{columns}[T]
 \column{.32\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/indoor_flying2_t47p6/bspline_reconstruction.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.1cm,keepaspectratio]{figures/indoor_flying2_t47p6/gaussian_reconstruction.png}\par\vspace{1mm}
 {\small\textbf{Image reconstruction} (Ch.~2)}\par\smallskip
 {\footnotesize\color{amber}Unobserved: the brightness baseline}
 \column{.32\textwidth}
@@ -139,7 +139,7 @@ For the ideal threshold model,
 % source detail: Saved HPC estimates; provenance, hashes, timestamps, display scales, and masks in figures/indoor_flying2_t47p6/metadata.json.
 \src{Methods: \dref{Chapter}{ch:monocular_reconstruction}, \dref{Chapter}{ch:optical_flow}, and \dref{Chapter}{ch:stereo_depth_estimation}; MVSEC~\cite{MVSEC2018}.}
 % source: figures/indoor_flying2_t47p6/metadata.json, timestamps, observation windows, display rules, and geometry.
-\talknote{Accessibility primer; 90 seconds. Introduce the three estimated outputs.}{Left: temporal image reconstruction; grayscale is the reconstructed value. Middle: optical-flow estimate, with color encoding direction and displacement magnitude at pixels that recorded events. Right: stereo depth; the two event cameras on a drone give the pair. All three show the same indoor flying 2 scene. Present the panels as the three estimation targets. Explain the brightness baseline, motion along an edge, and stereo correspondence.}{If asked which methods: B-spline kernel with sigmoid weights; contrast maximization, whose nonconvex objective lies outside the quadratic family analyzed later (existence result in backup); weighted least squares. Reconstruction: 47.690 s. Flow: 47.592--47.719 s; color magnitude represents displacement over this window. White flow pixels have zero events: the mask shows event support. WLS: center 47.598 s, 250 ms window. Different windows and stereo rectification permit scene-level comparison, with separate pixel geometries. Depth colors clip to 0.5--8 m; white masks nonfinite values and the maximum finite depth. Reconstruction grayscale uses a histogram/percentile scale. Exact timestamps, normalization, and provenance are in the adjacent metadata file.}
+\talknote{Accessibility primer; 90 seconds. Introduce the three estimated outputs.}{Left: temporal image reconstruction; grayscale is the reconstructed value. Middle: optical-flow estimate, with color encoding direction and displacement magnitude at pixels that recorded events. Right: stereo depth; the two event cameras on a drone give the pair. All three show the same indoor flying 2 scene. Present the panels as the three estimation targets. Explain the brightness baseline, motion along an edge, and stereo correspondence.}{If asked which methods: Gaussian kernel ($\sigma=0.1$\,s) with sigmoid weights; contrast maximization, whose nonconvex objective lies outside the quadratic family analyzed later (existence result in backup); weighted least squares. Reconstruction: 47.690 s. Flow: 47.592--47.719 s; color magnitude represents displacement over this window. White flow pixels have zero events: the mask shows event support. WLS: center 47.598 s, 250 ms window. Different windows and stereo rectification permit scene-level comparison, with separate pixel geometries. Depth colors clip to 0.5--8 m; white masks nonfinite values and the maximum finite depth. Reconstruction grayscale uses a histogram/percentile scale. Exact timestamps, normalization, and provenance are in the adjacent metadata file.}
 \end{frame}
 
 \begin{frame}{Three estimators, each well posed}
@@ -322,27 +322,29 @@ For scalar $\Lam=\lambda\mathbf I$ and noiseless data $\mathbf y=\A\mathbf f_{\r
 \end{frame}
 
 \begin{frame}{Events alone recover scene structure with one convex solve and a unique global minimizer}
-% Images head the columns: one MVSEC outdoor day 1 frame (Ch. 2 f:bilevel_visual_day1, middle column).
+% Images head the columns: one MVSEC outdoor day 1 block; bilevel shown as both representations of Antil--Sayre Sec. 4.1.4.
 \vspace{-1mm}
 \centering\small
 \renewcommand{\arraystretch}{1.1}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}m{2.5cm}*{3}{>{\centering\arraybackslash}m{3.4cm}}@{}}
-% source: Ch. 2 f:bilevel_visual_day1, frame_012 (ground truth, bilevel, event-only rows).
+\begin{tabular}{@{}>{\raggedright\arraybackslash}m{1.7cm}*{4}{>{\centering\arraybackslash}m{2.65cm}}@{}}
+% source: figures/mvsec_outdoor_day1/bilevel_paper/metadata.json (ch2_recompute_20261103_p60, arm P1, block 12 of 20; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export.py).
 {\scriptsize\color{muted}MVSEC~\cite{MVSEC2018}\newline outdoor day 1}
-& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/ground_truth_row/frame_012.png}
-& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/bilevel_row/frame_012.png}
-& \includegraphics[width=2.75cm]{figures/mvsec_outdoor_day1/bilevel_comparison/event_only_row/frame_012.png}\\
-& \textbf{Reference frame} & \textbf{Bilevel}~\cite{HAntil_DSayre_2023a} & \textbf{Events}\\\midrule
-Inputs & & events + frames & events\\
-% source: Ch. 2 tab:bilevel_comp_indoor and tab:bilevel_comp_outdoor; reported PSNR values (bilevel 15.37 / 8.41, events 10.85 / 8.71).
-PSNR (dB) {\scriptsize\color{muted}indoor / outdoor} & & 15.37 / 8.41 & 10.85 / 8.71\\
-Solve & & outer + inner & one convex\\
+& \includegraphics[width=2.55cm]{figures/mvsec_outdoor_day1/bilevel_paper/reference.png}
+& \includegraphics[width=2.55cm]{figures/mvsec_outdoor_day1/bilevel_paper/bilevel_v.png}
+& \includegraphics[width=2.55cm]{figures/mvsec_outdoor_day1/bilevel_paper/bilevel_u.png}
+& \includegraphics[width=2.55cm]{figures/mvsec_outdoor_day1/bilevel_paper/events.png}\\
+& \textbf{Reference frame} & \textbf{Bilevel}~\cite{HAntil_DSayre_2023a}\newline{\scriptsize reconstruction $v$} & \textbf{Bilevel}\newline{\scriptsize dynamic part $u$} & \textbf{Events}\\\midrule
+Inputs & & \multicolumn{2}{>{\centering\arraybackslash}m{5.7cm}}{events + frames} & events\\
+% source: /scratch/dblauvel/ch2_recompute_20261103_p60/results/table_bilevel.tsv, arm P1, psnr_aligned (time-aligned APS references, 20 blocks; 4 indoor / 2 outdoor sequences): Bilevel 40.2511 / 36.5687 (in-sample: scored on the frames it is fitted to); Event-only (N=20) 7.99827 / 7.18645.
+% source (held out, first 500k events): /scratch/dblauvel/ch2_bilevel_20261103/heldout.csv, main: bilevel 24.26 / 25.22; APS-frame interpolation 24.30 / 25.20.
+PSNR (dB) {\scriptsize\color{muted}indoor / outdoor} & & \multicolumn{2}{>{\centering\arraybackslash}m{5.7cm}}{40.25 / 36.57 {\scriptsize\color{muted}(on its fitted frames)}} & 8.00 / 7.19\\
+Solve & & \multicolumn{2}{>{\centering\arraybackslash}m{5.7cm}}{outer + inner} & one convex\\
 % source: Antil--Sayre (2023) bilevel analysis: existence and local uniqueness under additional conditions; Ch. 2 thm:uniqueness: unique global minimizer for every fixed positive diagonal.
-Guarantee & & existence; conditional local uniqueness & unique global minimizer\\\bottomrule
+Guarantee & & \multicolumn{2}{>{\centering\arraybackslash}m{5.7cm}}{existence; conditional local uniqueness} & \parbox[c]{2.65cm}{\centering unique global\\ minimizer}\\\bottomrule
 \end{tabular}
-% source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor; images: Ch. 2 f:bilevel\_visual\_day1, MVSEC outdoor day 1, frame 12.
-\src{\dref{Table}{tab:bilevel_comp_indoor} and \dref{Table}{tab:bilevel_comp_outdoor}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3). Images: \dref{Figure}{f:bilevel_visual_day1}.}
-\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Top: one MVSEC outdoor frame, the bilevel reconstruction, and the event-only reconstruction; both recover the tree line, vehicles, and hood glare, the bilevel edges are sharper, and the event-only brightness is the level the model selects. This chapter: events only, then activity weights, then one fixed convex solve. Antil--Sayre: events and frames, with an outer optimization over $z_{xy}\in\R^{n_t}$, which parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. PSNR is similarity to a reference frame in dB.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: frames buy PSNR indoors; outdoors the event-only estimate is slightly higher. Kernel comparisons are in the backup "Temporal evidence: events fix structure; the penalty sets the baseline".}
+% source detail: Antil--Sayre (2023), Sec. 3, Eqs. (3.1)--(3.3); Ch. 2, subsubsec:bilevel\_comparison, tab:bilevel\_comp\_indoor, tab:bilevel\_comp\_outdoor; images: figures/mvsec\_outdoor\_day1/bilevel\_paper/metadata.json; $v=d-g(z)$ and $u$ from Antil--Sayre Sec. 4.1.4 and Eq. (3.3).
+\src{\dref{Section}{subsubsec:bilevel_comparison}. Antil--Sayre~\cite{HAntil_DSayre_2023a}, Sec. 3, Eqs. (3.1)--(3.3), Sec. 4.1.4.}
+\talknote{MVSEC evidence and the bilevel relation; about 2.5 minutes.}{Top: one MVSEC outdoor frame, then the two bilevel outputs Antil--Sayre define, then the event-only reconstruction. The bilevel reconstruction $v=d-g(z)$ starts from the log frame and corrects its blur, and this frame is one it was fitted to, so $v$ closely matches it. The dynamic part $u$ is the event-driven component; it shares the event-only panel's display scale, so these two compare directly. Both recover the tree, the parked vans, and the hood glare; $u$ also carries texture from the frames, and the event-only brightness is the level the model selects. This chapter: events only, then activity weights, then one fixed convex solve. Antil--Sayre: events and frames, with an outer optimization over $z_{xy}\in\R^{n_t}$, which parameterizes the event-based blur kernel $g(z)$ that links each blurry frame to the latent image. PSNR is similarity to a reference frame in dB; the bilevel PSNR is measured on the frames it is fitted to, so it shows how closely $v$ reproduces its own input frames.}{PSNR compares with a reference frame, so it also scores the absolute brightness the model selects; the events constrain only changes. The methods receive different inputs, including intensity frames for the comparator, so the table is descriptive: the frames supply the bilevel PSNR. On frames it was not fitted to, the bilevel scores 24.3 / 25.2 dB, matching interpolation between the camera frames (24.3 / 25.2 dB). Kernel comparisons are in the backup "Temporal evidence: events fix structure; the penalty sets the baseline".}
 \end{frame}
 
 \begin{frame}{Known motion lets every view constrain one scene}
@@ -573,7 +575,7 @@ Time and power on a Raspberry Pi~5; update only active pixels.
 \footnotesize
 \renewcommand{\arraystretch}{1.15}\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}>{\raggedright\arraybackslash\footnotesize\leavevmode\color{muted}}p{1.7cm}>{\centering\arraybackslash}p{3.93cm}>{\centering\arraybackslash}p{3.93cm}>{\centering\arraybackslash}p{3.93cm}@{}}
-& \includegraphics[width=\linewidth,height=1.0cm,keepaspectratio]{figures/indoor_flying2_t47p6/bspline_reconstruction.png}
+& \includegraphics[width=\linewidth,height=1.0cm,keepaspectratio]{figures/indoor_flying2_t47p6/gaussian_reconstruction.png}
 & \includegraphics[width=\linewidth,height=1.0cm,keepaspectratio]{figures/indoor_flying2_t47p6/cmax_flow_event_pixels.png}
 & \includegraphics[width=\linewidth,height=1.0cm,keepaspectratio]{figures/indoor_flying2_t47p6/wls_depth.png}\\
 & {\small\textbf{Reconstruction}} & {\small\textbf{Optical flow}} & {\small\textbf{Stereo depth}}\\\midrule

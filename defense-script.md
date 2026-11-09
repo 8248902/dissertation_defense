@@ -84,7 +84,7 @@ Each problem has its own difficulty. For reconstruction, the brightness baseline
 
 Here's what the talk shows for each of the three.
 
-*[If asked which methods produced these panels: a B-spline temporal kernel, contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 70. If asked about the spline-parameterized flow regularizer under refinement: Backup 68, page 92. If asked what the stereo method is, in one slide: Backup 48, page 72. If asked about the quality of MVSEC's ground truth: Backup 60, page 84, for depth; Backup 26, page 50, for flow.]*
+*[If asked which methods produced these panels: a Gaussian temporal kernel (sigma 0.1 s), contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 70. If asked about the spline-parameterized flow regularizer under refinement: Backup 68, page 92. If asked what the stereo method is, in one slide: Backup 48, page 72. If asked about the quality of MVSEC's ground truth: Backup 60, page 84, for depth; Backup 26, page 50, for flow.]*
 
 ## Slide 7 — Three estimators, each well posed
 
@@ -222,17 +222,17 @@ Next, how these reconstructions compare with the bilevel approach on MVSEC.
 
 *[Point to the three images, then down the columns.]*
 
-This is one outdoor frame from MVSEC: the camera's reference frame, the bilevel reconstruction, and the event-only reconstruction. Both recover the tree line, the parked vehicles, and the glare off the hood; the bilevel edges are sharper. The overall brightness of the event-only image is the level the model selected, since the events constrain only changes.
+This is one outdoor frame from MVSEC. First the camera's reference frame. Then the two outputs the bilevel method defines: its reconstruction, which starts from the camera frame and corrects the blur, so it closely matches the frame it was fitted to; and its dynamic part, the component the events drive. Last, the event-only reconstruction, on the same display scale as the dynamic part. Both recover the tree, the parked vans, and the glare off the hood; the dynamic part also carries texture from the frames. The overall brightness of the event-only image is the level the model selected, since the events constrain only changes.
 
 Below the images is the relation to the Antil–Sayre bilevel approach. In this chapter, the events set activity-based weights, and then we do one fixed convex solve over time. The bilevel approach uses events together with intensity frames, and its outer optimization adjusts z, a parameter of the event-based blur kernel that links each blurry frame to the sharp latent image. So their outer variable shapes how events explain the frames, while my rule chooses the magnitude weights of the temporal profile.
 
-The table compares complete methods with different inputs. Indoors, the bilevel approach, which has the frames, reaches higher PSNR; outdoors, the event-only approach is slightly higher. PSNR compares with a reference frame, so it also scores the absolute brightness, which the events leave to the model.
+The table compares complete methods with different inputs. The bilevel PSNR, about 40 dB indoors and 37 outdoors, is measured on the frames it is fitted to, so it shows how closely its reconstruction reproduces its own input frames; the event-only reconstruction scores 8.0 and 7.2. PSNR compares with a reference frame, so it also scores the absolute brightness, which the events leave to the model.
 
 The last row compares guarantees. The bilevel analysis proves existence, and local uniqueness under additional conditions; the result I presented gives a unique global minimizer for every fixed positive diagonal.
 
 Last in this chapter: what changes when the pixels share one scene.
 
-*[If asked how the kernels compare: Backup 76, page 100, and Backup 05, page 29. If asked how PSNR and condition number are computed: Backup 06, page 30. If asked which prior work this builds on: Backup 32, page 56.]*
+*[If asked how the bilevel scores on frames it was not fitted to: 24.3 dB indoors and 25.2 outdoors, the same as interpolating between the camera frames. If asked how the kernels compare: Backup 76, page 100, and Backup 05, page 29. If asked how PSNR and condition number are computed: Backup 06, page 30. If asked which prior work this builds on: Backup 32, page 56.]*
 
 ## Slide 15 — Known motion lets every view constrain one scene
 

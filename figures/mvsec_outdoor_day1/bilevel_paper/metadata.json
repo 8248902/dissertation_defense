@@ -1,0 +1,32 @@
+{
+ "dataset": "MVSEC outdoor_day1",
+ "source": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1/bilevel_comparison/bilevel_comparison_results.mat",
+ "source_sha256": "e65b69106c2ac343246a8c71970d9907456335fba1f361322160edffbf3859c4",
+ "block_one_based": 12,
+ "campaign": "ch2_recompute_20261103_p60 (60% event windows), arm P1 gaussian sigmoid sqrt 0.03, n100",
+ "bilevel": "Antil-Sayre 2023, lambda1=1, lambda2=1e-3; fitted to the 20 APS frames including reference.png",
+ "panels": {
+  "reference.png": "APS frame fitted by the bilevel model (reference_frames_bilevel), /255",
+  "bilevel_v.png": "v = d - g(z) displayed as min(exp(v),1) (bilevel_reconstruction), no rescale",
+  "bilevel_u.png": {
+   "array": "bilevel_dynamic_u",
+   "background": -0.00869003387096079,
+   "scale": 0.42985447760184115,
+   "gray": 0.4
+  },
+  "events.png": {
+   "array": "our_reconstruction",
+   "background": 0.018337965060432282,
+   "scale": 0.1217093603877658,
+   "gray": 0.4
+  }
+ },
+ "display_rule_u_events": "histogram-mode background over all 20 blocks -> 0.4; 1st/99th percentile half-range -> 0.45; clip [0,1]",
+ "sha256": {
+  "bilevel_u.png": "36f55506a70efa21fbeedd20c891372620da0c0aecf41a7f31db54afada1f089",
+  "bilevel_v.png": "fdd405a9d33c09a9d532cd1c5a9e8be74780eeb0fd6cd696d795fcffef5c3297",
+  "events.png": "888d987d67284039ea5a959d95dbcc911642d0b90e9efeba2082646648777879",
+  "reference.png": "7da22c10d3c589ef0f702c3fa090be6a8e55cb976187e9b82116643cd9163b95"
+ },
+ "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export.py"
+}
