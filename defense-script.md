@@ -497,7 +497,7 @@ Deck page: 29.
 
 Because the kernel changes the data, and the adaptive penalty is computed from the data. The first-difference operator stays the same. But the represented observations change with the kernel, so the penalty entries can change too. That changes the reconstruction matrix, and with it the condition number.
 
-The table also shows that the accuracy ranking depends on the scene. Indoors, the B-spline gives a PSNR of 8.86 with condition number 22.16; the Gaussian is very close, at 8.84, with condition number 20.22. Outdoors, delta binning has the highest PSNR of these four, 7.97, with condition number 53.34. So the representation should be chosen with the scene and the weighting rule in mind. Conditioning measures how sensitive the linear solve is; accuracy also depends on the data, and on the bias that regularization introduces.
+The table also shows that the kernels score close together. Indoors, the Gaussian gives a PSNR of 8.68 and the B-spline 8.66; outdoors, the rectangular kernel is highest at 7.31, and all four are within 0.2 dB. With the same sigmoid weights, their mean per-pixel condition numbers are 259 to 268, while the choice of weight rule moves it from about 2.4 to 265. So the kernel changes reconstruction quality a little, and the weight rule sets the conditioning. Conditioning measures how sensitive the linear solve is; accuracy also depends on the data, and on the bias that regularization introduces.
 
 ### If asked for more
 
@@ -519,7 +519,7 @@ Briefly, metric by metric.
 
 **TC** takes the root-mean-square change between consecutive frames, divides it by the reconstruction's intensity range, and exponentiates the negative. **TG** averages the absolute frame-to-frame changes over pixels and frame pairs. **TV** averages the sum of absolute horizontal and vertical gradients over pixels and frames.
 
-**SC** is the fraction of each frame's Fourier power inside a central low-frequency disk, averaged over frames. **CN** is the ratio of the evaluated matrix's largest singular value to its smallest.
+**SC** is the fraction of each frame's Fourier power inside a central low-frequency disk, averaged over frames. **CN** is the ratio of the largest singular value of each active pixel's matrix to its smallest, averaged over the active pixels.
 
 These measure different things. Under these conventions, a constant sequence gets the best possible TC, one, and an ERC of zero. Smoothness scores reward a static output, so we read reference fidelity, event consistency, and conditioning together.
 
@@ -1623,13 +1623,13 @@ Deck page: 89.
 
 Yes, it's locally Lipschitz, by a short argument. Each Chapter 2 rule maps event activity to a weight between a positive floor and a finite ceiling, and each rule is Lipschitz in the activity. The absolute value, the minimum and the maximum are all Lipschitz, so their kinks need no differentiability.
 
-Subtract the two normal equations. The difference in the solutions equals the fixed-weight term from the change in the data, plus the change in the squared weights acting on the second solution. Three standard bounds finish it. The solution operator has norm at most one over twice the floor. The inverse system matrix has norm at most one over the floor squared. The squared weights change by at most twice the ceiling times L times the change in activity.
+Subtract the two normal equations. The difference in the solutions equals the fixed-weight term from the change in the data, plus the change in the squared weights acting on the second solution. Three standard bounds finish it. The solution operator has norm at most one over twice the floor. The inverse system matrix has norm at most one over the floor squared. Each rule sets the squared weight directly, so the squared weights change by at most L times the change in activity.
 
 The second term grows with the size of the data, so the bound is Lipschitz on bounded sets of data. The table gives the floor, ceiling and Lipschitz constant for the sigmoid, inverse-proportional and exponential rules.
 
 ### If asked for more
 
-The constants are pessimistic, because the floor of ten to the minus three enters cubed. The rules decrease with activity, so for data bounded by R the sigmoid floor improves to ten to the minus three plus ten over one plus e to the R. Pixels are independent, so the bound holds pixel by pixel.
+The constants are pessimistic, because the weight floor, about 0.03, enters cubed. The rules decrease with activity, so for data bounded by R the squared sigmoid floor improves to ten to the minus three plus 0.03 over one plus e to the R. Pixels are independent, so the bound holds pixel by pixel.
 
 Chapter 4 is different. Its observation weights are recomputed from the current profiles, so its estimator is a fixed point and needs the contraction condition in the stereo backups. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 23.
 
@@ -1643,7 +1643,7 @@ Deck page: 90.
 
 ### Answer
 
-Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning. The sigmoid rule has the lowest outdoor condition number, 29.60. Antil and Sayre use one scalar magnitude weight on the image; making that weight activity-adaptive, and comparing three ways to do it, is the change Chapter 2 evaluates.
+Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then chose the kernel and rule together as the configuration with the best average rank over the nine evaluation metrics. Antil and Sayre use one scalar magnitude weight on the image; making that weight activity-adaptive, and comparing three ways to do it, is the change Chapter 2 evaluates.
 
 For flow, the smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, the coupling weight and the number of latent images came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences.
 
@@ -1839,7 +1839,7 @@ The rule we selected uses the size of the signed event total in each bin. Positi
 
 As activity increases, the sigmoid rule lowers the penalty. A positive floor keeps every weight above zero. So quiet intervals get the largest weights, and through the weighted-average identity they set each pixel's reference level. Busy intervals get the smallest weights: they're free to change, and they set the worst-case noise bound from the stability result.
 
-We chose this rule after grid sweeps of each rule's scale, as a compromise between reconstruction quality and conditioning. Outdoors, the sigmoid gives the lowest condition number of the three choices. Indoors, inverse-proportional weighting gives a lower condition number, so the choice trades conditioning against reconstruction quality.
+We chose each rule's scale by grid sweep, and with the Gaussian kernel the sigmoid rule gives the best average rank over the nine evaluation metrics. Among the three rules it gives the smoothest results in time, at a higher condition number: about 265, against 2.5 for inverse-proportional and 18 for exponential weighting outdoors. A condition number of 265 uses about two and a half of the sixteen significant digits of double precision.
 
 The point to remember is that the weights are computed from the data and then held fixed during the solve. The theorem covers that frozen problem. Stability of the full adaptive procedure also requires controlling how the weights change.
 
@@ -1859,7 +1859,7 @@ The pictures are a representative example from MVSEC indoor flying two, the data
 
 The reconstruction makes the scene structure visible. The table reports two things: PSNR, which measures similarity to the reference image, and the condition number of the linear system. PSNR also scores the absolute brightness level, which the model selects, so it measures something different from agreement with the recorded changes.
 
-Indoors, the spline and Gaussian kernels give similar PSNR, both above delta binning, with much smaller condition numbers. Outdoors, the ordering changes. So kernel and weight choices affect both reconstruction quality and conditioning, and the best choice depends on the scene.
+Indoors, the spline and Gaussian kernels give the highest PSNR, about 0.2 decibels above delta binning, and all three kernels give condition numbers near 260. Outdoors, the PSNR ordering changes. So the kernel moves reconstruction quality a little, and the weight rule sets the conditioning.
 
 The kernel changes the observations, and the adaptive weights can then change the matrix we solve. That's how representation choices reach the linear system.
 

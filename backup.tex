@@ -100,14 +100,14 @@ White difference noise & $\sigma^2g_k/(g_k+\lambda^2)^2$ & Reconstructed modal v
 \begin{center}\begin{tabular}{lrrrr}\toprule
 &\multicolumn{2}{c}{MVSEC indoor}&\multicolumn{2}{c}{MVSEC outdoor}\\
 Kernel&PSNR&CN&PSNR&CN\\\midrule
-% source: Ch. 2 tab:bump_avg_indoor and tab:bump_avg_outdoor, B-spline rows.
-B-spline&8.86&22.16&6.72&97.92\\
+% source: Ch. 2 tab:bump_avg_indoor and tab:bump_avg_outdoor, B-spline rows. CN: mean per-pixel condition number (Ch. 2 tables; /scratch/dblauvel/ch2_recompute_20261103_p60/results_actual_cn/table_cn.tsv).
+B-spline&8.66&259.87&7.29&258.68\\
 % source: Ch. 2 tab:bump_avg_indoor and tab:bump_avg_outdoor, Delta rows.
-Delta&7.70&1375.75&7.97&53.34\\
+Delta&8.49&261.98&7.28&267.99\\
 % source: Ch. 2 tab:bump_avg_indoor and tab:bump_avg_outdoor, Gaussian rows.
-Gaussian&8.84&20.22&6.81&98.90\\
+Gaussian&8.68&259.79&7.23&259.42\\
 % source: Ch. 2 tab:bump_avg_indoor and tab:bump_avg_outdoor, Rectangular rows.
-Rectangular&8.24&423.59&7.20&148.33\\\bottomrule
+Rectangular&8.58&261.10&7.31&263.33\\\bottomrule
 \end{tabular}\end{center}
 \begin{itemize}
 \item The temporal operator stays the same; represented data and adaptive penalties change.
@@ -116,7 +116,7 @@ Rectangular&8.24&423.59&7.20&148.33\\\bottomrule
 \end{itemize}
 % source detail: Ch. 2, tab:bump\_avg\_indoor, tab:bump\_avg\_outdoor.
 \src{\dref{Table}{tab:bump_avg_indoor}, \dref{Table}{tab:bump_avg_outdoor}.}
-\talknote{Question: why does a smoothing kernel change conditioning?}{The matrix K=A\textasciicircum{}T A+Lambda\textasciicircum{}T Lambda contains the bump kernel only through the observations and the weights derived from them. However Lambda is computed adaptively from represented observations. Changing aggregation can change those weights, hence the numerical matrix. The observed condition-number difference therefore comes through the data-dependent weights.}{The table reports the dissertation's condition-number diagnostics. The outdoor ordering shows that kernel performance depends on the scene and adaptive weights. The positivity theorem gives a sufficient worst-case bound, independent of the empirical ranking.}
+\talknote{Question: why does a smoothing kernel change conditioning?}{The matrix K=A\textasciicircum{}T A+Lambda\textasciicircum{}T Lambda contains the bump kernel only through the observations and the weights derived from them. However Lambda is computed adaptively from represented observations. Changing aggregation can change those weights, hence the numerical matrix. With the same sigmoid weights, the four kernels give mean per-pixel condition numbers of 259 to 268, while the choice of weight rule moves it from 2.4 to 265.}{The table reports the mean per-pixel condition number. PSNR differs by at most 0.2 dB across kernels, and its ordering differs indoors and outdoors. The positivity theorem gives a sufficient worst-case bound, independent of the empirical ranking.}
 \end{frame}
 
 \begin{frame}[t,label=metricguide]{What the reconstruction scores measure}
@@ -127,7 +127,7 @@ Rectangular&8.24&423.59&7.20&148.33\\\bottomrule
 PSNR / SSIM & Reconstruction and reference images & Image agreement under the scoring convention\\
 TC / TG & Temporal changes in the output & Smoothness of the returned sequence\\
 ERC & Magnitudes of reconstructed changes and represented events & Correlation with event activity\\
-CN & Sensitivity of a specified matrix & A numerical conditioning diagnostic\\\bottomrule
+CN & Sensitivity of each pixel's system matrix, averaged over pixels & A numerical conditioning diagnostic\\\bottomrule
 \end{tabular}
 \begin{block}{A simple check on interpretation}
 % source: Ch. 2 metric definitions and degenerate-case conventions, lines 603-611.
@@ -135,7 +135,7 @@ A constant sequence has $\mathrm{TC}=1$ and $\mathrm{ERC}=0$ under the stated co
 \end{block}
 {\let\small\footnotesize\takeaway{Consider reference fidelity, event consistency, and conditioning together. Smoothness alone rewards a static output.}}
 \src{Evaluation metrics (\drefpage{subsubsec:metrics}); \dref{Table}{tab:metrics_summary}; SSIM~\cite{wang2004ssim}.}
-\talknote{Question: how is each metric computed, and what does it establish? About 2 minutes if all definitions are requested.}{PSNR converts the peak-squared to mean-squared pixel-error ratio to decibels. SSIM combines local means, variances and covariance to compare luminance, contrast and structure. EPI correlates mean-image gradient magnitudes with the normalized event-count map. ERC correlates absolute frame changes with absolute bump-integrated event data. TC exponentiates the negative RMS frame change divided by the reconstruction range. TG averages absolute frame changes. TV averages the sum of absolute horizontal and vertical gradients. SC averages each frame's fraction of Fourier power in the central low-frequency disk. CN divides the largest singular value of the evaluated matrix by its smallest.}{Use the script for aggregation and degenerate-case details. A constant sequence has maximal TC and zero ERC under the conventions, separating smoothness from event consistency. CN describes the specified diagnostic matrix. Answer only the definitions requested; the existing slide remains an interpretation guide.}
+\talknote{Question: how is each metric computed, and what does it establish? About 2 minutes if all definitions are requested.}{PSNR converts the peak-squared to mean-squared pixel-error ratio to decibels. SSIM combines local means, variances and covariance to compare luminance, contrast and structure. EPI correlates mean-image gradient magnitudes with the normalized event-count map. ERC correlates absolute frame changes with absolute bump-integrated event data. TC exponentiates the negative RMS frame change divided by the reconstruction range. TG averages absolute frame changes. TV averages the sum of absolute horizontal and vertical gradients. SC averages each frame's fraction of Fourier power in the central low-frequency disk. CN divides the largest singular value of each active pixel's matrix by its smallest, averaged over the active pixels.}{Use the script for aggregation and degenerate-case details. A constant sequence has maximal TC and zero ERC under the conventions, separating smoothness from event consistency. CN describes the specified diagnostic matrix. Answer only the definitions requested; the existing slide remains an interpretation guide.}
 \end{frame}
 
 \begin{frame}[t,label=realtime]{Can the reconstruction run in real time?}
@@ -468,13 +468,13 @@ Its population excess kurtosis is
 
 \begin{frame}{Adaptive temporal weights are fixed in the theorem}
 \small
-For event activity $a_i=|dc_i|$, Chapter 2 uses these positive rules:
+For event activity $a_i=|dc_i|$, Chapter 2 uses these positive rules, each setting $\lambda_i^2$:
 % source: Ch. 2, subsubsec:lambdacal; sigmoid rule and parameters.
-\[\lambda_i=10^{-3}+\frac{10}{1+e^{a_i}}\qquad\text{(sigmoid)}\]
+\[\lambda_i^2=10^{-3}+\frac{0.03}{1+e^{a_i}}\qquad\text{(sigmoid)}\]
 % source: Ch. 2, subsubsec:lambdacal; inverse-proportional rule and parameters.
-\[\lambda_i=\max\!\left(10^{-3},\min\!\left(\frac{100}{10^{-3}+a_i},100\right)\right)\qquad\text{(inverse proportional)}\]
+\[\lambda_i^2=\max\!\left(10^{-3},\min\!\left(\frac{3}{10^{-3}+a_i},3\right)\right)\qquad\text{(inverse proportional)}\]
 % source: Ch. 2, subsubsec:lambdacal; exponential rule and parameters.
-\[\lambda_i=10^{-3}+10e^{-\min(a_i,10)}\qquad\text{(exponential decay)}\]
+\[\lambda_i^2=10^{-3}+0.3\,e^{-\min(a_i,10)}\qquad\text{(exponential decay)}\]
 % source: Ch. 4 sec:solution, empirical pre-normalization-energy weight rule.
 Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\mathbf b}/(\norm{\mathbf b}+2)\}$.
 \takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~98).}
@@ -1220,24 +1220,24 @@ Stereo inner (Ch.~4) & data $+\gamma\norm{\fL-\fR}^2$; $\W_c\succ0$, $\gamma>0$ 
 % T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 99 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 98 notes.
 \begin{frame}[label=adaptivelipschitz]{Adaptive weights keep the temporal estimate locally Lipschitz}
 \small
-Let $\lambda_i=\varphi(|dc_i|)$ with $0<\lambda_-\le\varphi\le\lambda_+$ and $\varphi$ $L$-Lipschitz. Subtracting the normal equations,
+Let $\lambda_i^2=\varphi(|dc_i|)$ with $0<\lambda_-^2\le\varphi\le\lambda_+^2$ and $\varphi$ $L$-Lipschitz. Subtracting the normal equations,
 \[\K_1(\mathbf f_1^*-\mathbf f_2^*)=\A^\top(\mathbf y_1-\mathbf y_2)-(\Lam_1^2-\Lam_2^2)\mathbf f_2^*.\]
-% source: ||K^{-1}A^T||<=1/(2 lambda_-) since ||Lam f||^2<=||A f|| ||y||-||A f||^2<=||y||^2/4; ||K^{-1}||<=lambda_-^{-2}; |lambda_1^2-lambda_2^2|<=2 lambda_+ L |dc_1-dc_2|.
-With $\norm{\K^{-1}\A^\top}\le\frac1{2\lambda_-}$, $\norm{\K^{-1}}\le\lambda_-^{-2}$, $\norm{\Lam_1^2-\Lam_2^2}\le2\lambda_+L\norm{dc_1-dc_2}_\infty$:
-\[\norm{\mathbf f_1^*-\mathbf f_2^*}\le\frac{\norm{\mathbf y_1-\mathbf y_2}}{2\lambda_-}+\frac{\lambda_+L}{\lambda_-^3}\,\norm{\mathbf y_2}\,\norm{dc_1-dc_2}_\infty.\]
+% source: ||K^{-1}A^T||<=1/(2 lambda_-) since ||Lam f||^2<=||A f|| ||y||-||A f||^2<=||y||^2/4; ||K^{-1}||<=lambda_-^{-2}; the rules set lambda^2 directly, so |lambda_1^2-lambda_2^2|<=L|dc_1-dc_2|.
+With $\norm{\K^{-1}\A^\top}\le\frac1{2\lambda_-}$, $\norm{\K^{-1}}\le\lambda_-^{-2}$, $\norm{\Lam_1^2-\Lam_2^2}\le L\norm{dc_1-dc_2}_\infty$:
+\[\norm{\mathbf f_1^*-\mathbf f_2^*}\le\frac{\norm{\mathbf y_1-\mathbf y_2}}{2\lambda_-}+\frac{L}{2\lambda_-^3}\,\norm{\mathbf y_2}\,\norm{dc_1-dc_2}_\infty.\]
 \begin{center}\footnotesize\renewcommand{\arraystretch}{1.0}\begin{tabular}{lccc}\toprule
-Chapter 2 rule & $\lambda_-$ & $\lambda_+$ & $L$\\\midrule
-% source: Ch. 2 subsubsec:lambdacal sigmoid rule; range (1e-3, 1e-3+10/2], max slope 10/4 at a=0.
-Sigmoid & $10^{-3}$ & $5.001$ & $2.5$\\
-% source: Ch. 2 subsubsec:lambdacal inverse-proportional rule; range [1e-3,100], slope 100/(1e-3+a)^2 <= 100 where the ceiling is inactive (a >= 0.999).
-Inverse proportional & $10^{-3}$ & $100$ & $100$\\
-% source: Ch. 2 subsubsec:lambdacal exponential rule; range [1e-3+10e^{-10}, 1e-3+10], max slope 10 at a=0.
-Exponential decay & $10^{-3}+10e^{-10}$ & $10.001$ & $10$\\\bottomrule
+Chapter 2 rule & $\lambda_-^2$ & $\lambda_+^2$ & $L$\\\midrule
+% source: Ch. 2 subsubsec:lambdacal sigmoid rule (lambda^2); range (1e-3, 1e-3+0.03/2], max slope 0.03/4 at a=0.
+Sigmoid & $10^{-3}$ & $0.016$ & $0.0075$\\
+% source: Ch. 2 subsubsec:lambdacal inverse-proportional rule (lambda^2); range [1e-3,3], slope 3/(1e-3+a)^2 <= 3 where the ceiling is inactive (a >= 0.999).
+Inverse proportional & $10^{-3}$ & $3$ & $3$\\
+% source: Ch. 2 subsubsec:lambdacal exponential rule (lambda^2); range [1e-3+0.3e^{-10}, 1e-3+0.3], max slope 0.3 at a=0.
+Exponential decay & $10^{-3}+0.3e^{-10}$ & $0.301$ & $0.3$\\\bottomrule
 \end{tabular}\end{center}
 \takeaway{Each Chapter 2 rule gives a locally Lipschitz estimator with explicit, pessimistic constants; Chapter 4's solution-dependent IRLS weights need the fixed-point analysis.}
 % source detail: Ch. 2, thm:uniqueness, subsubsec:lambdacal. Short argument beyond the chapter; checked numerically for all three rules.
 \src{\dref{Theorem}{thm:uniqueness}; adaptive rules (\drefpage{subsubsec:lambdacal}). The Lipschitz bound is a short argument beyond the chapter.}
-\talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor improves to $10^{-3}+10/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 23.}
+\talknote{Question: the theorem fixes $\Lam$, but $\Lam$ is computed from the data. Is the actual estimator stable? About 90 seconds.}{The first term is the fixed-weight bound. The second is the weight change acting on the second solution, with $\norm{\mathbf f_2^*}\le\norm{\mathbf y_2}/(2\lambda_-)$. Absolute values, minima, and maxima are Lipschitz, so the kinks need no differentiability. The constant grows with $\norm{\mathbf y_2}$, so the estimator is Lipschitz on bounded data sets; exchanging the roles of the two data sets gives the symmetric bound with the smaller norm.}{The floor enters cubed, so the constants are pessimistic. The rules decrease with activity, so for data with $\norm{dc}_\infty\le R$ the sigmoid floor $\lambda_-^2$ improves to $10^{-3}+0.03/(1+e^R)$. The bound holds pixel by pixel because pixel problems are independent. Chapter 4 differs: its observation weights are recomputed from the current profiles, so the estimator is a fixed point and needs the contraction condition. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question on slide 23.}
 \end{frame}
 
 % Parameter selection: Ch. 2 subsubsec:lambdacal sentence on per-rule scale sweeps; Ch. 3 app:ch3_discrete_stencils grid-sweep sentence; Ch. 4 sec:experimental_validation selection sentence.
@@ -1267,7 +1267,7 @@ Discrepancy principle (Morozov 1966; Skellam noise level $\theta_++\theta_-$), L
 {\let\small\footnotesize\takeaway{Sweeps chose the values; the theorems cover every positive choice.}}
 % source detail: Ch. 2 subsubsec:lambdacal, tab:lambda_outdoor_avg; Ch. 3 app:ch3_discrete_stencils; Ch. 4 sec:experimental_validation, def:skellam_surrogate (Skellam variance). External rules are typed text: Morozov, Soviet Math. Dokl. 7 (1966); Hansen, SIAM Rev. 34 (1992); Golub, Heath, Wahba, Technometrics 21 (1979).
 \src{Adaptive rules (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}; flow sweeps (\drefpage{app:ch3_discrete_stencils}); \dref{Section}{sec:experimental_validation}; \dref{Definition}{def:skellam_surrogate}. Parameter-choice rules: external works named above.}
-\talknote{Question: how did you choose $\lambda$, $\alpha$, and $\gamma$? About 90 seconds.}{Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then compared the three rules by image fidelity and conditioning; sigmoid has the lowest outdoor CN, 29.60. Antil and Sayre use one scalar magnitude weight; making it activity-adaptive is the change Chapter 2 evaluates. The flow smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, $\gamma$ and the latent count came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences. The theorems hold for every positive value, so the choice moves bias and accuracy and keeps the solve unique and stable.}{The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts the Skellam model gives the variance $\theta_++\theta_-$, estimable from ON and OFF counts; after the Chapter 4 transformation that variance must be propagated through it. The L-curve and generalized cross-validation need no noise level. The sweeps used the evaluated sequences, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of $\Lam$ (slide 23).}
+\talknote{Question: how did you choose $\lambda$, $\alpha$, and $\gamma$? About 90 seconds.}{Each was chosen by grid sweep. In Chapter 2 we swept the scale of each adaptive rule, and separately the kernel type and width, then chose the kernel and rule together as the configuration with the best average rank over the nine evaluation metrics. Antil and Sayre use one scalar magnitude weight; making it activity-adaptive is the change Chapter 2 evaluates. The flow smoothness weight came from grid sweeps on MVSEC, for each solver. In stereo, $\gamma$ and the latent count came from a grid sweep, and inverse-variance weighting from a paired comparison, on the four evaluated sequences. The theorems hold for every positive value, so the choice moves bias and accuracy and keeps the solve unique and stable.}{The discrepancy principle chooses the strongest regularization whose residual matches the noise level, so it needs that level. For raw signed counts the Skellam model gives the variance $\theta_++\theta_-$, estimable from ON and OFF counts; after the Chapter 4 transformation that variance must be propagated through it. The L-curve and generalized cross-validation need no noise level. The sweeps used the evaluated sequences, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of $\Lam$ (slide 23).}
 \end{frame}
 
 % Learned estimators: Ch. 2 lem:nullspace, thm:uniqueness, subsec:validation; Ch. 3 fig:aperture_problem, thm:unified_wellposedness; Ch. 4 prop:disparity_nonidentifiability.
@@ -1466,20 +1466,20 @@ At the same fixed weights,
 \begin{frame}{How are the temporal weights chosen?}
 For activity $a_i=|dc_i|$, the selected sigmoid rule is
 % source: Ch. 2 subsubsec:lambdacal; selected sigmoid formula and parameters.
-\[\lambda_i=10^{-3}+\frac{10}{1+e^{a_i}}.\]
+\[\lambda_i^2=10^{-3}+\frac{0.03}{1+e^{a_i}}.\]
 Here $dc_i$ is the signed event accumulation; $a_i$ is its magnitude.
 \par\medskip
-% source: Ch. 2 tab:lambda_outdoor_avg; reported outdoor condition numbers.
+% source: Ch. 2 tab:lambda_outdoor_avg; mean per-pixel outdoor condition numbers.
 \begin{tabular}{lrrr}\toprule Rule & Sigmoid & Inverse proportional & Exponential\\\midrule
-Reported outdoor CN & 29.60 & 81.50 & 100.74\\\bottomrule
+Outdoor CN & 265.22 & 2.47 & 18.27\\\bottomrule
 \end{tabular}
 \par\smallskip
-\small Selected by grid sweeps, balancing image fidelity and conditioning.\par
+\small Scale selected by grid sweep; with the Gaussian kernel, the best average rank over the nine metrics.\par
 Quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.
 \takeaway{Positive weights ensure a unique solve; the stability bound holds with weights fixed.}
 % source detail: Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}.}
-\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Sigmoid was selected after grid sweeps of each rule's scale, as a fidelity/conditioning compromise among the swept settings; Backup 66 (page 101) covers parameter selection in all three chapters. Its reported CN diagnostic is lower than the alternatives outdoors, while inverse proportional has a lower reported CN indoors.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The reported outdoor CN diagnostics are 29.60 for sigmoid, 81.50 for inverse proportional, and 100.74 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 89. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
+\talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Each rule's scale was selected by grid sweep; with the Gaussian kernel, sigmoid gives the best average rank over the nine metrics among the candidate configurations. Backup 66 (page 101) covers parameter selection in all three chapters. Among the three rules, sigmoid ranks first on temporal consistency, temporal gradient and spectral coherence, at a higher condition number; about 265 uses about 2.4 of the 16 significant digits of double precision.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The mean per-pixel outdoor condition numbers are 265.22 for sigmoid, 2.47 for inverse proportional, and 18.27 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 89. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
 \end{frame}
 
 \begin{frame}{Temporal evidence: events fix structure; the penalty sets the baseline}
@@ -1492,12 +1492,12 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \column{.42\textwidth}
 \small MVSEC indoor aggregate results\par\medskip
 \begin{tabular}{lrr}\toprule Kernel & PSNR & CN\\\midrule
-% source: Ch. 2 tab:bump_avg_indoor, PSNR and CN columns; displayed rounded values copied.
-B-spline & 8.86 & 22.16\\
+% source: Ch. 2 tab:bump_avg_indoor, PSNR and CN columns; displayed rounded values copied. CN: mean per-pixel condition number (Ch. 2 tables; /scratch/dblauvel/ch2_recompute_20261103_p60/results_actual_cn/table_cn.tsv).
+B-spline & 8.66 & 259.87\\
 % source: Ch. 2 tab:bump_avg_indoor, Delta row.
-Delta & 7.70 & 1375.75\\
+Delta & 8.49 & 261.98\\
 % source: Ch. 2 tab:bump_avg_indoor, Gaussian row.
-Gaussian & 8.84 & 20.22\\\bottomrule
+Gaussian & 8.68 & 259.79\\\bottomrule
 \end{tabular}\par\smallskip
 {\scriptsize PSNR compares with a reference frame, so it also scores the absolute brightness that the model selects; the events constrain only changes.\par}
 \end{columns}
@@ -1505,7 +1505,7 @@ Gaussian & 8.84 & 20.22\\\bottomrule
 % source detail: Ch. 2, tab:bump\_avg\_indoor; images from figures/reconstruction\_evaluation/metadata.json (indoor\_flying2, solved frame 81 of 100).
 \src{\dref{Table}{tab:bump_avg_indoor}; images: MVSEC indoor flying 2, Ch.~2.}
 % source: Ch. 2 tab:bump_avg_indoor; figures/reconstruction_evaluation/metadata.json, indoor_flying2_bump_05, nearest saved camera frame.
-\talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 2 reference and event-only reconstruction with sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give similar PSNR and much lower CN than Delta in this indoor comparison. PSNR measures agreement with a reference frame, which includes the absolute brightness level; the events constrain changes, so reference fidelity and fidelity to the measured changes answer different questions.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
+\talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 2 reference and event-only reconstruction with sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give the highest PSNR, about 0.2 dB above Delta, and the three kernels give similar condition numbers; the weight rule sets the conditioning. PSNR measures agreement with a reference frame, which includes the absolute brightness level; the events constrain changes, so reference fidelity and fidelity to the measured changes answer different questions.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
 \end{frame}
 
 \begin{frame}{Derive the time-surface constraint by following the edge}
