@@ -1,7 +1,7 @@
 {
   "config": "P1: gaussian sigma 5 ms, sigmoid/sqrt 0.03, N=150",
   "office": "dyn_rot_events.mat first 2.5M events, frame 29",
-  "cup": "cup_subset_750k_pos60.mat (750k events), frame 124 (slide 2) and 134 (slide 3, false color), flipped vertically",
+  "cup": "cup_subset_750k_pos60.mat (750k events), frame 134, flipped vertically",
   "iss": "Falc_Neuro_Panama_2022-01-24.mat rows 10,500,001-12,500,000, frame 31, flipped vertically",
   "display": "histogram mode -> 0.4, half the 1st-99th percentile range -> 0.45, clip [0,1]",
   "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export_hook.py",
@@ -11,8 +11,8 @@
       "sha256": "03bab1f2db5445d540daf45f87745c2c53e810ce13a24f3dacb8b1ea28bff3ca"
     },
     "cup.png": {
-      "source": "dissertation_thesis/figures/cup/p1/cup_f124.png",
-      "sha256": "701b13147d4c8c82921c9df7d256367a0e2ed00985fdeca658c69d60189ef724"
+      "source": "dissertation_thesis/figures/cup/p1/cup_f134.png",
+      "sha256": "d9a983307e9690df3443af2da2d1b613995391f8a52a4f41532b532fd1d16414"
     },
     "cup_color.png": {
       "source": "dissertation_thesis/figures/cup/p1/cup_f134_color.png",
