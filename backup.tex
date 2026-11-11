@@ -1369,27 +1369,27 @@ For a unit vector $\mathbf e$: if $\mathbf e\cdot\vct^*\le M$ on $\Gamma$, test 
 \begin{frame}{What can changes tell us about a scene?}
 \begin{columns}[T]
 \column{.30\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/reference.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reference.png}\par\vspace{1mm}
 {\small\textbf{Reference image}}
 \column{.30\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/events_accumulation_orange_positive.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/events_accumulation_orange_positive.png}\par\vspace{1mm}
 {\small\textbf{Accumulated events}}\par
-% source: figures/mvsec_outdoor_day1/defense_matched/metadata.json, display_event_window_duration_s and accumulation_rule.
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, event_panel (50 ms window ending at the frame time; color rule).
 {\scriptsize $50$\,ms sample}\par
 {\scriptsize\textcolor[RGB]{204,76,31}{Orange $+$}; \textcolor[RGB]{0,118,160}{blue $-$}; \textcolor[RGB]{119,70,151}{purple: both}.}
 \column{.035\textwidth}
 \vspace{1.1cm}\centering\textcolor{teal}{$\rightarrow$}
 \column{.30\textwidth}
-\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/defense_matched/reconstruction.png}\par\vspace{1mm}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reconstruction.png}\par\vspace{1mm}
 {\small\textbf{Our reconstruction}}
 \end{columns}
 \vspace{3mm}
 {\large What do the observations determine, and what does the model supply?\par}
 \takeaway{The observations constrain changes; the model supplies the remaining choices.}
-% source detail: Ch. 2 saved outdoor_day1 release; reference.png, events_accumulation_orange_positive.png, and reconstruction.png under figures/mvsec_outdoor_day1/defense_matched/.
-% source: figures/mvsec_outdoor_day1/defense_matched/metadata.json, exact timing, raw-left geometry, normalization, and hashes.
+% source detail: Ch. 2 configuration P1 (Gaussian 5 ms, sigmoid), /scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1, latent frame 29 of 100; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py.
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, exact timing, raw-left geometry, normalization, and hashes.
 \src{\dref{Chapter}{ch:monocular_reconstruction}, saved MVSEC~\cite{MVSEC2018} outdoor\_day1 reconstruction example.}
-\talknote{Motivation; about 60 seconds.}{Left is a conventional reference image of the outdoor scene. Center is a 50 ms sample of the event measurements used by the reconstruction: orange marks positive-only pixels, blue negative-only pixels, and purple pixels with both polarities. Right is our event-derived reconstruction, using a longer observation interval. The arrow represents events feeding the estimator; the reference supplies visual context. Events determine temporal changes, and the model selects a brightness baseline and how to balance observations with regularization.}{All panels use the raw left DAVIS geometry, $346\times260$ pixels. The 50 ms display interval ends at reconstruction time 1506118045.9162312 s and contains 23,780 events. The nearest reference is 4.672 ms later. Reconstruction uses the full 500,000-event input spanning about 0.846 s; the center panel displays a subset of that input. Event color strength is logarithmic in count and saturates at four events per pixel. The reference uses a sequence-wide min/max mapping; reconstruction uses one affine mapping across its 20-frame sequence, then clips to $[0,1]$. This displays a latent event-derived state. The dissertation asks what observations determine, what penalties select, and what guarantees survive spatial or binocular coupling.}
+\talknote{Motivation; about 60 seconds.}{Left is a conventional reference image of the outdoor scene. Center is a 50 ms sample of the event measurements used by the reconstruction: orange marks positive-only pixels, blue negative-only pixels, and purple pixels with both polarities. Right is our event-derived reconstruction with the selected Chapter 2 configuration, using a longer observation interval. The arrow represents events feeding the estimator; the reference supplies visual context. Events determine temporal changes, and the model selects a brightness baseline and how to balance observations with regularization.}{All panels use the raw left DAVIS geometry, $346\times260$ pixels. The 50 ms display interval ends at reconstruction time 1506118049.4719 s and contains 23,742 events. The reference is the nearest camera frame, 6.4 ms later. Reconstruction uses the full 500,000-event input spanning about 0.95 s; the center panel displays a subset of that input. Event color strength is logarithmic in count and saturates at four events per pixel. The reference is the saved 8-bit frame, unchanged; the reconstruction uses one affine mapping across its 100-frame sequence, background to mid-gray, then clips to $[0,1]$. This displays a latent event-derived state. The dissertation asks what observations determine, what penalties select, and what guarantees survive spatial or binocular coupling.}
 \end{frame}
 
 \begin{frame}{Where this work fits}
@@ -1486,9 +1486,9 @@ Quiet intervals get the largest weights and set the reference level; busy interv
 \begin{columns}[c]
 \column{.55\textwidth}
 \small MVSEC~\cite{MVSEC2018} indoor flying 2\par\medskip
-% source: source_reconstruction_h5: /scratch/dblauvel/ch2_mvsec_release_20261018/indoor_flying2_bump_05/reconstruction.h5, source_reference_npz: /scratch/dblauvel/ch2_mvsec_release_20261018/reference/indoor_flying2.npz
-\panel{.48}{figures/reconstruction_evaluation/reference.png}{Reference}
-\hfill\panel{.48}{figures/reconstruction_evaluation/event_only_reconstruction.png}{Event-only reconstruction}
+% source: /scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/indoor_flying2/lambda_comparison/{lambda_comparison_results.mat (reconstructions_raw, sigmoid), ground_truth_aligned/aligned_frames.mat}, latent frame 21; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py.
+\panel{.48}{figures/reconstruction_evaluation_p1/reference.png}{Reference}
+\hfill\panel{.48}{figures/reconstruction_evaluation_p1/reconstruction.png}{Event-only reconstruction}
 \column{.42\textwidth}
 \small MVSEC indoor aggregate results\par\medskip
 \begin{tabular}{lrr}\toprule Kernel & PSNR & CN\\\midrule
@@ -1502,10 +1502,10 @@ Gaussian & 8.68 & 259.79\\\bottomrule
 {\scriptsize PSNR compares with a reference frame, so it also scores the absolute brightness that the model selects; the events constrain only changes.\par}
 \end{columns}
 \takeaway{Kernel and adaptive-weight choices affect both the reconstruction and the solved system.}
-% source detail: Ch. 2, tab:bump\_avg\_indoor; images from figures/reconstruction\_evaluation/metadata.json (indoor\_flying2, solved frame 81 of 100).
+% source detail: Ch. 2, tab:bump\_avg\_indoor; images from figures/reconstruction\_evaluation\_p1/metadata.json (indoor\_flying2, configuration P1, latent frame 21 of 100).
 \src{\dref{Table}{tab:bump_avg_indoor}; images: MVSEC indoor flying 2, Ch.~2.}
-% source: Ch. 2 tab:bump_avg_indoor; figures/reconstruction_evaluation/metadata.json, indoor_flying2_bump_05, nearest saved camera frame.
-\talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 2 reference and event-only reconstruction with sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give the highest PSNR, about 0.2 dB above Delta, and the three kernels give similar condition numbers; the weight rule sets the conditioning. PSNR measures agreement with a reference frame, which includes the absolute brightness level; the events constrain changes, so reference fidelity and fidelity to the measured changes answer different questions.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
+% source: Ch. 2 tab:bump_avg_indoor; figures/reconstruction_evaluation_p1/metadata.json, ch2_recompute_20261103_p60 arm P1 sigmoid volume, time-aligned camera frame (4.6 ms later).
+\talknote{Temporal results; 60 seconds.}{The pictures show a representative indoor flying 2 reference and event-only reconstruction with the selected configuration, a 5 ms Gaussian kernel and sigmoid weights. The table aggregates the indoor kernel comparison. PSNR measures reference-image similarity; a higher value means closer agreement. CN measures conditioning; a lower value indicates better conditioning. B-spline and Gaussian give the highest PSNR, about 0.2 dB above Delta, and the three kernels give similar condition numbers; the weight rule sets the conditioning. PSNR measures agreement with a reference frame, which includes the absolute brightness level; the events constrain changes, so reference fidelity and fidelity to the measured changes answer different questions.}{The reconstruction recovers scene structure, while the magnitude penalty selects the absolute baseline. The outdoor kernel comparison has a different ordering and appears in the backup. These results establish the observed tradeoff for the tested data and parameter choices. Display normalization is a visualization choice; the theorem's uniqueness and stability guarantees apply with the positive weights fixed.}
 \end{frame}
 
 \begin{frame}{Derive the time-surface constraint by following the edge}

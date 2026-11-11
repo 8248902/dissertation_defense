@@ -1,0 +1,33 @@
+{
+  "dataset": "MVSEC indoor_flying2",
+  "camera": "left DAVIS",
+  "geometry_px": [
+    346,
+    260
+  ],
+  "campaign": "ch2_recompute_20261103_p60 (500k events from 60% of the cache), arm P1: Gaussian sigma 0.005 s, sigmoid weights, sqrt transform (diag(lambda^2) = rule value), scale 0.03, N = 100",
+  "source_reconstruction": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/indoor_flying2/lambda_comparison/lambda_comparison_results.mat :: lambda_results.reconstructions_raw{1} (sigmoid)",
+  "source_reference": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/indoor_flying2/lambda_comparison/ground_truth_aligned/aligned_frames.mat",
+  "latent_frame_one_based": 21,
+  "frame_time_epoch_s": 1504645324.1887348,
+  "frame_interval_epoch_s": [
+    1504645324.1801913,
+    1504645324.1972783
+  ],
+  "reference_aps_index_zero_based": 291,
+  "reference_time_epoch_s": 1504645324.1933234,
+  "reference_minus_frame_ms": 4.588603973388672,
+  "pixel_r_reference_vs_reconstruction": 0.2862455230855266,
+  "display": {
+    "rule": "histogram-mode background over all 100 frames -> 0.4; 1st/99th percentile half-range -> 0.45; clip [0,1]",
+    "background": -0.006715220642733222,
+    "scale": 0.4719570791984232,
+    "reference": "APS frame / 255, unchanged"
+  },
+  "estimator_rerun": false,
+  "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py",
+  "sha256": {
+    "reconstruction.png": "7d2d7e88cb86748680b2008baeadd6dce0f0b6229ac30f0ec394a2d8c43f1f13",
+    "reference.png": "418cc38ddfb47d1524702de752ff72f6e8ccdd29c89d17a381683d853eaad61f"
+  }
+}

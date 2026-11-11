@@ -84,7 +84,7 @@ Each problem has its own difficulty. For reconstruction, the brightness baseline
 
 Here's what the talk shows for each of the three.
 
-*[If asked which methods produced these panels: a Gaussian temporal kernel (sigma 0.1 s), contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 70. If asked about the spline-parameterized flow regularizer under refinement: Backup 68, page 92. If asked what the stereo method is, in one slide: Backup 48, page 72. If asked about the quality of MVSEC's ground truth: Backup 60, page 84, for depth; Backup 26, page 50, for flow.]*
+*[If asked which methods produced these panels: a Gaussian temporal kernel (sigma 5 ms) with sigmoid weights, the selected Chapter 2 configuration; contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 70. If asked about the spline-parameterized flow regularizer under refinement: Backup 68, page 92. If asked what the stereo method is, in one slide: Backup 48, page 72. If asked about the quality of MVSEC's ground truth: Backup 60, page 84, for depth; Backup 26, page 50, for flow.]*
 
 ## Slide 7 — Three estimators, each well posed
 
@@ -1855,7 +1855,7 @@ Deck page: 100.
 
 *[Point to the images, then to the table.]*
 
-The pictures are a representative example from MVSEC indoor flying two, the dataset from slide 6: a reference image from the ordinary frames, and an event-only reconstruction with sigmoid weights. The table summarizes the kernel comparison over the indoor flying sequences.
+The pictures are a representative example from MVSEC indoor flying two, the dataset from slide 6: a reference image from the ordinary frames, and an event-only reconstruction with the selected configuration: a five-millisecond Gaussian kernel and sigmoid weights. The table summarizes the kernel comparison over the indoor flying sequences.
 
 The reconstruction makes the scene structure visible. The table reports two things: PSNR, which measures similarity to the reference image, and the condition number of the linear system. PSNR also scores the absolute brightness level, which the model selects, so it measures something different from agreement with the recorded changes.
 

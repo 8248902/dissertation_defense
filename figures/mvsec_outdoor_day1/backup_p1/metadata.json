@@ -1,0 +1,46 @@
+{
+  "dataset": "MVSEC outdoor_day1",
+  "camera": "left DAVIS",
+  "geometry_px": [
+    346,
+    260
+  ],
+  "campaign": "ch2_recompute_20261103_p60 (500k events from 60% of the cache), arm P1: Gaussian sigma 0.005 s, sigmoid weights, sqrt transform (diag(lambda^2) = rule value), scale 0.03, N = 100",
+  "source_reconstruction": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1/lambda_comparison/lambda_comparison_results.mat :: lambda_results.reconstructions_raw{1} (sigmoid)",
+  "source_reference": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1/lambda_comparison/ground_truth_aligned/aligned_frames.mat",
+  "latent_frame_one_based": 29,
+  "frame_time_epoch_s": 1506118049.4719076,
+  "frame_interval_epoch_s": [
+    1506118049.4686584,
+    1506118049.4751565
+  ],
+  "reference_aps_index_zero_based": 204,
+  "reference_time_epoch_s": 1506118049.4783204,
+  "reference_minus_frame_ms": 6.412744522094727,
+  "pixel_r_reference_vs_reconstruction": 0.0013991064986074852,
+  "display": {
+    "rule": "histogram-mode background over all 100 frames -> 0.4; 1st/99th percentile half-range -> 0.45; clip [0,1]",
+    "background": 0.0014377528629143654,
+    "scale": 0.3352426101126668,
+    "reference": "APS frame / 255, unchanged"
+  },
+  "estimator_rerun": false,
+  "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py",
+  "event_panel": {
+    "window_epoch_s": [
+      1506118049.4219077,
+      1506118049.4719076
+    ],
+    "convention": "[start, end), ending at the frame time",
+    "duration_s": 0.05,
+    "events": 23742,
+    "positive": 9364,
+    "negative": 14378,
+    "colors": "orange positive, blue negative, purple both; strength min(1, log1p(count)/log1p(4)) (rule of artifacts/defense_mvsec_20261019/export_polarity_variant.py)"
+  },
+  "sha256": {
+    "events_accumulation_orange_positive.png": "5ffa0db1e7055b92f4aea1097c236d251e3a49c71ad5d1db212bf40b8e416efd",
+    "reconstruction.png": "d519ba1a2e8c8c6a9f9526c133cea8dfb4836f108c72bd8f883c55ee68c53bfc",
+    "reference.png": "3e06a625c8b7b5020e228ba4ca1914289d128932f149ccfd2b63af24047a7a31"
+  }
+}
