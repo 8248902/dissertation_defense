@@ -1,6 +1,6 @@
 # Relevant work and contribution boundaries
 
-The main talk positions the dissertation against the following directly related methods. Slide 4 gives the overview; the temporal comparison and flow theorem develop the distinctions. The literature backup provides references for questions.
+The main talk positions the dissertation against the following directly related methods. Slide 10 gives the overview; the temporal comparison and flow theorem develop the distinctions. The literature backup provides references for questions.
 
 ## Henri Rebecq, René Ranftl, Vladlen Koltun, and Davide Scaramuzza (2019)
 
@@ -64,9 +64,9 @@ Dissertation bibliography key: `weickert2001theoretical`.
 
 [Phenomenal Coherence of Moving Visual Patterns](https://doi.org/10.1038/300523a0). *Nature* 300, 523–525.
 
-Introduced the velocity-space intersection-of-constraints construction: each oriented component allows a line of velocities, and two orientations intersect at one. Slide 20 uses this picture to illustrate the integrated-identifiability requirement of the main flow theorem; the theorem itself is the dissertation's.
+Introduced the velocity-space intersection-of-constraints construction: each oriented component allows a line of velocities, and two orientations intersect at one. Slide 23 uses this picture to illustrate the integrated-identifiability requirement of the main flow theorem; the theorem itself is the dissertation's.
 
-Not in the dissertation bibliography; credited on slide 20 only.
+Not in the dissertation bibliography; credited on slide 23 only.
 
 ## Published temporal work
 

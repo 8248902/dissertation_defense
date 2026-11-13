@@ -1,11 +1,11 @@
 DISSERTATION DEFENSE — DELIVERY GUIDE
-Daniel Blauvelt | updated November 8, 2026
+Daniel Blauvelt | updated November 12, 2026
 
 CANONICAL MATERIAL
   Work only in this dissertation_defense repository on main.
   defense-committee.pdf  Send this to the committee: main slides + backups in
                        committee-backups.txt + their references (make committee).
-  defense.pdf          Audience presentation: 24 main slides + 87 backups (84 discussion, 3 references).
+  defense.pdf          Audience presentation: 30 main slides + 82 backups (79 discussion, 3 references).
                        Main slides omit source footers; the committee handout keeps them.
   defense-notes.pdf    Matching embedded speaker notes, one page per slide.
   defense-script.pdf   Full rehearsal script: main talk and independent backup Q&A.
@@ -17,33 +17,39 @@ CANONICAL MATERIAL
 DELIVERY
   Slides 2-3: open on the results (office, cup, ISS); advance to the same three in false color;
     why event cameras and on-board use matter.
-  Slides 4-5: what the sensor reports; the threshold rule; the shifted curve gives the same events.
-  Slide 6: the three MVSEC estimates, each with its unobserved quantity.
-  Slide 7: down each column: what the model supplies, then the guarantee; the common question.
-  Slide 10: sensor-to-observation model; the exact identity and its three error terms.
-  Slide 11: uniqueness, the stability bound, and the reference level.
-  Slide 12: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; MVSEC check;
-    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 84, page 108).
-  Slide 14: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
-  Slide 15: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
-  Slide 16: motion hook (frames compare two pictures; events timestamp the moving edge);
+  Slide 4: reference, 50 ms of events, reconstruction; events record changes, the model the level.
+  Slide 5: route; one line per footer stage; about 30 seconds.
+  Slides 6-7: what the sensor reports; the threshold rule; the shifted curve gives the same events.
+  Slide 8: the three MVSEC estimates, each with its unobserved quantity.
+  Slide 9: down each column: what the model supplies, then the guarantee; the common question.
+  Slide 10: related work; prior methods, then this work, per column.
+  Slide 13: sensor-to-observation model; the exact identity and its three error terms.
+  Slide 14: uniqueness, the stability bound, and the reference level (statements).
+  Slide 15: the proof: quadratic form, perturbation identity, condition-number bound.
+  Slide 16: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; MVSEC check;
+    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 79, page 109).
+  Slide 17: sigmoid weight rule; quiet intervals set the level, busy ones the noise bound.
+  Slide 18: penalty spectrum; constant mode removed, slow drift damped, edges kept.
+  Slide 19: indoor flying 2 images and the kernel table; PSNR also scores the baseline.
+  Slide 20: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
+  Slide 21: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
+  Slide 22: motion hook (frames compare two pictures; events timestamp the moving edge);
     then play the left panel, then the right.
-  Slide 17: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 18: three representations, one quadratic problem; derivations are Backups 77-79.
-  Slide 19: main flow theorem; integrated directional condition; one sentence of proof idea.
-  Slide 20: known-motion stripes and checkerboard.
-  Slide 21: depth hook (time is the matching signal); stereo geometry, unique inner solve.
-  Slide 22: MVSEC table and scored-points bars; lead with coverage.
-  Slide 23: four research directions, each from a result in the dissertation.
-  Slide 24: three-column synthesis, the common question, thank you; then take questions.
-  Moved from the main talk (Backups 71-82, pages 95-106): opening triptych, related work,
-  point measure, uniqueness proof, weight choice, kernel table, time-surface derivation,
-  voxel projection, structure tensor, flow proof idea, full stereo table, old closing.
-  Full flow proof 33; stability 34; discrete flow / Jacobi 35-36; Chapter 4 results 72.
-  Other backups: metrics 30; real-time 31; flow protocol 68; alignment 73; depth sensitivity 81;
-  weak-regularization limits 93; event-free flow regions 94.
-  Backup pages 25-108: select by question; page numbers match the script/index.
-  Pages 109-111: references, numbered as in the dissertation; every [n] links here.
+  Slide 23: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 24: three representations, one quadratic problem; derivations are Backups 72-74.
+  Slide 25: main flow theorem; integrated directional condition; one sentence of proof idea.
+  Slide 26: known-motion stripes and checkerboard.
+  Slide 27: depth hook (time is the matching signal); stereo geometry, unique inner solve.
+  Slide 28: MVSEC table and scored-points bars; lead with coverage.
+  Slide 29: four research directions, each from a result in the dissertation.
+  Slide 30: three-column synthesis, the common question, thank you; then take questions.
+  Backups 71-77 (pages 101-107): point measure, time-surface derivation, voxel projection,
+  structure tensor, flow proof idea, full stereo table, closing summary.
+  Full flow proof 39; stability 40; discrete flow / Jacobi 41-42; Chapter 4 results 78.
+  Other backups: metrics 36; real-time 37; flow protocol 74; alignment 79; depth sensitivity 87;
+  weak-regularization limits 99; event-free flow regions 100.
+  Backup pages 31-109: select by question; page numbers match the script/index.
+  Pages 110-112: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
   Answer the question asked in one or two sentences, then offer the backup.
@@ -57,7 +63,7 @@ QUESTION HANDLING
   Rehearsal answers with follow-ups: ../misc_ideas_feedback/defense_probing_q&a.md.
 
 ANIMATIONS
-  Slide 17 contains both original publisher GIF sequences at their original
+  Slide 22 contains both original publisher GIF sequences at their original
   timing. Use the small forward-play controls; each animation loops.
   Playback was verified in Firefox 156 with PDF scripting enabled.
   Desktop Acrobat Reader is also supported by the animate package.
@@ -68,7 +74,7 @@ SCRIPT
   Ordinary paragraphs are spoken. Headings, likely questions, and bracketed
   italic instructions organize rehearsal and remain silent.
   Each substantive backup has an answer and an 'If asked for more' explanation.
-  The main talk is about 5,870 words; 47–53 minutes before pauses at 110–125 wpm.
+  The main talk is about 6,000 spoken words; about 40 minutes at 150 wpm, 48 at 125, before pauses.
   Time the actual rehearsal. Backup answers are outside the main-talk estimate.
 
 EDIT AND BUILD
@@ -91,7 +97,7 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   the audience window in Zoom. S swaps screens. Next/previous slide actions
   advance the full script with the slide, including backup slides.
   The script is shown a page at a time; enlarge the notes pane for reading.
-  Click slide 17's panels to play the linked, looping MP4s. Keep both videos
+  Click slide 22's panels to play the linked, looping MP4s. Keep both videos
   in figures/aperture when moving the PDF. Rehearse playback and Zoom sharing
   on the actual presentation computer. Distribute defense.pdf to the audience;
   defense-presenter.pdf also contains the private full script.
@@ -101,6 +107,6 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   reopen it. The builder uses script: page labels for grouped notes; notes:
   labels select Pympress's different, interleaved layout and hide the script.
 
-  Backup 83 (page 107): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
-  Backup 84 (page 108): about 114M pixel updates/s per core, 16 B state per pixel;
+  Backup 78 (page 108): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
+  Backup 79 (page 109): about 114M pixel updates/s per core, 16 B state per pixel;
     budget pixels x frames/s <= 1.14e8 per core; batch skips quiet pixels (10x).

@@ -2,6 +2,15 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## Start here — November 12 (six slides back in the main talk, branch `storyboard-claims`)
+
+- Dry run on 2026-11-10: slides 1–12 took 13 minutes (about 170 spoken words per minute), projecting the 24-slide talk at about 29 minutes against the 45–50 minute target.
+- **30 main slides + 82 backups (79 discussion, 3 references), 112 pages; backup page = N + 30.** Restored, with claim titles and no takeaway boxes: slide 4 (reference / events / reconstruction, was Backup 71), slide 5 (route, one row per footer stage, new frame), slide 10 (related work, was 72), slide 15 (uniqueness and stability proof, was 74), slide 17 (temporal weights, was 75), slide 19 (indoor kernel results, was 76). The per-core rate slide stays Backup 79 (page 109) by request.
+- Retitled without semicolons: slide 16 "One tridiagonal sweep per pixel, constant work per streamed frame"; slide 18 "The penalty removes the baseline and slow drift but keeps passing edges"; slide 23 "One edge gives the normal speed, two orientations give the full motion".
+- Script: slide 14 now states the three properties and slide 15 carries the proof; the sigmoid paragraph moved from slide 14 to slide 17; transitions rewritten around each restored slide. Main talk about 6,000 spoken words (about 40 min at 150 wpm, 35 at 170).
+- Renumbered every backup cue, slide reference and bare deck page in the script, notes, README, delivery guide, related-work.md and Anki cards; slide_titles.json retitled. `make all` passes; the only overfulls are the 2 pt one on the threshold slide (already present at HEAD) and the committee edition of slides 2–3. The bulleted practice presenter (`../defense_bullets_trial/`) is rebuilt. Uncommitted.
+- Prepare: slide 19 shows indoor PSNR 8.49–8.68 by kernel and slide 20 shows 8.00 indoor for the event-only method beside the bilevel; they come from different Chapter 2 tables.
+
 ## Start here — November 8 (storyboard follow-ups, branch `storyboard-claims`)
 
 - 24 main slides + 87 backups (84 discussion, 3 references), 111 pages; backup page = N + 24. The per-core timing slide is now Backup 84 (page 108, `corerate`, also in the committee handout); slide 12 transitions straight to the penalty slide. Slide 3 now shows all three scenes in false color. Slides 10, 11, 12, 14, 23, 24 tightened (identity-first slide 10; explicit K_time on 12; bilevel image column on 14; single-statement closing box). Details in LOG/2026-11-08.md. Committed.
