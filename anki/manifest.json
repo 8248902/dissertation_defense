@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-11-16T02:05:40.641749+00:00",
+  "built_at_utc": "2026-11-16T06:49:14.230906+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 125,
   "cards": 125,
@@ -28,9 +28,9 @@
     "anki/build_deck.py": "2beb528ba65bc54b833cd6f5e5ae8ec7ef773550a9a4455f350a47327ba6d233",
     "anki/README.txt": "c74a49013bc6f438676951c3209bef2ee975f93f6df2716812a4f525543106eb",
     "anki/slide_titles.json": "213b05a970e334333c5a0f36cc6c5fa07737fd787e21a56b850ec98c353969fd",
-    "core.tex": "a7360147ae148007c17dafb7a34a7e5b9dcc1d24b149799fd1a0328dc99f6e81",
-    "backup.tex": "8ad828691e162e31daa70992dd26be79fe922277579e0688b737ad6e021d52f7",
-    "defense-script.md": "bd591e6906bc433256bf19110ab92ca66f5c3546bcf328c9adc5f2393478d4af",
+    "core.tex": "c9b283a009dbd52b0f50b33f415be0b9e414b65d0e1e8880def0dc128d3ff3b5",
+    "backup.tex": "4746228ba29cf99e638aa3e3a0ba13b36b4dd608afaefbb55c3ee77375d0c4aa",
+    "defense-script.md": "30c5b10eba4ee4643e31b84bfdf7ce03752b017700e4c3c2e24cd32b4d3973f3",
     "source-map.csv": "56ca349ff88a8eef01f1bceb5e26989b65862f4429e37206b32b486716edb458",
     "thesis-references.json": "f95b507fbe9fcc692b31ad52a3e0430eadb3fc630d259d27a8206ccf7f720ae2",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
@@ -39,8 +39,8 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "bc231e6fcf50106f387617c0ab661a53af2ccfec8dbf7d58b5d4cfd8667f2533"
   },
   "output_sha256": {
-    "defense-oral.apkg": "71b0a451965c7ba191c3fcf33f1cc2616469b5faa17a6997d36efa6442682c2c",
-    "defense-core.apkg": "da0e835e49877e269a5fed707c7a08234a63a0b829673658c4a42446c0fa0783",
+    "defense-oral.apkg": "3877890c086e37f8686604f0de0126f9aca011dadcf648480325d21448ae361f",
+    "defense-core.apkg": "2fa500fdb10bb7c5e9dd4a7db7b3351701ce411b7642e9455fa40622d90ba524",
     "defense-oral.tsv": "ef492f53e249ebe6c082454249297dc74370b484bc22845289442f0b4cda9f2d",
     "preview.html": "cbff8c3f21bd77773a38d1d8f4296353a0eeaccd290fee2a3c1f62c1ab0f20a0"
   }

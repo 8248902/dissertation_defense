@@ -2,6 +2,8 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## November 16 — script pass after the 44:09 dry run: spoken slide numbers replaced by descriptions; slide 21 symbols tied to the single-pixel model; slide 28 Piatkowska cooperation explained; 28→29→30 transitions; slide 29 label fixed; solve clauses on slides 21, 24, 27; backup answers and talk notes free of spoken slide/backup numbers. See LOG/2026-11-16.md. Uncommitted.
+
 ## Start here — November 12 (six slides back in the main talk, branch `storyboard-claims`)
 
 - Dry run on 2026-11-10: slides 1–12 took 13 minutes (about 170 spoken words per minute), projecting the 24-slide talk at about 29 minutes against the 45–50 minute target.

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-16T02:05:24+00:00",
+  "generated_at_utc": "2026-11-16T06:49:40+00:00",
   "scope": "Build validation only: compilation, script/deck correspondence, layout, and input/output hashes.",
   "main_frames": 30,
   "backup_frames": 82,
@@ -38,20 +38,20 @@
     }
   },
   "sha256": {
-    "core.tex": "a7360147ae148007c17dafb7a34a7e5b9dcc1d24b149799fd1a0328dc99f6e81",
-    "backup.tex": "8ad828691e162e31daa70992dd26be79fe922277579e0688b737ad6e021d52f7",
+    "core.tex": "c9b283a009dbd52b0f50b33f415be0b9e414b65d0e1e8880def0dc128d3ff3b5",
+    "backup.tex": "4746228ba29cf99e638aa3e3a0ba13b36b4dd608afaefbb55c3ee77375d0c4aa",
     "defense.tex": "58b95a718cf75de8873fc6ea01ce4ac1ec95ad590fc39f1896730112de8bba3b",
     "notes.tex": "640ee572f4d534fa09e3119d5f70799e4de6dd238ef2ce446c22c15f14535018",
     "committee-backups.txt": "3476b550d6bdf5f920748b2892c59609826c22040c4f5431ca7046774cbe4297",
-    "defense-script.md": "bd591e6906bc433256bf19110ab92ca66f5c3546bcf328c9adc5f2393478d4af",
+    "defense-script.md": "30c5b10eba4ee4643e31b84bfdf7ce03752b017700e4c3c2e24cd32b4d3973f3",
     "build_script.py": "d9c2874a82aac6ce2b416fa6cf701a98cdc4f13b8283f89f3a685a89f91742ad",
     "update_metadata.py": "b05c7d3e096088778d133cced237f61f7f000d8020deda39ef28e585ee1fe4fc",
     "Makefile": "c386324167799aeacffe165bbe11bb54713c3ca7f4dd5f1a7605d80ed8d075d2",
     "reference_support.py": "a81f216480c81b85e2f0a4134a1e03e23a35f29a6e2ac605e97a249177266331",
     "thesis-references.json": "f95b507fbe9fcc692b31ad52a3e0430eadb3fc630d259d27a8206ccf7f720ae2",
-    "defense.pdf": "d08f5e9740ffc5c7805712a281a15082e14b55b99e8991a2d3ae65a81c193c03",
-    "defense-notes.pdf": "466b0eaa7e4fb8e42d677476c0476ccf3c04eee3acc3a34086cb546dfe3a8b15",
-    "defense-script.pdf": "366241838360d56bff047f74bd48636f2acdcae8ef9c889c90e877294713e825",
-    "defense-committee.pdf": "86a996ddf984cc10c061e22f892e2c73fbfbaee89c2b88c6c0ad05d1acfa2c06"
+    "defense.pdf": "9d61ffd40e80a97f89ff04cbd98b7f07da0313b55c32cf1ab17531f9d15e8ccd",
+    "defense-notes.pdf": "5b16fe2ebfbbcb914f934635a28c73afc5f07b2a0d39d39d7310e2f3c06b8ef9",
+    "defense-script.pdf": "cbf73582dbf9e2537ff0e7b38ede26cf04dfdd8d7565d9d3a436780faaa06648",
+    "defense-committee.pdf": "f11fb3fc342a19cc1cc2bc491885edfbd1bf32318ce261315a1ade4200c08869"
   }
 }
