@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at_utc": "2026-11-11T03:00:14+00:00",
+  "generated_at_utc": "2026-11-15T22:07:49+00:00",
   "thesis_main": "GMU-Diss_template",
-  "thesis_pdf_sha256": "7a54cc5fa54d5777c90bea960da57e77a627ba2aee685be52a0b6cfb3b5fb8bb",
+  "thesis_pdf_sha256": "3ebfb5b4d0b3e07c62d236808da83fb83430155a261742bc1e8c3307c2c9f71c",
   "source_sha256": {
     "GMU-Diss_template.tex": "b64ab01e2c683ae787d4791a843129116e35d0215f006bb4a04cf443f3db1871",
-    "appendixA.tex": "ad2bc76ee1cabdfce7e8495b9513d4c1c1753ae11aeb38c4c24ca6451aae980b",
-    "appendix_bodies/ch3_protocol.tex": "d503c656475a2970584ae65f2bcc123d2bb094a7e263523e5e54e56543352950",
-    "appendix_bodies/ch4_protocol.tex": "2e588f971105bc69fb99cc7f0408b60c6ad631c3d419e3265267979ef06cdb66",
-    "chapterFive.tex": "07febc113efa11afa713b04c26dc033d5753a8132b3d32fb9b1cf4435fc8df33",
-    "chapterFour.tex": "002dcc1345ead5e527b9dbf12bbb742d2b043c0289e44a32952f54978ffcabe8",
+    "appendixA.tex": "0360208cdb9a3d801fe79f96b1437f8865c1e1413a49084022dc250530230c9a",
+    "appendix_bodies/ch3_protocol.tex": "5c1e07c952cb2fec9617296f4897ae184fe8d20f38c7d5b331456334d95d1cdc",
+    "appendix_bodies/ch4_protocol.tex": "9cfe2d1def16f9b57edd8622d92596d1b4a82a513b69f8e6a69df6a2f118d30e",
+    "chapterFive.tex": "2b71af054c3741f2606f030a9d38e8c9bdec148bbcb0088680e65400813b60b3",
+    "chapterFour.tex": "aae0bc1fcee1691cc0b64251642a200af719a8d6c70bfa9ab01d06cfe67ff05f",
     "chapterOne.tex": "fa8a18fa6a5ee74f1faff6404028a39d0da18b7045532a63576bb9b5a5ae6e4a",
     "chapterThree.tex": "ed0ecc3050de0ce21eede3ddff076b5a3a30219cb4a82b28a637e6922c601e10",
     "chapterTwo.tex": "c95f1985b57baa67b1ae6d444fcde712ae14e2d31be2996c8fed32f54761cb04",
@@ -144,114 +144,114 @@
     "figures/sar_synthetic/disks_v2e.png": "a00e2c1ab595b3ddd070a0b9ffa4197b78fdba353134a2db631d1eec56ffe1f6",
     "gmuETD.bib": "4ae813a012caca2e1a36f87bcf599fc72d6e94465299638238733cc6f8613954",
     "gmuETD.sty": "3cb5d8343e9a707e5aa9260e394be46fa1e6914c5305eac376bffe7059cb2ef6",
-    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "691f2ec259a08f5dd8eaca8e2202c65881fc44b2463298284980cca0c076d71a",
-    "shared_bodies/ch3_eb_hs_of_body.tex": "a709f9902a37263ce9418f29ca7dfa47ac98a0efb37d0fb85d4bf5c8acd5f491",
-    "shared_bodies/ch4_stereo_depth_body.tex": "bc5dd590ecde6f732c98694273d33ea61de5834fdf2310460de8dab266219e6c"
+    "shared_bodies/ch2_dynamic_reconstruction_body.tex": "c793190c9222edef3e608426adb1b41da121460c52de7053fc39b849b6d23309",
+    "shared_bodies/ch3_eb_hs_of_body.tex": "57e44aaef1c345580b1febab9c5aaffad3675f538ee55f601c6f351f9c3d7ff6",
+    "shared_bodies/ch4_stereo_depth_body.tex": "bc231e6fcf50106f387617c0ab661a53af2ccfec8dbf7d58b5d4cfd8667f2533"
   },
   "auxiliary_sha256": {
-    "GMU-Diss_template.aux": "ddfb8ef0198a8434b066ec5409abd307dfca4475721e280ab625de9eeb3e7282",
+    "GMU-Diss_template.aux": "f3a7d2170c4064a8f962adedb9338b8961e1b8d22a7e3b3221d52cfaefe74f4d",
     "chapterOne.aux": "974dd06f478f99e9622b9b0c78fec62d88c4d0c483b194f5eb9c05f9c45ed8e5",
-    "chapterTwo.aux": "23e93f9b5dd289bc5b6cd2b29e08ce5822c601996bc5a491687f6d645918901e",
-    "chapterThree.aux": "1dd0f0b73582169b349ee2e03d609e6dc94579b7da4815a9955c109eb4369cd2",
-    "chapterFour.aux": "52be39129c3eb52550aa68b6fc83a54235140b31fe51f02b7c8a1fad7f00380b",
-    "chapterFive.aux": "3e707f1ca713b516c6220771b541c87a8785dbdf17ff138bede85bbd9b4fa897",
-    "appendixA.aux": "16edc08bbb33c7f6aecb89056715f1e99b204a23920695d5fb2c9b2bed5fc8ce",
+    "chapterTwo.aux": "1654d0f39bde10a039f8e122d3dde213f4ef11a4ecaf80c122437d6228bf96db",
+    "chapterThree.aux": "639d31b2d64711d4b00a518b86d4194a642167931c6a41989ce4d29fa4486023",
+    "chapterFour.aux": "0d1e36c8100be8be7049d94fd9bce154e38ca83a34fba3d500e7746c5a91ca25",
+    "chapterFive.aux": "a136be648601879884b682ad423b165337536fe1156181743cdc888e62fe7c75",
+    "appendixA.aux": "fb25daea50ccc5a6592e1b2d2c946be6462b34efba8bb5981f85cadffa51d438",
     "GMU-Diss_template.bbl": "6919f88a2b0759fd6a71485c75c17250db9d1bbd6abdc937951250fb8dcfa78e"
   },
   "labels": {
     "app:ch3_accumulation": {
       "number": "A.1.4",
-      "page": "165",
+      "page": "164",
       "title": "Event-Accumulation and Flow Rendering",
       "anchor": "subsection*.489"
     },
     "app:ch3_cmax_params": {
       "number": "A.1.5",
-      "page": "166",
+      "page": "165",
       "title": "Contrast Maximization: Run Parameters",
       "anchor": "subsection*.490"
     },
     "app:ch3_discrete_stencils": {
       "number": "A.1.3",
-      "page": "164",
+      "page": "163",
       "title": "Evaluated Smoothing Stencils and Iteration Schedules",
       "anchor": "subsection*.487"
     },
     "app:ch3_photometric_proxy": {
       "number": "A.1.1",
-      "page": "163",
+      "page": "162",
       "title": "Voxel Projection: Event-Accumulation Convention",
       "anchor": "subsection*.482"
     },
     "app:ch3_vox_derivative_ops": {
       "number": "A.1.2",
-      "page": "163",
+      "page": "162",
       "title": "Voxel Projection: Instantiated Derivative Operators",
       "anchor": "subsection*.483"
     },
     "app:ch4_numerical_illustrations": {
       "number": "A.2.4",
-      "page": "175",
+      "page": "174",
       "title": "Illustrative Numerical Evaluations",
       "anchor": "subsection*.513"
     },
     "app:ch4_parameters": {
       "number": "A.2.1",
-      "page": "167",
+      "page": "166",
       "title": "Parameter Table",
       "anchor": "subsection*.497"
     },
     "app:ch4_wta_detail": {
       "number": "A.2.2",
-      "page": "170",
+      "page": "169",
       "title": "Candidate Search: Implementation Details",
       "anchor": "subsection*.501"
     },
     "app:protocol": {
       "number": "A",
-      "page": "163",
+      "page": "162",
       "title": "Conclusion",
       "anchor": "chapter*.480"
     },
     "app:protocol_ch3": {
       "number": "A.1",
-      "page": "163",
+      "page": "162",
       "title": "Optical Flow (Chapter~\\ref {ch:optical_flow})",
       "anchor": "section*.481"
     },
     "app:protocol_ch4": {
       "number": "A.2",
-      "page": "167",
+      "page": "166",
       "title": "Stereo Depth (Chapter~\\ref {ch:stereo_depth_estimation})",
       "anchor": "section*.496"
     },
     "ass:ch3:A1": {
       "number": "{A1}",
-      "page": "58",
+      "page": "57",
       "title": "",
       "anchor": "Item*.172"
     },
     "ass:ch3:A2": {
       "number": "{A2}",
-      "page": "58",
+      "page": "57",
       "title": "",
       "anchor": "Item*.173"
     },
     "ass:ch3:A3": {
       "number": "{A3}",
-      "page": "58",
+      "page": "57",
       "title": "",
       "anchor": "Item*.174"
     },
     "ass:ch3:A4": {
       "number": "{A4}",
-      "page": "58",
+      "page": "57",
       "title": "",
       "anchor": "Item*.175"
     },
     "ass:ch3:A5": {
       "number": "{A5}",
-      "page": "58",
+      "page": "57",
       "title": "",
       "anchor": "Item*.176"
     },
@@ -281,37 +281,37 @@
     },
     "ass:regularity": {
       "number": "3.3.3",
-      "page": "57",
+      "page": "56",
       "title": "",
       "anchor": "assumption.171"
     },
     "assump:S1": {
       "number": "{(S1)}",
-      "page": "110",
+      "page": "109",
       "title": "Standing Assumptions",
       "anchor": "Item*.318"
     },
     "assump:S2": {
       "number": "{(S2)}",
-      "page": "110",
+      "page": "109",
       "title": "Standing Assumptions",
       "anchor": "Item*.319"
     },
     "assump:S3": {
       "number": "{(S3)}",
-      "page": "110",
+      "page": "109",
       "title": "Standing Assumptions",
       "anchor": "Item*.320"
     },
     "assump:S4": {
       "number": "{(S4)}",
-      "page": "111",
+      "page": "110",
       "title": "Standing Assumptions",
       "anchor": "Item*.321"
     },
     "ch:discussion_conclusion": {
       "number": "5",
-      "page": "155",
+      "page": "154",
       "title": "Discussion and Future Directions",
       "anchor": "chapter*.460"
     },
@@ -323,115 +323,115 @@
     },
     "ch:optical_flow": {
       "number": "3",
-      "page": "53",
+      "page": "52",
       "title": "Optical Flow: Continuous Spatial Regularization",
       "anchor": "chapter*.154"
     },
     "ch:stereo_depth_estimation": {
       "number": "4",
-      "page": "106",
+      "page": "105",
       "title": "Stereo Depth Estimation: Joint Optimization",
       "anchor": "chapter*.306"
     },
     "cond:time_surface:i": {
       "number": "{i}",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "Item*.178"
     },
     "cond:time_surface:ii": {
       "number": "{ii}",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "Item*.179"
     },
     "cond:time_surface:iii": {
       "number": "{iii}",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "Item*.180"
     },
     "cond:time_surface:iv": {
       "number": "{iv}",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "Item*.181"
     },
     "cor:convergence_psd_blocks": {
       "number": "3.7.2",
-      "page": "98",
+      "page": "97",
       "title": "Block-Jacobi convergence for PSD data blocks",
       "anchor": "corollary.289"
     },
     "cor:cutoff_frequency": {
       "number": "4.6.22",
-      "page": "145",
+      "page": "144",
       "title": "Half-Power Crossing",
       "anchor": "corollary.437"
     },
     "cor:low_lambda_conditioning": {
       "number": "4.6.19",
-      "page": "142",
+      "page": "141",
       "title": "Small-$\\lambda $ Conditioning",
       "anchor": "corollary.429"
     },
     "cor:mean_zero_conditioning": {
       "number": "4.6.17",
-      "page": "140",
+      "page": "139",
       "title": "Conditioning on the mean-zero subspace",
       "anchor": "corollary.424"
     },
     "cor:selection_robust": {
       "number": "4.6.10",
-      "page": "134",
+      "page": "133",
       "title": "Robustness of the winning margin",
       "anchor": "corollary.404"
     },
     "cor:structure_wellposedness": {
       "number": "3.6.4",
-      "page": "96",
+      "page": "95",
       "title": "Structure-Tensor model",
       "anchor": "corollary.281"
     },
     "cor:ts_weighted": {
       "number": "3.7.3",
-      "page": "100",
+      "page": "99",
       "title": "Weighted time-surface model",
       "anchor": "corollary.297"
     },
     "cor:ts_wellposedness": {
       "number": "3.6.2",
-      "page": "95",
+      "page": "94",
       "title": "Time-surface model",
       "anchor": "corollary.279"
     },
     "cor:unweighted_spd": {
       "number": "4.6.5",
-      "page": "130",
+      "page": "129",
       "title": "Unweighted Block Matrix SPD",
       "anchor": "corollary.391"
     },
     "cor:vox_projection_wellposed": {
       "number": "3.6.3",
-      "page": "95",
+      "page": "94",
       "title": "Voxel-projection model",
       "anchor": "corollary.280"
     },
     "def:energy": {
       "number": "3.3.8",
-      "page": "67",
+      "page": "66",
       "title": "Energy Functional",
       "anchor": "definition.198"
     },
     "def:skellam_surrogate": {
       "number": "4.6.1",
-      "page": "125",
+      "page": "124",
       "title": "Frozen-variance inverse-variance surrogate",
       "anchor": "definition.376"
     },
     "def:time_surface": {
       "number": "3.3.2",
-      "page": "57",
+      "page": "56",
       "title": "Time Surface",
       "anchor": "definition.169"
     },
@@ -449,37 +449,37 @@
     },
     "eq:abstract_coercivity": {
       "number": "3.64",
-      "page": "94",
+      "page": "93",
       "title": "Unified Well-Posedness and Stability",
       "anchor": "equation*.278"
     },
     "eq:abstract_quadratic_energy": {
       "number": "3.60",
-      "page": "93",
+      "page": "92",
       "title": "Quadratic variational well-posedness and stability",
       "anchor": "equation*.274"
     },
     "eq:abstract_stability": {
       "number": "3.61",
-      "page": "93",
+      "page": "92",
       "title": "Quadratic variational well-posedness and stability",
       "anchor": "equation*.275"
     },
     "eq:activity_mask": {
       "number": "4.65",
-      "page": "149",
+      "page": "148",
       "title": "Confidence Masking",
       "anchor": "equation*.446"
     },
     "eq:aniso_divergence_expansion": {
       "number": "3.49",
-      "page": "83",
+      "page": "82",
       "title": "Anisotropic Numerical Discretization",
       "anchor": "equation*.252"
     },
     "eq:aniso_regularizer": {
       "number": "3.45",
-      "page": "81",
+      "page": "80",
       "title": "Image-Adaptive Anisotropic Regularization",
       "anchor": "equation*.244"
     },
@@ -497,25 +497,25 @@
     },
     "eq:block_diag_M": {
       "number": "4.50",
-      "page": "139",
+      "page": "138",
       "title": "Block Diagonalization and Spectrum of $\\mathbf {M}$",
       "anchor": "equation*.418"
     },
     "eq:block_system": {
       "number": "4.16",
-      "page": "121",
+      "page": "120",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "equation*.361"
     },
     "eq:blur_contraction": {
       "number": "3.32",
-      "page": "74",
+      "page": "73",
       "title": "A General Family of Consistent Derivative Operators",
       "anchor": "equation*.225"
     },
     "eq:ch2_sar_estimator": {
       "number": "2.49",
-      "page": "50",
+      "page": "49",
       "title": "Unobservable scene modes and regularized inversion",
       "anchor": "equation*.149"
     },
@@ -539,7 +539,7 @@
     },
     "eq:ch2_sar_nullspace": {
       "number": "2.48",
-      "page": "50",
+      "page": "49",
       "title": "Unobservable scene modes and regularized inversion",
       "anchor": "equation*.148"
     },
@@ -551,19 +551,19 @@
     },
     "eq:cmax_energy": {
       "number": "3.53",
-      "page": "87",
+      "page": "86",
       "title": "Continuous-Time Energy Functional",
       "anchor": "equation*.260"
     },
     "eq:cmax_focus": {
       "number": "3.52",
-      "page": "87",
+      "page": "86",
       "title": "Continuous-Time Energy Functional",
       "anchor": "equation*.259"
     },
     "eq:cmax_ridge_K": {
       "number": "3.56",
-      "page": "89",
+      "page": "88",
       "title": "Strong Convexity and Conditioning of the Discrete Galerkin Regularizer",
       "anchor": "equation*.265"
     },
@@ -575,7 +575,7 @@
     },
     "eq:data_fidelity": {
       "number": "4.3",
-      "page": "111",
+      "page": "110",
       "title": "Joint Optimization Model",
       "anchor": "equation*.324"
     },
@@ -587,13 +587,13 @@
     },
     "eq:depth_conversion": {
       "number": "4.11",
-      "page": "119",
+      "page": "118",
       "title": "Depth Recovery",
       "anchor": "equation*.355"
     },
     "eq:depth_disparity_sensitivity": {
       "number": "4.12",
-      "page": "120",
+      "page": "119",
       "title": "Depth Recovery",
       "anchor": "equation*.356"
     },
@@ -605,31 +605,31 @@
     },
     "eq:energy_functional": {
       "number": "3.14",
-      "page": "67",
+      "page": "66",
       "title": "Energy Functional",
       "anchor": "equation*.199"
     },
     "eq:energy_struct": {
       "number": "3.38",
-      "page": "77",
+      "page": "76",
       "title": "The Kinematic Plane (3D Structure Tensor)",
       "anchor": "equation*.233"
     },
     "eq:euler_lagrange_u": {
       "number": "3.15",
-      "page": "67",
+      "page": "66",
       "title": "Euler--Lagrange Equations",
       "anchor": "equation*.201"
     },
     "eq:euler_lagrange_v": {
       "number": "3.16",
-      "page": "67",
+      "page": "66",
       "title": "Euler--Lagrange Equations",
       "anchor": "equation*.202"
     },
     "eq:event_integral": {
       "number": "3.3",
-      "page": "56",
+      "page": "55",
       "title": "Event Generation Model",
       "anchor": "equation*.165"
     },
@@ -641,13 +641,13 @@
     },
     "eq:forward_error_bound": {
       "number": "4.58",
-      "page": "143",
+      "page": "142",
       "title": "Small-$\\lambda $ Conditioning",
       "anchor": "equation*.430"
     },
     "eq:freshness_weight": {
       "number": "3.72",
-      "page": "100",
+      "page": "99",
       "title": "Weighted Update with Temporal Decay",
       "anchor": "equation*.295"
     },
@@ -659,7 +659,7 @@
     },
     "eq:generic_representation_energy": {
       "number": "3.4",
-      "page": "56",
+      "page": "55",
       "title": "Unified Variational Framework",
       "anchor": "equation*.167"
     },
@@ -671,19 +671,19 @@
     },
     "eq:integrated_identifiability": {
       "number": "3.59",
-      "page": "93",
+      "page": "92",
       "title": "Quadratic variational well-posedness and stability",
       "anchor": "equation*.273"
     },
     "eq:irls_contraction_q": {
       "number": "4.47",
-      "page": "137",
+      "page": "136",
       "title": "A sufficient contraction condition for fixed-disparity IRLS",
       "anchor": "equation*.412"
     },
     "eq:irls_rate": {
       "number": "4.48",
-      "page": "137",
+      "page": "136",
       "title": "A sufficient contraction condition for fixed-disparity IRLS",
       "anchor": "equation*.413"
     },
@@ -701,109 +701,109 @@
     },
     "eq:jif_objective": {
       "number": "4.67",
-      "page": "152",
+      "page": "151",
       "title": "Mathematical Formulation",
       "anchor": "equation*.452"
     },
     "eq:jif_system": {
       "number": "4.70",
-      "page": "152",
+      "page": "151",
       "title": "Derivation of the Fixed-Disparity Minimizer",
       "anchor": "equation*.456"
     },
     "eq:kappa_bound": {
       "number": "4.51",
-      "page": "139",
+      "page": "138",
       "title": "Condition Number Bounds",
       "anchor": "equation*.420"
     },
     "eq:kappa_mean_zero": {
       "number": "4.56",
-      "page": "141",
+      "page": "140",
       "title": "Conditioning on the mean-zero subspace",
       "anchor": "equation*.426"
     },
     "eq:kappa_scalar": {
       "number": "4.52",
-      "page": "140",
+      "page": "139",
       "title": "Condition Number Bounds",
       "anchor": "equation*.421"
     },
     "eq:kappa_weighted": {
       "number": "4.57",
-      "page": "142",
+      "page": "141",
       "title": "Conditioning of the Heteroscedastic Operator",
       "anchor": "equation*.428"
     },
     "eq:log_brightness": {
       "number": "3.2",
-      "page": "55",
+      "page": "54",
       "title": "Event Generation Model",
       "anchor": "equation*.164"
     },
     "eq:matching_cost_closed_form": {
       "number": "4.36",
-      "page": "131",
+      "page": "130",
       "title": "Closed form of the unweighted matching cost",
       "anchor": "equation*.394"
     },
     "eq:mean_control": {
       "number": "3.62",
-      "page": "94",
+      "page": "93",
       "title": "Unified Well-Posedness and Stability",
       "anchor": "equation*.276"
     },
     "eq:modal_noise_gain": {
       "number": "4.63",
-      "page": "147",
+      "page": "146",
       "title": "Motion Blur and Temporal Resolution",
       "anchor": "equation*.442"
     },
     "eq:mu_nll": {
       "number": "4.33",
-      "page": "127",
+      "page": "126",
       "title": "IRLS--Likelihood Stationary-Point Gap",
       "anchor": "equation*.385"
     },
     "eq:mw_quadform": {
       "number": "4.34",
-      "page": "130",
+      "page": "129",
       "title": "Candidate-Dependent Log-Variance",
       "anchor": "equation*.389"
     },
     "eq:ne_tensor": {
       "number": "3.46",
-      "page": "82",
+      "page": "81",
       "title": "The Nagel--Enkelmann Tensor",
       "anchor": "equation*.246"
     },
     "eq:nll_approx": {
       "number": "4.30",
-      "page": "125",
+      "page": "124",
       "title": "Frozen-variance inverse-variance surrogate",
       "anchor": "equation*.378"
     },
     "eq:nll_full": {
       "number": "4.31",
-      "page": "126",
+      "page": "125",
       "title": "Frozen Gaussian Surrogate",
       "anchor": "equation*.380"
     },
     "eq:nll_scalar_derivative": {
       "number": "4.32",
-      "page": "127",
+      "page": "126",
       "title": "Frozen Gaussian Surrogate",
       "anchor": "equation*.381"
     },
     "eq:normal_L": {
       "number": "4.14",
-      "page": "120",
+      "page": "119",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "equation*.359"
     },
     "eq:normal_R": {
       "number": "4.15",
-      "page": "120",
+      "page": "119",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "equation*.360"
     },
@@ -815,13 +815,13 @@
     },
     "eq:objective_simplified": {
       "number": "4.13",
-      "page": "120",
+      "page": "119",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "equation*.358"
     },
     "eq:parabolic_refinement": {
       "number": "4.9",
-      "page": "118",
+      "page": "117",
       "title": "Procedure (per Pyramid Level)",
       "anchor": "equation*.350"
     },
@@ -851,31 +851,31 @@
     },
     "eq:regularization": {
       "number": "4.4",
-      "page": "111",
+      "page": "110",
       "title": "Joint Optimization Model",
       "anchor": "equation*.325"
     },
     "eq:selection_eta": {
       "number": "4.43",
-      "page": "135",
+      "page": "134",
       "title": "Robustness of the winning margin",
       "anchor": "equation*.405"
     },
     "eq:selection_gap": {
       "number": "4.39",
-      "page": "132",
+      "page": "131",
       "title": "A sufficient condition for correct disparity selection",
       "anchor": "Item*.399"
     },
     "eq:separation_condition": {
       "number": "4.40",
-      "page": "133",
+      "page": "132",
       "title": "A sufficient condition for correct disparity selection",
       "anchor": "Item*.400"
     },
     "eq:signed_anscombe": {
       "number": "4.18",
-      "page": "121",
+      "page": "120",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.364"
     },
@@ -887,13 +887,13 @@
     },
     "eq:solution": {
       "number": "4.17",
-      "page": "121",
+      "page": "120",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "equation*.362"
     },
     "eq:stereo_consistency": {
       "number": "4.5",
-      "page": "111",
+      "page": "110",
       "title": "Joint Optimization Model",
       "anchor": "equation*.326"
     },
@@ -905,31 +905,31 @@
     },
     "eq:time_surface_constraint": {
       "number": "3.6",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "equation*.182"
     },
     "eq:transfer_function": {
       "number": "4.60",
-      "page": "145",
+      "page": "144",
       "title": "Frequency Response Characterization",
       "anchor": "equation*.436"
     },
     "eq:ts_discrete_bias": {
       "number": "3.10",
-      "page": "63",
+      "page": "62",
       "title": "Bias and Variance of the Local Plane Fit",
       "anchor": "Item*.191"
     },
     "eq:ts_discrete_mse": {
       "number": "3.11",
-      "page": "63",
+      "page": "62",
       "title": "Bias and Variance of the Local Plane Fit",
       "anchor": "Item*.192"
     },
     "eq:ts_radius_surrogate": {
       "number": "3.12",
-      "page": "65",
+      "page": "64",
       "title": "Radius Selection as a Heuristic",
       "anchor": "equation*.194"
     },
@@ -941,13 +941,13 @@
     },
     "eq:update_u": {
       "number": "3.67",
-      "page": "97",
+      "page": "96",
       "title": "Iterative Update Scheme",
       "anchor": "equation*.286"
     },
     "eq:update_v": {
       "number": "3.68",
-      "page": "97",
+      "page": "96",
       "title": "Iterative Update Scheme",
       "anchor": "equation*.287"
     },
@@ -965,79 +965,79 @@
     },
     "eq:vib_psd": {
       "number": "2.44",
-      "page": "48",
+      "page": "47",
       "title": "Method",
       "anchor": "equation*.141"
     },
     "eq:vox_impl_I": {
       "number": "1.1",
-      "page": "163",
+      "page": "162",
       "title": "Voxel Projection: Instantiated Derivative Operators",
       "anchor": "equation*.484"
     },
     "eq:vox_impl_It": {
       "number": "1.3",
-      "page": "164",
+      "page": "163",
       "title": "Voxel Projection: Instantiated Derivative Operators",
       "anchor": "equation*.486"
     },
     "eq:vox_impl_Ixy": {
       "number": "1.2",
-      "page": "164",
+      "page": "163",
       "title": "Voxel Projection: Instantiated Derivative Operators",
       "anchor": "equation*.485"
     },
     "eq:w_inverse": {
       "number": "4.22",
-      "page": "122",
+      "page": "121",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.368"
     },
     "eq:w_proportional": {
       "number": "4.23",
-      "page": "123",
+      "page": "122",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.369"
     },
     "eq:weighted_block_system": {
       "number": "4.27",
-      "page": "124",
+      "page": "123",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.373"
     },
     "eq:weighted_data_fidelity": {
       "number": "4.19",
-      "page": "122",
+      "page": "121",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.365"
     },
     "eq:weighted_normal_L": {
       "number": "4.25",
-      "page": "124",
+      "page": "123",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.371"
     },
     "eq:weighted_normal_R": {
       "number": "4.26",
-      "page": "124",
+      "page": "123",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.372"
     },
     "eq:weighted_objective": {
       "number": "4.24",
-      "page": "123",
+      "page": "122",
       "title": "Heteroscedastic Optimization Framework",
       "anchor": "equation*.370"
     },
     "eq:weighted_update": {
       "number": "3.74",
-      "page": "101",
+      "page": "100",
       "title": "Weighted Update with Temporal Decay",
       "anchor": "equation*.298"
     },
     "eq:wta": {
       "number": "4.10",
-      "page": "118",
+      "page": "117",
       "title": "Procedure (per Pyramid Level)",
       "anchor": "equation*.351"
     },
@@ -1079,13 +1079,13 @@
     },
     "f:mvsec_outdoor_day1_bump_comp": {
       "number": "2.1",
-      "page": "35",
+      "page": "36",
       "title": "MVSEC Outdoor Day Sequence 1: Bump-Function Reconstructions",
       "anchor": "figure.caption.117"
     },
     "f:mvsec_outdoor_day2_bump_comp": {
       "number": "2.2",
-      "page": "36",
+      "page": "37",
       "title": "MVSEC Outdoor Day Sequence 2: Bump-Function Reconstructions",
       "anchor": "figure.caption.118"
     },
@@ -1097,73 +1097,73 @@
     },
     "fig:all_method_comparison_indoor3": {
       "number": "A.1",
-      "page": "180",
+      "page": "179",
       "title": "MVSEC Indoor Flying 3: Stereo-Depth Method Comparison",
       "anchor": "figure.caption.531"
     },
     "fig:aperture_problem": {
       "number": "3.1",
-      "page": "61",
+      "page": "60",
       "title": "The aperture problem for a straight edge",
       "anchor": "figure.caption.187"
     },
     "fig:ch2_sar_synthetic": {
       "number": "2.10",
-      "page": "51",
+      "page": "50",
       "title": "Static-Scene Reconstruction from v2e-Simulated Events",
       "anchor": "figure.caption.151"
     },
     "fig:ch3_quiver_synth": {
       "number": "3.3",
-      "page": "103",
+      "page": "102",
       "title": "Flow Estimates for Idealized Translating Stripes",
       "anchor": "figure.caption.301"
     },
     "fig:ch3_quiver_v2e": {
       "number": "3.4",
-      "page": "103",
+      "page": "102",
       "title": "Flow Estimates for v2e-Simulated Stripes and Checkerboard",
       "anchor": "figure.caption.302"
     },
     "fig:m2-residual": {
       "number": "3.5",
-      "page": "104",
+      "page": "103",
       "title": "Fitted Voxel-Projection Residual Distribution",
       "anchor": "figure.caption.304"
     },
     "fig:vox_comparison": {
       "number": "3.2",
-      "page": "102",
+      "page": "101",
       "title": "Optical-Flow Estimates on an MVSEC Indoor-Flying Frame",
       "anchor": "figure.caption.300"
     },
     "lem:A_spectrum": {
       "number": "4.4.1",
-      "page": "112",
+      "page": "111",
       "title": "Spectral Analysis of the Temporal Differential Operator",
       "anchor": "lemma.329"
     },
     "lem:block_diag_M": {
       "number": "4.6.15",
-      "page": "139",
+      "page": "138",
       "title": "Block Diagonalization and Spectrum of $\\mathbf {M}$",
       "anchor": "lemma.416"
     },
     "lem:fixed_point_existence": {
       "number": "4.6.12",
-      "page": "135",
+      "page": "134",
       "title": "Existence of IRLS Fixed Points",
       "anchor": "lemma.407"
     },
     "lem:matching_cost_closed_form": {
       "number": "4.6.6",
-      "page": "130",
+      "page": "129",
       "title": "Closed form of the unweighted matching cost",
       "anchor": "lemma.392"
     },
     "lem:ne_elliptic": {
       "number": "3.4.6",
-      "page": "82",
+      "page": "81",
       "title": "Uniform ellipticity of the Nagel--Enkelmann tensor",
       "anchor": "lemma.247"
     },
@@ -1181,7 +1181,7 @@
     },
     "prop:attenuation_bias": {
       "number": "4.6.7",
-      "page": "131",
+      "page": "130",
       "title": "Attenuation bias of the unweighted cost",
       "anchor": "proposition.395"
     },
@@ -1193,13 +1193,13 @@
     },
     "prop:cmax_existence": {
       "number": "3.5.2",
-      "page": "90",
+      "page": "89",
       "title": "Existence of a Minimizer of the Discrete CM Objective",
       "anchor": "proposition.266"
     },
     "prop:cmax_wellposed": {
       "number": "3.5.1",
-      "page": "88",
+      "page": "87",
       "title": "Strong Convexity and Conditioning of the Discrete Galerkin Regularizer",
       "anchor": "proposition.264"
     },
@@ -1211,13 +1211,13 @@
     },
     "prop:correct_selection": {
       "number": "4.6.8",
-      "page": "132",
+      "page": "131",
       "title": "A sufficient condition for correct disparity selection",
       "anchor": "proposition.397"
     },
     "prop:disparity_nonidentifiability": {
       "number": "4.6.20",
-      "page": "143",
+      "page": "142",
       "title": "Non-identifiability under coincident right-view profiles",
       "anchor": "proposition.432"
     },
@@ -1229,25 +1229,25 @@
     },
     "prop:global_opt_unweighted": {
       "number": "4.5.1",
-      "page": "119",
+      "page": "118",
       "title": "Global optimality without aggregation",
       "anchor": "proposition.353"
     },
     "prop:irls_contraction": {
       "number": "4.6.13",
-      "page": "136",
+      "page": "135",
       "title": "A sufficient contraction condition for fixed-disparity IRLS",
       "anchor": "proposition.411"
     },
     "prop:irls_vs_nll": {
       "number": "4.6.2",
-      "page": "127",
+      "page": "126",
       "title": "IRLS--Likelihood Stationary-Point Gap",
       "anchor": "proposition.382"
     },
     "prop:jif_relation": {
       "number": "4.9.1",
-      "page": "152",
+      "page": "151",
       "title": "Relation of JIF to the soft-coupled model",
       "anchor": "proposition.457"
     },
@@ -1259,7 +1259,7 @@
     },
     "prop:noise_gain": {
       "number": "4.6.23",
-      "page": "146",
+      "page": "145",
       "title": "Modal noise gain",
       "anchor": "proposition.441"
     },
@@ -1271,13 +1271,13 @@
     },
     "prop:taylor_truncation_bound": {
       "number": "3.4.1",
-      "page": "73",
+      "page": "72",
       "title": "Taylor Truncation Bound for 2D Projection",
       "anchor": "proposition.221"
     },
     "prop:time_surface": {
       "number": "3.3.4",
-      "page": "59",
+      "page": "58",
       "title": "Time Surface Constraint",
       "anchor": "proposition.177"
     },
@@ -1289,7 +1289,7 @@
     },
     "prop:ts_regression_bound": {
       "number": "3.3.7",
-      "page": "62",
+      "page": "61",
       "title": "Bias and Variance of the Local Plane Fit",
       "anchor": "proposition.190"
     },
@@ -1301,31 +1301,31 @@
     },
     "prop:vox_tensor_wellposed": {
       "number": "3.4.4",
-      "page": "78",
+      "page": "77",
       "title": "Local Invertibility and Global Uniqueness",
       "anchor": "proposition.240"
     },
     "prop:weighted_conditioning": {
       "number": "4.6.18",
-      "page": "142",
+      "page": "141",
       "title": "Conditioning of the Heteroscedastic Operator",
       "anchor": "proposition.427"
     },
     "rem:aniso_discretization": {
       "number": "3.4.3",
-      "page": "83",
+      "page": "82",
       "title": "Anisotropic Numerical Discretization",
       "anchor": "section*.251"
     },
     "rem:aperture_condition_number": {
       "number": "3.4.5",
-      "page": "80",
+      "page": "79",
       "title": "The aperture problem and regularization stability",
       "anchor": "remark.242"
     },
     "rem:irls_contraction_noise": {
       "number": "4.6.14",
-      "page": "138",
+      "page": "137",
       "title": "Dependence on $\\varepsilon _{\\mathrm {noise}}$ and $\\omega $",
       "anchor": "remark.414"
     },
@@ -1337,13 +1337,13 @@
     },
     "rem:selection_modal": {
       "number": "4.6.9",
-      "page": "134",
+      "page": "133",
       "title": "Modal form and scaled right-view profiles",
       "anchor": "remark.401"
     },
     "rem:vox_projection_update": {
       "number": "3.7.1",
-      "page": "99",
+      "page": "98",
       "title": "Voxel Grid Updates",
       "anchor": "section*.290"
     },
@@ -1391,187 +1391,193 @@
     },
     "sec:benchmark": {
       "number": "A.2.8",
-      "page": "180",
+      "page": "179",
       "title": "Benchmark Comparison with State-of-the-Art Methods",
       "anchor": "subsection*.529"
     },
     "sec:block_solver": {
       "number": "4.5.2",
-      "page": "120",
+      "page": "119",
       "title": "Fixed-Disparity Normal Equations",
       "anchor": "subsection*.357"
     },
     "sec:ch2_sar_bridge": {
       "number": "2.4",
-      "page": "49",
+      "page": "48",
       "title": "Outlook: Coupling Views Through a Shared Scene",
       "anchor": "section*.144"
     },
     "sec:ch4_temporal_operator": {
       "number": "4.4.1",
-      "page": "112",
+      "page": "111",
       "title": "Temporal Differential Operator",
       "anchor": "section*.328"
     },
     "sec:cmax": {
       "number": "3.5",
-      "page": "85",
+      "page": "84",
       "title": "Contrast Maximization: A Continuous-Warp Formulation",
       "anchor": "section*.255"
     },
     "sec:conclusion": {
       "number": "3.9",
-      "page": "105",
+      "page": "104",
       "title": "Synthesis and Limits",
       "anchor": "section*.305"
     },
     "sec:conditioning": {
       "number": "4.6.1",
-      "page": "139",
+      "page": "138",
       "title": "Spectral Conditioning of the Block System",
       "anchor": "section*.415"
     },
     "sec:contribution_matrix": {
       "number": "5.3",
-      "page": "156",
+      "page": "155",
       "title": "Summary of Theoretical Contributions",
       "anchor": "section*.469"
     },
     "sec:evaluation_protocol": {
       "number": "A.2.7",
-      "page": "178",
+      "page": "177",
       "title": "Experimental Evaluation Protocol",
       "anchor": "subsection*.526"
     },
     "sec:experimental_validation": {
       "number": "4.8",
-      "page": "150",
+      "page": "149",
       "title": "Experimental Validation",
       "anchor": "section*.449"
     },
     "sec:experiments": {
       "number": "3.8",
-      "page": "101",
+      "page": "100",
       "title": "Experimental Evidence and Model Limitations",
       "anchor": "section*.299"
     },
     "sec:framework": {
       "number": "3.3",
-      "page": "55",
+      "page": "54",
       "title": "Mathematical Framework and Function Spaces",
       "anchor": "section*.160"
     },
     "sec:frequency_response": {
       "number": "4.6.1",
-      "page": "144",
+      "page": "143",
       "title": "Temporal Frequency Response and Bandwidth",
       "anchor": "section*.433"
     },
+    "sec:hetero_opt": {
+      "number": "4.6",
+      "page": "120",
+      "title": "Heteroscedastic Optimization Framework",
+      "anchor": "section*.363"
+    },
     "sec:identifiability": {
       "number": "4.6.1",
-      "page": "143",
+      "page": "142",
       "title": "Identifiability of Disparity Estimation and the Aperture Problem",
       "anchor": "section*.431"
     },
     "sec:jif_extensions": {
       "number": "4.9",
-      "page": "151",
+      "page": "150",
       "title": "Extensions: The Joint Intensity Fusion (Synthetic Aperture) Formulation",
       "anchor": "section*.450"
     },
     "sec:jif_negative_result": {
       "number": "4.9.3",
-      "page": "153",
+      "page": "152",
       "title": "JIF Benchmark Result",
       "anchor": "subsection*.458"
     },
     "sec:lr_consistency": {
       "number": "4.7.2",
-      "page": "150",
+      "page": "149",
       "title": "Left--Right Consistency Check",
       "anchor": "subsection*.447"
     },
     "sec:mc_accumulation": {
       "number": "4.3.2",
-      "page": "108",
+      "page": "107",
       "title": "Motion-Compensated Event Accumulation",
       "anchor": "subsection*.313"
     },
     "sec:normalization": {
       "number": "4.3.3",
-      "page": "109",
+      "page": "108",
       "title": "Multiscale Downsampling and Normalization",
       "anchor": "subsection*.315"
     },
     "sec:numerical": {
       "number": "3.7",
-      "page": "97",
+      "page": "96",
       "title": "Numerical Solution",
       "anchor": "section*.282"
     },
     "sec:pipeline_variants": {
       "number": "4.3.3",
-      "page": "110",
+      "page": "109",
       "title": "Multiscale Downsampling and Normalization",
       "anchor": "equation*.316"
     },
     "sec:post_processing": {
       "number": "A.2.5",
-      "page": "178",
+      "page": "177",
       "title": "A Posteriori Refinement",
       "anchor": "section*.523"
     },
     "sec:related_work": {
       "number": "3.2",
-      "page": "53",
+      "page": "52",
       "title": "Related Work and Theoretical Positioning",
       "anchor": "section*.156"
     },
     "sec:sgm_and_masking": {
       "number": "4.7",
-      "page": "147",
+      "page": "146",
       "title": "Cost Aggregation and Rejection Rules",
       "anchor": "section*.443"
     },
     "sec:solution": {
       "number": "4.5",
-      "page": "115",
+      "page": "114",
       "title": "Solution via Discrete Disparity Search",
       "anchor": "section*.337"
     },
     "sec:success_wls": {
       "number": "A.2.8",
-      "page": "182",
+      "page": "181",
       "title": "The Heteroscedastic WLS Configuration",
       "anchor": "section*.538"
     },
     "sec:thm_foundations": {
       "number": "4.6.1",
-      "page": "125",
+      "page": "124",
       "title": "Theoretical Foundations",
       "anchor": "subsection*.375"
     },
     "sec:unified_analysis": {
       "number": "3.6",
-      "page": "93",
+      "page": "92",
       "title": "Unified Well-Posedness and Stability",
       "anchor": "section*.271"
     },
     "sec:vox_cont_exclusion": {
       "number": "3.4.3",
-      "page": "85",
+      "page": "84",
       "title": "Continuity-Equation Extension",
       "anchor": "section*.253"
     },
     "sec:voxel_framework": {
       "number": "3.4",
-      "page": "69",
+      "page": "68",
       "title": "Voxel-Based Spatiotemporal Constraints",
       "anchor": "section*.214"
     },
     "subsec:anisotropic_regularization": {
       "number": "3.4.3",
-      "page": "81",
+      "page": "80",
       "title": "Image-Adaptive Anisotropic Regularization",
       "anchor": "subsection*.243"
     },
@@ -1583,25 +1589,25 @@
     },
     "subsec:cmax_energy": {
       "number": "3.5.1",
-      "page": "86",
+      "page": "85",
       "title": "Continuous-Time Energy Functional",
       "anchor": "subsection*.256"
     },
     "subsec:cmax_galerkin": {
       "number": "3.5.2",
-      "page": "88",
+      "page": "87",
       "title": "Ritz--Galerkin B-Spline Discretization",
       "anchor": "subsection*.261"
     },
     "subsec:cmax_update": {
       "number": "3.5.3",
-      "page": "92",
+      "page": "91",
       "title": "Regularization Scaling and Gradient-Based Update",
       "anchor": "subsection*.268"
     },
     "subsec:event_model": {
       "number": "3.3.1",
-      "page": "55",
+      "page": "54",
       "title": "Event Generation Model",
       "anchor": "subsection*.163"
     },
@@ -1643,13 +1649,13 @@
     },
     "subsec:time_surface": {
       "number": "3.3.3",
-      "page": "57",
+      "page": "56",
       "title": "Time Surface Constraint",
       "anchor": "subsection*.168"
     },
     "subsec:unified_framework": {
       "number": "3.3.2",
-      "page": "56",
+      "page": "55",
       "title": "Unified Variational Framework",
       "anchor": "subsection*.166"
     },
@@ -1667,7 +1673,7 @@
     },
     "subsec:variational": {
       "number": "3.3.4",
-      "page": "67",
+      "page": "66",
       "title": "Time-Surface Energy and Euler--Lagrange Equations",
       "anchor": "subsection*.197"
     },
@@ -1679,19 +1685,19 @@
     },
     "subsec:vox_projection": {
       "number": "3.4.1",
-      "page": "70",
+      "page": "69",
       "title": "Spatio-Temporal Linear Regression (2D Projection)",
       "anchor": "subsection*.218"
     },
     "subsec:vox_struct": {
       "number": "3.4.2",
-      "page": "76",
+      "page": "75",
       "title": "The Kinematic Plane (3D Structure Tensor)",
       "anchor": "subsection*.230"
     },
     "subsec:voxel_failure_analysis": {
       "number": "3.8.1",
-      "page": "102",
+      "page": "101",
       "title": "Non-Gaussian Pooled Residuals",
       "anchor": "subsection*.303"
     },
@@ -1727,25 +1733,25 @@
     },
     "subsubsec:lambda_comparison": {
       "number": "2.3.2",
-      "page": "39",
+      "page": "38",
       "title": "Comparative Analysis of Lambda Methods",
       "anchor": "section*.122"
     },
     "subsubsec:lambda_selection": {
       "number": "2.3.2",
-      "page": "37",
+      "page": "35",
       "title": "Regularization Strategy Selection",
       "anchor": "section*.119"
     },
     "subsubsec:lambdacal": {
       "number": "2.3.2",
-      "page": "37",
+      "page": "35",
       "title": "Adaptive Methods",
       "anchor": "section*.121"
     },
     "subsubsec:lambdamean": {
       "number": "2.3.2",
-      "page": "37",
+      "page": "35",
       "title": "Physical Meaning of Regularization Parameter",
       "anchor": "section*.120"
     },
@@ -1773,6 +1779,12 @@
       "title": "Standing Assumptions for the Physical Connection",
       "anchor": "section*.70"
     },
+    "subsubsec:wta_exactness": {
+      "number": "4.5.1",
+      "page": "118",
+      "title": "Exactness of the WTA Selection",
+      "anchor": "section*.352"
+    },
     "tab:bilevel_comp_indoor": {
       "number": "2.8",
       "page": "43",
@@ -1787,37 +1799,37 @@
     },
     "tab:bump_avg_indoor": {
       "number": "2.4",
-      "page": "37",
+      "page": "34",
       "title": "Bump-Function Performance on MVSEC Indoor Flying Sequences",
       "anchor": "table.caption.115"
     },
     "tab:bump_avg_outdoor": {
       "number": "2.5",
-      "page": "37",
+      "page": "35",
       "title": "Bump-Function Performance on MVSEC Outdoor Day Sequences",
       "anchor": "table.caption.116"
     },
     "tab:ch4_parameters": {
       "number": "A.1",
-      "page": "167",
+      "page": "166",
       "title": "Numerical Parameters for Stereo-Depth Experiments",
       "anchor": "table.A.1"
     },
     "tab:comparison_extended": {
       "number": "3.1",
-      "page": "86",
+      "page": "85",
       "title": "Classical and Event-Based Horn--Schunck Formulations",
       "anchor": "table.caption.254"
     },
     "tab:contribution_matrix": {
       "number": "5.1",
-      "page": "157",
+      "page": "156",
       "title": "Theorems, Assumptions, and Contributions by Chapter",
       "anchor": "table.5.1"
     },
     "tab:lambda_indoor_avg": {
       "number": "2.6",
-      "page": "40",
+      "page": "39",
       "title": "Regularization-Method Performance on MVSEC Indoor Flying Sequences",
       "anchor": "table.caption.123"
     },
@@ -1829,7 +1841,7 @@
     },
     "tab:metrics": {
       "number": "A.4",
-      "page": "186",
+      "page": "185",
       "title": "Depth-Estimation Evaluation Metrics",
       "anchor": "table.caption.528"
     },
@@ -1847,19 +1859,19 @@
     },
     "tab:pipeline_variants": {
       "number": "A.2",
-      "page": "170",
+      "page": "169",
       "title": "Stereo-Depth Preprocessing and Regularization Choices",
       "anchor": "table.caption.500"
     },
     "tab:sota_logic": {
       "number": "A.3",
-      "page": "185",
+      "page": "184",
       "title": "Comparison of Local Event-Based Stereo Algorithms",
       "anchor": "table.caption.525"
     },
     "tab:stereo_notation": {
       "number": "4.1",
-      "page": "107",
+      "page": "106",
       "title": "Stereo Notation and Key Quantities",
       "anchor": "table.caption.309"
     },
@@ -1871,61 +1883,61 @@
     },
     "tab:unified_benchmark": {
       "number": "A.5",
-      "page": "187",
+      "page": "186",
       "title": "MVSEC Indoor Flying: Quantitative Stereo-Depth Comparison",
       "anchor": "table.caption.532"
     },
     "thm:conditioning": {
       "number": "4.6.16",
-      "page": "139",
+      "page": "138",
       "title": "Condition Number Bounds",
       "anchor": "theorem.419"
     },
     "thm:convergence": {
       "number": "3.7.1",
-      "page": "97",
+      "page": "96",
       "title": "Convergence of Iterations",
       "anchor": "theorem.288"
     },
     "thm:convexity": {
       "number": "4.6.11",
-      "page": "135",
+      "page": "134",
       "title": "Strict Convexity for Fixed Disparity",
       "anchor": "theorem.406"
     },
     "thm:euler_lagrange": {
       "number": "3.3.9",
-      "page": "67",
+      "page": "66",
       "title": "Euler--Lagrange Equations",
       "anchor": "theorem.200"
     },
     "thm:euler_lagrange_aniso": {
       "number": "3.4.7",
-      "page": "83",
+      "page": "82",
       "title": "Anisotropic Euler--Lagrange Equations",
       "anchor": "theorem.248"
     },
     "thm:euler_lagrange_tensor": {
       "number": "3.4.3",
-      "page": "77",
+      "page": "76",
       "title": "Euler--Lagrange Equations for the 3D structure tensor",
       "anchor": "theorem.234"
     },
     "thm:euler_lagrange_vox_projection": {
       "number": "3.4.2",
-      "page": "75",
+      "page": "74",
       "title": "Euler--Lagrange Equations for voxel projection",
       "anchor": "theorem.227"
     },
     "thm:frequency_response": {
       "number": "4.6.21",
-      "page": "144",
+      "page": "143",
       "title": "Frequency Response Characterization",
       "anchor": "theorem.434"
     },
     "thm:unified_wellposedness": {
       "number": "3.6.1",
-      "page": "93",
+      "page": "92",
       "title": "Quadratic variational well-posedness and stability",
       "anchor": "theorem.272"
     },
@@ -1937,7 +1949,7 @@
     },
     "thm:weighted_spd": {
       "number": "4.6.3",
-      "page": "129",
+      "page": "128",
       "title": "Weighted Block Matrix SPD",
       "anchor": "theorem.388"
     }

@@ -1,6 +1,6 @@
 # Defense rehearsal script
 
-Daniel Blauvelt • Canonical defense • Updated November 12, 2026
+Daniel Blauvelt • Canonical defense • Updated November 15, 2026
 
 This rehearsal script covers all 30 main slides and all 82 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
@@ -130,9 +130,11 @@ The common question behind all three: which quantities do the events determine, 
 
 For image reconstruction, Rebecq and colleagues train a recurrent neural network on simulated events. Zhang, Yezzi, and Gallego use optical flow to pose reconstruction as a linear inverse problem, with classical or learned regularization. Antil and Sayre combine events with conventional frames in a bilevel problem that estimates a parameter of the event-based blur kernel.
 
-Our published temporal work reconstructs each pixel on its own from event increments. I develop the temporal kernel representation and the activity-based penalties, and then analyze the resulting quadratic solve: what the observations determine, how regularization picks the baseline, and how perturbations move the solution. That analysis shows where the reconstructed temporal structure comes from.
+Our published temporal work reconstructs each pixel on its own from event increments. By computing reconstructions pixel-wise, it takes advantage of event sensor pixels operating asynchronously. It develops the temporal kernel representation and the activity-based penalties, and then analyzes the resulting quadratic solve: what the observations determine, how regularization picks the baseline, and how perturbations move the solution. That analysis shows where the reconstructed temporal structure comes from.
 
 For flow, Horn and Schunck gave us the data-plus-smoothness formulation, and Benosman and colleagues developed the local geometry of event timestamps. Classical quadratic flow already has a well-posedness theory, for example from Weickert and Schnörr. What I add is one quadratic family that covers three ways of building coefficients from events, with explicit assumptions for when the motion is identified and how sensitive the estimate is to those coefficients.
+
+For stereo depth, Rogister and colleagues and Kogler and colleagues match events between the two cameras by their timing, and Piatkowska and colleagues let neighboring matches cooperate. Hirschmüller's semi-global matching aggregates matching costs across the image. I couple the two views' temporal profiles softly, prove that each frozen inner solve is unique, and state when the correct candidate wins.
 
 Now the reconstruction model, starting with a single pixel.
 
@@ -314,15 +316,13 @@ The table compares complete methods with different inputs. The bilevel PSNR, abo
 
 The last row compares guarantees. The bilevel analysis proves existence, and local uniqueness under additional conditions; the result I presented gives a unique global minimizer for every fixed positive diagonal.
 
-Last in this chapter: what changes when the pixels share one scene.
+So far, every pixel has been its own problem. Next, a case where pixels can pool their evidence.
 
 *[If asked how the bilevel scores on frames it was not fitted to: 24.3 dB indoors and 25.2 outdoors, the same as interpolating between the camera frames. If asked about the outdoor kernel ranking: Backup 05, page 35. If asked how PSNR and condition number are computed: Backup 06, page 36. If asked which prior work this builds on: Backup 32, page 62.]*
 
 ## Slide 21 — Known motion lets every view constrain one scene
 
-On the International Space Station, motion is the enemy of a frame camera. For an event camera with a known orbit, motion is what's measured.
-
-The station moves at about seven point seven kilometers per second, so any exposure long enough to gather light smears the ground. An event pixel timestamps each change to the microsecond, covers about 140 decibels, and sends only changes, which suits a payload with little power. And because the orbit is known, every view sees the same ground through a known motion.
+When the camera moves and we know how, many pixels see the same patch of ground at different moments. Their events then describe one scene, and we can solve for it once instead of pixel by pixel. The space station from the opening is that case. The orbit is known, and the ground slides steadily under the camera. The event camera timestamps each change without an exposure, and it sends only changes, which suits a payload with little power.
 
 In joint work with Professor Antil and Dr. Sayre, called ESAR, we use exactly that: the same event constraints, now describing one static scene seen by a moving camera.
 
@@ -340,15 +340,15 @@ The simulated disks show the mathematics. The error concentrates along rows thro
 
 This is a real Falcon Neuro pass looking straight down. On the left, each pixel is reconstructed on its own, and the structure is faint and noisy. On the right, every view constrains one shared scene, and the coastline and the land texture come out. The motion that blurs a frame camera gives the event camera more views of the same ground.
 
-Here the motion was known. In optical flow, the motion is the unknown.
+Here the motion was given, and we used it to combine the views. Next, the motion itself becomes the unknown.
 
 *[If asked what regularization supplies when the observations leave directions free: Backup 64, page 94. If asked about related prior work: Backup 32, page 62.]*
 
 ## Slide 22 — Three different motions look identical through a small window
 
-A drone that stabilizes itself, dodges an obstacle, or tracks its own motion needs to know how the image is moving, right now. A frame camera infers motion by comparing two pictures. At thirty or sixty frames a second, a fast edge jumps many pixels between them and blurs within them, and the answer arrives a frame late. An event camera timestamps the edge as it crosses each pixel, to the microsecond. Those crossing times are the motion measurement: their slope gives the edge's speed. The catch is that a single edge reveals only part of its motion.
+That's the second problem, the middle panel of slide 8: optical flow, the apparent velocity of every point in the image. Tracking an object, steadying a camera, or estimating the camera's own movement all start from it. Frame methods match two pictures taken a frame apart, so fast motion arrives blurred and a frame late. An event camera measures it more directly. As an edge sweeps across the pixels, their firing times trace its position, and the slope of those times gives its speed. My contribution turns those timings into motion constraints in one quadratic problem with a unique answer. The catch is that one edge reveals only part of its motion.
 
-Optical flow is the apparent velocity in the image plane. A local view can leave part of that velocity free. This is the aperture problem; an aperture here just means a limited window.
+A local view can leave part of that velocity free. This is the aperture problem; an aperture here just means a limited window.
 
 *[Play the embedded animation in the left panel.]*
 
@@ -378,13 +378,13 @@ The right panel plots possible velocities. Each line is every velocity that fits
 
 A second edge, elsewhere in the image and oriented differently, gives the diagonal line. If both edges move with the same velocity, the crossing picks it out: the ringed dot, v. It's the teal part edge 1 measured, plus the amber part edge 2 fixed.
 
-The two edges can be anywhere in the window. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges really move together: two sides of one object translating across the view, or a camera pan. That's a modeling assumption. Non-parallel lines always cross, so if the edges belong to objects moving differently, the model still returns a velocity, and it's wrong for both.
+The two edges can be anywhere in the window. The model assumes neighboring pixels move alike, and that carries each edge's information across the image. The crossing is the true velocity when the edges move together: two sides of one object, or a camera pan. That's the modeling assumption. For edges on objects moving differently, the crossing mixes their motions, and an object with one edge direction leaves part of its motion free for any method. Chapter 3's directional regularizer smooths less across boundaries the events show.
 
 So the flow model is: the unknown is the image velocity at every pixel; events give each edge's perpendicular speed; neighbors moving alike fill in the rest. The three representations differ in how they get the edge measurement: crossing times, transported event activity, or gradients pooled over a small window.
 
 The condition to remember is edges in two different orientations, anywhere in the recording: their constraint lines cross, and the crossing fixes the velocity. On slide 25 it decides whether the answer is unique. Next, the three event representations that supply each edge's measurement.
 
-*[If asked whether two orientations anywhere suffice: slide 25; necessity, Backup 35, page 65. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: the events contradict one velocity, and smoothing blends the motions across the boundary, Backup 27, page 57, and Backup 70, page 100.]*
+*[If asked whether two orientations anywhere suffice: slide 25; necessity, Backup 35, page 65. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: smoothing blends the motions across the boundary, Backup 27, page 57, and Backup 70, page 100; limiting it, Backup 13, page 43.]*
 
 ## Slide 24 — Three representations, one quadratic variational problem
 
@@ -434,16 +434,13 @@ These selected simulation windows illustrate the directional-information argumen
 
 Inside a vertical stripe region, the strong gradients are horizontal, so they mainly constrain the normal motion. In the theorem's terms, this texture gives the integrated matrix little energy along the stripes. In the velocity diagram from earlier, the stripe interior gives only one line. The checkerboard has edges along both axes, so its lines cross, which reduces the aperture ambiguity. Object boundaries can add directional information as well. How accurate the estimate is also depends on the representation and the regularization.
 
-Last, a short summary of stereo depth.
-
+That's flow: motion over time, seen by one camera. The last problem compares two cameras at the same moment.
 
 *[If asked about other methods: the contrast-maximization comparison on these scenes is Backup 43; "why analyze the quadratic family" is Backup 45. If asked how the examples were selected and scored: Backup 44, page 74. If asked about real-data flow: Backup 26, page 56. If asked whether contrast maximization has a global minimizer: Backup 46, page 76. If asked whether the spline regularizer loses coercivity under refinement: Backup 68, page 98.]*
 
 ## Slide 27 — Stereo matches temporal profiles by encouraging agreement
 
-I'll close the technical part with stereo depth.
-
-A vehicle needs metric depth: how far away the obstacle is. One camera leaves the scale free; two cameras fix it. Frame stereo matches brightness patterns, and blur, glare, and darkness corrupt those patterns. Two event cameras watching the same edge see it change at the same moment, so time becomes the matching signal.
+The third problem, the right panel of slide 8, is depth: how far away each point is. One camera can't tell a small, near object from a large, far one. Two cameras a known distance apart fix that scale, provided we can find the same point in both views. Frame stereo matches brightness patterns, which blur, glare, and darkness corrupt. Two event cameras watching the same edge see it fire at the same instant, so timing is the matching signal. And the tool for comparing timing is already built: each camera gets the Chapter 2 temporal profile, and the two profiles are pulled toward agreement.
 
 *[Point to the diagram.]*
 
@@ -460,6 +457,8 @@ The challenge is that only edges fire, so the hard part is how much of the scene
 ## Slide 28 — WLS scores the most points, 2.66M, at competitive depth error
 
 *[Point to the table, then the bars.]*
+
+The comparison is with Piatkowska and colleagues' cooperative method, the strongest of the four prior methods we ran. It compares each pixel's latest event time between the two views. Then the candidate matches cooperate: nearby pixels at the same disparity reinforce one another, the disparities at one pixel compete, and a pixel gets a depth only when one candidate wins with confidence and enough events nearby.
 
 On the MVSEC indoor flights, against lidar-based ground truth, WLS has the lowest error on flight two and the lowest log RMSE. The adaptation of Piatkowska and colleagues' method is lower on the other three flights, by one and a half to six centimeters. WLS scores two point six six million points, the most of the five methods and more than twice Piatkowska's. Each method is scored on its own valid pixels, so read accuracy and coverage together.
 
