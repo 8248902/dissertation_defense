@@ -2,6 +2,8 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## November 17 — review items 1–5 applied (see LOG/2026-11-17.md). 31 main + 81 backups; backup page = N + 31 for Backups 1–74, Backups 75–81 at pages 106–112. New slide 26 = flow proof idea; slide 27 = structure-tensor-only quiver slide with AEE labels; sharper stability bound on slides 14–15. Slide 9 is now "Regularization makes three ill-posed problems well posed". `make all` passes; committed and pushed.
+
 ## November 16 — script pass after the 44:09 dry run: spoken slide numbers replaced by descriptions; slide 21 symbols tied to the single-pixel model; slide 28 Piatkowska cooperation explained; 28→29→30 transitions; slide 29 label fixed; solve clauses on slides 21, 24, 27; backup answers and talk notes free of spoken slide/backup numbers. See LOG/2026-11-16.md. Uncommitted.
 
 ## Start here — November 12 (six slides back in the main talk, branch `storyboard-claims`)

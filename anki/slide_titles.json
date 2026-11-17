@@ -1,7 +1,7 @@
 {
   "1": "Title",
   "2": "Events record changes and the model supplies the brightness level",
-  "3": "Three estimators, each well posed",
+  "3": "Regularization makes three ill-posed problems well posed",
   "4": "Event-derived models with explicit guarantees, built on established methods",
   "5": "Why an event camera? Each pixel reports its own changes, with microsecond timing and 140 dB range",
   "6": "Each event marks one threshold of log-brightness change, so the baseline level stays free",
@@ -28,7 +28,7 @@
   "27": "Proof: control the mean and the fluctuation separately",
   "28": "Stability follows by subtracting weak equations",
   "29": "Discrete flow: connectivity and sampled directions matter",
-  "30": "Two edge directions resolve more of the motion than one",
+  "30": "Two edge directions halve the structure tensor's error",
   "31": "Stereo matches temporal profiles by encouraging agreement",
   "32": "Stereo depth in one slide: what Chapter 4 adds",
   "33": "What the data constrain and what the models prove",
