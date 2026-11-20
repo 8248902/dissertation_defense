@@ -1547,6 +1547,30 @@ Batch work follows scene activity: skipping pixels without events cuts it $10\ti
 \talknote{Question: how fast is it on one core, and what fits on a small board? About 2 minutes.}{Each streaming step does constant work per pixel, so the cost is one rate: about 114 million pixel updates per second on one core, 8.8 ns each. Both recordings give the same rate (114.2 and 114.5 million per second), although they differ in resolution and by nine times in event rate. Divide by the frame rate to get the pixels one core serves: about 229 thousand at 500 frames per second, 1.1 million at 100. The left point (346 by 260 pixels, 0.25 million events per second) streams at 0.39 of real time with 1.4 MB of state; the right point (640 by 480, 2.3 million events per second) at 1.3 on one core and 0.21 on eight.}{All timings use one core, the closest proxy for a small board, except the eight-core line. Batch reconstruction skips pixels without events; with 6.8 percent active that is tenfold less work. If asked about the sensors: both recordings are DAVIS-class data; the rate depends on pixels and frame rate. Backup 07 adds the multithread timings; Backup 77 gives problem size and low-power options.}
 \end{frame}
 
+\begin{frame}[label=pixeltrace]{One pixel follows each passing object and returns to the background}
+% source: /scratch/dblauvel/ch2_synth_trace_20261120/passing/{summary.json,traces.npz}; figure figures/synthetic_pixel/trace.pdf (metadata.json there); exporter monocular_reconstruction/artifacts/defense_figures_20261120/export_synth.py; scene and sensor model monocular_reconstruction/audits/ch2_synth_trace_20261120/passing_objects.py (commit dd72cf5).
+\centering
+\includegraphics[width=\textwidth,height=5.9cm,keepaspectratio]{figures/synthetic_pixel/trace.pdf}\par
+\vfill
+% source: summary.json: 7 bars, 120 px/s, C = 0.2, shot 5 Hz, leak 0.1 Hz, sigma_C 0.03, 200 pixels, N = 100; median RMSE P1 0.191, leaky (oracle alpha 5) 0.216, naive 0.556; example pixel 55 events.
+{\fontsize{6.5}{8}\selectfont\color{muted}Synthetic static camera: seven matte bars cross one pixel at 120\,px/s; labels give contrast in thresholds $C=0.2$. Sensor model with threshold mismatch, 5\,Hz shot noise, leak and refractory period. Median RMSE over 200 pixels: ours 0.19, leaky 0.22, naive 0.56.\par}
+% source detail: synthetic experiment, November 2026; estimator configuration P1 (Gaussian 5 ms, sigmoid 0.03, sqrt), N = 100 over 2 s.
+\src{Synthetic experiment, November 2026; Chapter~2 estimator, configuration P1; \dref{Theorem}{thm:frequency_response}.}
+\talknote{Question: what does the estimate of one pixel look like over time? About 2 minutes.}{A static camera watches a gray background while seven bars of known reflectance pass one pixel. The true log intensity is the black staircase; the event raster underneath is what the pixel reports. Our estimate (teal) rises and falls with every bar and settles back on the background between bars. Naive integration (gray) keeps an offset after each pass from threshold mismatch and noise, and the offsets add up. Leaky integration (amber), with its decay rate tuned on the true signal, dips below the background after the dark bars. Over 200 pixels with independent sensor noise the median RMSE is 0.19 for ours, 0.22 for tuned leaky integration, and 0.56 for naive integration.}{This is the frequency response from the penalty slide in action: the baseline and slow drift are removed and passing edges are kept. The penalty constants are the MVSEC values, unchanged. Short bright bars come out about 0.3 below their peak, from the 5 ms kernel and the pull toward the background. The scene has exact ground truth at every instant, which the 30 Hz APS frames on MVSEC cannot give. The next slide repeats the comparison across noise levels.}
+\end{frame}
+
+\begin{frame}[label=pixelnoise]{The per-pixel estimate has the lowest error at every noise level tested}
+% source: /scratch/dblauvel/ch2_synth_trace_20261120/passing/sweep.tsv (12 conditions: sigma_C 0.03, 0.06 x shot 1, 2, 5, 10, 20, 50 Hz, leak = shot/20); figure figures/synthetic_pixel/noise.pdf; exporter monocular_reconstruction/artifacts/defense_figures_20261120/export_synth.py.
+\centering
+\includegraphics[width=\textwidth,height=5.6cm,keepaspectratio]{figures/synthetic_pixel/noise.pdf}\par
+\vfill
+% source: sweep.tsv: P1 lowest median RMSE in 12/12; vs oracle leaky 2% (1 Hz) and 5% (2 Hz) lower at sigma_C 0.03, 10-22% lower in the other 10; naive / P1 = 2.7-4.7.
+{\fontsize{6.5}{8}\selectfont\color{muted}Same scene; 200 pixels per point, bars give the interquartile range. Leaky integration's decay rate is tuned on the true signal at each point (solid) or taken from MVSEC (dashed); our constants are the MVSEC values throughout.\par}
+% source detail: synthetic experiment, November 2026; leaky alpha grid 0.5-100 s^-1 as in the MVSEC per-pixel comparison.
+\src{Synthetic experiment, November 2026; Chapter~2 estimator, configuration P1.}
+\talknote{Question: does the advantage hold as the sensor gets noisier? About 1 minute.}{Two levels of threshold mismatch, shot noise from 1 to 50 events per pixel per second. Our estimate has the lowest median error at all twelve points. Against leaky integration tuned on the true signal it is 2 and 5 percent lower at the two quietest settings and 10 to 22 percent lower at the other ten. Naive integration is 2.7 to 4.7 times higher.}{Doubling the threshold mismatch hurts naive integration most, because every pass leaves a residual. The leaky baseline here has an advantage it would not have in practice: its decay rate is chosen with the true signal. With the rate from MVSEC (dashed) it is 12 to 23 percent above ours.}
+\end{frame}
+
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.
 \begin{frame}[label=references]{References (1 of 3)}
 \fontsize{6}{7.0}\selectfont

@@ -1,0 +1,30 @@
+{
+ "source": "/scratch/dblauvel/ch2_synth_trace_20261120/passing",
+ "audit": "monocular_reconstruction/audits/ch2_synth_trace_20261120 (passing_objects.py)",
+ "commit": "dd72cf56f0f842e1425164ea77eaf9ba55ae9d70",
+ "scene": "static camera, 7 bars passing one pixel at 120 px/s, contrasts +4, -3, +6, -5, +2, +5, -4 C (C = 0.2), 2 s, background reflectance 0.18",
+ "example_noise": {
+  "shot_hz": 5.0,
+  "leak_hz": 0.1,
+  "sigma_c": 0.03
+ },
+ "n_pix": 200,
+ "n_lat": 100,
+ "events_example": 55,
+ "events_median": 60.0,
+ "leaky_alpha_oracle": 5,
+ "rmse_median": {
+  "P1": 0.191,
+  "naive": 0.556,
+  "leaky": 0.216,
+  "leaky_a10": 0.238
+ },
+ "r_median": {
+  "P1": 0.918,
+  "naive": 0.769,
+  "leaky": 0.919,
+  "leaky_a10": 0.864
+ },
+ "sweep_P1_best_in_all_conditions": true,
+ "sweep_conditions": 12
+}
