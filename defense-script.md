@@ -254,6 +254,8 @@ Next, how the weights are chosen.
 
 ## Slide 17 — Temporal weights shrink as event activity grows
 
+*[Point to the three curves.]*
+
 Lambda controls how strongly the reconstruction is pulled toward its reference level, and all three rules reduce that pull as the magnitude of net signed activity increases. Sigmoid gives a smooth, bounded transition; inverse-proportional weighting retains a longer tail of shrinkage; and exponential weighting drops rapidly until its input clamp is reached. At our selected scales, inverse-proportional weighting applies the strongest shrinkage.
 
 The rule we selected uses the size of the signed event total in each bin. Positive and negative events can cancel in that total, so it measures net signed activity.
@@ -428,9 +430,9 @@ Here's why the theorem holds.
 
 ## Slide 26 — Proof idea: smoothness fixes variation, edges fix the drift
 
-*[Point to the decomposition, then move across the three columns.]*
+*[Point to the decomposition, then the two blocks.]*
 
-The proof follows the picture. Write the velocity as its spatial mean plus a zero-mean fluctuation, w. The mean is the common drift of the whole field, like a camera pan; the fluctuation is how the motion varies across the image.
+The proof follows the picture. Write the velocity as a zero-mean fluctuation, w, plus its spatial mean. The fluctuation is how the motion varies across the image; the mean is the common drift of the whole field, like a camera pan.
 
 Poincaré's inequality bounds the fluctuation by the gradient, so the smoothness term controls it. Smoothness charges nothing for a uniform pan, so the data have to fix the mean. That's the role of m, the smallest eigenvalue of the integrated matrix B: it measures how well the edges, taken together, cover every direction of motion. Because m is positive, the data energy controls the mean.
 
@@ -468,9 +470,9 @@ The challenge is that only edges fire, so the hard part is how much of the scene
 
 *[If asked why the inner solve is unique: Backup 51, page 82. If asked whether a unique solve gives the right disparity: Backup 54, page 85; the conditions that do are Backup 55, page 86, and Backup 56, page 87. If asked whether IRLS converges: Backup 59, page 90. If asked why the weights treat busy intervals as noisier: Backup 58, page 89. For the full stereo argument: Backup 47, page 78; in one slide, Backup 48, page 79.]*
 
-## Slide 29 — WLS scores the most points, 2.66M, at competitive depth error
+## Slide 29 — WLS scores the most points at competitive depth error
 
-*[Point to the table, then the bars.]*
+*[Point to the bars, then the table.]*
 
 The comparison is with Piatkowska and colleagues' cooperative method, the strongest of the four prior methods we ran. On the MVSEC indoor flights, against lidar-based ground truth, WLS scores two point six six million points, the most of the five methods and more than twice Piatkowska's. On depth error, WLS is lowest on flight two and in log RMSE; the Piatkowska adaptation is lower on the other three flights, by one and a half to six centimeters. Each method is scored on its own valid pixels, so read accuracy and coverage together.
 
