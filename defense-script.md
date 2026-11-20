@@ -2,7 +2,7 @@
 
 Daniel Blauvelt • Canonical defense • Updated November 15, 2026
 
-This rehearsal script covers all 30 main slides and all 82 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
+This rehearsal script covers all 31 main slides and all 83 backup slides. The main talk is a continuous spoken script. Each substantive backup slide has a likely committee question, a self-contained spoken answer, and a deeper follow-up. The three navigation slides and the three reference pages have silent navigation cues. Read ordinary paragraphs aloud; headings, questions, and bracketed italic directions organize rehearsal and are silent.
 
 The main talk contains approximately 6,000 spoken words: about 40 minutes at 150 words per minute and 48 minutes at 125, before pauses, animations, and questions. Backup responses are outside that timing. Rehearse the main talk aloud to establish its actual length.
 
@@ -288,7 +288,7 @@ The curves connect the finite-grid gains so the trend is visible. A general posi
 
 Next, what these reconstructions look like on real data.
 
-*[If asked what the penalty does to measurement noise: Backup 04, page 35. If asked about bias in the damped modes: Backup 33, page 64. If asked what happens as lambda goes to zero: Backup 69, page 100.]*
+*[If asked what the penalty does to measurement noise: Backup 04, page 35. If asked about bias in the damped modes: Backup 33, page 64. If asked what happens as lambda goes to zero: Backup 69, page 100. If asked to see one pixel's estimate over time: Backup 79, page 110.]*
 
 ## Slide 19 — Events fix the scene structure and the penalty sets the baseline
 
@@ -524,7 +524,7 @@ So each estimate is unique once the model supplies what the events leave free, u
 
 Thank you. I'm happy to take your questions.
 
-*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 32; flow detail starts at Backup 41, page 72; the stereo arc at Backup 47, page 78; references at page 110.]*
+*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 32; flow detail starts at Backup 41, page 72; the stereo arc at Backup 47, page 78; references at page 112.]*
 
 # Backup responses
 
@@ -1976,7 +1976,7 @@ Temporal reconstruction shows how a penalty selects the baseline. Flow shows how
 
 Across all three, the common question is which directions the observations control, and which the model chooses.
 
-*[For questions: the discussion guide is Backup 01, page 32; flow detail starts at Backup 41, page 72; the stereo arc at Backup 47, page 78; references at page 110.]*
+*[For questions: the discussion guide is Backup 01, page 32; flow detail starts at Backup 41, page 72; the stereo arc at Backup 47, page 78; references at page 112.]*
 
 ## Backup 77 — How big is the temporal monocular problem?
 
@@ -2020,20 +2020,56 @@ Batch reconstruction also follows the scene: in a typical window only about seve
 
 *[For multithread timings: Backup 07, page 38. For problem size, memory, and low-power strategies: Backup 77, page 108.]*
 
-## Backup 79 — References (1 of 3)
+## Backup 79 — One pixel follows each passing object and returns to the background
 
 Deck page: 110.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** What does your estimate for a single pixel look like over time, compared with the truth?
 
-## Backup 80 — References (2 of 3)
+### Answer
+
+This is a synthetic scene, so the true signal is known at every instant. A static camera watches a gray background, and seven bars of known reflectance pass one pixel, bright and dark, between two and six contrast thresholds. The black staircase is the true log intensity; the ticks underneath are the events the pixel reports.
+
+Our estimate, in teal, rises and falls with every bar and settles back on the background between them. Naive integration, in gray, keeps a small offset after each pass, from threshold mismatch and noise, and those offsets add up. Leaky integration, in amber, gets its decay rate tuned on the true signal, and it dips below the background after the dark bars.
+
+Over two hundred pixels with independent sensor noise, the median error is 0.19 for ours, 0.22 for tuned leaky integration, and 0.56 for naive integration.
+
+### If asked for more
+
+This is the frequency response from the penalty slide in action: the penalty removes the baseline and slow drift and keeps passing edges. The penalty constants are the ones chosen on MVSEC, unchanged. Short bright bars come out about 0.3 below their peak, because of the five-millisecond kernel and the pull toward the background. A synthetic scene gives ground truth at every instant, which MVSEC's 30-hertz frames cannot.
+
+*[For the same comparison across noise levels: Backup 80, page 111. For the frequency response: the penalty slide in the main talk.]*
+
+## Backup 80 — The per-pixel estimate has the lowest error at every noise level tested
 
 Deck page: 111.
 
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+**Likely question:** Does that advantage hold up as the sensor gets noisier?
 
-## Backup 81 — References (3 of 3)
+### Answer
+
+Yes. The plot repeats the same scene at two levels of threshold mismatch and shot noise from one to fifty events per pixel per second. Our estimate has the lowest median error at all twelve points. Against leaky integration tuned on the true signal, it is two and five percent lower at the two quietest settings and ten to twenty-two percent lower at the other ten. Naive integration is 2.7 to 4.7 times higher.
+
+### If asked for more
+
+Doubling the threshold mismatch hurts naive integration most, because every pass leaves a residual. The tuned leaky baseline gets its decay rate from the true signal, which real data cannot supply; with the rate chosen on MVSEC, the dashed line, it is twelve to twenty-three percent above ours. Our constants are the MVSEC values at every point.
+
+*[For the single-pixel trace: Backup 79, page 110.]*
+
+## Backup 81 — References (1 of 3)
 
 Deck page: 112.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 82 — References (2 of 3)
+
+Deck page: 113.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 83 — References (3 of 3)
+
+Deck page: 114.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
