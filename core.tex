@@ -364,17 +364,19 @@ Reference level & $\mathbf1^\top\Lam^2\mathbf f^*=0$ & quiet intervals carry the
 \end{frame}
 
 \begin{frame}{Positive weights curve the objective in every direction}
-\small
-Write $\lambda_{\min}=\min_i\lambda_i$. For $\mathbf z\ne0$,
-\[\mathbf z^\top\K_{\rm time}\mathbf z=\norm{\A\mathbf z}^2+\norm{\Lam\mathbf z}^2\ge\lambda_{\min}^2\norm{\mathbf z}^2>0.\]
-At the same fixed weights, $\mathbf x=\delta\mathbf f^*$ solves $\K_{\rm time}\mathbf x=\A^\top\delta\mathbf y$. Take the inner product with $\mathbf x$:
+\vspace{3mm}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{\bfseries}p{2.3cm}>{\raggedright\arraybackslash}p{7.9cm}>{\raggedright\arraybackslash\leavevmode\small\color{muted}}p{3.3cm}@{}}
+% source: Ch. 2 thm:uniqueness; quadratic form of K_time.
+Unique & $\mathbf z^\top\K_{\rm time}\mathbf z=\norm{\A\mathbf z}^2+\norm{\Lam\mathbf z}^2\ge\lambda_{\min}^2\norm{\mathbf z}^2>0$ & $\lambda_{\min}=\min_i\lambda_i$\\[6mm]
 % source: Ch. 2 normal equations (eq:normal_equations) and Lambda^2 >= lambda_min^2 I; AM-GM gives a^2 + lambda^2 b^2 >= 2 lambda a b.
-\[2\lambda_{\min}\norm{\A\mathbf x}\norm{\mathbf x}\le\norm{\A\mathbf x}^2+\norm{\Lam\mathbf x}^2=(\A\mathbf x)^\top\delta\mathbf y\le\norm{\A\mathbf x}\norm{\delta\mathbf y}
-\quad\Longrightarrow\quad\norm{\delta\mathbf f^*}\le\frac{\norm{\delta\mathbf y}}{2\lambda_{\min}}.\]
-% source: Ch. 2 prop:stability, eq:cond_bound; analytic mixed-norm bound ||A||_2 <= 2.
-Conditioning of the solve: $\norm{\A}_2\le2$, so $\kappa_2(\K_{\rm time})\le(4+\lambda_{\max}^2)/\lambda_{\min}^2$.\par\medskip
+Stable & $\K_{\rm time}\mathbf x=\A^\top\delta\mathbf y,\quad\mathbf x=\delta\mathbf f^*$ & same weights\\[1.5mm]
+& $2\lambda_{\min}\norm{\A\mathbf x}\norm{\mathbf x}\le\mathbf x^\top\K_{\rm time}\mathbf x\le\norm{\A\mathbf x}\norm{\delta\mathbf y}$ & inner product with $\mathbf x$\\[2.5mm]
 % source: nonnegative unit-mass kernels split one event's polarity across bins, so ||delta y||_2 <= ||delta y||_1 = 1 (Ch. 2 prop:l1_bump_properties).
-One spurious or missed event gives $\norm{\delta\mathbf y}\le1$: the bound limits how far one noise event moves a pixel's history.
+& \colorbox{soft}{$\displaystyle\norm{\delta\mathbf f^*}\le\frac{\norm{\delta\mathbf y}}{2\lambda_{\min}}$} & one event: $\norm{\delta\mathbf y}\le1$\\[6mm]
+% source: Ch. 2 prop:stability, eq:cond_bound; analytic mixed-norm bound ||A||_2 <= 2.
+Conditioning & $\kappa_2(\K_{\rm time})\le(4+\lambda_{\max}^2)/\lambda_{\min}^2$ & from $\norm{\A}_2\le2$\\
+\end{tabular}
 % source detail: Ch. 2, thm:uniqueness, prop:stability, eq:normal_equations.
 \src{\dref{Theorem}{thm:uniqueness}, \dref{Proposition}{prop:stability}.}
 % source: lambda_min^2 = 1e-3 is the sigmoid-rule floor on the temporal-weights slide; 1/(2*sqrt(1e-3)) = 15.81.
@@ -403,18 +405,28 @@ Newest frame & the forward sweep alone gives it: constant work per pixel for eac
 \end{frame}
 
 \begin{frame}{Temporal weights shrink as event activity grows}
-For activity $a_i=|dc_i|$, the selected sigmoid rule is
+\vspace{1mm}
+\begin{columns}[c]
+\column{.57\textwidth}\centering
+% source: Ch. 2 subsubsec:lambdacal; the three rules exactly as on the backup "Adaptive temporal weights are fixed in the theorem". Curves are the analytic rules.
+\begin{tikzpicture}
+\begin{axis}[width=7.8cm,height=5.4cm,xmin=0,xmax=10,ymin=3e-4,ymax=6,ymode=log,xtick={0,5,10},ytick={1e-3,1e-2,1e-1,1},xlabel={Event activity $a_i=|dc_i|$},ylabel={Weight $\lambda_i^2$},label style={font=\scriptsize},tick label style={font=\scriptsize},axis lines=left,clip=false]
+\addplot[muted!70,thick,domain=0:10,samples=120]{max(1e-3,min(3/(1e-3+x),3))};
+\addplot[muted!70,thick,domain=0:10,samples=120]{1e-3+.3*exp(-x)};
+\addplot[teal,very thick,domain=0:10,samples=120]{1e-3+.03/(1+exp(x))};
+\node[font=\scriptsize,text=muted,anchor=south] at (axis cs:6.3,.42) {inverse proportional};
+\node[font=\scriptsize,text=muted,anchor=west] at (axis cs:2.75,.045) {exponential};
+\node[font=\scriptsize\bfseries,text=teal,anchor=west] at (axis cs:.15,.00055) {sigmoid (selected)};
+\end{axis}
+\end{tikzpicture}
+\column{.39\textwidth}\raggedright
 % source: Ch. 2 subsubsec:lambdacal; selected sigmoid formula and parameters.
-\[\lambda_i^2=10^{-3}+\frac{0.03}{1+e^{a_i}}.\]
-Here $dc_i$ is the signed event accumulation; $a_i$ is its magnitude.
-\par\medskip
-% source: Ch. 2 tab:lambda_outdoor_avg; mean per-pixel outdoor condition numbers.
-\begin{tabular}{lrrr}\toprule Rule & Sigmoid & Inverse proportional & Exponential\\\midrule
-Outdoor CN & 265.22 & 2.47 & 18.27\\\bottomrule
-\end{tabular}
-\par\smallskip
-\small Scale selected by grid sweep; with the Gaussian kernel, the best average rank over the nine metrics.\par
-Quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.
+\[\lambda_i^2=10^{-3}+\frac{0.03}{1+e^{a_i}}\]
+\vspace{2mm}
+\small\par\noindent\textbf{Quiet intervals}\par{\color{muted}largest weights, set the reference level\par}\vspace{3mm}
+\textbf{Busy intervals}\par{\color{muted}smallest weights, set the noise bound\par}
+\end{columns}
+% source: Ch. 2 tab:lambda_outdoor_avg; mean per-pixel outdoor condition numbers quoted in the talk note and script.
 % source detail: Ch. 2, subsubsec:lambdacal, subsubsec:lambda\_comparison, tab:lambda\_outdoor\_avg.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Table}{tab:lambda_outdoor_avg}.}
 \talknote{Adaptive regularization choice; 90 seconds.}{The event activity here is the absolute value of the signed accumulation in one temporal bin. Larger activity produces a smaller magnitude penalty. Each rule's scale was selected by grid sweep; with the Gaussian kernel, sigmoid gives the best average rank over the nine metrics among the candidate configurations. Backup 66 (page 97) covers parameter selection in all three chapters. Among the three rules, sigmoid ranks first on temporal consistency, temporal gradient and spectral coherence, at a higher condition number; about 265 uses about 2.4 of the 16 significant digits of double precision.}{The other two rules and their exact formulas are in the discussion page ``Adaptive temporal weights are fixed in the theorem''. The mean per-pixel outdoor condition numbers are 265.22 for sigmoid, 2.47 for inverse proportional, and 18.27 for exponential decay. For any fixed positive weights, the temporal quadratic has a unique minimizer and the stability bound applies at those weights. The exact comparison identity $K_1(f_1-f_2)=A^T(y_1-y_2)-(\Lam_1^2-\Lam_2^2)f_2$ shows the extra weight-change term when data-dependent weights are recomputed; with Lipschitz rules, it gives the local bound on page 96. Scene terms: quiet intervals get the largest weights and set the reference level; busy intervals get the smallest and set the worst-case noise bound.}
@@ -617,29 +629,31 @@ Then $E_{\B,b}$ has a unique minimizer in $H^1(\Omega;\R^2)$.
 \end{frame}
 
 \begin{frame}{Proof idea: smoothness fixes variation, edges fix the drift}
-Decompose $\vct=\underbrace{\bar{\vct}}_{\text{common drift (pan)}}+\underbrace{\mathbf w}_{\text{variation across the image}}$, with $\int_\Omega\mathbf w=0$.
 \vspace{1mm}
+\centering
+$\vct=\mathbf w+\bar{\vct},\qquad\int_\Omega\mathbf w=0$\par\vspace{2mm}
 \begin{columns}[T]
-\column{.32\textwidth}\centering\small
-\textbf{Smoothness controls variation}
-\[\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}\]
-{\footnotesize Poincar\'e~\cite{evans2010partial}}
-\column{.32\textwidth}\centering\small
-\textbf{Data control constant motion}
-\[m=\lambda_{\min}\Bigl(\int_\Omega\B\,d\mathbf x\Bigr)>0\]
-{\footnotesize edges cover every direction}
-\column{.32\textwidth}\centering\small
-\textbf{Together: coercivity}
-\[\mathcal B(\vct,\vct)\ge c_0\norm{\vct}_{H^1}^2\]
-{\footnotesize $c_0=c_0(\Omega,\alpha,\norm{\B}_{L^\infty},m)$}
+\column{.47\textwidth}
+\begin{block}{$\vphantom{\bar{\vct}}\mathbf w$: variation across the image}
+\centering\small Smoothness controls it
+\parbox[c][1.35cm]{\linewidth}{\centering$\displaystyle\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}$}\par
+{\footnotesize\color{muted}Poincar\'e~\cite{evans2010partial}}
+\end{block}
+\column{.47\textwidth}
+\begin{block}{$\bar{\vct}$: common drift (pan)}
+\centering\small Edges control it
+\parbox[c][1.35cm]{\linewidth}{\centering$\displaystyle m=\lambda_{\min}\Bigl(\int_\Omega\B\,d\mathbf x\Bigr)>0$}\par
+{\footnotesize\color{muted}edges cover every direction}
+\end{block}
 \end{columns}
-\vspace{2mm}
-{\small Lax--Milgram~\cite{lax1954parabolic} then gives the unique minimizer.\par}
 \vspace{1mm}
-{\footnotesize In scene terms: smoothness leaves a camera pan free, so the edges must fix it; $c_0$ shrinks with $m$, as for nearly parallel stripes (next slide).\par}
+{\color{teal}\Large$\Downarrow$}\par\vspace{1mm}
+$\mathcal B(\vct,\vct)\ge c_0\norm{\vct}_{H^1}^2\;\Longrightarrow\;$ unique minimizer {\small(Lax--Milgram~\cite{lax1954parabolic})}\par\vspace{.5mm}
+{\footnotesize\color{muted}$c_0$ shrinks with $m$\par}
+\raggedright
 % source detail: Ch. 3, proof of thm:unified\_wellposedness; eq:abstract\_stability (stability, notes only).
 \src{proof of \dref{Theorem}{thm:unified_wellposedness}.}
-\talknote{Proof mechanism; about 60 seconds. Full proof: Backup 09 (page 40); stability: Backup 10 (page 41).}{The gradient seminorm misses exactly the constant vector fields. Write the field as its mean plus a zero-mean part; Poincar\'e controls the latter. Positive definiteness of the integrated matrix controls the mean: square $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$ and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$, $\beta_B=\norm{\B}_{L^\infty}$. Combine the two to bound the full $H^1$ norm; Lax--Milgram gives existence and uniqueness.}{% source: Ch. 3 proof of thm:unified_wellposedness; admissible lower bound, not optimal.
+\talknote{Proof mechanism; about 60 seconds. Full proof: Backup 09 (page 40); stability: Backup 10 (page 41).}{The gradient seminorm misses exactly the constant vector fields. Write the field as a zero-mean part plus its mean; Poincar\'e controls the zero-mean part. Positive definiteness of the integrated matrix controls the mean: square $\norm{\B^{1/2}\bar{\vct}}_{L^2}\le\norm{\B^{1/2}\vct}_{L^2}+\norm{\B^{1/2}\mathbf w}_{L^2}$ and bound the fluctuation term by $\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2$, $\beta_B=\norm{\B}_{L^\infty}$. Combine the two to bound the full $H^1$ norm; Lax--Milgram gives existence and uniqueness.}{% source: Ch. 3 proof of thm:unified_wellposedness; admissible lower bound, not optimal.
 An admissible lower bound is $c_0=\min\{m/(2|\Omega|),\alpha^2/(1+C_P^2+2|\Omega|\beta_BC_P^2/m)\}$; it deteriorates linearly as $m$ decreases. If asked about stability (eq.\ abstract stability): with common bounds $\norm{\B_i}_{L^\infty}\le\beta_B$, $\lambda_{\min}(\int\B_i)\ge m$, $\norm{b_i}_{L^2}\le R_b$, the same $c_0$ gives $\norm{\vct_1^*-\vct_2^*}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}+c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}$. It concerns the represented coefficients; linking it to raw sensor errors or to the true motion needs a model of the representation error. If $\int\B$ is singular, a constant velocity direction is uncontrolled (discussion page on necessity of integrated directional information).}
 \end{frame}
 
@@ -689,33 +703,33 @@ For fixed $d$ and frozen weights, $\mathcal J_d$ has a unique minimizer.
 \talknote{Stereo model; about 90 seconds.}{Third problem, the right panel of the opening three estimates: depth. One camera confuses small-and-near with large-and-far; two cameras a known distance apart fix the scale once the same point is found in both. Frame stereo matches brightness patterns, which blur, glare, and darkness corrupt. Two event cameras watching the same edge see it change at nearly the same instant, so timing is the matching cue, and the Chapter 2 temporal profile is the tool: WLS fits one to each view and pulls the two toward agreement. Rectification places corresponding rays on the same image row; disparity is the horizontal shift and similar triangles give depth.}{At each candidate disparity, two softly coupled temporal profiles are solved; with frozen positive weights the Hessian is at least $\lambda_{\min}^2\mathbf I$, the Chapter 2 argument with one more nonnegative term. Choosing the disparity is a separate comparison across candidates after semi-global matching aggregates the costs. Only moving edges fire, so how much of the scene receives a depth is the hard part: the next slide.}
 \end{frame}
 
-\begin{frame}{WLS scores the most points, 2.66M, at competitive depth error}
-% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark: WLS #Pts 2.66M, the largest of the five methods.
-\vspace{2mm}
-\centering\small
-\renewcommand{\arraystretch}{1.25}
-\begin{tabular}{lrrrrrr}
-\toprule & \multicolumn{4}{c}{Mean depth error (cm) $\downarrow$}&log RMSE&Scored\\
-Method & Fl1&Fl2&Fl3&Fl4&$\times100\;\downarrow$&points (M)\\\midrule
-% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, wls row (mean error, log RMSE x100, #Pts).
-\textbf{WLS (ours)}&73.83&\textbf{58.35}&70.33&59.24&\textbf{44.54}&\textbf{2.66}\\
-% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Piatkowska row.
-Piatkowska adaptation~\cite{piatkowska2017}&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72&1.20\\\bottomrule
-\end{tabular}\par\vspace{4mm}
+\begin{frame}{WLS scores the most points at competitive depth error}
+\vspace{3mm}
+\centering
 % source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark: scored points WLS 2.66M, Piatkowska adaptation 1.20M.
-\begin{tikzpicture}[x=3.2cm,y=.42cm]
-\node[font=\scriptsize,anchor=east] at (0,1) {WLS};\fill[teal] (0,.65) rectangle (2.66,1.35);\node[font=\scriptsize,anchor=west] at (2.66,1) {2.66\,M points};
-\node[font=\scriptsize,anchor=east] at (0,0) {Piatkowska};\fill[muted!55] (0,-.35) rectangle (1.20,.35);\node[font=\scriptsize,anchor=west] at (1.20,0) {1.20\,M};
-\end{tikzpicture}\par
-\vfill\raggedright
-% source: appendix_bodies/ch4_protocol.tex tab:metrics, per-method population; depth band [0.5,8] m; tab:unified_benchmark: 2.66M is the largest of the five methods.
+\begin{tikzpicture}[x=2.95cm,y=.62cm]
+\node[font=\small\bfseries,anchor=east] at (0,1) {WLS (ours)};\fill[teal] (0,.68) rectangle (2.66,1.32);\node[font=\small\bfseries,anchor=west] at (2.66,1) {2.66\,M};
+\node[font=\small,anchor=east] at (0,0) {Piatkowska adaptation~\cite{piatkowska2017}};\fill[muted!55] (0,-.32) rectangle (1.20,.32);\node[font=\small,anchor=west] at (1.20,0) {1.20\,M};
+\node[font=\scriptsize,text=muted,anchor=west] at (0,1.72) {scored points};
+\end{tikzpicture}\par\vspace{5mm}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lrrrrr}
+\toprule & \multicolumn{4}{c}{Mean depth error (cm) $\downarrow$}&log RMSE\\
+Method & Fl1&Fl2&Fl3&Fl4&$\times100\;\downarrow$\\\midrule
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, wls row (mean error, log RMSE x100).
+\textbf{WLS (ours)}&73.83&\textbf{58.35}&70.33&59.24&\textbf{44.54}\\
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark, Piatkowska row.
+Piatkowska adaptation&\textbf{67.96}&58.75&\textbf{68.88}&\textbf{54.63}&44.72\\\bottomrule
+\end{tabular}\par\vspace{3mm}
+% source: appendix_bodies/ch4_protocol.tex tab:metrics, per-method population; depth band [0.5,8] m.
+{\footnotesize\color{muted}MVSEC~\cite{MVSEC2018} indoor flying 1--4; each method scored on its own estimates in $[0.5,8]$\,m.\par}
+\raggedright
+% source: appendix_bodies/ch4_protocol.tex tab:unified_benchmark: 2.66M is the largest of the five methods (talk note and script).
 % source: stereo_reconstruction_pipeline/src/python/baselines.py:244-305 (match_piatkowska_2017: latest-timestamp surfaces, 1/(1+alpha*dt) similarity, 39x39 excitation, normalization over disparities, support and confidence masks); thesis appendix tab:sota_logic; inspected checkout 32d9a08.
-{\footnotesize\textbf{Piatkowska:} compares each pixel's latest event time across views; nearby matches at one disparity reinforce each other, disparities at one pixel compete, and only confident winners get a depth.\par\smallskip}
-{\footnotesize MVSEC~\cite{MVSEC2018} indoor flying 1--4; each method scored on its own estimates in $[0.5,8]$\,m.\par}
-{\fontsize{6.5}{8}\selectfont\color{muted}Three more methods in the backup table.\par}
 % source detail: Ch. 4, App., tab:unified\_benchmark, tab:metrics.
 \src{\dref{Table}{tab:unified_benchmark}; MVSEC~\cite{MVSEC2018}.}
-\talknote{Stereo benchmark; about 90 seconds.}{The benchmark uses the full WLS method: weight updates, cost aggregation, and candidate selection. Piatkowska adaptation: latest event time per pixel, compared across views; same-disparity neighbors reinforce, disparities at one pixel compete, and pixels without a confident winner get no depth. Only moving edges fire, so how much of the scene receives a depth is the hard part, and the scored-points column is the headline.}{WLS leads on Flying 2 and log RMSE; the Piatkowska adaptation leads on Flying 1, 3, and 4 by 5.9, 1.5, and 4.6 cm; WLS scores 2.66M points, the most of the five methods and 2.2 times Piatkowska's. Each method is scored on its own valid pixels, so read accuracy together with coverage. Correspondence questions go to the Chapter 4 backups.}
+\talknote{Stereo benchmark; about 90 seconds.}{The benchmark uses the full WLS method: weight updates, cost aggregation, and candidate selection. Piatkowska adaptation: latest event time per pixel, compared across views; same-disparity neighbors reinforce, disparities at one pixel compete, and pixels without a confident winner get no depth. Only moving edges fire, so how much of the scene receives a depth is the hard part, and the scored-points bars are the headline.}{WLS leads on Flying 2 and log RMSE; the Piatkowska adaptation leads on Flying 1, 3, and 4 by 5.9, 1.5, and 4.6 cm; WLS scores 2.66M points, the most of the five methods and 2.2 times Piatkowska's. Each method is scored on its own valid pixels, so read accuracy together with coverage. Correspondence questions go to the Chapter 4 backups.}
 \end{frame}
 
 \section{Contributions and next questions}
