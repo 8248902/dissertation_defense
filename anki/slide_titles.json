@@ -104,5 +104,5 @@
   "stereomvsec": "Stereo on MVSEC: competitive accuracy, more scored points",
   "tridiag": "One tridiagonal sweep per pixel, constant work per streamed frame",
   "tridiagcost": "One CPU core streams about 114 million pixel updates per second, with 16 bytes of state per pixel",
-  "stereobench": "WLS scores the most points, 2.66M, at competitive depth error"
+  "stereobench": "WLS scores the most points at competitive depth error"
 }
