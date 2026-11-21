@@ -187,7 +187,7 @@ Since the coefficients imply $\Delta\vct^*\in L^2$, Green's identity gives
 \begin{frame}{Proof: control the mean and the fluctuation separately}
 Decompose $\vct=\underbrace{\bar{\vct}}_{\text{common drift (pan)}}+\underbrace{\mathbf w}_{\text{variation across the image}}$, with $\int_\Omega\mathbf w=0$.
 \[\norm{\mathbf w}_{L^2}\le C_P\norm{\nabla\vct}_{L^2}.\]
-Let $\beta_B=\norm{\B}_{L^\infty}$ and $m=\lambda_{\min}(\int_\Omega\B)>0$ (how well the edges cover every direction).
+Let $\beta_B=\norm{\B}_{L^\infty}$ and $m=\min_{|\mathbf e|=1}\mathbf e^\top(\int_\Omega\B)\mathbf e>0$ (how well the edges cover every direction).
 % source: Ch. 3 proof of thm:unified_wellposedness, eq:mean_control.
 \[m|\bar{\vct}|^2\le2\int_\Omega\vct^\top\B\vct+2\beta_BC_P^2\norm{\nabla\vct}_{L^2}^2.\]
 Therefore the bilinear form satisfies
@@ -480,7 +480,7 @@ Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\m
 \takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~98).}
 % source detail: Ch. 2, subsubsec:lambdacal; Ch. 4, sec:solution (regularization terms); Ch. 2, thm:uniqueness.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Section}{sec:solution} (regularization terms); \dref{Theorem}{thm:uniqueness}.}
-\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 96. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
+\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 99. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
 \end{frame}
 
 \begin{frame}{A real MVSEC flow example is qualitative}
@@ -856,7 +856,7 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \takeaway{A global minimizer exists by finite-dimensional coercivity; the local solver returns a local solution.}
 % source detail: Ch. 3, prop:cmax\_existence and evaluated-solver scope.
 \src{\dref{Proposition}{prop:cmax_existence} and evaluated-solver scope.}
-\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 99).}
+\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 102).}
 \end{frame}
 
 \begin{frame}{Stereo depth: full Chapter 4 arc}
@@ -1207,7 +1207,7 @@ then $a(u,u)+r(u,u)\ge c_0\norm{u}^2$ with $c_0=\min\{\mu/2,\ \rho\mu/(\mu+2\bet
 {\scriptsize\renewcommand{\arraystretch}{1.05}\begin{tabular}{@{}llll@{}}\toprule
 Problem & $r$ controls all but $N$ & $N$ & $a$ must see $N$\\\midrule
 Temporal (Ch.~2) & data $\norm{\A\mathbf f}^2$, spectral gap $g_1$ & constants & penalty: $\sum_i\lambda_i^2>0$\\
-Flow (Ch.~3) & $\alpha^2\norm{\nabla\vct}_{L^2}^2$, Poincar\'e & constant fields & data: $\lambda_{\min}(\int_\Omega\B)>0$\\
+Flow (Ch.~3) & $\alpha^2\norm{\nabla\vct}_{L^2}^2$, Poincar\'e & constant fields & data: $\int_\Omega\B\succ0$\\
 Discrete flow & connected graph Laplacian & constant fields & data: $\sum_iq_iB_i\succ0$\\
 Stereo inner (Ch.~4) & data $+\gamma\norm{\fL-\fR}^2$; $\W_c\succ0$, $\gamma>0$ & common constants & penalty: $\Lam\ne0$\\\bottomrule
 \end{tabular}\par}
@@ -1217,7 +1217,7 @@ Stereo inner (Ch.~4) & data $+\gamma\norm{\fL-\fR}^2$; $\W_c\succ0$, $\gamma>0$ 
 \talknote{Question: is there one mechanism behind the three uniqueness theorems? About 2 minutes.}{Proof: write $u=n+w$ with $n=Pu$. Since $\sqrt{a}$ is a seminorm, $a(n,n)\le2a(u,u)+2a(w,w)\le2a(u,u)+2\beta\norm{w}^2$, and $\norm{w}^2\le r(u,u)/\rho$. Then $\norm{u}^2=\norm{n}^2+\norm{w}^2\le\frac2\mu a+\frac{1+2\beta/\mu}{\rho}r$. Necessity: if $N=\ker r$ and $a(n,n)=0$ for some $n\ne0$ in $N$, the form vanishes at $n$. Instances: temporal $\mu=\frac1n\sum_i\lambda_i^2$, $\rho=g_1=4\sin^2(\pi/2n)$, $\beta=\lambda_{\max}^2$; flow $\mu=m/|\Omega|$, $\rho=\alpha^2/(1+C_P^2)$, $\beta=\beta_B$; discrete flow $\rho=\alpha^2$ times the algebraic connectivity.}{Temporal: the data see every variation and miss the baseline; the penalty fixes it (Backup 02 is the exact finite-dimensional version). Flow: smoothness sees every variation and misses a uniform pan; the edges fix it (Backup 35 is the necessity statement). Stereo: with positive observation weights and $\gamma>0$, data plus coupling leave only the common constant $(\mathbf 1,\mathbf 1)$. Outside the lemma: correspondence selection compares finitely many candidate costs (separation margin) and contrast maximization is nonconvex (compactness gives existence only). This lemma and Lax--Milgram apply to quadratic forms; TV needs separate tools.}
 \end{frame}
 
-% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 99 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 98 notes.
+% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 102 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 101 notes.
 \begin{frame}[label=adaptivelipschitz]{Adaptive weights keep the temporal estimate locally Lipschitz}
 \small
 Let $\lambda_i^2=\varphi(|dc_i|)$ with $0<\lambda_-^2\le\varphi\le\lambda_+^2$ and $\varphi$ $L$-Lipschitz. Subtracting the normal equations,

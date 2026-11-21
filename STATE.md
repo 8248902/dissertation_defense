@@ -2,6 +2,8 @@
 
 **Schedule: pre-defense October 22, 2026 (held); defense November 23, 2026.**
 
+## November 20 — 34 main slides. Slides 4–5: the events as a 20 ms space-time cloud, then the same row with 50 ms summed (reveal frame, same title). New slide 23 "Optical flow asks for two velocity components at every pixel" (unknown, log-brightness constancy, MVSEC indoor flying 3 ground-truth quiver, figures/flow_motivation_mvsec). New slide 30 "Stereo depth needs each point's match in the second camera" (geometry with f_cam, b_cam, Z = f b / d; indoor flying 3 scene and ground-truth depth); slide 31 keeps the WLS objective with a firing-time sketch. Slide 7 L+c corners, slide 13 arrow stems, slide 17 cost line (no dense-solve comparison). Backup page = N + 34 (references 115–117). Script, README, delivery guide, related-work renumbered; `make all` passes. Includes the user's slide 2–3 edits. Uncommitted.
+
 ## November 18 — slides 15, 17, 26 and 29 slimmed (see LOG/2026-11-18.md). Slide 17 is now a plot of the three weight rules; slide 29 is retitled "WLS scores the most points at competitive depth error". 31 main + 81 backups, 112 pages. `make all` passes; changes are uncommitted.
 
 ## November 17 — review items 1–5 applied (see LOG/2026-11-17.md). 31 main + 81 backups; backup page = N + 31 for Backups 1–74, Backups 75–81 at pages 106–112. New slide 26 = flow proof idea; slide 27 = structure-tensor-only quiver slide with AEE labels; sharper stability bound on slides 14–15. Slide 9 is now "Regularization makes three ill-posed problems well posed". `make all` passes; committed and pushed.
