@@ -41,6 +41,20 @@
   "sha256": {
     "events_accumulation_orange_positive.png": "5ffa0db1e7055b92f4aea1097c236d251e3a49c71ad5d1db212bf40b8e416efd",
     "reconstruction.png": "d519ba1a2e8c8c6a9f9526c133cea8dfb4836f108c72bd8f883c55ee68c53bfc",
-    "reference.png": "3e06a625c8b7b5020e228ba4ca1914289d128932f149ccfd2b63af24047a7a31"
+    "reference.png": "3e06a625c8b7b5020e228ba4ca1914289d128932f149ccfd2b63af24047a7a31",
+    "events_3d.png": "fb3575b5d30e298eeee0abea5ab6761a312e931df83484bbe31534d60c6476b4"
+  },
+  "events_3d": {
+    "window_epoch_s": [
+      1506118049.4519076,
+      1506118049.4719076
+    ],
+    "convention": "last SPAN_MS of the event_panel window, [start, end)",
+    "duration_ms": 20.0,
+    "events": 13221,
+    "positive": 5178,
+    "negative": 8043,
+    "axes": "x px, t ms (depth), y px (vertical, image-row down)",
+    "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export_events3d.py"
   }
 }
