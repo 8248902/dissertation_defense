@@ -60,7 +60,9 @@ def main() -> None:
     used_labels = validate_references(references)
     intro, sections = parse_script()
     figures = figure_paths()
-    media = [Path('figures/aperture') / name for name in ('app5-hide.mp4', 'app6-show.mp4')]
+    aperture_media = [Path('figures/aperture') / name for name in ('app5-hide.mp4', 'app6-show.mp4')]
+    cup_media = [Path('figures/cup_tripanel/cup_tripanel.mp4')]
+    media = cup_media + aperture_media
     for path in media:
         if not (ROOT / path).is_file():
             raise FileNotFoundError(f'Presenter movie is missing: {path}')
@@ -158,10 +160,12 @@ def main() -> None:
                 if len(rect) != 4 or rect[2] <= rect[0] or rect[3] <= rect[1]:
                     raise ValueError(f'Movie rectangle has no visible area: {filename}')
                 movies.append((number, filename))
-    expected_movies = [(section['page'], str(path)) for section in sections
-                       if 'look identical through a small window' in section['title'] for path in media]
-    if movies != expected_movies:
-        raise ValueError(f'Presenter movies differ from expected aperture panels: {movies}')
+    expected_movies = sorted([(section['page'], str(path)) for section in sections
+                              if 'bullet shattering a cup' in section['title'] for path in cup_media]
+                             + [(section['page'], str(path)) for section in sections
+                                if 'look identical through a small window' in section['title'] for path in aperture_media])
+    if sorted(movies) != expected_movies:
+        raise ValueError(f'Presenter movies differ from expected cup and aperture panels: {movies}')
     args.output_dir.mkdir(parents=True, exist_ok=True)
     for path in media:
         destination = args.output_dir / path
@@ -170,7 +174,8 @@ def main() -> None:
             shutil.copy2(ROOT / path, destination)
     destination = args.output_dir / candidate.name
     shutil.copy2(candidate, destination)
-    print(f'Validated {count} slides + {count} complete script pages; two looping MP4 panels on slide {movies[0][0]}.')
+    print(f'Validated {count} slides + {count} complete script pages; looping MP4 panels on slides '
+          f'{sorted({number for number, _ in movies})}.')
     on_slides = sum(merged % 2 == 0 for merged, _ in restored)
     print(f'Restored {len(restored)} internal links for Pympress: {on_slides} on slides, '
           f'{len(restored) - on_slides} on script pages.')

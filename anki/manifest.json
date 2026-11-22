@@ -1,5 +1,5 @@
 {
-  "built_at_utc": "2026-11-21T20:25:43.050484+00:00",
+  "built_at_utc": "2026-11-22T04:06:05.477661+00:00",
   "deck_name": "Defense \u2014 Spoken Mathematics",
   "notes": 125,
   "cards": 125,
@@ -27,11 +27,11 @@
     "anki/cards.txt": "c885cb296321c118f191a3cb42403ef0b8dc246cb7cffcc078029f9fa9c8012d",
     "anki/build_deck.py": "2beb528ba65bc54b833cd6f5e5ae8ec7ef773550a9a4455f350a47327ba6d233",
     "anki/README.txt": "c74a49013bc6f438676951c3209bef2ee975f93f6df2716812a4f525543106eb",
-    "anki/slide_titles.json": "3f4167bd27a70d985a448f8204e7b36999d3297538d5cc502c51b5788b50a35b",
-    "core.tex": "2737019067d77cb4b0600c52aad1b383ec1cb804b10083a4f6ea0975f44d9031",
-    "backup.tex": "06ab11a6af0fb5362662e99d1d5b3627765afc6fa3991ef261972376abe7c8ca",
-    "defense-script.md": "b0df619f571cbee1f4d31ec663ea84e14aa426bc3fbe01ebefe0931800f933a7",
-    "source-map.csv": "5c0948ab7553ed5a2fd3b5abad896449f44b7a605bb92cf907a8c1f4fe633e84",
+    "anki/slide_titles.json": "110a56d9042fb306bf44414422e29cada3f57986fba86b972576556aee123255",
+    "core.tex": "15d574e61627c489aca621402470a75d56de79d069c11adec5ba24ee5b1a53f4",
+    "backup.tex": "bb1ab3fd30119e1f6f535903db42e9ef07c8117c9a3d9010153e5776cab1b093",
+    "defense-script.md": "2fd427703b61145f826a62aa7ecb57890928b0fc07822a33e0c101335cd56261",
+    "source-map.csv": "add13f06fc9b777d50aab389812f9e86b509389ed446573f1365364b25639031",
     "thesis-references.json": "ccb8a821263f734c82b2ae33dec75388a535ca3c6d8ea65733a2617011f0dc53",
     "/home/q/g/r/drafts/dissertation_proof_reference_2026-10-10/chapter_3_4_proof_reference.tex": "cb4676ad00e16ce4c0162c03b03a7aa7a14da48a259f7aa6214ccf1aa50a3354",
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch2_dynamic_reconstruction_body.tex": "a43dbcf28515a745c9785e2f09b72b6895c60bf64984ed24ef2eaf50611e68df",
@@ -39,9 +39,9 @@
     "/home/q/g/r/drafts/dissertation_thesis/shared_bodies/ch4_stereo_depth_body.tex": "006410dbca793508c194014d8eff8662af68105859f23bdce562196e620db54e"
   },
   "output_sha256": {
-    "defense-oral.apkg": "576d03c191f3c51d868570b74887046ee6354debfec171ed070ea99ddfdbebcd",
-    "defense-core.apkg": "2da46cf8787f6a246fa4dd5ce973ea2d20a99506a42b133027570a0a8e3b812b",
-    "defense-oral.tsv": "9cf651a4e09221053f792ed273c023220f5af5cc72b611829694c2d515ae61f0",
-    "preview.html": "98a25929000c10e60fe924914794a3d6f2812c03c556b97e60e0902c9c60dd2e"
+    "defense-oral.apkg": "d2dbc5d68f1b5a6af7d470fef724c5b64525550c084369f69632cfe0b3cd62d2",
+    "defense-core.apkg": "08cf196705d1bc747c2da047fa4f643fb4b49f956ffda7703f84965695a90553",
+    "defense-oral.tsv": "01b1257ef9bd31bc0d4185231f3501cd391b91b8ad5f8118de79e7faf5a548d2",
+    "preview.html": "3433fc0a306d253fd6b3d33bce220a5e264d101b6300a6378f6c542a88bbcce6"
   }
 }

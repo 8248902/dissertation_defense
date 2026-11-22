@@ -15,48 +15,49 @@ CANONICAL MATERIAL
   STATE.md             Current session status and handoff.
 
 DELIVERY
-  Slides 2-3: open on the results (office, cup, ISS); advance to the same three in false color;
-    why event cameras and on-board use matter.
-  Slide 4: reference, 20 ms of events as a space-time cloud, reconstruction; no frames, a stream of changes.
-  Slide 5: same row with the events summed over 50 ms; events record changes, the model the level.
-  Slide 6: route; one line per footer stage; about 30 seconds.
-  Slides 7-8: what the sensor reports; the threshold rule; the shifted curve gives the same events.
-  Slide 9: the three MVSEC estimates, each with its unobserved quantity.
-  Slide 10: down each column: what the model supplies, then the guarantee; the common question.
-  Slide 11: related work; prior methods, then this work, per column.
-  Slide 14: sensor-to-observation model; the exact identity and its three error terms.
-  Slide 15: uniqueness, the stability bound, and the reference level (statements).
-  Slide 16: the proof: quadratic form, perturbation identity, the 1/(2 lambda_min) bound by an
+  Slide 2: cup movie (phone, events, reconstruction); start it, let one loop run, talk over it;
+    why event cameras and on-board use matter; the question of the talk.
+  Slide 3: route; one line per footer stage; about 30 seconds.
+  Slides 4-5: what the sensor reports (schematic), then the same on a real sensor: 5 ms of
+    MVSEC events in space and time, sparse pixels each with its own timestamp.
+  Slide 6: the threshold rule; the shifted curve gives the same events.
+  Slide 7: the three MVSEC estimates, each with its unobserved quantity.
+  Slide 8: down each column: what the model supplies, then the guarantee; the common question.
+  Slide 9: related work; prior methods, then this work, per column.
+  Slide 12: sensor-to-observation model; the exact identity and its three error terms.
+  Slide 13: uniqueness, the stability bound, and the reference level (statements).
+  Slide 14: the proof: quadratic form, perturbation identity, the 1/(2 lambda_min) bound by an
     inner product with x; conditioning line.
-  Slide 17: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; O(HWN) work;
-    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 78, page 112).
-  Slide 18: three weight rules plotted, sigmoid selected; quiet intervals set the level, busy ones the noise bound.
-  Slide 19: penalty spectrum; constant mode removed, slow drift damped, edges kept.
-  Slide 20: indoor flying 2 images and the kernel table; PSNR also scores the baseline.
-  Slide 21: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
-  Slide 22: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
-  Slide 23: flow problem: why motion, the ground-truth arrows, brightness constancy; one equation,
+  Slide 15: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; O(HWN) work;
+    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 78, page 111).
+  Slide 16: three weight rules plotted, sigmoid selected; quiet intervals set the level, busy ones the noise bound.
+  Slide 17: penalty spectrum; constant mode removed, slow drift damped, edges kept.
+  Slide 18: indoor flying 2 images and the kernel table; PSNR also scores the baseline.
+  Slide 19: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
+  Slide 20: three scenes, slow to fast (ISS, office, cup), false color; hand off to known motion.
+  Slide 21: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
+  Slide 22: flow problem: why motion, the ground-truth arrows, brightness constancy; one equation,
     two unknowns per pixel.
-  Slide 24: the aperture problem; play the left panel, then the right.
-  Slide 25: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 26: three representations, one quadratic problem; derivations are Backups 72-74.
-  Slide 27: main flow theorem; integrated directional condition; hand off to the proof.
-  Slide 28: proof idea: fluctuation plus mean; Poincare, the integrated matrix, Lax--Milgram.
-  Slide 29: known-motion stripes and checkerboard, ground truth and structure tensor; error halves,
+  Slide 23: the aperture problem; play the left panel, then the right.
+  Slide 24: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 25: three representations, one quadratic problem; derivations are Backups 72-74.
+  Slide 26: main flow theorem; integrated directional condition; hand off to the proof.
+  Slide 27: proof idea: fluctuation plus mean; Poincare, the integrated matrix, Lax--Milgram.
+  Slide 28: known-motion stripes and checkerboard, ground truth and structure tensor; error halves,
     1.92 to 0.98 px. Time-surface and voxel answers are in the script cue.
-  Slide 30: depth problem: scene and ground-truth depth; geometry with f, baseline, Z = f b / d;
+  Slide 29: depth problem: scene and ground-truth depth; geometry with f, baseline, Z = f b / d;
     the match is the unknown, and event timing finds it.
-  Slide 31: WLS objective; aligned firing times at the correct disparity; unique inner solve.
-  Slide 32: scored-points bars, then the MVSEC table; lead with coverage.
-  Slide 33: four research directions, each from a result in the dissertation.
-  Slide 34: three-column synthesis, the common question, thank you; then take questions.
-  Backups 71-76 (pages 105-110): point measure, time-surface derivation, voxel projection,
+  Slide 30: WLS objective; aligned firing times at the correct disparity; unique inner solve.
+  Slide 31: scored-points bars, then the MVSEC table; lead with coverage.
+  Slide 32: four research directions, each from a result in the dissertation.
+  Slide 33: three-column synthesis, the common question, thank you; then take questions.
+  Backups 71-76 (pages 104-109): point measure, time-surface derivation, voxel projection,
   structure tensor, full stereo table, closing summary.
-  Full flow proof 43; stability 44; discrete flow / Jacobi 45-46; Chapter 4 results 82.
-  Other backups: metrics 40; real-time 41; flow protocol 78; alignment 83; depth sensitivity 91;
-  weak-regularization limits 103; event-free flow regions 104.
-  Backup pages 35-114: select by question; page numbers match the script/index.
-  Pages 115-117: references, numbered as in the dissertation; every [n] links here.
+  Full flow proof 42; stability 43; discrete flow / Jacobi 44-45; Chapter 4 results 81.
+  Other backups: metrics 39; real-time 40; flow protocol 77; alignment 82; depth sensitivity 90;
+  weak-regularization limits 102; event-free flow regions 103.
+  Backup pages 34-116: select by question; page numbers match the script/index.
+  Pages 117-119: references, numbered as in the dissertation; every [n] links here.
 
 QUESTION HANDLING
   Answer the question asked in one or two sentences, then offer the backup.
@@ -70,11 +71,14 @@ QUESTION HANDLING
   Rehearsal answers with follow-ups: ../misc_ideas_feedback/defense_probing_q&a.md.
 
 ANIMATIONS
-  Slide 22 contains both original publisher GIF sequences at their original
+  Slide 2 contains the cup movie as 90 frames at 12 frames/s (every second frame
+  of figures/cup_tripanel/cup_tripanel.mp4, same 7.5 s duration).
+  Slide 23 contains both original publisher GIF sequences at their original
   timing. Use the small forward-play controls; each animation loops.
-  Playback was verified in Firefox 156 with PDF scripting enabled.
+  Aperture playback was verified in Firefox 156 with PDF scripting enabled.
   Desktop Acrobat Reader is also supported by the animate package.
-  Static viewers show first-frame posters. aperture-demo.html is the offline
+  Static viewers show posters: the frame 4.1 ms after impact for the cup, the
+  first frame for the aperture panels. aperture-demo.html is the offline
   browser alternative. Attribution and original-source links are on the slide.
 
 SCRIPT
@@ -104,8 +108,9 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   the audience window in Zoom. S swaps screens. Next/previous slide actions
   advance the full script with the slide, including backup slides.
   The script is shown a page at a time; enlarge the notes pane for reading.
-  Click slide 22's panels to play the linked, looping MP4s. Keep both videos
-  in figures/aperture when moving the PDF. Rehearse playback and Zoom sharing
+  Click the movie panels on slides 2 and 23 to play the linked, looping MP4s.
+  Keep figures/cup_tripanel/cup_tripanel.mp4 and both figures/aperture videos
+  at their relative paths when moving the PDF. Rehearse playback and Zoom sharing
   on the actual presentation computer. Distribute defense.pdf to the audience;
   defense-presenter.pdf also contains the private full script.
 
@@ -114,6 +119,6 @@ ZOOM WITH SYNCHRONIZED FULL SCRIPT (LINUX, TWO SCREENS)
   reopen it. The builder uses script: page labels for grouped notes; notes:
   labels select Pympress's different, interleaved layout and hide the script.
 
-  Backup 77 (page 108): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
-  Backup 78 (page 109): about 114M pixel updates/s per core, 16 B state per pixel;
+  Backup 77 (page 110): problem size O(H W N_t), event-binning cost, memory, and low-power tradeoffs.
+  Backup 78 (page 111): about 114M pixel updates/s per core, 16 B state per pixel;
     budget pixels x frames/s <= 1.14e8 per core; batch skips quiet pixels (10x).

@@ -11,6 +11,7 @@
 \item Signal gain versus noise gain
 \item \ifdefined\DefenseNotes Metrics; real time; core rate; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{corerate}{core rate}; \hyperlink{temporalcost}{problem size}\fi
 \item Kernels; \ifdefined\DefenseNotes $\Lam(\mathbf y)$ stability\else\hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
+\item \ifdefined\DefenseNotes Grayscale scenes; MVSEC events in space-time and summed\else\hyperlink{scenesgray}{Grayscale scenes}; MVSEC events \hyperlink{mvsecevents3d}{in space-time} and \hyperlink{mvsecaccum}{summed}\fi
 \end{itemize}
 \textbf{Flow analysis}
 \begin{itemize}
@@ -213,8 +214,8 @@ For $\mathbf z=\vct_1^*-\vct_2^*$,
 \vspace{-2mm}
 \[\norm{\mathbf z}_{H^1}\le c_0^{-1}\norm{b_1-b_2}_{L^2}
 +c_0^{-2}R_b\norm{\B_1-\B_2}_{L^\infty}.\]
-% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 78).
-{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (the stripe scene). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 85).\par}
+% source: Ch. 3, paragraph after the proof of thm:unified_wellposedness; known-motion AEE in fig:ch3_quiver_synth and fig:ch3_quiver_v2e (page 77).
+{\footnotesize In scene terms: jitter, binning, and noise events change the coefficients; constants grow as $m$ shrinks (the stripe scene). \textbf{Accuracy:} the bound concerns the minimizer of the chosen energy; its distance from the true motion depends on coefficient accuracy and on $H^1$ smoothing across motion boundaries (known-motion AEE, page 84).\par}
 \takeaway{The estimate is Lipschitz in its coefficients under uniform identifiability.}
 % source detail: Ch. 3, thm:unified\_wellposedness, eq:abstract\_stability.
 \src{\dref{Theorem}{thm:unified_wellposedness}, \dref{Eq.}{eq:abstract_stability}.}
@@ -480,7 +481,7 @@ Chapter 4 instead uses $\lambda_{xy}=\max\{\lambda_{\rm floor},\lambda_0\norm{\m
 \takeaway{Each fixed $\Lam$ is covered by the theorem; for the Chapter 2 rules, the data-dependent map $\mathbf y\mapsto\Lam(\mathbf y)\mapsto\mathbf f^*$ is locally Lipschitz (p.~98).}
 % source detail: Ch. 2, subsubsec:lambdacal; Ch. 4, sec:solution (regularization terms); Ch. 2, thm:uniqueness.
 \src{Adaptive temporal weights (\drefpage{subsubsec:lambdacal}); \dref{Section}{sec:solution} (regularization terms); \dref{Theorem}{thm:uniqueness}.}
-\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 99. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
+\talknote{Question: what do the adaptive weights do?}{Chapter 2 lowers the magnitude penalty where event activity is high. Chapter 4's empirical rule increases its weight with pre-normalization energy. The rules answer different design choices.}{For differentiable parts of the Chapter 2 rules, perturbing the normal equations gives $\delta\mathbf f^*=\K^{-1}(\A^\top\delta\mathbf y-\delta(\Lam^2)\mathbf f^*)$. Absolute values and clipping have kinks, but every rule is still Lipschitz, which gives the local bound on page 98. The frame-assisted bilevel comparator also receives an image input, unlike event-only reconstruction.}
 \end{frame}
 
 \begin{frame}{A real MVSEC flow example is qualitative}
@@ -856,7 +857,7 @@ Continuous objective $+$ bounded focus gain $+$ coercive ridge\quad$\Rightarrow$
 \takeaway{A global minimizer exists by finite-dimensional coercivity; the local solver returns a local solution.}
 % source detail: Ch. 3, prop:cmax\_existence and evaluated-solver scope.
 \src{\dref{Proposition}{prop:cmax_existence} and evaluated-solver scope.}
-\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 102).}
+\talknote{Existence proof; 75 seconds.}{A bilinear tent contribution is a continuous function of the warped event location, including when a location crosses a pixel boundary. Each event distributes at most its absolute weight onto the canvas, so the image L1 norm and maximum absolute entry are at most W\_tot. Bound variance by the second moment, then by max times L1 divided by the number of pixels.}{The negative focus term is bounded below. The positive coefficient ridge drives the energy to infinity as the coefficient norm grows, so a global minimizer exists by Weierstrass. This is a finite-dimensional existence result; uniqueness and convergence of the local solver remain open. The evaluated tent objective is only piecewise differentiable, and the solver returns a local solution. The ridge eigenvalue $2\varepsilon/M$ shrinks under refinement in coefficient space; as a function-space penalty it is a uniform $L^2$ term (Backup 68, page 101).}
 \end{frame}
 
 \begin{frame}{Stereo depth: full Chapter 4 arc}
@@ -1217,7 +1218,7 @@ Stereo inner (Ch.~4) & data $+\gamma\norm{\fL-\fR}^2$; $\W_c\succ0$, $\gamma>0$ 
 \talknote{Question: is there one mechanism behind the three uniqueness theorems? About 2 minutes.}{Proof: write $u=n+w$ with $n=Pu$. Since $\sqrt{a}$ is a seminorm, $a(n,n)\le2a(u,u)+2a(w,w)\le2a(u,u)+2\beta\norm{w}^2$, and $\norm{w}^2\le r(u,u)/\rho$. Then $\norm{u}^2=\norm{n}^2+\norm{w}^2\le\frac2\mu a+\frac{1+2\beta/\mu}{\rho}r$. Necessity: if $N=\ker r$ and $a(n,n)=0$ for some $n\ne0$ in $N$, the form vanishes at $n$. Instances: temporal $\mu=\frac1n\sum_i\lambda_i^2$, $\rho=g_1=4\sin^2(\pi/2n)$, $\beta=\lambda_{\max}^2$; flow $\mu=m/|\Omega|$, $\rho=\alpha^2/(1+C_P^2)$, $\beta=\beta_B$; discrete flow $\rho=\alpha^2$ times the algebraic connectivity.}{Temporal: the data see every variation and miss the baseline; the penalty fixes it (Backup 02 is the exact finite-dimensional version). Flow: smoothness sees every variation and misses a uniform pan; the edges fix it (Backup 35 is the necessity statement). Stereo: with positive observation weights and $\gamma>0$, data plus coupling leave only the common constant $(\mathbf 1,\mathbf 1)$. Outside the lemma: correspondence selection compares finitely many candidate costs (separation margin) and contrast maximization is nonconvex (compactness gives existence only). This lemma and Lax--Milgram apply to quadratic forms; TV needs separate tools.}
 \end{frame}
 
-% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 102 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 101 notes.
+% T2: Ch. 2 subsubsec:lambdacal rules; comparison identity from Backup 25 / Backup 75, page 101 notes; ||K^{-1}A^T|| <= 1/(2 lambda_min) from Backup 74, page 100 notes.
 \begin{frame}[label=adaptivelipschitz]{Adaptive weights keep the temporal estimate locally Lipschitz}
 \small
 Let $\lambda_i^2=\varphi(|dc_i|)$ with $0<\lambda_-^2\le\varphi\le\lambda_+^2$ and $\varphi$ $L$-Lipschitz. Subtracting the normal equations,
@@ -1569,6 +1570,65 @@ Batch work follows scene activity: skipping pixels without events cuts it $10\ti
 % source detail: synthetic experiment, November 2026; leaky alpha grid 0.5-100 s^-1 as in the MVSEC per-pixel comparison.
 \src{Synthetic experiment, November 2026; Chapter~2 estimator, configuration P1.}
 \talknote{Question: does the advantage hold as the sensor gets noisier? About 1 minute.}{Two levels of threshold mismatch, shot noise from 1 to 50 events per pixel per second. Our estimate has the lowest median error at all twelve points. Against leaky integration tuned on the true signal it is 2 and 5 percent lower at the two quietest settings and 10 to 22 percent lower at the other ten. Naive integration is 2.7 to 4.7 times higher.}{Doubling the threshold mismatch hurts naive integration most, because every pass leaves a residual. The leaky baseline here has an advantage it would not have in practice: its decay rate is chosen with the true signal. With the rate from MVSEC (dashed) it is 12 to 23 percent above ours.}
+\end{frame}
+
+% Opening views moved from the main talk: three-scene grayscale, MVSEC event views.
+\begin{frame}[label=scenesgray]{Grayscale renderings of the orbit, office, and cup reconstructions}
+% source: Ch. 2 subsubsec:datasets; ISS approx. 2 million events (f:iss), office approx. 2.5M events (subsec:validation_office), cup approx. 750,000 events (f:cup). Panels: figures/hook_p1/metadata.json (P1 configuration; ISS frame 31, office frame 29, cup frame 134).
+\hookpanels{figures/hook_p1/iss.png}{figures/hook_p1/office.png}{figures/hook_p1/cup.png}
+% source detail: Ch. 2, subsec:validation, f:iss, f:office, f:cup; datasets in subsubsec:datasets.
+\src{\dref{Figure}{f:iss}, \dref{Figure}{f:office}, and \dref{Figure}{f:cup}; \dref{Section}{subsec:validation}. Data: Falcon Neuro~\cite{mcharg2022falcon}, office~\cite{gallego2017accurate}, cup~\cite{rebecq2021highspeed}.}
+\talknote{Question: what do the three scenes look like without false color? About 30 seconds.}{The same reconstructed frames as the three-scene slide in the reconstruction section, in grayscale. Grayscale and false color are display choices for the same reconstructed relative brightness.}{ISS about 2 million events, office about 2.5 million, cup about 750 thousand; configuration P1, one per-pixel solve, no intensity frames.}
+\end{frame}
+
+\begin{frame}[label=mvsecevents3d]{Events record changes and the model supplies the brightness level}
+\begin{columns}[T]
+\column{.30\textwidth}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reference.png}\par\vspace{1mm}
+{\small\textbf{Reference image}}
+\column{.30\textwidth}
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, events_3d (last 20 ms of the 50 ms event window; 13,221 events, 5,178 positive, 8,043 negative).
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio,trim=15 16 0 30,clip]{figures/mvsec_outdoor_day1/backup_p1/events_3d.png}\par\vspace{1mm}
+{\small\textbf{Events in space and time}}\par
+{\scriptsize $20$\,ms sample}\par
+{\scriptsize\textcolor[RGB]{204,76,31}{Orange $+$}; \textcolor[RGB]{0,118,160}{blue $-$}.}
+\column{.035\textwidth}
+\vspace{1.1cm}\centering\textcolor{teal}{$\rightarrow$}
+\column{.30\textwidth}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reconstruction.png}\par\vspace{1mm}
+{\small\textbf{Our reconstruction}}
+\end{columns}
+\vspace{3mm}
+{\large What do the observations determine, and what does the model supply?\par}
+% source detail: Ch. 2 configuration P1 (Gaussian 5 ms, sigmoid), /scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1, latent frame 29 of 100; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py.
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, exact timing, raw-left geometry, normalization, and hashes.
+\src{\dref{Chapter}{ch:monocular_reconstruction}, saved MVSEC~\cite{MVSEC2018} outdoor\_day1 reconstruction example.}
+\talknote{Question: what does the raw event stream look like next to a reference image and a reconstruction? About 40 seconds.}{Left: a conventional reference image of the outdoor scene. Center: 20 ms of the event stream drawn as points in space and time, each dot one event at a pixel $(x,y)$ and a time $t$; orange is positive polarity, blue negative. Edges moving across the image sweep out the sheets of points. There are no frames, only a stream of change times. Right: our reconstruction.}{The 20 ms are the last part of the 50 ms window on the next slide: 13,221 events, 5,178 positive and 8,043 negative, raw left DAVIS geometry. Advance: the same events summed into one picture.}
+\end{frame}
+
+\begin{frame}[label=mvsecaccum]{Events record changes and the model supplies the brightness level}
+\begin{columns}[T]
+\column{.30\textwidth}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reference.png}\par\vspace{1mm}
+{\small\textbf{Reference image}}
+\column{.30\textwidth}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/events_accumulation_orange_positive.png}\par\vspace{1mm}
+{\small\textbf{Accumulated events}}\par
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, event_panel (50 ms window ending at the frame time; color rule).
+{\scriptsize $50$\,ms sample}\par
+{\scriptsize\textcolor[RGB]{204,76,31}{Orange $+$}; \textcolor[RGB]{0,118,160}{blue $-$}; \textcolor[RGB]{119,70,151}{purple: both}.}
+\column{.035\textwidth}
+\vspace{1.1cm}\centering\textcolor{teal}{$\rightarrow$}
+\column{.30\textwidth}
+\centering\includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/mvsec_outdoor_day1/backup_p1/reconstruction.png}\par\vspace{1mm}
+{\small\textbf{Our reconstruction}}
+\end{columns}
+\vspace{3mm}
+{\large What do the observations determine, and what does the model supply?\par}
+% source detail: Ch. 2 configuration P1 (Gaussian 5 ms, sigmoid), /scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/outdoor_day1, latent frame 29 of 100; exporter monocular_reconstruction/artifacts/defense_figures_20261108/export_backups.py.
+% source: figures/mvsec_outdoor_day1/backup_p1/metadata.json, exact timing, raw-left geometry, normalization, and hashes.
+\src{\dref{Chapter}{ch:monocular_reconstruction}, saved MVSEC~\cite{MVSEC2018} outdoor\_day1 reconstruction example.}
+\talknote{Question: what do the events determine, and what does the model supply? About 60 seconds.}{Left is a conventional reference image of the outdoor scene. Center is a 50 ms sample of the event measurements used by the reconstruction: orange marks positive-only pixels, blue negative-only pixels, and purple pixels with both polarities. Right is our event-derived reconstruction with the selected Chapter 2 configuration, using a longer observation interval. The arrow represents events feeding the estimator; the reference supplies visual context. Events determine temporal changes, and the model selects a brightness baseline and how to balance observations with regularization.}{All panels use the raw left DAVIS geometry, $346\times260$ pixels. The 50 ms display interval ends at reconstruction time 1506118049.4719 s and contains 23,742 events. The reference is the nearest camera frame, 6.4 ms later. Reconstruction uses the full 500,000-event input spanning about 0.95 s; the center panel displays a subset of that input. Event color strength is logarithmic in count and saturates at four events per pixel. The reference is the saved 8-bit frame, unchanged; the reconstruction uses one affine mapping across its 100-frame sequence, background to mid-gray, then clips to $[0,1]$. This displays a latent event-derived state. The dissertation asks what observations determine, what penalties select, and what guarantees survive spatial or binocular coupling.}
 \end{frame}
 
 % Entries are generated from the dissertation .bbl; numbers are the dissertation numbers.

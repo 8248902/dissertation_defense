@@ -26,6 +26,9 @@
 \definecolor{amber}{HTML}{BD672A}
 \definecolor{soft}{HTML}{EDF5F5}
 \definecolor{muted}{HTML}{506576}
+% Event polarity, as in the MVSEC point-cloud figure: orange positive, teal negative.
+\definecolor{evpos}{RGB}{204,76,31}
+\definecolor{evneg}{RGB}{0,128,128}
 \setbeamercolor{normal text}{fg=ink,bg=white}
 \setbeamercolor{structure}{fg=teal}
 \setbeamercolor{frametitle}{fg=ink}
@@ -47,7 +50,7 @@
 \newcommand{\routecrumb}[2]{\ifnum\value{section}=#1\textcolor{teal}{\textbf{#2}}\else\textcolor{muted}{#2}\fi}
 \newcommand{\routeseparator}{\;\textcolor{muted}{$\rightarrow$}\;}
 \setbeamertemplate{footline}{\hspace{8mm}\scriptsize\ifbackup\textcolor{muted}{Discussion}\hfill\textcolor{muted}{\insertframenumber}\else\routecrumb{1}{Sensor and data}\routeseparator\routecrumb{2}{Reconstruction}\routeseparator\routecrumb{3}{Optical flow}\routeseparator\routecrumb{4}{Stereo depth}\routeseparator\routecrumb{5}{Conclusions}\hfill\textcolor{muted}{\insertframenumber\,/\,\MainFrames}\fi\hspace{8mm}\vspace{3mm}}
-\newcommand{\MainFrames}{34}
+\newcommand{\MainFrames}{33}
 \newcommand{\R}{\mathbb R}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\A}{\mathbf A}
