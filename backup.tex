@@ -1574,8 +1574,8 @@ Batch work follows scene activity: skipping pixels without events cuts it $10\ti
 
 % Opening views moved from the main talk: three-scene grayscale, MVSEC event views.
 \begin{frame}[label=scenesgray]{Grayscale renderings of the orbit, office, and cup reconstructions}
-% source: Ch. 2 subsubsec:datasets; ISS approx. 2 million events (f:iss), office approx. 2.5M events (subsec:validation_office), cup approx. 750,000 events (f:cup). Panels: figures/hook_p1/metadata.json (P1 configuration; ISS frame 31, office frame 29, cup frame 134).
-\hookpanels{figures/hook_p1/iss.png}{figures/hook_p1/office.png}{figures/hook_p1/cup.png}
+% source: Ch. 2 subsubsec:datasets; ISS approx. 2 million events (f:iss), office approx. 2.5M events (subsec:validation_office), cup approx. 750,000 events (f:cup). Panels: figures/hook_p1/metadata.json (P1 configuration; ISS frame 31, office frame 29, cup frame 134); use the palette of the thesis cup false-color figure
+\hookpanels[\reflectbox]{figures/hook_p1/iss_color.png}{figures/hook_p1/office_color.png}{figures/hook_p1/cup_color.png}
 % source detail: Ch. 2, subsec:validation, f:iss, f:office, f:cup; datasets in subsubsec:datasets.
 \src{\dref{Figure}{f:iss}, \dref{Figure}{f:office}, and \dref{Figure}{f:cup}; \dref{Section}{subsec:validation}. Data: Falcon Neuro~\cite{mcharg2022falcon}, office~\cite{gallego2017accurate}, cup~\cite{rebecq2021highspeed}.}
 \talknote{Question: what do the three scenes look like without false color? About 30 seconds.}{The same reconstructed frames as the three-scene slide in the reconstruction section, in grayscale. Grayscale and false color are display choices for the same reconstructed relative brightness.}{ISS about 2 million events, office about 2.5 million, cup about 750 thousand; configuration P1, one per-pixel solve, no intensity frames.}

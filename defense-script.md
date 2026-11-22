@@ -272,7 +272,7 @@ Next, what these reconstructions look like on real data.
 
 *[If asked what the penalty does to measurement noise: Backup 04, page 37. If asked about bias in the damped modes: Backup 33, page 66. If asked what happens as lambda goes to zero: Backup 69, page 102. If asked to see one pixel's estimate over time: Backup 79, page 112.]*
 
-## Slide 18 — The kernel moves PSNR by about 0.2 dB; the weight rule sets the conditioning
+## Slide 18 — The kernel moves PSNR and the weight rule sets the conditioning
 
 *[Point to the images, then to the table.]*
 
@@ -290,17 +290,15 @@ Next, how these reconstructions compare with the bilevel approach on MVSEC.
 
 *[Point to the three images, then down the columns.]*
 
-This is one outdoor frame from MVSEC. First the camera's reference frame. Then the two outputs the bilevel method defines: its reconstruction, which starts from the camera frame and corrects the blur, so it closely matches the frame it was fitted to; and its dynamic part, the component the events drive. Last, the event-only reconstruction, on the same display scale as the dynamic part. Both recover the tree, the parked vans, and the glare off the hood; the dynamic part also carries texture from the frames. The overall brightness of the event-only image is the level the model selected, since the events constrain only changes.
+This is one outdoor frame from MVSEC. First the camera's reference frame. Then the dynamic part of the bilevel method: the time-varying part of its deblurred frames, with each pixel's constant level suppressed. Last, the event-only reconstruction. Neither of these two fixes that constant level, so they share a display scale. Both recover the tree, the parked vans, and the glare off the hood; the dynamic part carries texture from the frames. The overall brightness of the event-only image is the level the model selected, since the events constrain only changes.
 
 Below the images is the relation to the Antil–Sayre bilevel approach. In this chapter, the events set activity-based weights, and then we do one fixed convex solve over time. The bilevel approach uses events together with intensity frames, and its outer optimization adjusts z, a parameter of the event-based blur kernel that links each blurry frame to the sharp latent image. So their outer variable shapes how events explain the frames, while my rule chooses the magnitude weights of the temporal profile.
-
-The table compares complete methods with different inputs. The bilevel PSNR, about 40 dB indoors and 37 outdoors, is measured on the frames it is fitted to, so it shows how closely its reconstruction reproduces its own input frames; the event-only reconstruction scores 8.0 and 7.2. PSNR compares with a reference frame, so it also scores the absolute brightness, which the events leave to the model.
 
 The last row compares guarantees. The bilevel analysis proves existence, and local uniqueness under additional conditions; the result I presented gives a unique global minimizer for every fixed positive diagonal.
 
 The same solve runs unchanged on very different scenes.
 
-*[If asked how the bilevel scores on frames it was not fitted to: 24.3 dB indoors and 25.2 outdoors, the same as interpolating between the camera frames. If asked why not score after removing the brightness offset: most of the 40-versus-8 gap is the bilevel reconstruction reproducing the frames it was fitted to, as the held-out 24.3 shows. The free constant is separate at every pixel, and the penalty also shapes the nonconstant part of each history, so subtracting one image-wide offset leaves both of those in place. If asked about the outdoor kernel ranking: Backup 05, page 38. If asked how PSNR and condition number are computed: Backup 06, page 39. If asked which prior work this builds on: Backup 32, page 65.]*
+*[If asked about the bilevel's full reconstruction: it deblurs the log frame and is fitted to this frame, so it closely matches the reference frame. If asked whether the bilevel dynamic part comes from events alone: it takes its changes between frames from the frames themselves, their Eq. 3.2, and the events correct the blur within each exposure; ours takes those changes from the events alone. If asked how the two compare on PSNR: the bilevel scores about 40 dB indoors and 37 outdoors on the frames it is fitted to, which shows how closely it reproduces its own input frames; on frames it was not fitted to, 24.3 and 25.2, the same as interpolating between the camera frames. The event-only reconstruction scores 8.0 and 7.2; PSNR also scores the absolute brightness, which the events leave to the model. If asked why not score after removing the brightness offset: most of the 40-versus-8 gap is the bilevel reconstruction reproducing the frames it was fitted to, as the held-out 24.3 shows. The free constant is separate at every pixel, and the penalty also shapes the nonconstant part of each history, so subtracting one image-wide offset leaves both of those in place. If asked about the outdoor kernel ranking: Backup 05, page 38. If asked how PSNR and condition number are computed: Backup 06, page 39. If asked which prior work this builds on: Backup 32, page 65.]*
 
 ## Slide 20 — The same per-pixel solve recovers Earth from orbit, a handheld office, and a shattering cup
 

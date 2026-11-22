@@ -14,7 +14,7 @@
   "13": "The smallest weight sets the curvature, the noise bound, and the conditioning",
   "14": "The penalty removes the baseline and slow drift but keeps passing edges",
   "15": "Temporal weights shrink as event activity grows",
-  "16": "The kernel moves PSNR by about 0.2 dB; the weight rule sets the conditioning",
+  "16": "The kernel moves PSNR and the weight rule sets the conditioning",
   "17": "Events alone recover scene structure with one convex solve and a unique global minimizer",
   "18": "The same per-pixel solve recovers Earth from orbit, a handheld office, and a shattering cup",
   "19": "Known motion lets every view constrain one scene",
