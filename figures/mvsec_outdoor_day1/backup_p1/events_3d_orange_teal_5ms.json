@@ -1,0 +1,17 @@
+{
+  "image": "events_3d_orange_teal_5ms.png",
+  "colors": "orange (204,76,31) positive, teal (0,128,128) negative",
+  "window_epoch_s": [
+    1506118049.4669075,
+    1506118049.4719076
+  ],
+  "convention": "last SPAN_MS of the event_panel window, [start, end)",
+  "duration_ms": 5.0,
+  "marker_area_pt2": 3.6,
+  "events": 3704,
+  "positive": 1646,
+  "negative": 2058,
+  "axes": "x px, t ms (depth), y px (vertical, image-row down)",
+  "exporter": "monocular_reconstruction/artifacts/defense_figures_20261108/export_events3d_teal.py",
+  "sha256": "ef7441270e55fa7b6d0c6b6c5720fa812fed3d0ea97e637c1ae5bff9440bc27c"
+}
