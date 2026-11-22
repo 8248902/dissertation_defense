@@ -1,0 +1,26 @@
+{
+ "dataset": "MVSEC indoor_flying2",
+ "camera": "left DAVIS",
+ "geometry_px": [
+  346,
+  260
+ ],
+ "campaign": "ch2_recompute_20261103_p60 (500k events from 60% of the cache), arm P1: Gaussian sigma 0.005 s, sigmoid weights, sqrt transform, scale 0.03, N = 100 (the run behind Ch. 2 tab:bump_avg_indoor)",
+ "source_reconstruction": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/indoor_flying2/lambda_comparison/lambda_comparison_results.mat :: lambda_results.reconstructions_raw{1} (sigmoid)",
+ "source_reference": "/scratch/dblauvel/ch2_recompute_20261103_p60/P1_gaussian_sigmoid_sqrt_0.03_n100/indoor_flying2/lambda_comparison/ground_truth_aligned/aligned_frames.mat",
+ "latent_frame_one_based": 13,
+ "pixel_r_reference_vs_reconstruction": 0.2949356917799439,
+ "display": {
+  "rule": "histogram-mode background over all 100 frames -> 0.4; 1st/99th percentile half-range -> 0.45; clip [0,1]",
+  "background": -0.006715220642733222,
+  "scale": 0.4719570791984232,
+  "reference": "aligned APS frame / 255, unchanged"
+ },
+ "exporter": "monocular_reconstruction/artifacts/defense_slide20_alts_20261121/export_p1_alts.py",
+ "sha256": {
+  "reconstruction.png": "81d8b49da4d0014a29ac3dc5dc0d03305605fd4168fb536d808fe162f395a3a8",
+  "reconstruction_4x.png": "383e1b751c5633eed564964b6df58200bd5bb8fb516a18e2ee42ccc058ee0486",
+  "reference.png": "15da88ac7d7bfb5e6b056aaab6ef74251b7f36505728ddd4688bca5c85ac9eab",
+  "reference_4x.png": "a42b31873a95f5168518f071ed4759e998cb0bcd6157de928b44354a40e4e285"
+ }
+}
