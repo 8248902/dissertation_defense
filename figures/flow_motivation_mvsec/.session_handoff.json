@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-11-20T22:39:28.862138",
+  "repo_name": "flow_motivation_mvsec",
+  "repo_dir": "/home/dblauvel/g/r/drafts/dissertation_defense/figures/flow_motivation_mvsec",
+  "harness": "claude",
+  "git": {
+    "is_git_repo": true,
+    "branch": "storyboard-claims",
+    "head": "8c2ea6eda6ad1c03e0294cf36706dd6cd40d6866 Backups 79-80: synthetic single-pixel trace and noise sweep; references now Backups 81-83",
+    "upstream": "origin/storyboard-claims",
+    "ahead": 0,
+    "behind": 0,
+    "staged": [],
+    "unstaged": [
+      " M LOG/2026-11-20.md",
+      " M figures/mvsec_outdoor_day1/backup_p1/metadata.json"
+    ],
+    "untracked": [
+      ".session_handoff.json",
+      ".session_handoff.md",
+      "figures/flow_motivation_checker/",
+      "figures/flow_motivation_mvsec/",
+      "figures/mvsec_outdoor_day1/backup_p1/events_3d.png"
+    ],
+    "untracked_overflow": 0,
+    "in_progress": null,
+    "worktrees": [
+      {
+        "path": "/home/dblauvel/g/r/drafts/dissertation_defense",
+        "HEAD": "8c2ea6eda6ad1c03e0294cf36706dd6cd40d6866",
+        "branch": "storyboard-claims"
+      }
+    ],
+    "branches": [
+      {
+        "name": "main",
+        "upstream": "origin/main",
+        "ahead": 0,
+        "behind": 0,
+        "last_commit_date": "2026-11-07 17:51:05 -0500",
+        "merged_into_default": true,
+        "remote_ref": "origin/main",
+        "remote_sha_matches": true,
+        "is_current": false,
+        "is_default": true,
+        "age_days": 13,
+        "verdict": "default",
+        "verdict_reason": "is the default branch",
+        "is_stale": false
+      },
+      {
+        "name": "storyboard-claims",
+        "upstream": "origin/storyboard-claims",
+        "ahead": 0,
+        "behind": 0,
+        "last_commit_date": "2026-11-20 01:35:22 -0500",
+        "merged_into_default": false,
+        "remote_ref": "origin/storyboard-claims",
+        "remote_sha_matches": true,
+        "is_current": true,
+        "is_default": false,
+        "age_days": 0,
+        "verdict": "current",
+        "verdict_reason": "is HEAD (and not default)",
+        "is_stale": false
+      }
+    ],
+    "stashes": [],
+    "recent_commits": [
+      "8c2ea6e Backups 79-80: synthetic single-pixel trace and noise sweep; references now Backups 81-83",
+      "0b86236 Apply defense review items 1-5; slide 9 retitle",
+      "db31bba remove slide number references",
+      "924523d script tightening",
+      "ffde37b improved segues"
+    ]
+  },
+  "state_md": {
+    "exists": false,
+    "is_stale": false,
+    "content": "STATE.md not found.",
+    "line_count": 0,
+    "size_bytes": 0,
+    "is_over_cap": false,
+    "over_cap_warning": null
+  },
+  "log": {
+    "file": "LOG/2026-11-20.md",
+    "recent_tail": "\n## 22:39 \u2014 session handoff / close\n- Handoff prepared automatically via prepare_handoff.py"
+  },
+  "handshake": {
+    "summary": "Session closed cleanly. Ready for pickup.",
+    "next_steps": "Review STATE.md and current workstream priority."
+  }
+}

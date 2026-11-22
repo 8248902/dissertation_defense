@@ -1,0 +1,42 @@
+{
+  "scene": "v2e checkerboard rectangle 60x40 px, diagonal translation 3 px/window",
+  "window": 22,
+  "method": "vox_struct (structure-tensor voxel), alpha_smooth = 20, no pyramid",
+  "run": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/ch3q_v2e_checker/v2e_highres_dt1_rectangle_diagonal_checker_v3.0/trial0002_rectangle_diagonal_checker_v3.0_vox_struct_alpha20",
+  "slurm_job": 1464569,
+  "code_commit": "5193805",
+  "aee_px": 0.983,
+  "angular_error_deg": 3.77,
+  "context_aee_px_same_window": {
+    "vox": 2.371,
+    "vox_cont": 2.088,
+    "vox_aniso_tensor": 1.193,
+    "cmax": 0.317,
+    "ts_and_zero_flow": 3.0,
+    "source": "thesis shared_bodies/ch3_eb_hs_of_body.tex source comments (manifest.tsv)"
+  },
+  "crop_box_px": [
+    40,
+    55,
+    250,
+    213
+  ],
+  "color_rule": "flow_to_color (hue = direction, value = magnitude / panel p95), saved via cv2.imwrite; wheel.png generated through the same path; black = zero flow",
+  "sources": {
+    "reference.png": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/ch3q_v2e_checker/v2e_highres_dt1_rectangle_diagonal_checker_v3.0/trial0002_rectangle_diagonal_checker_v3.0_vox_struct_alpha20/alpha_20.0_dt1_diag_v2/gray/gray_0022.png",
+    "gt_color.png": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/ch3q_v2e_checker/v2e_highres_dt1_rectangle_diagonal_checker_v3.0/trial0002_rectangle_diagonal_checker_v3.0_vox_struct_alpha20/alpha_20.0_dt1_diag_v2/flow/flow_gt_0022.png",
+    "ours_color.png": "/projects/hantil/neuromorphic/vision/dblauvel/dblauvel/optflow_experiments/ch3q_v2e_checker/v2e_highres_dt1_rectangle_diagonal_checker_v3.0/trial0002_rectangle_diagonal_checker_v3.0_vox_struct_alpha20/alpha_20.0_dt1_diag_v2/flow/flow_vox_struct_0022.png",
+    "gt_quiver.png": "/home/dblauvel/g/r/drafts/dissertation_defense/figures/ch3_quivers_consistent/v2e_checker_f0022/crop/gt.png",
+    "ours_quiver.png": "/home/dblauvel/g/r/drafts/dissertation_defense/figures/ch3_quivers_consistent/v2e_checker_f0022/crop/vox_struct.png"
+  },
+  "sha256": {
+    "gt_color.png": "af1b909e9fafeef6ed8c8cdd0aae30a9dad1d6de1d92e672074b24b4460bead0",
+    "gt_quiver.png": "5604b98acab363d05eaa2e40153055f27a2f46242dffd6a83fc3d2f79f4a7a25",
+    "ours_color.png": "3045e813654fc3b490dd4c94694c82d50195a7b6ea52b29fbbbe32ef6a338fd0",
+    "ours_quiver.png": "415a59c475545ea1eb6f33e0560be4df394198726e2d3819854e1bbc98271b3d",
+    "preview.png": "4ae5d5e67d3a14d9c87f32cf4c0ca5ec346ea4edc1ab8cbd2b5ada1bbfe5c929",
+    "reference.png": "b5583e07df7d03ec9a65c5d8ad1d8b90832696a8ebf9955c07cb79a629fb0af5",
+    "wheel.png": "5460033373b2ed72abd8d8af37834d895152fb3e8df3b09be46340561b6ca047"
+  },
+  "exporter": "drafts/dissertation_defense/figures/flow_motivation_checker/export.py"
+}
