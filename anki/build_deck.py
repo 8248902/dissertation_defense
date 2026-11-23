@@ -110,7 +110,7 @@ def enrich(cards):
         for key in card["slide_keys"]:
             slide = slides[slide_anchors[key]]
             page = int(slide["pdf_slide"])
-            script_title = slide["slide_title"].replace("$H^1$", "H¹")
+            script_title = slide["slide_title"].replace("$H^1$", "H¹").replace("\\%", "%")
             assert script_title in script, (card["id"], page)
             source_parts.append(f"Deck p. {page}: {esc(script_title)}")
         for label in card["labels"]:

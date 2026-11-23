@@ -22,7 +22,7 @@ I'll start with what an event camera sees.
 
 *[Advance.]*
 
-## Slide 2 — Events track a bullet shattering a cup, and our reconstruction recovers the scene
+## Slide 2 — Events alone recover a bullet shattering a cup
 
 *[Start the movie and let it run once before speaking; talk over the loop.]*
 
@@ -36,7 +36,7 @@ So a central question in the dissertation asks: from changes alone, what can we 
 
 Here's how the talk is organized.
 
-*[If asked how the phone and event clocks line up: a fixed clock offset maps each event time to the latest phone frame at or before it. If asked whether the reconstruction runs in real time: Backup 76, page 109, Backup 78, page 111, and Backup 07, page 40. If asked what the raw stream looks like in space and time: slide 5, or Backup 82, page 115.]*
+*[If asked how the phone and event clocks line up: a fixed clock offset maps each event time to the latest phone frame at or before it. If asked whether the reconstruction runs in real time: Backup 78, page 111, Backup 80, page 113, and Backup 07, page 40. If asked what the raw stream looks like in space and time: slide 5, or Backup 84, page 117.]*
 
 ## Slide 3 — The route through the talk
 
@@ -46,7 +46,7 @@ First, what an event camera reports, and the three problems that come out of it.
 
 Start with the sensor.
 
-## Slide 4 — Why an event camera? Each pixel reports its own changes with microsecond timing and 140 dB range
+## Slide 4 — Each pixel reports changes at microsecond timing over 140 dB
 
 *[Trace the moving bar through the two diagrams.]*
 
@@ -60,7 +60,7 @@ That design gives the numbers in the title: timestamps with microsecond resoluti
 
 *[Advance to the real sensor.]*
 
-## Slide 5 — Why an event camera? Each pixel reports its own changes with microsecond timing and 140 dB range
+## Slide 5 — Each pixel reports changes at microsecond timing over 140 dB
 
 *[Point to the axes, then let the committee look at the cloud.]*
 
@@ -68,9 +68,9 @@ Here is the same thing but how it would come from a real sensor: drawn in space 
 
 For the mathematics, the key feature is that each pixel measures change relative to its own reference. Let me make that rule precise.
 
-*[If asked for a reference image and a reconstruction beside this cloud: Backup 82, page 115, and Backup 83, page 116.]*
+*[If asked for a reference image and a reconstruction beside this cloud: Backup 84, page 117, and Backup 85, page 118.]*
 
-## Slide 6 — Each event marks one threshold of log-brightness change, so the baseline level stays free
+## Slide 6 — Each event marks one threshold step in log brightness
 
 *[Follow the solid curve and point to one positive and one negative event.]*
 
@@ -86,7 +86,7 @@ Real sensors add threshold variation and other errors.
 
 *[If asked about the continuous-time version of the event rule: Backup 03, page 36. If asked whether the baseline is all the sensor loses: Backup 34, page 67.]*
 
-## Slide 7 — From events to images, motion, and depth: each estimate has its own unobserved quantity
+## Slide 7 — Each estimate has its own unobserved quantity
 
 *[Indicate the three panels from left to right.]*
 
@@ -98,7 +98,7 @@ Each problem has its own difficulty. For reconstruction, the brightness baseline
 
 Here's what the talk shows for each of the three.
 
-*[If asked which methods produced these panels: a Gaussian temporal kernel (sigma 5 ms) with sigmoid weights, the selected Chapter 2 configuration; contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 79. If asked about the spline-parameterized flow regularizer under refinement: Backup 68, page 101. If asked what the stereo method is, in one slide: Backup 48, page 81. If asked about the quality of MVSEC's ground truth: Backup 60, page 93, for depth; Backup 26, page 59, for flow.]*
+*[If asked which methods produced these panels: a Gaussian temporal kernel (sigma 5 ms) with sigmoid weights, the selected Chapter 2 configuration; contrast maximization, and weighted least squares. Contrast maximization has a nonconvex objective outside the quadratic flow family analyzed later; its existence result is Backup 46, page 79. If asked about the spline-parameterized flow regularizer under refinement: Backup 69, page 102. If asked what the stereo method is, in one slide: Backup 49, page 82. If asked about the quality of MVSEC's ground truth: Backup 61, page 94, for depth; Backup 26, page 59, for flow.]*
 
 ## Slide 8 — Regularization makes three ill-posed problems well-posed
 
@@ -116,7 +116,7 @@ The common question behind all three: which quantities do the events determine, 
 
 *[If asked for the literature behind each model: Backup 32, page 65. If asked what is mathematically new: Backup 31, page 64.]*
 
-## Slide 9 — Event-derived models with explicit guarantees, built on established methods
+## Slide 9 — Each model adds explicit guarantees to an established method
 
 *[Compare the prior approaches with the dissertation contribution in each column.]*
 
@@ -130,9 +130,9 @@ For stereo depth, two separate groups, Rogister's and Kogler's, match events bet
 
 Now the reconstruction model, starting with a single pixel.
 
-*[If asked what is mathematically new when the tools are classical: Backup 31, page 64; the mechanism shared by all three chapters is Backup 64, page 97. If asked for the literature behind each model: Backup 32, page 65. If asked why not train a neural network: Backup 67, page 100.]*
+*[If asked what is mathematically new when the tools are classical: Backup 31, page 64; the mechanism shared by all three chapters is Backup 65, page 98. If asked for the literature behind each model: Backup 32, page 65. If asked why not train a neural network: Backup 68, page 101.]*
 
-## Slide 10 — Events fix each pixel's brightness increments and leave one constant free
+## Slide 10 — Events fix each pixel's increments up to one constant
 
 Here's the temporal model in scene terms. The unknown is each pixel's log-brightness history over the recording. The events tell us how much that brightness rose or fell in each interval. Each pixel is reconstructed on its own, and the model picks the reference level that the events leave open. A pixel with no events stays at that reference level, however bright it really is.
 
@@ -150,7 +150,7 @@ In short, the data constrain the increments, and we need one more rule to choose
 
 *[If asked whether the constant is all the information the sensor loses: Backup 34, page 67. If asked which choices fix the level: Backup 02, page 35; for a mean-zero formulation: Backup 17, page 50. If asked what space the model lives in: the theorems are in R^N, one coordinate per reconstruction time, with a weighted l two norm. The continuous-time version is posed in H one for a regular kernel, and in the space of bounded-variation functions in the delta limit, Backup 03, page 36.]*
 
-## Slide 11 — Each kernel spreads an event's sign over nearby bins and conserves its total
+## Slide 11 — Kernels spread each event's sign and conserve its total
 
 *[Point to the kernel curves, then to the bin-integral formula.]*
 
@@ -202,9 +202,9 @@ Third, the reference level. Take the inner product of the normal equations with 
 
 Here's why the first two hold.
 
-*[If asked whether every weight must be positive: Backup 02, page 35. If asked how lambda should scale when the time grid is refined: Backup 37, page 70. If asked about a mean-zero formulation: Backup 17, page 50. If asked how close the estimate is to the true signal: Backup 33, page 66. If asked about recomputed weights: Backup 65, page 98.]*
+*[If asked whether every weight must be positive: Backup 02, page 35. If asked how lambda should scale when the time grid is refined: Backup 37, page 70. If asked about a mean-zero formulation: Backup 17, page 50. If asked how close the estimate is to the true signal: Backup 33, page 66. If asked about recomputed weights: Backup 66, page 99.]*
 
-## Slide 14 — The smallest weight sets the curvature, the noise bound, and the conditioning
+## Slide 14 — The smallest weight controls all three guarantees
 
 *[Walk through the first inequality slowly.]*
 
@@ -218,7 +218,7 @@ The same matrix also makes the solve cheap: one sweep per pixel, which keeps up 
 
 Next, how the weights are chosen.
 
-*[If asked what happens as the weights go to zero: Backup 69, page 102. If asked about recomputed weights: Backup 65, page 98. If asked how close the stable estimate is to the true signal: Backup 33, page 66. If asked what the solve costs: Backup 76, page 109; per-core timings, Backup 78, page 111. If asked about conditioning as lambda becomes small: Backup 17, page 50. If asked what the bound is at the chosen weights: at the floor of the sigmoid rule, lambda squared is ten to the minus three, so one over twice the smallest weight is about 16, in threshold units and in norm over the whole history, for one noise event at fixed weights. It is a worst case over every direction of the history. If asked how the penalty treats signal and noise differently: Backup 04, page 37.]*
+*[If asked what happens as the weights go to zero: Backup 70, page 103. If asked about recomputed weights: Backup 66, page 99. If asked how close the stable estimate is to the true signal: Backup 33, page 66. If asked what the solve costs: Backup 78, page 111; per-core timings, Backup 80, page 113. If asked about conditioning as lambda becomes small: Backup 17, page 50. If asked what the bound is at the chosen weights: at the floor of the sigmoid rule, lambda squared is ten to the minus three, so one over twice the smallest weight is about 16, in threshold units and in norm over the whole history, for one noise event at fixed weights. It is a worst case over every direction of the history. If asked how the penalty treats signal and noise differently: Backup 04, page 37.]*
 
 ## Slide 15 — Temporal weights shrink as event activity grows
 
@@ -236,9 +236,9 @@ The weights are computed from the data and then held fixed during the solve, whi
 
 Next, what the penalty does to the reconstructed signal.
 
-*[If asked how data-computed weights fit the fixed-weight theorem: Backup 25, page 58; for the full adaptive map: Backup 65, page 98. If asked how the scales were chosen, or about the discrepancy principle: Backup 66, page 99. If asked how kernel and weight choices change conditioning: Backup 05, page 38.]*
+*[If asked how data-computed weights fit the fixed-weight theorem: Backup 25, page 58; for the full adaptive map: Backup 66, page 99. If asked how the scales were chosen, or about the discrepancy principle: Backup 67, page 100. If asked how kernel and weight choices change conditioning: Backup 05, page 38.]*
 
-## Slide 16 — The penalty removes the baseline and slow drift but keeps passing edges
+## Slide 16 — The penalty acts as a temporal high-pass filter
 
 To interpret the penalty, we consider a single scalar weight, so Lambda is lambda times the identity. And suppose the observations are exact differences of a latent signal.
 
@@ -254,9 +254,9 @@ The curves connect the finite-grid gains so the trend is visible. A general posi
 
 Next, what these reconstructions look like on real data.
 
-*[If asked what the penalty does to measurement noise: Backup 04, page 37. If asked about bias in the damped modes: Backup 33, page 66. If asked what happens as lambda goes to zero: Backup 69, page 102. If asked to see one pixel's estimate over time: Backup 79, page 112.]*
+*[If asked what the penalty does to measurement noise: Backup 04, page 37. If asked about bias in the damped modes: Backup 33, page 66. If asked what happens as lambda goes to zero: Backup 70, page 103. If asked to see one pixel's estimate over time: Backup 81, page 114.]*
 
-## Slide 17 — The kernel moves PSNR and the weight rule sets the conditioning
+## Slide 17 — PSNR follows the kernel and conditioning the weight rule
 
 *[Point to the images, then to the table.]*
 
@@ -270,7 +270,7 @@ Next, how these reconstructions compare with the bilevel approach on MVSEC.
 
 *[If asked why the PSNR values are low, or what the metrics measure: Backup 06, page 39. If asked about the outdoor ranking or the kernel choice: Backup 05, page 38.]*
 
-## Slide 18 — Events alone recover scene structure with one convex solve and a unique global minimizer
+## Slide 18 — One convex solve recovers scene structure from events
 
 *[Point to the three images, then down the columns.]*
 
@@ -284,7 +284,7 @@ The same solve runs unchanged on very different scenes.
 
 *[If asked about the bilevel's full reconstruction: it deblurs the log frame and is fitted to this frame, so it closely matches the reference frame. If asked whether the bilevel dynamic part comes from events alone: it takes its changes between frames from the frames themselves, their Eq. 3.2, and the events correct the blur within each exposure; ours takes those changes from the events alone. If asked how the two compare on PSNR: the bilevel scores about 40 dB indoors and 37 outdoors on the frames it is fitted to, which shows how closely it reproduces its own input frames; on frames it was not fitted to, 24.3 and 25.2, the same as interpolating between the camera frames. The event-only reconstruction scores 8.0 and 7.2; PSNR also scores the absolute brightness, which the events leave to the model. If asked why not score after removing the brightness offset: most of the 40-versus-8 gap is the bilevel reconstruction reproducing the frames it was fitted to, as the held-out 24.3 shows. The free constant is separate at every pixel, and the penalty also shapes the nonconstant part of each history, so subtracting one image-wide offset leaves both of those in place. If asked about the outdoor kernel ranking: Backup 05, page 38. If asked how PSNR and condition number are computed: Backup 06, page 39. If asked which prior work this builds on: Backup 32, page 65.]*
 
-## Slide 19 — The same per-pixel solve recovers Earth from orbit, an office scene, and a shattering cup
+## Slide 19 — One per-pixel solve recovers three very different scenes
 
 *[Pause so the committee can look at all three panels; read left to right, slow to fast.]*
 
@@ -294,7 +294,7 @@ On the left is a slowly changing scene with sparse events: the Earth seen from t
 
 So far, every pixel has been its own problem.
 
-*[If asked how this cup frame relates to the opening movie: the movie uses a causal solve, each frame from the events up to its time; this panel is one frame of the batch solve in the dissertation's Figure 2.8. Grayscale versions: Backup 81, page 114.]*
+*[If asked how this cup frame relates to the opening movie: the movie uses a causal solve, each frame from the events up to its time; this panel is one frame of the batch solve in the dissertation's Figure 2.8. Grayscale versions: Backup 83, page 116.]*
 
 ## Slide 20 — Known motion lets every view constrain one scene
 
@@ -316,7 +316,7 @@ This is a real Falcon Neuro pass looking straight down. On the left, each pixel 
 
 Here the motion was given, and we used it to combine the views. Next, the motion itself becomes the unknown.
 
-*[If asked what regularization supplies when the observations leave directions free: Backup 64, page 97. If asked about related prior work: Backup 32, page 65.]*
+*[If asked what regularization supplies when the observations leave directions free: Backup 65, page 98. If asked about related prior work: Backup 32, page 65.]*
 
 ## Slide 21 — Optical flow asks for two velocity components at every pixel
 
@@ -348,9 +348,9 @@ The animations show the geometry, and the same ambiguity holds for an event came
 
 Next, I'll draw this ambiguity for a single edge and state what the flow model assumes.
 
-*[If asked to derive the aperture problem from the event-generation model: Backup 63, page 96. If asked when the data do determine the motion: Backup 35, page 68.]*
+*[If asked to derive the aperture problem from the event-generation model: Backup 64, page 97. If asked when the data do determine the motion: Backup 35, page 68.]*
 
-## Slide 23 — One edge gives the normal speed, two orientations give the full motion
+## Slide 23 — Two edge orientations give the full motion
 
 *[Point to the left diagram: the edge, the teal arrow, then the amber arrow.]*
 
@@ -368,25 +368,33 @@ The two edges can be anywhere in the image. The model assumes neighboring pixels
 
 Next, how the events give each edge's line.
 
-*[If asked about edges on objects moving differently: the crossing mixes their motions, and an object with one edge direction leaves part of its motion free for any method; Chapter 3's directional regularizer smooths less across boundaries the events show, Backup 13, page 46. If asked whether two orientations anywhere suffice: slide 26; necessity, Backup 35, page 68. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: smoothing blends the motions across the boundary, Backup 27, page 60, and Backup 70, page 103; limiting it, Backup 13, page 46.]*
+*[If asked about edges on objects moving differently: the crossing mixes their motions, and an object with one edge direction leaves part of its motion free for any method; Chapter 3's directional regularizer smooths less across boundaries the events show, Backup 13, page 46. If asked whether two orientations anywhere suffice: slide 26; necessity, Backup 35, page 68. If asked what links distant edges: with exact data and one shared velocity, the constant field fits every edge and has no gradient, so it is the unique minimizer at any alpha and separation. If objects move differently but each has a corner or texture: smoothing blends the motions across the boundary, Backup 27, page 60, and Backup 71, page 104; limiting it, Backup 13, page 46.]*
 
-## Slide 24 — Following an edge turns its crossing times into one equation for the velocity
+## Slide 24 — Each representation gives one equation for the velocity
 
-*[Point to the three lines.]*
+*[Point to the column headers, then read down each column.]*
 
-Here is where the first representation gets its edge measurement. The time surface records, at each pixel, when the edge last crossed it. The three lines are where the edge was at three moments, so the crossing times rise in the direction the edge moves.
+Here is where the edge lines come from. The flow chapter works with three ways of turning the event stream into an equation for the velocity.
 
-*[Point to the equation.]*
+*[Time-surface column.]*
 
-Follow a point riding on the edge. There the current time always equals the recorded crossing time, so their difference stays zero. Differentiate along the path: time contributes one, and the motion contributes minus the gradient of the crossing times, dotted with the velocity. So that dot product equals one.
+The time surface records, at each pixel, when the edge last crossed it. Track one point of the edge as its image moves across the sensor. Wherever that image is right now, the edge is just arriving at that pixel, so the pixel's recorded crossing time is the current time. Differentiate that identity along the path, and the gradient of the crossing times dotted with the velocity equals one. The size of that gradient is the edge's slowness: an edge taking ten milliseconds per pixel moves at a hundred pixels per second perpendicular to itself.
 
-In scene terms, the size of the gradient is the edge's slowness: an edge that takes ten milliseconds per pixel moves at a hundred pixels per second perpendicular to itself. Motion along the edge leaves the crossing times unchanged, so this one equation is the edge-1 line from the previous slide, with the aperture problem built in.
+*[Voxel-projection column.]*
 
-The derivation follows one clean crossing at constant velocity. On real data we fit and smooth the time surface and use this relation as the data term.
+The voxel grid smooths the events and bins them in space and time; call that activity field V. Summing V over a short window starting at time s gives one activity image, a. If the activity moves with the scene, the spatial gradient of a dotted with the velocity, plus a's change across the window, is zero. Moving with the scene is an assumption we add to the sensor model from slide 6, where each event marks one threshold step in log brightness.
 
-Next, this and two other event representations in one quadratic problem.
+*[Structure-tensor column.]*
 
-*[If asked how the time-surface gradient is estimated and how accurate it is: Backup 42, page 75; for the neighborhood size, Backup 15, page 48. If asked about correlated timestamp errors: Backup 40, page 73.]*
+The structure tensor takes the same transport equation at every point of a small neighborhood, squares each residual, and adds them up, assuming one velocity across the neighborhood.
+
+*[Point to the bottom row.]*
+
+The first two give one equation per pixel, so each fixes only the motion perpendicular to the edge: the edge-1 line from the previous slide, with the aperture problem built in. Pooling gradients in different directions lets the structure tensor fix both components at one place.
+
+Squaring any of these equations gives a quadratic in the velocity, and that is the common form on the next slide.
+
+*[If asked for a derivation: time surface, Backup 73, page 106; voxel projection, Backup 74, page 107; structure tensor, Backup 75, page 108. If asked how the time-surface gradient is estimated and how accurate it is: Backup 42, page 75; for the neighborhood size, Backup 15, page 48. If asked about correlated timestamp errors: Backup 40, page 73. If asked why event activity should obey transport: Backup 39, page 72.]*
 
 ## Slide 25 — Three representations, one quadratic variational problem
 
@@ -404,7 +412,7 @@ The advantage is that we prove one result for a fixed data matrix B and forcing 
 
 The question now is whether the data and the smoothness term, together, control every direction in that space.
 
-*[If asked for the derivations: time surface, slide 24; voxel projection, Backup 72, page 105; structure tensor, Backup 73, page 106. If asked why H one rather than total variation: Backup 27, page 60. If asked which boundary condition the model uses: Backup 08, page 41. If asked about direction-dependent smoothing: Backup 13, page 46, and Backup 14, page 47. If asked how the model is solved on a grid: Backup 11, page 44, and Backup 12, page 45.]*
+*[If asked for the derivations: time surface, Backup 73, page 106; voxel projection, Backup 74, page 107; structure tensor, Backup 75, page 108. If asked why H one rather than total variation: Backup 27, page 60. If asked which boundary condition the model uses: Backup 08, page 41. If asked about direction-dependent smoothing: Backup 13, page 46, and Backup 14, page 47. If asked how the model is solved on a grid: Backup 11, page 44, and Backup 12, page 45.]*
 
 ## Slide 26 — Integrated directional information gives a unique flow in H¹
 
@@ -424,7 +432,7 @@ Connectedness matters because it makes any field with zero gradient a single con
 
 Here's why the theorem holds.
 
-*[If asked for the full proof: Backup 09, page 42. If asked what the estimate does where there are no events: it is the harmonic fill-in of the surrounding motion, Backup 70, page 103. If asked how to check the condition on data: the discrete version is the smallest eigenvalue of the two-by-two sum of sampled data blocks, Backup 11, page 44; its size is the margin m. If asked about a disconnected domain: each component carries its own constant drift and needs its own integrated condition. If asked whether the integrated condition is necessary: Backup 35, page 68. If asked whether the convergence proof covers the solvers used in the experiments: Backup 12, page 45. If asked what happens as alpha goes to zero or grows large: Backup 69, page 102, and Backup 38, page 71.]*
+*[If asked for the full proof: Backup 09, page 42. If asked what the estimate does where there are no events: it is the harmonic fill-in of the surrounding motion, Backup 71, page 104. If asked how to check the condition on data: the discrete version is the smallest eigenvalue of the two-by-two sum of sampled data blocks, Backup 11, page 44; its size is the margin m. If asked about a disconnected domain: each component carries its own constant drift and needs its own integrated condition. If asked whether the integrated condition is necessary: Backup 35, page 68. If asked whether the convergence proof covers the solvers used in the experiments: Backup 12, page 45. If asked what happens as alpha goes to zero or grows large: Backup 70, page 103, and Backup 38, page 71.]*
 
 ## Slide 27 — Proof idea: smoothness fixes variation, edges fix the drift
 
@@ -438,7 +446,7 @@ Together they control the full H one norm, with a constant c zero that depends o
 
 Next, two examples where we know the true motion.
 
-*[If asked for the derivations: the full proof is Backup 09, page 42. If asked about stability: the same c zero gives a Lipschitz bound in B and b, Backup 10, page 43. If asked what happens when the integrated matrix is singular: a constant velocity direction is uncontrolled, Backup 35. If asked whether the flow is stable with respect to the raw events: Backup 36, page 69. If asked whether one mechanism runs through all three uniqueness results: Backup 64, page 97.]*
+*[If asked for the derivations: the full proof is Backup 09, page 42. If asked about stability: the same c zero gives a Lipschitz bound in B and b, Backup 10, page 43. If asked what happens when the integrated matrix is singular: a constant velocity direction is uncontrolled, Backup 35. If asked whether the flow is stable with respect to the raw events: Backup 36, page 69. If asked whether one mechanism runs through all three uniqueness results: Backup 65, page 98.]*
 
 ## Slide 28 — Two edge directions halve the structure tensor's error
 
@@ -450,7 +458,7 @@ Both scenes satisfy the theorem's condition, because object boundaries add a sec
 
 That's flow: motion over time, seen by one camera. The last problem compares two cameras at the same moment.
 
-*[If asked where the time surface is: it is the first row of the three-representations table. On these simulated scenes its error is 3.00 pixels in all three scenes, a zero field's score, and its panels in the dissertation's figure show essentially no arrows. This slide holds the representation fixed and varies the texture. If asked about the voxel projection: on the same scenes it scores 2.24 on the stripes and 2.37 on the checkerboard. Voxel projection averages over time and gives each pixel a single constraint; the structure tensor pools gradient directions over a spatial neighborhood, so it uses the second edge direction at each pixel. Both satisfy the integrated condition, so the theorem gives each a unique answer; how the representation pools directions decides how close that answer comes to the true motion. Backup 73, page 106, compares the two. If asked about other methods: the contrast-maximization comparison on these scenes is Backup 43; "why analyze the quadratic family" is Backup 45. If asked how the examples were selected and scored: Backup 44, page 77. If asked about real-data flow: Backup 26, page 59. If asked whether contrast maximization has a global minimizer: Backup 46, page 79. If asked whether the spline regularizer loses coercivity under refinement: Backup 68, page 101.]*
+*[If asked where the time surface is: it is the first row of the three-representations table. On these simulated scenes its error is 3.00 pixels in all three scenes, a zero field's score, and its panels in the dissertation's figure show essentially no arrows. This slide holds the representation fixed and varies the texture. If asked about the voxel projection: on the same scenes it scores 2.24 on the stripes and 2.37 on the checkerboard. Voxel projection averages over time and gives each pixel a single constraint; the structure tensor pools gradient directions over a spatial neighborhood, so it uses the second edge direction at each pixel. Both satisfy the integrated condition, so the theorem gives each a unique answer; how the representation pools directions decides how close that answer comes to the true motion. Backup 75, page 108, compares the two. If asked about other methods: the contrast-maximization comparison on these scenes is Backup 43; "why analyze the quadratic family" is Backup 45. If asked how the examples were selected and scored: Backup 44, page 77. If asked about real-data flow: Backup 26, page 59. If asked whether contrast maximization has a global minimizer: Backup 46, page 79. If asked whether the spline regularizer loses coercivity under refinement: Backup 69, page 102.]*
 
 ## Slide 29 — Stereo depth needs each point's match in the second camera
 
@@ -476,7 +484,7 @@ For a fixed candidate with frozen weights, the inner problem is the temporal arg
 
 The challenge is that only edges fire, so the hard part is how much of the scene gets a depth at all. That is where WLS leads.
 
-*[If asked about problem size: each inner solve is a positive-definite system with forty unknowns, two twenty-sample profiles, solved directly at every pixel and candidate. If asked why the inner solve is unique: Backup 51, page 84. If asked whether a unique solve gives the right disparity: Backup 54, page 87; the conditions that do are Backup 55, page 88, and Backup 56, page 89. If asked whether IRLS converges: Backup 59, page 92. If asked why the weights treat busy intervals as noisier: Backup 58, page 91. For the full stereo argument: Backup 47, page 80; in one slide, Backup 48, page 81.]*
+*[If asked about problem size: each inner solve is a positive-definite system with forty unknowns, two twenty-sample profiles, solved directly at every pixel and candidate. If asked why the inner solve is unique: Backup 52, page 85. If asked whether a unique solve gives the right disparity: Backup 55, page 88; the conditions that do are Backup 56, page 89, and Backup 57, page 90. If asked whether IRLS converges: Backup 60, page 93. If asked why the weights treat busy intervals as noisier: Backup 59, page 92. For the full stereo argument: Backup 48, page 81; in one slide, Backup 49, page 82.]*
 
 ## Slide 31 — WLS scores the most points at competitive depth error
 
@@ -488,7 +496,7 @@ The coverage comes from where the estimates land. WLS returns a disparity at abo
 
 That completes the three problems: images, motion, and depth. Each result is also where a next question starts.
 
-*[If asked how Piatkowska's method decides: each pixel keeps its latest event time, candidates are scored by how close that time is to the matching pixel's, same-disparity neighbors in a window about forty pixels across reinforce, and the candidates at one pixel compete through normalization. If asked whether WLS is simply denser: Backup 23, page 56. If asked for the full table: Backup 74, page 107. If asked whether the comparison is fair: Backup 60, page 93.]*
+*[If asked how Piatkowska's method decides: each pixel keeps its latest event time, candidates are scored by how close that time is to the matching pixel's, same-disparity neighbors in a window about forty pixels across reinforce, and the candidates at one pixel compete through normalization. If asked whether WLS is simply denser: Backup 23, page 56. If asked for the full table: Backup 76, page 109. If asked whether the comparison is fair: Backup 61, page 94.]*
 
 ## Slide 32 — Each next step starts from a result in the dissertation
 
@@ -502,13 +510,13 @@ Second, learned temporal regularization, as a possible extension. When all the w
 
 Third, shared-scene and orbital sensing. For a given trajectory, which scene patterns does the motion leave invisible? The null space of B sub SAR answers that question, and sparse orbital streams like the ISS data are a natural application.
 
-Fourth, the edge implementation. The streaming form already updates each pixel in constant time. The next steps are updating only the pixels that receive events, and measuring time and power on a Raspberry Pi 5 and with sensors designed for the edge.
+Fourth, the edge implementation. The streaming form already updates each pixel in constant time. The next steps are updating only the pixels that receive events, and measuring time and power on an edge device, like a raspberry pi, and with sensors designed for the edge.
 
 Each direction starts from something the dissertation already controls: an observation error, a solution map, a null space, or the structure of the matrix.
 
 To close, let me bring the three problems back together.
 
-*[If asked whether the learned-weight problem is well posed: Backup 67, page 100. If asked how the results extend to other regularizers: Backup 64, page 97, and Backup 27, page 60. If asked how the parameters are chosen now: Backup 66, page 99. If asked how sensor error reaches the estimate: Backup 36, page 69, and Backup 34, page 67.]*
+*[If asked whether the learned-weight problem is well posed: Backup 68, page 101. If asked how the results extend to other regularizers: Backup 65, page 98, and Backup 27, page 60. If asked how the parameters are chosen now: Backup 67, page 100. If asked how sensor error reaches the estimate: Backup 36, page 69, and Backup 34, page 67.]*
 
 ## Slide 33 — What the data constrain and what the models prove
 
@@ -518,7 +526,7 @@ These are the image, the flow, and the depth from the start of the talk. Under e
 
 For temporal reconstruction, the events constrain brightness increments. For each fixed positive weight matrix, the regularized history is unique, with perturbation bounds, and the penalty selects the baseline.
 
-*[If asked about recomputed weights: Backup 65, page 98, gives a local Lipschitz bound beyond the dissertation. If asked how the theorems relate to the complete stereo estimator: Backup 30, page 63. If asked what is mathematically new: Backup 31, page 64, and Backup 64, page 97. If asked how close a stable estimate is to the truth: Backup 33, page 66. If asked what the events lose beyond the baseline: Backup 34, page 67. If asked whether the flow result is stable in the raw events: Backup 36, page 69. If asked whether a unique inner solve gives the right disparity: Backup 54, page 87.]*
+*[If asked about recomputed weights: Backup 66, page 99, gives a local Lipschitz bound beyond the dissertation. If asked how the theorems relate to the complete stereo estimator: Backup 30, page 63. If asked what is mathematically new: Backup 31, page 64, and Backup 65, page 98. If asked how close a stable estimate is to the truth: Backup 33, page 66. If asked what the events lose beyond the baseline: Backup 34, page 67. If asked whether the flow result is stable in the raw events: Backup 36, page 69. If asked whether a unique inner solve gives the right disparity: Backup 55, page 88.]*
 
 For flow, the events give directional constraints on the motion. Smoothness and integrated directional information together give a unique H one minimizer.
 
@@ -532,7 +540,7 @@ So each estimate is unique once the model supplies what the events leave free, u
 
 Thank you. I'm happy to take your questions.
 
-*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 34; flow detail starts at Backup 41, page 74; the stereo arc at Backup 47, page 80; references at page 117.]*
+*[Stop. Leave the closing slide visible. For questions: the discussion guide is Backup 01, page 34; flow detail starts at Backup 41, page 74; the stereo arc at Backup 48, page 81; references at page 119.]*
 
 # Backup responses
 
@@ -544,7 +552,7 @@ Deck page: 34.
 
 *[Navigation only. Choose the relevant technical question from this index; no spoken introduction is needed.]*
 
-## Backup 02 — Must every temporal penalty entry be positive?
+## Backup 02 — One penalty entry makes the temporal solve unique
 
 Deck page: 35.
 
@@ -580,7 +588,7 @@ With finitely many events, this primitive has bounded variation. Smoothing the m
 
 A nonzero jump has a singular distributional derivative, so the unsmoothed primitive naturally lives in bounded variation, outside H one. At any positive kernel width, the kernels here give an L two driver and an H one primitive. On the discrete side, the first-difference matrix computes increments; dividing by the time step would instead approximate a derivative. Keeping that scaling and the interval endpoints consistent is essential when comparing the continuous and discrete descriptions. A joint limit in the grid and the regularization would need its own argument, beyond convergence of these primitives.
 
-## Backup 04 — Latent-signal gain and observation-noise gain are different
+## Backup 04 — The penalty attenuates low modes and bounds the noise gain
 
 Deck page: 37.
 
@@ -600,7 +608,7 @@ Second, the noise. If instead we perturb the difference observations, the amplit
 
 The singular value decomposition makes this explicit. A maps the right singular modes of the profile to the left singular modes of the observations, and the inverse maps back with the gain shown here. Treating g as continuous, the variance factor peaks at g equal to lambda squared, where it equals one over four lambda squared. On a finite chain the maximum can be smaller, because the eigenvalues are discrete. These exact formulas hold for the scalar, unweighted model; general diagonal or adaptive weights need the corresponding matrix analysis.
 
-## Backup 05 — Kernel performance depends on the scene and adaptive weights
+## Backup 05 — Kernel rankings change with the scene
 
 Deck page: 38.
 
@@ -618,7 +626,7 @@ The table also shows that the kernels score close together. Indoors, the Gaussia
 
 If A and Lambda were both held fixed, changing only the right-hand side would leave the condition number unchanged. The positive-definiteness theorem applies to every fixed positive penalty this produces. It guarantees the solve, while the table compares actual reconstructions. Those are scored against reference images, and the events still leave the absolute temporal offset to the regularization or the reference convention.
 
-## Backup 06 — What the reconstruction scores measure
+## Backup 06 — Each reconstruction score measures one property
 
 Deck page: 39.
 
@@ -644,7 +652,7 @@ For ERC, both sequences are truncated to the same number of slices, flattened, a
 
 PSNR and SSIM depend on the normalization used for scoring, and CN describes the specified diagnostic matrix. The baseline choice and the regularization affect image agreement as well as smoothness.
 
-## Backup 07 — Can the reconstruction run in real time?
+## Backup 07 — One core streams DAVIS data at 0.39 of real time
 
 Deck page: 40.
 
@@ -662,7 +670,7 @@ The streaming recurrence uses the positive terminal diagonal, one plus the final
 
 A moving window changes the left boundary and needs additional handling. The streaming path uses sigmoid weights and delta binning; symmetric kernels would require look-ahead to finalize bins. Quiet pixels with earlier activity still evolve under the recurrence. I also built a C++ and CUDA module in iniVation's DV software for live reconstruction using a general sparse solver.
 
-*[For operation counts, memory, and deployment tradeoffs: Backup 77, page 110.]*
+*[For operation counts, memory, and deployment tradeoffs: Backup 79, page 112.]*
 
 ## Backup 08 — The weak equation supplies the natural boundary condition
 
@@ -702,7 +710,7 @@ Now the energy controls the mean, the fluctuation, and the gradient, so it bound
 
 An admissible constant is c zero equals the smaller of two numbers: m over twice the domain's area, and alpha squared over one plus C P squared plus twice the area times beta B times C P squared over m. It comes from writing the squared H one norm as the area times the mean's squared size, plus the squared L two norm of the fluctuation, plus the squared gradient norm. For fixed alpha and beta B, this bound decreases linearly as m decreases.
 
-## Backup 10 — Stability follows by subtracting weak equations
+## Backup 10 — The flow is Lipschitz in its coefficients
 
 Deck page: 43.
 
@@ -726,7 +734,7 @@ The theorem is about the minimizer of the chosen energy. How close that minimize
 
 Linking the bound to raw sensor errors needs an additional model of the representation error. If a density-dependent diffusion tensor is recomputed, the regularizer changes too, and its L infinity perturbation must enter the bound as well.
 
-## Backup 11 — Discrete flow: connectivity and sampled directions matter
+## Backup 11 — Jacobi sweeps converge to the unique discrete flow
 
 Deck page: 44.
 
@@ -752,7 +760,7 @@ The reason mirrors the continuous argument: the graph controls variation, and th
 
 For the voxel solver, exactly. Its three-by-three box mean is the bilinear Q1 stiffness stencil, which weights all eight neighbors equally, and evaluating the data blocks at pixels is nodal quadrature, a lumped mass matrix. Its reflected border padding reproduces the Q1 natural Neumann rows as well, so that scheme is Q1 finite elements with lumped mass, boundary included. The structure-tensor solver's four-neighbor stencil is the P1 stencil on a uniform grid of right triangles in the interior. Its replicated border halves the inward coupling at boundary pixels, which is the cell-centered finite-volume Neumann condition instead. The continuum coefficients in Appendix A.1.3, alpha squared h squared over three and over four, are these correspondences.
 
-## Backup 12 — Why block-Jacobi converges for this graph model
+## Backup 12 — The Jacobi iteration matrix has spectral radius below one
 
 Deck page: 45.
 
@@ -774,7 +782,7 @@ For D minus R, a zero contribution on every edge forces neighbors to agree, so o
 
 Slowly on large textureless regions. Where the data blocks vanish, a sweep is Jacobi for the graph Laplacian; on a region N pixels wide its spectral radius is close to one minus pi squared over two N squared, so the number of sweeps grows like N squared. Jacobi was used because each sweep is an independent two-by-two solve at every pixel: matrix-free, fully parallel, and the classical Horn--Schunck iteration. The theorem makes the system symmetric positive definite, so conjugate gradients applies directly, with iterations growing like N rather than N squared; Chapter 3 also notes that Gauss--Seidel and SOR converge by Ostrowski--Reich. Multigrid is the standard fast solver for this class; Bruhn and colleagues use it for real-time variational flow. The time-surface code sweeps in place, Gauss--Seidel style, while the theorem analyzes simultaneous sweeps.
 
-## Backup 13 — Anisotropy needs a uniform ellipticity floor
+## Backup 13 — Nagel--Enkelmann smoothing stays uniformly elliptic
 
 Deck page: 46.
 
@@ -810,7 +818,7 @@ The example makes this concrete. Take event density x squared over two, gamma eq
 
 The weak formulation is useful when D is only bounded and measurable. It integrates the test-field gradient against D times the solution gradient, so coefficient derivatives never appear. A flux-based discretization can approximate this divergence structure directly.
 
-## Backup 15 — The regression radius formula is a heuristic
+## Backup 15 — Curvature bias and noise set the regression radius
 
 Deck page: 48.
 
@@ -828,7 +836,7 @@ The leading squared-bias term grows like the radius to the fourth, and the varia
 
 Minimizing one constant times r to the fourth plus another constant times r to the minus fourth makes r to the eighth equal to the ratio of the second constant to the first. Substituting the coefficients gives the factor shown. The asymptotic remainder can have either sign, so the leading expression approximates the finite-design bound from either side. And for an affine time surface the curvature bias is zero, so more samples only reduce variance, and this model has no finite balancing radius.
 
-## Backup 16 — Uniform and OLS weights agree through quadratics and differ on cubics
+## Backup 16 — Uniform and OLS weights first differ on cubics
 
 Deck page: 49.
 
@@ -846,7 +854,7 @@ If we integrate the transport equation against that weight, the spatial term mus
 
 Integrating by parts in the OLS formula produces the parabolic weight. Uniform averaging and that weight agree on the zeroth and first temporal moments, so low-degree tests reveal little. For transported polynomials up to degree two, the mismatch is zero, which makes the cubic the natural explicit example. If the resulting coefficient error is controlled in the norms of the stability theorem, and identifiability stays positive, that theorem bounds its effect on the flow.
 
-## Backup 17 — Mean-zero conditioning removes the unobserved mode
+## Backup 17 — Mean-zero profiles keep the stereo system definite
 
 Deck page: 50.
 
@@ -864,7 +872,7 @@ On that subspace, the smallest temporal eigenvalue is g one instead of zero. The
 
 The bound is uniform in lambda for a fixed temporal grid and fixed coupling. It still depends on the grid: g one behaves like pi squared over n squared for the unscaled chain, so the lambda-uniform bound grows quadratically with the number of samples. At lambda equal to zero the full-space matrix still has a constant null mode, so to use the restricted guarantee, a numerical implementation has to actually enforce the mean-zero restriction. General diagonal penalties or unequal weights need their own matrix bounds.
 
-## Backup 18 — The selection theorem has an exact ellipsoid interpretation
+## Backup 18 — Correct selection is an ellipsoid test
 
 Deck page: 51.
 
@@ -882,7 +890,7 @@ Completing the square writes the cost gap as the squared P-distance from the can
 
 Let the mismatch be the left observation minus the competing right observation. The cost gap is its squared P-norm minus a linear term involving S. Cauchy–Schwarz in the P inner product bounds that linear term by two rho times the mismatch norm, so the gap is positive whenever the mismatch norm exceeds two rho. The exact ellipsoid test is sharper, because it uses direction as well as distance. Both statements concern the fixed, unweighted candidate cost before spatial aggregation.
 
-## Backup 19 — An observation perturbation bound can protect a disparity winner
+## Backup 19 — Perturbations below half the margin keep the winner
 
 Deck page: 52.
 
@@ -900,7 +908,7 @@ The operator norm of P is at most one half. Expanding the quadratic, each cost c
 
 The factor of two in the margin condition covers two changes at once: the winner's cost can rise by eta while a competitor's falls by eta. So the perturbed gap is at least the original margin minus two eta. For this observation bound, the quadratic expansion is exact. If the preprocessing, the left data, or adaptive parameters also change, their contributions must go into the score-perturbation estimate. The same margin argument then applies to whatever uniform score bound results.
 
-## Backup 20 — How the reciprocal IRLS contraction bound is obtained
+## Backup 20 — Three bounds give the IRLS contraction factor
 
 Deck page: 53.
 
@@ -918,7 +926,7 @@ Three estimates control that expression. First, the positive regularizer bounds 
 
 The weight estimate pairs with the weighted residual, and that's what produces the epsilon to the minus three-halves. The change in predicted temporal differences is at most the norm of A times the change in the state, which supplies the remaining factor. This is a sufficient global bound for the unclipped reciprocal map. It certifies contraction whenever that constant is below one.
 
-## Backup 21 — The frozen-weight fixed point and the likelihood stationary point differ
+## Backup 21 — IRLS and the likelihood have different stationary points
 
 Deck page: 54.
 
@@ -936,7 +944,7 @@ The full Gaussian negative log-likelihood is different: the variance moves with 
 
 This scalar example deliberately has no regularizer, to keep the mechanism visible. It isolates the weighting mechanism from the positive-penalty temporal theorem. The dissertation also gives a two-sample temporal example with positive regularization, where a fixed point differs from a stationary point of the final-state-weighted score, even before the Gaussian log term is added. The empirical estimator is evaluated as the specified surrogate procedure, with its own objective and stopping rules.
 
-## Backup 22 — What the implemented IRLS procedure returns
+## Backup 22 — IRLS returns the last accepted iterate and its score
 
 Deck page: 55.
 
@@ -954,7 +962,7 @@ For scoring, it recomputes the weights at the proposed state with the unclipped 
 
 A stopping rule can return an accepted iterate before it reaches a fixed point. Later, finite penalty values used for guidance or rejection go into averaging, so they act as soft preferences. The final winner is the exact minimizer of its computed score list, and path aggregation supplies the spatial context for that list.
 
-## Backup 23 — Depth evaluation distinguishes returned coverage and scored coverage
+## Backup 23 — WLS keeps 96% of its returned depths in band
 
 Deck page: 56.
 
@@ -972,7 +980,7 @@ The control returns finite estimates at 50.17 percent of eligible locations, and
 
 A finite depth outside the band is excluded by the evaluation convention, though it may still be physically possible. That's why returned coverage, in-band retention, and accuracy answer different questions. The benchmark's raw outputs include interpolation around the finest-level score minimum, and leave out the separate posterior refinement step. Reading the errors alongside these counts keeps the interpretation precise. A common-population comparison would score both methods on the same eligible pixels.
 
-## Backup 24 — Exact zeros alone produce large pooled kurtosis
+## Backup 24 — A point mass at zero raises the pooled excess kurtosis
 
 Deck page: 57.
 
@@ -990,7 +998,7 @@ So the more zeros, the larger the pooled kurtosis. Event-free pixels can have ex
 
 The moment calculation is direct. Only the active Gaussian part contributes to the second and fourth moments, so each picks up one factor of the active probability. Dividing the fourth moment by the square of the second leaves the reciprocal of that probability. A useful follow-up would report the zero fraction, standardize the active residuals by their variance, and compare with synthetic residuals passed through the same fitting procedure. Robust penalties remain an option, but choosing one needs evidence beyond this pooled moment.
 
-## Backup 25 — Adaptive temporal weights are fixed in the theorem
+## Backup 25 — The uniqueness theorem covers every adaptive rule
 
 Deck page: 58.
 
@@ -1008,7 +1016,7 @@ The stereo depth model uses a different empirical rule, based on energy before n
 
 Where the adaptive rule is differentiable, differentiating the normal equations gives two forcing terms: A transpose times the change in the observations, and minus the change in Lambda squared applied to the current solution. Multiplying by the inverse reconstruction matrix turns those into the first-order change in the solution. Absolute values and clipping introduce kinks, but every rule is still Lipschitz, so the local Lipschitz bound for adaptive weights needs no derivatives. The positive-floor theorem is still useful, because it controls every individual solve the rule produces.
 
-## Backup 26 — A real MVSEC flow example is qualitative
+## Backup 26 — Each representation's flow on one MVSEC frame
 
 Deck page: 59.
 
@@ -1028,7 +1036,7 @@ Average endpoint error would measure the Euclidean distance between estimated an
 
 The ground-truth flow has known limits too. It is generated from a Velodyne lidar with a 3D reconstruction, so it carries estimation and alignment error, and accumulating points over frames accumulates odometry drift that can make objects look inflated or shifted against the event data. The reference motion is also small: roughly 95 percent of it is under about three pixels, so it says little about fast motion.
 
-## Backup 27 — Quadratic H¹ regularization and TV answer different questions
+## Backup 27 — The quadratic H¹ penalty gives a unique, stable flow
 
 Deck page: 60.
 
@@ -1046,13 +1054,13 @@ The tradeoff is that quadratic smoothing spreads out sharp motion boundaries. To
 
 The integrated full-rank condition is sufficient for this particular quadratic H one argument. Replacing the gradient penalty with total variation changes how the functional grows, and which compactness and coercivity arguments are available. A squared-residual fidelity can be studied with TV, but the theorem has to address that functional directly. For the signed-linear energy written here, simply substituting TV can even make the energy unbounded below. Stronger fidelity assumptions can give strict convexity and uniqueness in a TV model.
 
-## Backup 28 — Frozen weights match the value; an MM majorizer also matches the derivative
+## Backup 28 — An MM majorizer matches both the value and the slope
 
 Deck page: 61.
 
 **Likely question:** Is the reciprocal-weight iteration a majorization–minimization algorithm?
 
-*[Point to the omitted denominator derivative and explain the derivative-contact requirement.]*
+*[Point to the extra derivative term and explain the derivative-contact requirement.]*
 
 ### Answer
 
@@ -1064,7 +1072,7 @@ The frozen quadratic matches the score's value at the current state, but its der
 
 If a differentiable surrogate majorizes the score and touches it at an interior point, their difference has a local minimum of zero there. So the derivative of the difference vanishes, and the derivatives must match. The extra variance derivative vanishes in special cases, such as a zero residual. The implemented acceptance rule is a different mechanism and can allow small cost increases, so describe its behavior through its actual thresholds.
 
-## Backup 29 — A Gaussian model gives an evidence interpretation of attenuation
+## Backup 29 — A Gaussian model explains attenuation as evidence
 
 Deck page: 62.
 
@@ -1082,7 +1090,7 @@ So the model predicts an attenuated right observation. For a scalar regularizer,
 
 Integrating a quadratic Gaussian model produces determinant terms as well as the minimized quadratic cost. With fixed common parameters, the determinants are the same for every candidate, which is what allows this comparison. The prediction operator has eigenvalues between zero and one and is a contraction in the P metric; a Euclidean contraction would need extra structure. The discrepancy alone would favor an ideal equal-profile candidate over distinct competitors, when the coupling is positive and A has full row rank. That's an alternative score, separate from the evaluated stereo method.
 
-## Backup 30 — The implemented estimator has several distinct layers
+## Backup 30 — The stereo estimator runs six layers from events to depth
 
 Deck page: 63.
 
@@ -1100,7 +1108,7 @@ The final step picks a disparity from that score list, interpolating around the 
 
 A few distinctions inside those layers. Solve weights are clipped; scoring weights are recomputed without clipping. Finite guidance penalties go into averaging, so the preference they create is soft. Picking the minimum of the final finite list is exact relative to that list; whether it's the physically correct match is a separate question. Likewise, path aggregation is its own specified spatial algorithm. The reported benchmark includes score-minimum interpolation and leaves out the separate hole-filling and refinement stage.
 
-## Backup 31 — What does the dissertation contribute mathematically?
+## Backup 31 — Each problem gets its own mathematical contribution
 
 Deck page: 64.
 
@@ -1136,7 +1144,7 @@ The particular models, assumptions, and results are developed in the dissertatio
 
 The key distinction is between a framework I build on and a result proved for the models in this dissertation. For example, Horn–Schunck supplies the data-plus-smoothness structure, while the event-derived coefficients and their integrated identifiability assumptions determine how the present theorem applies. The time-surface literature motivates the timestamp geometry, and the crossing assumptions pin down the exact constraint used here.
 
-## Backup 33 — Stable estimates can still have regularization bias
+## Backup 33 — The error splits into regularization bias and noise
 
 Deck page: 66.
 
@@ -1154,7 +1162,7 @@ Substituting that model into the reconstruction formula gives the error identity
 
 For a mean-zero reference signal on a fixed grid, exact noiseless difference data recover the signal as the regularization parameter goes to zero, because every nonconstant mode's gain approaches one. With persistent observation noise, a refinement statement needs joint control of the noise level, the grid spacing, and the regularization. Any mismatch between physical events and the increment model adds another observation-error term.
 
-## Backup 34 — The physical event stream loses more than one baseline
+## Backup 34 — Sub-threshold signals share one empty event stream
 
 Deck page: 67.
 
@@ -1208,7 +1216,7 @@ That needs two things. First, a metric on event streams. For example, moving one
 
 Take one positive unit event and shift its time by any nonzero amount. The difference of the two point masses has total variation norm two, while their Wasserstein-one distance is just the size of the shift. Hard temporal bins can jump when an event crosses a bin boundary; smoothing with a fixed bandwidth supports a different continuity analysis. That's why the metric and the representation have to be specified before claiming stability for the whole chain from events to flow.
 
-## Backup 37 — Refinement requires a choice of continuum scaling
+## Backup 37 — Matching a continuum objective sets the penalty's grid scaling
 
 Deck page: 70.
 
@@ -1244,7 +1252,7 @@ That formula has a direct meaning. The data term pools all the directional const
 
 For the proof, subtract the limiting constant and test the weak equation with the difference. The remaining forcing has zero integral, so Poincaré's inequality bounds its pairing by the gradient norm, which gives a gradient bound of order alpha to the minus two. Testing with constant vectors gives an integrated data balance. Positive definiteness of the integrated matrix then controls the mean of the difference, which completes convergence in H one.
 
-## Backup 39 — Transporting a scalar differs from conserving a density
+## Backup 39 — Density conservation adds a compression term
 
 Deck page: 72.
 
@@ -1266,7 +1274,7 @@ A one-dimensional example separates the two. Let the velocity equal the position
 
 Event cameras are already used for particle velocimetry, for example by Willert and Klinner. Seeded particles give the flow a texture that moves with it, close to the scalar-transport model; conservation fits when the transported quantity is a density. Seeding also supplies texture in every direction, so the integrated identifiability condition is easy to meet. A known reference flow would test how well the representation describes the motion, and the new imaging lab makes those controlled acquisitions possible.
 
-## Backup 40 — Correlated errors change the uncertainty; coercivity holds
+## Backup 40 — Correlated errors change the regression uncertainty
 
 Deck page: 73.
 
@@ -1290,7 +1298,7 @@ Deck page: 74.
 
 *[Navigation only. Silent navigation cue: select the regression or contrast-maximization slide matching the question.]*
 
-## Backup 42 — Time-surface gradient estimation: bias versus variance
+## Backup 42 — Larger fitting disks trade variance for curvature bias
 
 Deck page: 75.
 
@@ -1308,13 +1316,13 @@ The bias comes from fitting a plane to a curved surface. Central symmetry cancel
 
 The design matrix depends on the sample positions. A well-conditioned fit can estimate the time-surface gradient accurately even at a moving straight edge, and the tangential velocity is still free, because one reliable normal constraint fixes only one component of motion. So regression rank and velocity identifiability answer different questions. The uncertainty formula also assumes an explicit timestamp-error model; a model for event counts would need its own derivation.
 
-## Backup 43 — Contrast maximization finds the motion that sharpens the events
+## Backup 43 — CMAX has the lowest error in every known-motion scene
 
 Deck page: 76.
 
 **Likely question:** What does contrast maximization model, and why is it worth pursuing?
 
-*[Describe the warp on the left, then point to the CMAX column of the table.]*
+*[Read the CMAX column scene by scene against the structure tensor.]*
 
 ### Answer
 
@@ -1324,9 +1332,9 @@ The method works directly on individual events and their own timestamps. The qua
 
 ### If asked for more
 
-These numbers come from one representative window, chosen by the rule that minimizes deviation from each method's median error, on simulated scenes with known motion. On the idealized stripes, contrast maximization also assigns flow to the background around the object. The dissertation's endpoint errors come from these known-motion scenes. The guarantee for contrast maximization is that a global minimizer exists; the solver is a local quasi-Newton method. The contrast-maximization objective and existence backups give those details.
+These numbers come from one representative window, chosen by the rule that minimizes deviation from each method's median error, on simulated scenes with known motion. On the idealized stripes, contrast maximization also assigns flow to the background around the object. The dissertation's endpoint errors come from these known-motion scenes. The guarantee for contrast maximization is that a global minimizer exists; the solver is a local quasi-Newton method. The contrast-maximization objective and existence backups give those details, and Backup 47, page 80, sets the method beside the voxel models.
 
-## Backup 44 — How the known-motion comparison was evaluated
+## Backup 44 — Every method sees the same motion, window, and arrow scale
 
 Deck page: 77.
 
@@ -1348,29 +1356,39 @@ VOX uses an eight-neighbor interior stencil, and the structure-tensor implementa
 
 The separate MVSEC contrast-maximization configuration caps iterations at ten; the controlled figures here use one hundred. The chapter calls the AEE evaluation mask M; the experiment's evaluator defines its exact population. The convergence theorem uses simultaneous block-Jacobi updates with fixed coefficients. The evaluated time-surface implementation uses in-place updates and event-dependent reference times; the convergence backup explains the schedule that's proved.
 
-## Backup 45 — Contrast maximization changes the optimization problem
+## Backup 45 — Contrast maximization sharpens the warped event image
 
 Deck page: 78.
 
-**Likely question:** How does contrast maximization differ from your quadratic optical-flow model?
+**Likely question:** What exactly does contrast maximization optimize?
 
-*[Point to the warped locations, then identify the ridge lower bound in the regularizer.]*
+*[Point to the left diagram: the slanted line of events, the arrows, then the two images below.]*
 
 ### Answer
 
-In contrast maximization, the event image itself changes as the motion estimate changes. Each event is warped to a common reference time, and well-aligned events produce a concentrated image. The objective rewards that concentration through image variance, and adds a quadratic regularizer on the motion coefficients.
+One edge's events, by position and time, lie along a slanted line because the edge moves. With zero flow they land in five places, a smeared trail; slid along the right motion to the reference time, they land in one column, a single tall bar.
 
-The motion variable q is displacement over the normalized time window: physical velocity times the window duration. We represent that field with a tensor-product cubic B-spline on a uniform grid with eight-pixel knot spacing; the two flow components share the basis. The spline is continuous, so the field has a well-defined value at every event location, and the whole flow is a small coefficient vector rather than one unknown per pixel. Because the warp depends on the coefficients, the full objective is generally nonconvex. The regularizer does two separate jobs. Spatial diffusion controls variation across the field, and a positive coefficient ridge controls the overall size of the coefficients, including constant motion. So the existence argument uses finite-dimensional continuity and coercivity.
+*[Step 1.]*
+
+The warp moves each event by its time offset from the reference time, times the displacement q at its location: velocity times window length, in pixels. q is a cubic B-spline on an eight-pixel knot grid, so the unknown is a coefficient vector c.
+
+*[Step 2.]*
+
+Each warped event's weight goes onto its four nearest pixels, giving the warped-event image I sub c; only ON events count, with weight one. The image changes whenever c changes.
+
+*[Step 3.]*
+
+The objective maximizes the image variance, written as minimizing minus the variance, plus a two-part quadratic penalty. The stiffness term, through the diffusion tensor D from the event structure tensor plus a floor, penalizes spatial variation of the flow. The ridge controls constant flow, which stiffness leaves free, and makes the objective grow for large coefficients.
 
 ### If asked for more
 
-The basis is clamped at the image border with a Neumann boundary treatment, the natural condition for a rectangular frame. Concentration alone can also reward a wrong warp that collapses events together, which is why the regularization and the model restrictions matter. Continuous splines can be evaluated at points; a general two-dimensional H one field is an equivalence class, and needs more regularity before point values make sense.
+The spline is continuous, so the flow has a value at every event location; a general two-dimensional H one field needs more regularity for that. Because the warp moves the image, the focus term is nonconvex in c, and a wrong warp that collapses unrelated events can also raise the variance; the regularizer counters that. Existence is the next backup; the comparison with the voxel models follows it.
 
 ### If asked why analyze the quadratic family at all
 
 Because the two answer different questions. The quadratic models are where I can prove what the events determine: a unique flow, stable in its coefficients, computed by an iteration that converges, under a condition you can check in the scene — edges in two orientations. That condition is what explains the stripe result. Contrast maximization is more accurate on these tests, but its objective is nonconvex: I can prove a global minimizer exists, and the solver is local. So one tells us when the data identify the motion; the other is a stronger estimator with weaker guarantees.
 
-## Backup 46 — A global minimizer exists, even though the solver is local
+## Backup 46 — The contrast objective has a global minimizer
 
 Deck page: 79.
 
@@ -1392,15 +1410,35 @@ The continuity holds even when events cross pixel boundaries, because the biline
 
 Uniform knots keep the stiffness matrix and the ridge scaling simple, and the proposition assumes them. Events are already adaptive samples, so knots refined where events are dense, for example hierarchical B-splines, are a natural extension. The existence proof needs only a nonnegative partition of unity. For the uniform bound, weight each coefficient in the ridge by its basis integral, so it stays a lumped L two mass term.
 
-## Backup 47 — Stereo depth: full Chapter 4 arc
+## Backup 47 — Voxel models and CMAX combine events at different stages
 
 Deck page: 80.
 
-*[Navigation only. Silent navigation cue: choose the matching model, selection, IRLS, or benchmark page.]*
+**Likely question:** How does contrast maximization differ from voxel projection and the structure tensor?
 
-## Backup 48 — Stereo depth in one slide: what Chapter 4 adds
+*[Read the rows top to bottom; the two voxel models share one column.]*
+
+### Answer
+
+The difference is when the events get combined. Both voxel models bin the events and turn them into fixed coefficients, B and b, before the solve starts. Whatever the edge did inside a bin or a window is already averaged in. Contrast maximization keeps every event at its own time and rebuilds the image for every candidate flow, so the combining happens inside the objective.
+
+That one change sets the rest of the table. The voxel models score one pixel at a time, with a squared residual; contrast maximization scores the sharpness of the whole warped image. The voxel problems are quadratic and convex, with a unique minimizer when the edges cover two directions, stability in the coefficients, and Jacobi sweeps that converge to it. Contrast maximization is nonconvex; a global minimizer exists, and L-BFGS-B returns a local solution.
+
+So the voxel models give guarantees tied to a condition you can check in the scene, and contrast maximization uses each event's own timing, with the lowest error on the known-motion scenes.
+
+### If asked for more
+
+The voxel models solve for a velocity at every pixel; contrast maximization solves for spline coefficients. The time surface belongs with the voxel models: its column reads like voxel projection's, with residual grad T dot v minus one. The structure tensor also enters contrast maximization through D in its regularizer. Known-motion errors: Backup 43, page 76.
+
+## Backup 48 — Stereo depth: full Chapter 4 arc
 
 Deck page: 81.
+
+*[Navigation only. Silent navigation cue: choose the matching model, selection, IRLS, or benchmark page.]*
+
+## Backup 49 — What Chapter 4 adds to stereo depth
+
+Deck page: 82.
 
 **Likely question:** What does Chapter 4 prove beyond the inner solve?
 
@@ -1422,9 +1460,9 @@ For the reciprocal reweighting map, a fixed point exists. Under a sufficient con
 
 On the MVSEC benchmark, WLS leads on indoor flying two and narrowly on the aggregate log RMSE, while scoring more pixels than the local adaptation of Piatkowska and colleagues' method. Each method is scored on its own valid pixels. The separation results concern unweighted candidate-local costs before aggregation.
 
-## Backup 49 — Stereo alignment after motion compensation
+## Backup 50 — A warp mismatch shifts the matched disparity
 
-Deck page: 82.
+Deck page: 83.
 
 **Likely question:** Why should two pixels' observed event signals agree when the rig and scene are moving?
 
@@ -1444,9 +1482,9 @@ For simultaneous points that start on the same row, subtracting the warped verti
 
 These translations come from Chapter 4's own preprocessing fit; Chapter 3's dense-flow estimator is a separate study. Soft coupling allows the profiles to disagree, but its penalty still favors agreement. Occlusion removes the visible match, which needs a rejection or visibility treatment beyond the unique inner fit.
 
-## Backup 50 — At each candidate, couple two temporal profiles
+## Backup 51 — At each candidate, couple two temporal profiles
 
-Deck page: 83.
+Deck page: 84.
 
 **Likely question:** What are the unknowns in the stereo reconstruction model?
 
@@ -1462,9 +1500,9 @@ There are also two magnitude penalties and a soft coupling term. The magnitude p
 
 Setting both weight matrices to the identity gives the unweighted model used in the explicit selection analysis. With finite coupling, the profiles can differ, at a cost, so the data terms keep information from each view. Absolute calibrated log intensity would need a calibrated observation model linking the processed features to physical units; the candidate-local optimization and its positive-definiteness proof concern the stated feature model.
 
-## Backup 51 — Frozen weights give a unique, stable inner solve
+## Backup 52 — Frozen weights give a unique, stable inner solve
 
-Deck page: 84.
+Deck page: 85.
 
 **Likely question:** Why is the stereo solve unique when the weights are frozen?
 
@@ -1480,9 +1518,9 @@ The result is a sum of two weighted difference energies, two magnitude-penalty e
 
 The inverse matrix has norm at most one over the smallest regularizer entry squared. To turn that into an observation-to-solution bound, also include the norm of the weighted observation map on the right-hand side. This theorem is about each inner solve. Candidate selection adds a discrete comparison, and changing the weights changes the quadratic itself; those stages have their own separation and fixed-point analyses.
 
-## Backup 52 — Sum and difference modes expose the coupling
+## Backup 53 — Sum and difference modes expose the coupling
 
-Deck page: 85.
+Deck page: 86.
 
 **Likely question:** What does increasing the stereo coupling strength actually do?
 
@@ -1498,9 +1536,9 @@ The same decomposition gives an exact condition number in the unweighted case wi
 
 The orthogonal transform preserves Euclidean eigenvalues and condition numbers. The simple block diagonalization needs equal temporal blocks; unequal adaptive weights generally mix the mean and difference coordinates. A mean-zero restriction removes the shared constant mode for suitably structured perturbations, and can give a sharper bound. Full-space conditioning still matters, because numerical errors can enter in any direction, so it's useful to keep the two settings separate.
 
-## Backup 53 — Profile out the latent variables to see what disparity compares
+## Backup 54 — The profiled cost carries a candidate-dependent bias
 
-Deck page: 86.
+Deck page: 87.
 
 **Likely question:** What quantity is actually compared when you choose a disparity?
 
@@ -1516,9 +1554,9 @@ The left monocular term is the same for every candidate. The right monocular ter
 
 The derivation completes the square in the stacked latent variables, then uses the sum-and-difference transform to separate the terms. The inverse difference equals two gamma times the product of the two positive inverse matrices, so it's positive semidefinite. An exact winner of these unaggregated profiled costs minimizes the corresponding joint objective over the candidates and the latent variables. Showing that it's the physical match takes assumptions that connect that objective to the true correspondence.
 
-## Backup 54 — An attenuated match can cost less than the perfect one
+## Backup 55 — An attenuated match can cost less than the perfect one
 
-Deck page: 87.
+Deck page: 88.
 
 **Likely question:** Can the stereo objective favor a wrong correspondence even when the true profiles match exactly?
 
@@ -1534,9 +1572,9 @@ At the perfect match, b equals one and the cost is one third. At the attenuated 
 
 For an observation scaled by b, the monocular part is one plus b squared, times the left monocular cost. The discrepancy part is one minus b, squared, times the discrepancy coefficient. The derivative at b equal to one is twice the positive monocular cost, so decreasing b slightly lowers the score. This concerns the unweighted local cost before aggregation; the evaluated weighted method has additional steps.
 
-## Backup 55 — Correct disparity needs a separation condition
+## Backup 56 — A separation condition picks the correct disparity
 
-Deck page: 88.
+Deck page: 89.
 
 **Likely question:** What assumptions ensure that the correct disparity wins?
 
@@ -1552,9 +1590,9 @@ For every competitor, assume its right observation differs from the left, and it
 
 The condition is sufficient, and it can be stronger than necessary. A competitor with a smaller monocular cost can still lose if its discrepancy is large enough. The more general metric-separation criterion covers that case. Both versions concern ideal matched profiles and candidate-local, unweighted costs. Applying the conclusion after masking, adaptive weighting, or spatial aggregation requires checking that scoring procedure and its assumptions.
 
-## Backup 56 — A winning margin turns cost stability into selection stability
+## Backup 57 — A winning margin turns cost stability into selection stability
 
-Deck page: 89.
+Deck page: 90.
 
 **Likely question:** How much can candidate costs change before the selected disparity changes?
 
@@ -1570,9 +1608,9 @@ So whenever eta is strictly less than half of delta, every perturbed gap stays p
 
 The cost bound must cover the original winner as well as every competitor. At exactly half the margin, the bound allows a tie, so the strict inequality matters. An observation-based estimate can supply eta when the score parameters are fixed and the observation perturbations are controlled. Spatial aggregation can separate candidates using neighboring evidence, so the identical-profile example applies to the local score.
 
-## Backup 57 — Depth sensitivity grows with distance
+## Backup 58 — Depth sensitivity grows with distance
 
-Deck page: 90.
+Deck page: 91.
 
 **Likely question:** What does a pixel of disparity error mean for depth accuracy?
 
@@ -1590,9 +1628,9 @@ The approximation needs the disparity error to be small relative to the disparit
 
 On the benchmark, finite in-band estimates and ground truth define each method's scored population; the coverage slides explain that selection. This calculation explains how disparity errors propagate within those populations. Attributing a method's error tails would take a separate analysis of its returned disparities.
 
-## Backup 58 — Heteroscedastic weights: statistical motivation and scope
+## Backup 59 — Event-count variance follows the sum of the two rates
 
-Deck page: 91.
+Deck page: 92.
 
 **Likely question:** Why do you use reciprocal activity weights in stereo?
 
@@ -1608,9 +1646,9 @@ The implemented rule uses reciprocal predicted activity plus a positive noise fl
 
 The absolute difference of the two polarity rates is at most their sum, with equality exactly when at least one rate is zero. So a variance based only on the net rate adds an approximation. In the iteration, the weights are evaluated at the previous profile and held fixed during the quadratic solve. That keeps the positive-definiteness argument for each solve, and makes the statistical approximation explicit.
 
-## Backup 59 — IRLS: fixed-point existence and conditional convergence
+## Backup 60 — IRLS has a fixed point and a contraction condition
 
-Deck page: 92.
+Deck page: 93.
 
 **Likely question:** Does the iteratively reweighted stereo solver converge?
 
@@ -1626,9 +1664,9 @@ The weight map is continuous, and the frozen system stays positive definite, so 
 
 With a fixed damping parameter greater than zero and at most one, the update is a convex combination of the old state and the undamped update. The fixed points stay the same, and the Lipschitz bound becomes one minus omega, plus omega times q. When q is below one, that's still a contraction. A fixed point means consistency with the frozen weights; reading it as a likelihood optimum needs a separate analysis of the objective.
 
-## Backup 60 — Stereo benchmark: read accuracy alongside scored coverage
+## Backup 61 — WLS scores the most points at competitive error
 
-Deck page: 93.
+Deck page: 94.
 
 **Likely question:** How competitive is the stereo method, and how should I interpret the coverage numbers?
 
@@ -1646,9 +1684,9 @@ The reporting band is 0.5 to 8 meters. Point counts are summed across sequences.
 
 The reference depth has known limits. MVSEC's ground truth comes from a Velodyne lidar combined with a 3D reconstruction, so it carries estimation and alignment error. Accumulating lidar points over many frames also accumulates odometry drift, which can make objects in the reference look inflated or shifted relative to the image and event data. Every method is scored against the same reference, so these errors limit how finely we can rank close results, such as differences of a few centimeters.
 
-## Backup 61 — A weighting comparison supports the selected rule
+## Backup 62 — Reciprocal weights lower the error on all four sequences
 
-Deck page: 94.
+Deck page: 95.
 
 **Likely question:** What empirical evidence supports the reciprocal weighting rule?
 
@@ -1664,9 +1702,9 @@ That supports the selected rule for these configurations and their scored popula
 
 These are differences of reported mean errors. The empirical improvement motivates the implementation choice; a maximum-likelihood interpretation would also need a justified probabilistic model for the processed observations.
 
-## Backup 62 — Hard fusion changes both the constraint and the regularization
+## Backup 63 — Hard fusion changes the constraint and the penalty
 
-Deck page: 95.
+Deck page: 96.
 
 **Likely question:** Why does hard fusion perform differently from soft coupling?
 
@@ -1682,9 +1720,9 @@ Averaged over the four sequences, the reported mean depth error is 102.10 centim
 
 The soft model's mean equation already combines both views.
 
-## Backup 63 — Motion-induced events and the aperture problem
+## Backup 64 — A straight edge fixes its normal speed
 
-Deck page: 96.
+Deck page: 97.
 
 **Likely question:** Can you derive the aperture problem directly from the event-generating image model?
 
@@ -1700,9 +1738,9 @@ Substituting those into brightness constancy gives the normal vector dotted with
 
 If the normal speed is zero, the motion is purely tangential, and the pixel values stay constant in the ideal edge interior. With nonzero normal speed, the crossing-time surface has gradient equal to the normal divided by that speed, which recovers the time-surface transport constraint. Steady illumination is assumed to isolate motion. The sensor's threshold rule also responds to changes in illumination, so treating every event as motion needs additional scene assumptions.
 
-## Backup 64 — One complementarity lemma behind the uniqueness results
+## Backup 65 — One complementarity lemma behind the uniqueness results
 
-Deck page: 97.
+Deck page: 98.
 
 **Likely question:** The three chapters come from separate papers. Is there one mathematical mechanism behind their uniqueness results?
 
@@ -1726,9 +1764,9 @@ The constant explains the scene statements: for flow it falls as m shrinks, whic
 
 The lemma is the recipe. First find the modes the new regularizer leaves free; then check that the data see them. A fractional seminorm on a bounded domain still leaves only the constants, so the same integrated condition fixes them, with a fractional Poincaré inequality and coercivity in H s. A nonquadratic penalty such as total variation needs its own existence argument, through compactness in BV.
 
-## Backup 65 — Adaptive weights keep the temporal estimate locally Lipschitz
+## Backup 66 — Adaptive weights keep the temporal estimate locally Lipschitz
 
-Deck page: 98.
+Deck page: 99.
 
 **Likely question:** The temporal theorem fixes the weights, but you compute them from the data. Is the estimator you actually run stable?
 
@@ -1748,13 +1786,13 @@ The constants are pessimistic, because the weight floor, about 0.03, enters cube
 
 Chapter 4 is different. Its observation weights are recomputed from the current profiles, so its estimator is a fixed point and needs the contraction condition in the stereo backups. Chapter 5 lists this as a future direction. The bound covers the step from the represented data to the estimate; connecting it to raw event perturbations is the representation question among the next steps.
 
-## Backup 66 — How the parameters were chosen
+## Backup 67 — The theorems cover every positive parameter choice
 
-Deck page: 99.
+Deck page: 100.
 
 **Likely question:** How did you choose the regularization parameters, and why not a standard rule such as the discrepancy principle?
 
-*[Read the table one row at a time, then point to the two blocks.]*
+*[Read the table one row at a time, then the closing line.]*
 
 ### Answer
 
@@ -1770,9 +1808,9 @@ The discrepancy principle chooses the strongest regularization whose residual ma
 
 The sweeps used the same sequences we report, so a held-out protocol is the clean next experiment. The data-driven route is bilevel learning of the weights, from the research-opportunities slide.
 
-## Backup 67 — Learned estimators face the same free directions
+## Backup 68 — Learned estimators face the same free directions
 
-Deck page: 100.
+Deck page: 101.
 
 **Likely question:** Why not train a neural network to do this?
 
@@ -1796,9 +1834,9 @@ A second combination is unrolling: run a fixed number of block-Jacobi or IRLS it
 
 The lower level is. If the weights range over a box between a positive floor and a ceiling, and the outer loss is continuous, the reduced outer objective is continuous on a compact set, so an outer minimizer exists. Uniqueness of that minimizer, generalization of the learned weights, and convergence of a particular outer algorithm each need their own analysis.
 
-## Backup 68 — The spline regularizer is uniformly coercive under refinement
+## Backup 69 — The spline regularizer is uniformly coercive under refinement
 
-Deck page: 101.
+Deck page: 102.
 
 **Likely question:** Your ridge, two epsilon over M, goes to zero as you refine the knots. Doesn't coercivity degrade?
 
@@ -1816,9 +1854,9 @@ What does grow is the condition number of the coefficient matrix, like h to the 
 
 The largest eigenvalue of the stiffness matrix stays bounded in two dimensions: its entries are of the size of the diffusion tensor, and each basis function overlaps at most 49 others, so Gershgorin bounds it. The smallest eigenvalue is the ridge, of order h squared. Knot-spacing continuation, which the implementation supports, is the usual remedy for iteration counts. I checked the mass bound numerically with the clamped cubic basis: the largest one-dimensional Gram eigenvalue divided by h is 0.981, 0.994, and 1.000 at spacings of 8, 4, and 2 pixels. With nonuniform knots, weighting each coefficient by its basis integral makes the ridge a lumped mass term again.
 
-## Backup 69 — Weak regularization: a limit in time, the aperture line in space
+## Backup 70 — Weak regularization: a limit in time, the aperture line in space
 
-Deck page: 102.
+Deck page: 103.
 
 **Likely question:** What happens to your results as the regularization goes to zero?
 
@@ -1836,9 +1874,9 @@ In space, the smoothing supplies identifiability. An event-free region gives a t
 
 The full-space condition number, g max plus lambda squared over lambda squared, grows only along the constant mode, which the data never excite; the mean-zero formulation removes that mode. Convergence to the limit sets in once lambda squared is small compared with g one, roughly pi squared over N t squared. For the structure tensor at alpha zero, pixels with a rank-two pooled block keep a unique velocity; the rest keep a line or the whole plane.
 
-## Backup 70 — Where there are no events, smoothness fills in harmonically
+## Backup 71 — In event-free regions, smoothness fills in the flow harmonically
 
-Deck page: 103.
+Deck page: 104.
 
 **Likely question:** In regions with no events, isn't the flow simply invented?
 
@@ -1856,9 +1894,9 @@ So an event-free region gets the smoothest interpolation of the motion measured 
 
 Where U reaches the image border, the natural Neumann condition holds and adds no constraint, because test fields are free on the outer boundary. All three representations have residual-square data terms, so the forcing vanishes wherever the data matrix does. On the pixel graph, the same statement says an event-free node's velocity is the weighted average of its neighbors'. A motion boundary inside an event-free region is smoothed across; that's the H one modeling choice, compared with TV in its own backup.
 
-## Backup 71 — A point measure needs a representation before optimization
+## Backup 72 — A representation turns events into coefficients
 
-Deck page: 104.
+Deck page: 105.
 
 **Likely question:** Why is representing the event stream part of the model?
 
@@ -1878,9 +1916,31 @@ I'll also keep track of what each variable means. Physical intensity, log intens
 
 *[If asked about the continuous-time meaning of the event measure: Backup 03, page 36. If asked why the kernel choice matters: Backup 05, page 38.]*
 
-## Backup 72 — Voxel projection: transport a represented event-activity field
+## Backup 73 — Crossing times give one equation for the velocity
 
-Deck page: 105.
+Deck page: 106.
+
+**Likely question:** How does the time surface give the motion constraint?
+
+### Answer
+
+*[Point to the three lines.]*
+
+The time surface records, at each pixel, when the edge last crossed it. The three lines are where the edge was at three moments, so the crossing times rise in the direction the edge moves.
+
+*[Point to the equation.]*
+
+Track one point of the edge as its image moves across the sensor. Wherever that image is, the edge is just arriving at that pixel, so the pixel's recorded crossing time equals the current time, and their difference stays zero. Differentiate along the path: time contributes one, and the motion contributes minus the gradient of the crossing times, dotted with the velocity. So that dot product equals one.
+
+In scene terms, the size of the gradient is the edge's slowness: an edge that takes ten milliseconds per pixel moves at a hundred pixels per second perpendicular to itself. Motion along the edge leaves the crossing times unchanged, so this one equation fixes only the normal speed: the aperture problem is built in.
+
+The derivation follows one clean crossing at constant velocity. On real data we fit and smooth the time surface and use this relation as the data term.
+
+*[If asked how the time-surface gradient is estimated and how accurate it is: Backup 42, page 75; for the neighborhood size, Backup 15, page 48. If asked about correlated timestamp errors: Backup 40, page 73.]*
+
+## Backup 74 — Transported event activity gives the voxel equation
+
+Deck page: 107.
 
 **Likely question:** What does voxel projection assume?
 
@@ -1892,7 +1952,7 @@ Integrate V over a sliding time window to get a.
 
 *[Point to the assumption box.]*
 
-This step adds a modeling assumption, shown in the box: the activity field moves with the scene, at constant velocity over the window. That goes beyond the threshold model. A pixel can start or stop producing events as brightness, motion, and threshold conditions change, and activity is a different quantity from brightness: a steadily bright region can produce very little of it.
+This step adds a modeling assumption, shown in the box: the activity field moves with the scene, at constant velocity over the window. That goes beyond the sensor model, in which each event marks one threshold step in log brightness. A pixel can start or stop producing events as brightness, motion, and threshold conditions change, and activity is a different quantity from brightness: a steadily bright region can produce very little of it.
 
 Integrating the transport equation gives another transport equation, now for a. Its time derivative is the activity entering at the end of the window minus the activity leaving at the start.
 
@@ -1902,9 +1962,9 @@ The continuous identity holds under the transport assumption with consistent der
 
 *[If asked why event activity should obey transport, or why not a continuity equation: Backup 39, page 72. If asked whether the temporal slope and spatial projection must match: Backup 16, page 49.]*
 
-## Backup 73 — The structure tensor pools directional information
+## Backup 75 — Pooled gradients fix both velocity components
 
-Deck page: 106.
+Deck page: 108.
 
 **Likely question:** How does the structure tensor constrain both velocity components?
 
@@ -1926,19 +1986,17 @@ The difference from voxel projection is where the averaging happens. Voxel proje
 
 *[If asked when sampled gradient directions suffice: Backup 11, page 44. If asked whether integrated directional information is necessary: Backup 35, page 68.]*
 
-## Backup 74 — Stereo on MVSEC: competitive accuracy, more scored points
+## Backup 76 — Stereo on MVSEC: competitive accuracy, more scored points
 
-Deck page: 107.
+Deck page: 109.
 
 **Likely question:** How does the stereo method compare with all the methods on MVSEC?
 
 ### Answer
 
-*[Point to the energy first, then to the WLS row and the Piatkowska row.]*
+*[Point to the WLS row, then the Piatkowska row.]*
 
 At each candidate disparity, the model solves for one temporal profile per view. Each profile fits its own events, as in the temporal chapter, and a soft penalty ties the two profiles together.
-
-*[Point to the two labels.]*
 
 The mathematical result is for a fixed disparity with the weights frozen. The coupling term is nonnegative, so the temporal coercivity proof carries over, and the inner problem has a unique solution. The benchmark runs the full method: weight updates, cost aggregation, and candidate selection.
 
@@ -1948,11 +2006,11 @@ Our weighted least-squares method, WLS, has the lowest error on indoor flying tw
 
 Each method is scored on its own valid pixels, so the comparison reflects both accuracy and coverage.
 
-*[If asked why the inner solve is unique: Backup 51, page 84. If asked whether a unique solve guarantees the right disparity: Backup 54, page 87; the conditions that do are Backup 55, page 88, and Backup 56, page 89; for noise tolerance, Backup 19, page 52. If asked whether IRLS converges: Backup 59, page 92. If asked whether it is maximum likelihood or majorization–minimization: Backup 21, page 54, and Backup 28, page 61. If asked whether the comparison is fair: Backup 60, page 93, and Backup 23, page 56. If asked what supports the reciprocal weights: Backup 61, page 94. If asked what increasing the coupling does: Backup 52, page 85. If asked about hard fusion: Backup 62, page 95. For exactly which competitors beat the ideal match: Backup 18, page 51. For the IRLS contraction constant and what one IRLS call returns: Backup 20, page 53, and Backup 22, page 55. If asked about the dataset's own ground-truth limits: Backup 60, page 93.]*
+*[If asked why the inner solve is unique: Backup 52, page 85. If asked whether a unique solve guarantees the right disparity: Backup 55, page 88; the conditions that do are Backup 56, page 89, and Backup 57, page 90; for noise tolerance, Backup 19, page 52. If asked whether IRLS converges: Backup 60, page 93. If asked whether it is maximum likelihood or majorization–minimization: Backup 21, page 54, and Backup 28, page 61. If asked whether the comparison is fair: Backup 61, page 94, and Backup 23, page 56. If asked what supports the reciprocal weights: Backup 62, page 95. If asked what increasing the coupling does: Backup 53, page 86. If asked about hard fusion: Backup 63, page 96. For exactly which competitors beat the ideal match: Backup 18, page 51. For the IRLS contraction constant and what one IRLS call returns: Backup 20, page 53, and Backup 22, page 55. If asked about the dataset's own ground-truth limits: Backup 61, page 94.]*
 
-## Backup 75 — From event changes to well-posed estimators
+## Backup 77 — From event changes to well-posed estimators
 
-Deck page: 108.
+Deck page: 110.
 
 *[Closing summary; use it if the discussion returns to the common question.]*
 
@@ -1962,11 +2020,11 @@ Temporal reconstruction shows how a penalty selects the baseline. Flow shows how
 
 Across all three, the common question is which directions the observations control, and which the model chooses.
 
-*[For questions: the discussion guide is Backup 01, page 34; flow detail starts at Backup 41, page 74; the stereo arc at Backup 47, page 80; references at page 117.]*
+*[For questions: the discussion guide is Backup 01, page 34; flow detail starts at Backup 41, page 74; the stereo arc at Backup 48, page 81; references at page 119.]*
 
-## Backup 76 — One tridiagonal sweep per pixel, constant work per streamed frame
+## Backup 78 — One tridiagonal sweep per pixel
 
-Deck page: 109.
+Deck page: 111.
 
 **Likely question:** What does the solve cost, and could it run on small, low-power hardware?
 
@@ -1984,11 +2042,11 @@ If only the newest frame is needed, the forward recurrence returns the endpoint 
 
 So the whole model costs work proportional to pixels times samples, and a streaming version stores four numbers per pixel. On one CPU core, the streaming form keeps up with a 346 by 260 sensor producing a frame every two milliseconds.
 
-*[For per-core timings and the pixel budget: Backup 78, page 111. For problem size and low-power strategies: Backup 77, page 110.]*
+*[For per-core timings and the pixel budget: Backup 80, page 113. For problem size and low-power strategies: Backup 79, page 112.]*
 
-## Backup 77 — How big is the temporal monocular problem?
+## Backup 79 — The temporal problem is one small tridiagonal solve per pixel
 
-Deck page: 110.
+Deck page: 112.
 
 **Likely question:** How many unknowns are there, what does the solve cost, and what would you change for low-power use?
 
@@ -2010,9 +2068,9 @@ A 346 by 260 sensor with fifty samples has about four and a half million unknown
 
 **Sources:** Chapter 2 normal equations; edge implementation and README; [Scheerlinck et al., Continuous-time Intensity Estimation Using Event Cameras (ACCV 2018)](https://www.cedricscheerlinck.com/continuous-time-intensity-estimation). CPU timings: Backup 07, page 40.
 
-## Backup 78 — One CPU core streams about 114 million pixel updates per second, with 16 bytes of state per pixel
+## Backup 80 — One core streams about 114 million pixel updates a second
 
-Deck page: 111.
+Deck page: 113.
 
 **Likely question:** How fast is it on one core, and what would fit on a small, low-power board?
 
@@ -2026,11 +2084,11 @@ So for any sensor, the budget is pixels times frames per second, below 114 milli
 
 Batch reconstruction also follows the scene: in a typical window only about seven percent of pixels have events, and skipping the rest cuts the work tenfold.
 
-*[For multithread timings: Backup 07, page 40. For problem size, memory, and low-power strategies: Backup 77, page 110.]*
+*[For multithread timings: Backup 07, page 40. For problem size, memory, and low-power strategies: Backup 79, page 112.]*
 
-## Backup 79 — One pixel follows each passing object and returns to the background
+## Backup 81 — One pixel follows each passing object
 
-Deck page: 112.
+Deck page: 114.
 
 **Likely question:** What does your estimate for a single pixel look like over time, compared with the truth?
 
@@ -2046,11 +2104,11 @@ Over two hundred pixels with independent sensor noise, the median error is 0.19 
 
 This is the frequency response from the penalty slide in action: the penalty removes the baseline and slow drift and keeps passing edges. The penalty constants are the ones chosen on MVSEC, unchanged. Short bright bars come out about 0.3 below their peak, because of the five-millisecond kernel and the pull toward the background. A synthetic scene gives ground truth at every instant, which MVSEC's 30-hertz frames cannot.
 
-*[For the same comparison across noise levels: Backup 80, page 113. For the frequency response: the penalty slide in the main talk.]*
+*[For the same comparison across noise levels: Backup 82, page 115. For the frequency response: the penalty slide in the main talk.]*
 
-## Backup 80 — The per-pixel estimate has the lowest error at every noise level tested
+## Backup 82 — The per-pixel estimate wins at every noise level
 
-Deck page: 113.
+Deck page: 115.
 
 **Likely question:** Does that advantage hold up as the sensor gets noisier?
 
@@ -2062,11 +2120,11 @@ Yes. The plot repeats the same scene at two levels of threshold mismatch and sho
 
 Doubling the threshold mismatch hurts naive integration most, because every pass leaves a residual. The tuned leaky baseline gets its decay rate from the true signal, which real data cannot supply; with the rate chosen on MVSEC, the dashed line, it is twelve to twenty-three percent above ours. Our constants are the MVSEC values at every point.
 
-*[For the single-pixel trace: Backup 79, page 112.]*
+*[For the single-pixel trace: Backup 81, page 114.]*
 
-## Backup 81 — Grayscale renderings of the orbit, office, and cup reconstructions
+## Backup 83 — Grayscale renderings of the three scenes
 
-Deck page: 114.
+Deck page: 116.
 
 **Likely question:** What do the three scenes look like without false color?
 
@@ -2080,9 +2138,9 @@ The orbital scene holds about two million events, the office about two and a hal
 
 *[For the false-color version: slide 19.]*
 
-## Backup 82 — Events record changes and the model supplies the brightness level
+## Backup 84 — Events record changes and the model supplies the level
 
-Deck page: 115.
+Deck page: 117.
 
 **Likely question:** What does the raw event stream look like next to an ordinary image and your reconstruction?
 
@@ -2094,11 +2152,11 @@ On the left is an ordinary camera image of an outdoor scene, there to help recog
 
 The twenty milliseconds are the last part of the fifty-millisecond window on the next backup: 13,221 events, 5,178 positive and 8,043 negative, in the raw left-camera geometry.
 
-*[For the same events summed into one picture: Backup 83, page 116.]*
+*[For the same events summed into one picture: Backup 85, page 118.]*
 
-## Backup 83 — Events record changes and the model supplies the brightness level
+## Backup 85 — Events record changes and the model supplies the level
 
-Deck page: 116.
+Deck page: 118.
 
 **Likely question:** What do the events determine, and what does the model supply?
 
@@ -2114,20 +2172,20 @@ The fifty-millisecond window holds 23,742 events and ends at the reconstruction 
 
 *[If asked whether the baseline is all an event camera loses: Backup 34, page 67.]*
 
-## Backup 84 — References (1 of 3)
-
-Deck page: 117.
-
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
-
-## Backup 85 — References (2 of 3)
-
-Deck page: 118.
-
-*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
-
-## Backup 86 — References (3 of 3)
+## Backup 86 — References (1 of 3)
 
 Deck page: 119.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 87 — References (2 of 3)
+
+Deck page: 120.
+
+*[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*
+
+## Backup 88 — References (3 of 3)
+
+Deck page: 121.
 
 *[Navigation only. Silent navigation cue: the reference numbers match the dissertation bibliography; each bracketed number in the deck links here. Return with the viewer's back command.]*

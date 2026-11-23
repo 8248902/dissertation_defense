@@ -21,7 +21,7 @@ from update_metadata import ROOT, read_frames, figure_paths
 from reference_support import CITE, cite_keys, load_snapshot, validate_references, without_comments, write_external_aux
 
 def normal_title(value: str) -> str:
-    value = value.replace('$H^1$', 'H¹').replace(r'\_', '_')
+    value = value.replace('$H^1$', 'H¹').replace(r'\_', '_').replace(r'\%', '%')
     value = value.replace('---', '—').replace('--', '–').replace('’', "'")
     return ' '.join(value.split())
 

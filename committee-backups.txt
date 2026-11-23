@@ -2,14 +2,14 @@
 # The committee copy keeps every main slide and these backups in deck order,
 # then reference pages listing only the works cited on the included slides.
 # The full deck (defense.pdf) and the presenter edition keep all backups.
-Must every temporal penalty entry be positive?
-Kernel performance depends on the scene and adaptive weights
-What the reconstruction scores measure
-Stable estimates can still have regularization bias
-The physical event stream loses more than one baseline
+One penalty entry makes the temporal solve unique
+Kernel rankings change with the scene
+Each reconstruction score measures one property
+The error splits into regularization bias and noise
+Sub-threshold signals share one empty event stream
 Frozen weights give a unique, stable inner solve
-Motion-induced events and the aperture problem
-One CPU core streams about 114 million pixel updates per second, with 16 bytes of state per pixel
-One tridiagonal sweep per pixel, constant work per streamed frame
-One pixel follows each passing object and returns to the background
-The per-pixel estimate has the lowest error at every noise level tested
+A straight edge fixes its normal speed
+One core streams about 114 million pixel updates a second
+One tridiagonal sweep per pixel
+One pixel follows each passing object
+The per-pixel estimate wins at every noise level
