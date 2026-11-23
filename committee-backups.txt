@@ -10,3 +10,6 @@ The physical event stream loses more than one baseline
 Frozen weights give a unique, stable inner solve
 Motion-induced events and the aperture problem
 One CPU core streams about 114 million pixel updates per second, with 16 bytes of state per pixel
+One tridiagonal sweep per pixel, constant work per streamed frame
+One pixel follows each passing object and returns to the background
+The per-pixel estimate has the lowest error at every noise level tested

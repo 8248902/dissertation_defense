@@ -15,6 +15,8 @@
 ## Start here — November 12 (six slides back in the main talk, branch `storyboard-claims`)
 
 - Dry run on 2026-11-10: slides 1–12 took 13 minutes (about 170 spoken words per minute), projecting the 24-slide talk at about 29 minutes against the 45–50 minute target.
+- Full read-through on 2026-11-22 (33 main slides): about 43:20, inside the 45–50 minute target.
+- 2026-11-22 restructure: cost slide → Backup 76 (committee handout); time-surface derivation → main slide 24; main count stays 33.
 - **30 main slides + 82 backups (79 discussion, 3 references), 112 pages; backup page = N + 30.** Restored, with claim titles and no takeaway boxes: slide 4 (reference / events / reconstruction, was Backup 71), slide 5 (route, one row per footer stage, new frame), slide 10 (related work, was 72), slide 15 (uniqueness and stability proof, was 74), slide 17 (temporal weights, was 75), slide 19 (indoor kernel results, was 76). The per-core rate slide stays Backup 79 (page 109) by request.
 - Retitled without semicolons: slide 16 "One tridiagonal sweep per pixel, constant work per streamed frame"; slide 18 "The penalty removes the baseline and slow drift but keeps passing edges"; slide 23 "One edge gives the normal speed, two orientations give the full motion".
 - Script: slide 14 now states the three properties and slide 15 carries the proof; the sigmoid paragraph moved from slide 14 to slide 17; transitions rewritten around each restored slide. Main talk about 6,000 spoken words (about 40 min at 150 wpm, 35 at 170).

@@ -9,7 +9,7 @@
 \item Minimal uniqueness condition / reference level
 \item Measure-valued continuous-time limit
 \item Signal gain versus noise gain
-\item \ifdefined\DefenseNotes Metrics; real time; core rate; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{corerate}{core rate}; \hyperlink{temporalcost}{problem size}\fi
+\item \ifdefined\DefenseNotes Metrics; real time; solve; core rate; problem size\else\hyperlink{metricguide}{Metrics}; \hyperlink{realtime}{real time}; \hyperlink{tridiagcost}{solve}; \hyperlink{corerate}{core rate}; \hyperlink{temporalcost}{problem size}\fi
 \item Kernels; \ifdefined\DefenseNotes $\Lam(\mathbf y)$ stability\else\hyperlink{adaptivelipschitz}{$\Lam(\mathbf y)$ stability}\fi
 \item \ifdefined\DefenseNotes Grayscale scenes; MVSEC events in space-time and summed\else\hyperlink{scenesgray}{Grayscale scenes}; MVSEC events \hyperlink{mvsecevents3d}{in space-time} and \hyperlink{mvsecaccum}{summed}\fi
 \end{itemize}
@@ -1386,22 +1386,6 @@ For a unit vector $\mathbf e$: if $\mathbf e\cdot\vct^*\le M$ on $\Gamma$, test 
 \talknote{Representations; 60 seconds.}{A finite signed atomic measure has no ordinary density that can simply be differentiated and squared in an integral energy. Convolution, interpolation, and binning produce the quantities the models use. Raw events have distributional derivatives; the squared pointwise residuals use a smoothed representation.}{Distinguish physical intensity I, log-intensity L, event activity, and latent state f. In Chapter 2, f approximates threshold-scaled log-intensity changes; in Chapter 4, preprocessing makes f an uncalibrated event-feature profile. This distinction prevents a physical interpretation from being silently transferred between chapters.}
 \end{frame}
 
-\begin{frame}{Derive the time-surface constraint by following the edge}
-\small
-For an ideal single crossing, define
-\[\psi(\mathbf x,t)=t-\mathcal T(\mathbf x),\qquad \psi(\mathbf x(t),t)=0.\]
-If the edge translates with constant $\dot{\mathbf x}=\vct$, then
-\[0=\frac d{dt}\psi(\mathbf x(t),t)=1-\nabla\mathcal T\cdot\vct.\]
-{\footnotesize In scene terms: $|\nabla\mathcal T|$ is edge slowness, normal speed $1/|\nabla\mathcal T|$; motion along the edge leaves $\mathcal T$ fixed.\par}
-\begin{block}{Model hypotheses}
-The edge crosses each location once, has nonzero normal speed, and its recorded timestamp equals a differentiable crossing-time map.
-\end{block}
-\takeaway{Interpolation, stale timestamps, and repeated crossings make this an approximate data constraint.}
-% source detail: Ch. 3, prop:time\_surface; def:time\_surface.
-\src{\dref{Proposition}{prop:time_surface}; \dref{Definition}{def:time_surface}; time surfaces~\cite{benosman2012asynchronous,benosman2014event}.}
-\talknote{Geometric derivation; 60 seconds.}{This chain-rule argument is accessible without any sensor-specific machinery. Follow a material point on the translating edge and differentiate the identity saying it stays on the zero level set.}{The coefficient bounds used later apply to fitted or mollified maps. The timestamp-regression result assumes a differentiable crossing-time map with Lipschitz Hessian, which are assumptions on the timestamp map. A timestamp may belong to an old edge or multiple crossings; the variational theorem bounds usable coefficient perturbations under uniform identifiability. Scene terms: $|\nabla\mathcal T|$ is slowness; an edge taking 10 ms per pixel moves at 100 px/s normal to itself.}
-\end{frame}
-
 \begin{frame}{Voxel projection: transport a represented event-activity field}
 Smooth and bin events into a spatiotemporal field $V(\mathbf x,t)$; project over a window, $a(\mathbf x,s)=\int_s^{s+T}V(\mathbf x,t)\,dt$.
 \begin{block}{Modeling assumption (added to the threshold model)}
@@ -1477,6 +1461,27 @@ Rogister et al.~\cite{Rogister2012}&142.17&128.20&153.32&114.80&90.32&1.01\\\bot
 \end{frame}
 
 
+
+\begin{frame}[label=tridiagcost]{One tridiagonal sweep per pixel, constant work per streamed frame}
+\begin{columns}[c]
+\column{.45\textwidth}\centering
+% K_time = A^T A + Lambda^T Lambda written out; Ch. 2 eq:tempdiffA (path-graph Laplacian plus positive diagonal).
+{\small\setlength{\arraycolsep}{3pt}\[\K_{\rm time}=\begin{pmatrix}1+{\color{teal}\lambda_1^2}&-1&&\\-1&2+{\color{teal}\lambda_2^2}&-1&\\&\ddots&\ddots&\ddots\\&&-1&1+{\color{teal}\lambda_N^2}\end{pmatrix}\]}
+\column{.53\textwidth}
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}>{\bfseries\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{4.9cm}@{}}
+$\bm{O(N)}$ per pixel & Thomas sweep, no pivoting; tridiagonal and diagonally dominant\\
+Independent pixels & a pixel without events returns $\mathbf f=0$\\
+Newest frame & the forward sweep alone gives it: constant work per pixel for each new interval\\
+\end{tabular}
+\end{columns}
+\vfill
+% source: Ch. 2 eq:tempdiffA (tridiagonal K_time) and thm:uniqueness; Thomas sweep cost O(N_t) per pixel; streaming state per pixel from the forward recurrence (talk note).
+{\footnotesize Whole image: $O(HWN)$ work. Streaming keeps three recurrence numbers and one output per pixel.\par}\vspace{1mm}
+% source detail: Ch. 2 eq:tempdiffA and thm:uniqueness (structure).
+\src{\dref{Eq.}{eq:tempdiffA}, \dref{Theorem}{thm:uniqueness}; Thomas algorithm~\cite{golub2013matrix}.}
+\talknote{Question: what does the solve cost, and could it run on low-power hardware? About 90 seconds.}{The first-difference matrix makes $\A^\top\A$ the path-graph Laplacian. Adding a positive diagonal preserves the tridiagonal structure and gives strict diagonal dominance. One forward and one backward sweep cost O(N t) per pixel, hence O(H W N t) overall. In the implemented sigmoid/delta path, the forward recurrence gives the newest endpoint of a growing prefix. The terminal diagonal is $1+\lambda_{N_t-1}^2$, because the last interval weight is repeated; the next interval turns that endpoint into an interior row. Three recurrence scalars plus the current output are stored per pixel.}{The bottom line is the whole cost of the model: linear in pixels times samples, with a few numbers of state per pixel when streaming. Backup 78 gives the per-core timings; Backup 77 the problem size and low-power choices.}
+\end{frame}
 
 \begin{frame}[t,label=temporalcost]{How big is the temporal monocular problem?}
 \small

@@ -27,20 +27,19 @@ DELIVERY
   Slide 12: sensor-to-observation model; the exact identity and its three error terms.
   Slide 13: uniqueness, the stability bound, and the reference level (statements).
   Slide 14: the proof: quadratic form, perturbation identity, the 1/(2 lambda_min) bound by an
-    inner product with x; conditioning line.
-  Slide 15: cost structure: tridiagonal band, Thomas sweep, streaming newest frame; O(HWN) work;
-    one core keeps up with 346 x 260 at 500 frames/s (timings: Backup 78, page 111).
-  Slide 16: three weight rules plotted, sigmoid selected; quiet intervals set the level, busy ones the noise bound.
-  Slide 17: penalty spectrum; constant mode removed, slow drift damped, edges kept.
-  Slide 18: indoor flying 2 images and the kernel table; PSNR also scores the baseline.
-  Slide 19: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
-  Slide 20: three scenes, slow to fast (ISS, office, cup), false color; hand off to known motion.
-  Slide 21: orbit hook; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
-  Slide 22: flow problem: why motion, the ground-truth arrows, brightness constancy; one equation,
+    inner product with x; conditioning line; one spoken line on cost (Backup 76, page 109).
+  Slide 15: three weight rules plotted, sigmoid selected; quiet intervals set the level, busy ones the noise bound.
+  Slide 16: penalty spectrum; constant mode removed, slow drift damped, edges kept.
+  Slide 17: indoor flying 2 images and the kernel table; PSNR also scores the baseline.
+  Slide 18: MVSEC images, then the Antil--Sayre table (inputs, PSNR, solve, guarantee).
+  Slide 19: three scenes, slow to fast (ISS, office, cup), false color; hand off to known motion.
+  Slide 20: change of setting to ESAR; then top to bottom: operator, simulated disks, ISS pair; about 90 seconds.
+  Slide 21: flow problem: why motion, the ground-truth arrows, brightness constancy; one equation,
     two unknowns per pixel.
-  Slide 23: the aperture problem; play the left panel, then the right.
-  Slide 24: edge diagram, then velocity-space lines; two orientations cross at one velocity.
-  Slide 25: three representations, one quadratic problem; derivations are Backups 72-74.
+  Slide 22: the aperture problem; play the left panel, then the right.
+  Slide 23: edge diagram, then velocity-space lines; two orientations cross at one velocity.
+  Slide 24: time-surface constraint: follow the edge, chain rule, grad T . v = 1; slowness.
+  Slide 25: three representations, one quadratic problem; voxel and structure-tensor derivations are Backups 72-73.
   Slide 26: main flow theorem; integrated directional condition; hand off to the proof.
   Slide 27: proof idea: fluctuation plus mean; Poincare, the integrated matrix, Lax--Milgram.
   Slide 28: known-motion stripes and checkerboard, ground truth and structure tensor; error halves,
@@ -51,8 +50,9 @@ DELIVERY
   Slide 31: scored-points bars, then the MVSEC table; lead with coverage.
   Slide 32: four research directions, each from a result in the dissertation.
   Slide 33: three-column synthesis, the common question, thank you; then take questions.
-  Backups 71-76 (pages 104-109): point measure, time-surface derivation, voxel projection,
-  structure tensor, full stereo table, closing summary.
+  Backups 71-75 (pages 104-108): point measure, voxel projection, structure tensor,
+  full stereo table, closing summary.
+  Backup 76 (page 109): solve structure: tridiagonal band, Thomas sweep, streaming newest frame.
   Full flow proof 42; stability 43; discrete flow / Jacobi 44-45; Chapter 4 results 81.
   Other backups: metrics 39; real-time 40; flow protocol 77; alignment 82; depth sensitivity 90;
   weak-regularization limits 102; event-free flow regions 103.
